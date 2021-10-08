@@ -8,6 +8,7 @@ export default makeStyles(theme => ({
         padding: '0 40px',
         paddingBottom: 0,
         marginBottom: 0,
+        backgroundColor: 'transparent'
 
     },
     navbar__content: {

@@ -9,7 +9,9 @@ import useStyles from './style';
 const Header = () => {
     const classes = useStyles()
     return (
-        <AppBar position="sticky" className={classes.root}>
+        <AppBar position="fixed"
+            elevation={0}
+            className={classes.root}>
             <Toolbar className={classes.navbar__content}>
                 <Box>
                     <a href="/" target="_blank" rel="noreferrer">
