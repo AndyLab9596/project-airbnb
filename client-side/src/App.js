@@ -1,11 +1,19 @@
 import React from 'react';
+import { BrowserRouter, Switch } from 'react-router-dom';
+// Layout
+import MainLayout from './layouts/MainLayout';
+// Pages
+import Home from './pages/Home';
 
 
 function App() {
   return (
-    <div>
+    <BrowserRouter>
+      <Switch>
+        <MainLayout path="/" exact Component={Home} />
 
-    </div>
+      </Switch>
+    </BrowserRouter>
   );
 }
 
