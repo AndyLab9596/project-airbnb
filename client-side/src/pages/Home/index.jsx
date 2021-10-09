@@ -2,6 +2,7 @@ import React from "react";
 import useStyles from "./style";
 import HomeBanner from "./HomeBanner";
 import ExploreNearby from "./ExploreNearby";
+import News from "./News";
 
 const Home = () => {
   const classes = useStyles();
@@ -10,6 +11,7 @@ const Home = () => {
     <div className={classes.root}>
       <HomeBanner />
       <ExploreNearby />
+      <News />
     </div>
   );
 };
