@@ -6,6 +6,9 @@ import React, { Fragment, useRef, useState } from 'react';
 import airbnbIcon from '../../../assets/img/airbnblogo.png';
 import useStyles from './style';
 
+const MenuItems = ['Đăng nhập', 'Đăng kí', 'Cho thuê nhà', 'Tổ chức trải nghiệm', 'Trợ giúp'];
+
+
 const Header = () => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = useState(null);
@@ -84,13 +87,19 @@ const Header = () => {
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={handleCloseMenu}
+                PaperProps={{
+                    style: {
+                        minWidth: '200px',
+                        padding: '8px',
+                        borderRadius: '16px'
+                    },
+                }}
             >
-                <MenuItem>Đăng kí</MenuItem>
-                <MenuItem>Đăng nhập</MenuItem>
-                <MenuItem>Cho thuê nhà</MenuItem>
-                <MenuItem>Tổ chức trải nghiệm</MenuItem>
-                <MenuItem>Trợ giúp</MenuItem>
-
+                {MenuItems.map((item, index) => (
+                    <MenuItem key={index} className={classes.menu__items}>
+                        {item}
+                    </MenuItem>
+                ))}
             </Menu>
         </Fragment>
     );

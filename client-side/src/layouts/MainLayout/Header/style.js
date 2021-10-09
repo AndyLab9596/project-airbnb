@@ -49,7 +49,17 @@ export default makeStyles(theme => ({
     chip: {
         height: '42px',
         borderRadius: '21px'
+    },
+
+    menu__items: {
+        padding: '8px',
+
+        '&:nth-child(1)': {
+            fontWeight: 500,
+        },
+
+        '&:nth-child(2)': {
+            borderBottom: '1px solid #e0e0e0'
+        }
     }
-
-
 }))
