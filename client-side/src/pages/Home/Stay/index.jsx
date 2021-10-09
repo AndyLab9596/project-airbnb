@@ -4,6 +4,7 @@ const Stay = () => {
     return (
         <div>
             <h1>Stay</h1>
+            <h2>testing</h2>
         </div>
     );
 };
