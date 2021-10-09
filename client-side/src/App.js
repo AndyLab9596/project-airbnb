@@ -1,17 +1,20 @@
-import React from 'react';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { ThemeProvider } from "@material-ui/styles";
+import React from "react";
+import { BrowserRouter, Switch } from "react-router-dom";
+import { theme } from "./constants/config";
 // Layout
-import MainLayout from './layouts/MainLayout';
+import MainLayout from "./layouts/MainLayout";
 // Pages
-import Home from './pages/Home';
+import Home from "./pages/Home";
 
 function App() {
   return (
     <BrowserRouter>
-      <Switch>
-        <MainLayout path="/" exact Component={Home} />
-
-      </Switch>
+      <ThemeProvider theme={theme}>
+        <Switch>
+          <MainLayout path="/" exact Component={Home} />
+        </Switch>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }
