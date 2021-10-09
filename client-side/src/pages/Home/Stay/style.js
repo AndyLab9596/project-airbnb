@@ -6,7 +6,7 @@ export default makeStyles(theme => ({
     },
     stay__title: {
         fontWeight: 700,
-        lineHeight: 52,
+        lineHeight: "52px",
         letterSpacing: 0,
         paddingBottom: 16
     }
