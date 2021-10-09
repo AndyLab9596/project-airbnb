@@ -46,12 +46,9 @@ const Home = () => {
                                     <p>{city.driveHour}</p>
                                 </div>
                             </div>
-
                         </Grid>
                     ))}
-
                 </Grid>
-
             </Container>
         </div>
     );
