@@ -29,7 +29,24 @@ export default makeStyles(theme => ({
             fontSize: '1rem',
             lineHeight: '20px',
             fontWeight: 400,
-            padding: '10px 16px'
+            padding: '10px 16px',
+            color: '#fff',
+            cursor: 'pointer'
+        }
+    },
+
+    navbar__content__menu_scroll: {
+        display: 'flex',
+        flex: 1,
+        maxWidth: 'fit-content',
+        alignItems: 'center',
+        '& > span': {
+            fontSize: '1rem',
+            lineHeight: '20px',
+            fontWeight: 400,
+            padding: '10px 16px',
+            color: '#000',
+            cursor: 'pointer'
         }
     },
 
@@ -49,7 +66,17 @@ export default makeStyles(theme => ({
     chip: {
         height: '42px',
         borderRadius: '21px'
+    },
+
+    menu__items: {
+        padding: '8px',
+
+        '&:nth-child(1)': {
+            fontWeight: 500,
+        },
+
+        '&:nth-child(2)': {
+            borderBottom: '1px solid #e0e0e0'
+        }
     }
-
-
 }))
