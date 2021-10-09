@@ -52,8 +52,8 @@ const Home = () => {
             </Grid>
           ))}
         </Grid>
-        <Stay />
       </Container>
+      <Stay />
     </div>
   );
 };
