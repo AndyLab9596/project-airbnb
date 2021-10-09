@@ -2,9 +2,11 @@ import { AppBar, Box, Chip, IconButton, Menu, MenuItem, Toolbar } from '@materia
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import LanguageIcon from '@material-ui/icons/Language';
 import MenuOutlinedIcon from '@material-ui/icons/MenuOutlined';
-import React, { Fragment, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
+import clsx from 'clsx';
 import airbnbIcon from '../../../assets/img/airbnblogo.png';
 import useStyles from './style';
+
 
 const MenuItems = ['Đăng nhập', 'Đăng kí', 'Cho thuê nhà', 'Tổ chức trải nghiệm', 'Trợ giúp'];
 
@@ -22,6 +24,19 @@ const Header = () => {
         setAnchorEl(null);
     };
 
+    const [scroll, setScroll] = useState(false)
+    console.log(scroll)
+    useEffect(() => {
+        const handleScroll = () => {
+            setScroll(window.scrollY > 100)
+        };
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        }
+    }, [scroll])
+
     return (
         <Fragment>
             {/* AppBar */}
@@ -29,13 +44,17 @@ const Header = () => {
                 elevation={0}
                 className={classes.root}>
                 <Toolbar className={classes.navbar__content}>
-                    <Box>
+                    <Box style={{ minWidth: '250px' }}>
                         <a href="/" target="_blank" rel="noreferrer">
                             <img src={airbnbIcon} alt="icon" className={classes.navbar__content__icon} />
                         </a>
                     </Box>
 
-                    <Box className={classes.navbar__content__menu}>
+                    <Box
+                        className={
+                            scroll ?
+                                `${classes.navbar__content__menu}` :
+                                `${classes.navbar__content__menu_scroll}`}>
                         <span>
                             Nơi ở
                         </span>
@@ -44,7 +63,6 @@ const Header = () => {
                         </span>
                         <span>
                             Trải nghiệm trực tuyến
-
                         </span>
                     </Box>
 

@@ -29,7 +29,24 @@ export default makeStyles(theme => ({
             fontSize: '1rem',
             lineHeight: '20px',
             fontWeight: 400,
-            padding: '10px 16px'
+            padding: '10px 16px',
+            color: '#fff',
+            cursor: 'pointer'
+        }
+    },
+
+    navbar__content__menu_scroll: {
+        display: 'flex',
+        flex: 1,
+        maxWidth: 'fit-content',
+        alignItems: 'center',
+        '& > span': {
+            fontSize: '1rem',
+            lineHeight: '20px',
+            fontWeight: 400,
+            padding: '10px 16px',
+            color: '#000',
+            cursor: 'pointer'
         }
     },
 
