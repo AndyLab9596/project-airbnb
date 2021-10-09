@@ -30,9 +30,9 @@ const ExploreNearby = () => {
                 Khám phá những điểm đến gần đây
             </Typography>
 
-            <Grid container spacing={2}>
+            <Grid container spacing={2} >
                 {fakeCities.map((city, index) => (
-                    <Grid item md={3} key={index}>
+                    <Grid item xs={6} sm={3} key={index} >
                         <div className={classes.cities}>
                             <img src={city.img} alt="city"
                                 className={classes.city__img} />
