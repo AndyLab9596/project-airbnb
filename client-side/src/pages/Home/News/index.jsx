@@ -16,31 +16,33 @@ const News = () => {
   const isTablet = useMediaQuery(theme.breakpoints.up("md"));
 
   return (
-    <Container maxWidth="home">
-      <a href="https://www.airbnb.com/host/homes?locale=vi">
-        <div className={classes.news}>
-          <div className={classes.news__overlay}>
-            <img
-              src={isTablet ? newsImg1440 : newsImg720}
-              alt="imgNews"
-              className={classes.news__backdrop}
-            />
-          </div>
-          <div className={classes.news__title}>
-            <Typography variant="h2">Thử đón tiếp khách</Typography>
-            <Typography variant="body2">
-              Kiếm thêm thu nhập và khám phá các cơ hội mới bằng cách chia sẻ
-              nơi ở của bạn.
-            </Typography>
-            <div className={classes.news__content__btn}>
-              <Button disableRipple={true} className={classes.news__btn}>
-                Tìm hiểu thêm
-              </Button>
+    <div className={classes.root}>
+      <Container maxWidth="home">
+        <a href="https://www.airbnb.com/host/homes?locale=vi">
+          <div className={classes.news}>
+            <div className={classes.news__overlay}>
+              <img
+                src={isTablet ? newsImg1440 : newsImg720}
+                alt="imgNews"
+                className={classes.news__backdrop}
+              />
+            </div>
+            <div className={classes.news__title}>
+              <Typography variant="h2">Thử đón tiếp khách</Typography>
+              <Typography variant="body2">
+                Kiếm thêm thu nhập và khám phá các cơ hội mới bằng cách chia sẻ
+                nơi ở của bạn.
+              </Typography>
+              <div className={classes.news__content__btn}>
+                <Button disableRipple={true} className={classes.news__btn}>
+                  Tìm hiểu thêm
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-      </a>
-    </Container>
+        </a>
+      </Container>
+    </div>
   );
 };
 
