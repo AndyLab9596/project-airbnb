@@ -2,8 +2,10 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles(theme => ({
 
     places: {
-        margin: '32px auto',
         width: '100%',
+        margin: 'auto',
+        padding: '0 8px',
+        paddingBottom: '16px'
     },
 
     places__title: {
@@ -11,6 +13,7 @@ export default makeStyles(theme => ({
         lineHeight: '52px',
         letterSpacing: '0',
         paddingBottom: '1rem',
+        paddingTop: '1rem',
     },
 
     cities: {
