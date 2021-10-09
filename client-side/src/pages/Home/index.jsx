@@ -4,6 +4,7 @@ import HomeBanner from "./HomeBanner";
 import ExploreNearby from "./ExploreNearby";
 import News from "./News";
 import Stay from "./Stay";
+import ExploreToExp from "./ExploreToExp";
 
 const Home = () => {
   const classes = useStyles();
@@ -14,6 +15,7 @@ const Home = () => {
       <ExploreNearby />
       <Stay />
       <News />
+      <ExploreToExp />
     </div>
   );
 };

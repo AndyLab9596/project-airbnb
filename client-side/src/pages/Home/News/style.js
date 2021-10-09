@@ -1,5 +1,17 @@
 import { makeStyles } from "@material-ui/styles";
 export default makeStyles((theme) => ({
+  root: {
+    marginBottom: 20,
+    "& .MuiContainer-root": {
+      padding: "0 24px",
+      [theme.breakpoints.up("sm")]: {
+        padding: "0 40px",
+      },
+      [theme.breakpoints.up("xl")]: {
+        padding: "0 80px",
+      },
+    },
+  },
   news: {
     width: "100%",
     height: "auto",
