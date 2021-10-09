@@ -54,13 +54,13 @@ const Stay = () => {
           slidesToShow: 1.5,
           slidesToScroll: 1,
           dots: false,
-        
+
         },
       },
     ],
   };
   return (
-    <Container maxWidth="lg" className={classes.root}>
+    <Container maxWidth="home" className={classes.root}>
       <Typography variant="h4" className={classes.stay__title}>
         Ở bất cứ đâu
       </Typography>

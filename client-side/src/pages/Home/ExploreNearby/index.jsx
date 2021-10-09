@@ -25,7 +25,7 @@ const ExploreNearby = () => {
     const classes = useStyles()
 
     return (
-        <Container className={classes.places}>
+        <Container maxWidth="home" className={classes.places}>
             <Typography variant="h4" className={classes.places__title}>
                 Khám phá những điểm đến gần đây
             </Typography>
