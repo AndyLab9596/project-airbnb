@@ -2,24 +2,28 @@ import { makeStyles } from "@material-ui/styles";
 export default makeStyles((theme) => ({
   news: {
     width: "100%",
-    height: 480,
+    height: "auto",
     position: "relative",
-    [theme.breakpoints.down("lg")]: {
+    [theme.breakpoints.up("md")]: {
+      height: 360,
+    },
+    [theme.breakpoints.up("xl")]: {
       height: 400,
     },
-    [theme.breakpoints.down("sm")]: {
-      height: 360,
+    [theme.breakpoints.up("xxl")]: {
+      height: 440,
     },
   },
   news__overlay: {
     width: "100%",
-    height: "auto",
+    height: "100%",
     backgroundColor: "rgb(72, 72, 72,1)",
     position: "relative",
     borderRadius: 16,
   },
   news__backdrop: {
     width: "100%",
+    height: "100%",
     objectFit: "cover",
     objectPosition: "50% 50%",
     verticalAlign: "bottom",
@@ -28,60 +32,57 @@ export default makeStyles((theme) => ({
   news__title: {
     position: "absolute",
     inset: 0,
-    width: 400,
-    padding: "0 80px",
     display: "flex",
     flexFlow: "column",
-    justifyContent: "center",
     color: "#fff",
-    [theme.breakpoints.down("lg")]: {
-      width: 350,
+    padding: "32px 32px  0 32px",
+    textAlign: "center",
+    [theme.breakpoints.up("md")]: {
+      justifyContent: "center",
+      width: 360,
+      padding: "0 40px",
+      textAlign: "left",
     },
-    [theme.breakpoints.down("sm")]: {
-      textAlign: "center",
-      inset: "-1px 0",
-      width: "auto",
+    [theme.breakpoints.up("xl")]: {
+      justifyContent: "center",
+      padding: "0 80px",
+      textAlign: "left",
     },
 
     "& >h2": {
       fontWeight: 600,
-      fontSize: 48,
-      lineHeight: "52px",
-      [theme.breakpoints.down("lg")]: {
-        fontSize: 30,
-        lineHeight: "36px",
-      },
-      [theme.breakpoints.down("sm")]: {
-        fontSize: 12,
-        lineHeight: "20px",
+      fontSize: 30,
+      lineHeight: "36px",
+      [theme.breakpoints.up("xl")]: {
+        fontSize: 48,
+        lineHeight: "52px",
       },
     },
     "& >p": {
-      paddingTop: 12,
-      fontSize: 18,
-      lineHeight: "24px",
-      [theme.breakpoints.down("lg")]: {
-        fontSize: 16,
-        lineHeight: "20px",
+      marginTop: 12,
+      fontSize: 16,
+      lineHeight: "20px",
+      [theme.breakpoints.up("xl")]: {
+        fontSize: 18,
+        lineHeight: "24px",
       },
     },
   },
   news__content__btn: {
-    marginTop: 40,
-    [theme.breakpoints.down("lg")]: {
-      marginTop: 20,
+    marginTop: 20,
+    [theme.breakpoints.up("xl")]: {
+      marginTop: 40,
     },
   },
   news__btn: {
     backgroundColor: "#fff !important",
     color: "rgb(72,72,72,1)",
-    fontSize: 16,
-    padding: "14px 24px",
+    padding: "9px 16px",
+    fontSize: 14,
     borderRadius: 8,
-
-    [theme.breakpoints.down("lg")]: {
-      padding: "7px 13px",
-      fontSize: 14,
+    [theme.breakpoints.up("xl")]: {
+      fontSize: 16,
+      padding: "14px 24px",
     },
   },
 }));

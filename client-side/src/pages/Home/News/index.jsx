@@ -15,10 +15,9 @@ const News = () => {
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.up("md"));
 
-  //href="https://www.airbnb.com/host/homes?locale=vi"
   return (
-    <Container maxWidth="Home">
-      <a>
+    <Container maxWidth="home">
+      <a href="https://www.airbnb.com/host/homes?locale=vi">
         <div className={classes.news}>
           <div className={classes.news__overlay}>
             <img
@@ -29,12 +28,10 @@ const News = () => {
           </div>
           <div className={classes.news__title}>
             <Typography variant="h2">Thử đón tiếp khách</Typography>
-            <div>
-              <Typography variant="body2">
-                Kiếm thêm thu nhập và khám phá các cơ hội mới bằng cách chia sẻ
-                nơi ở của bạn.
-              </Typography>
-            </div>
+            <Typography variant="body2">
+              Kiếm thêm thu nhập và khám phá các cơ hội mới bằng cách chia sẻ
+              nơi ở của bạn.
+            </Typography>
             <div className={classes.news__content__btn}>
               <Button disableRipple={true} className={classes.news__btn}>
                 Tìm hiểu thêm
