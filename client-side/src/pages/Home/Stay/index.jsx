@@ -1,68 +1,88 @@
 import { Container, Typography } from "@material-ui/core";
 import useStyles from "./style";
 import React from "react";
+import Slider from "react-slick";
 
 const Stay = () => {
   const classes = useStyles();
+  const fakeCities = [
+    {
+      name: "Nơi nghỉ dưỡng ngoài trời",
+      img: "https://a0.muscache.com/im/pictures/2f13349d-879d-43c6-83e3-8e5679291d53.jpg?im_w=480",
+    },
+    {
+      name: "Chỗ ở độc đáo",
+      img: "https://a0.muscache.com/im/pictures/36f53e61-db8d-403c-9122-5b761c0e4264.jpg?im_w=480",
+    },
+    {
+      name: "Toàn bộ nhà",
+      img: "https://a0.muscache.com/im/pictures/7d82ca14-56e5-4465-8218-dcfa7d69b6ac.jpg?im_w=480",
+    },
+    {
+      name: "Cho phép mang theo thú cưng",
+      img: "https://a0.muscache.com/im/pictures/10a638e1-6aff-4313-8033-1275cec83987.jpg?im_w=480",
+    },
+  ];
+  var settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1.5,
+          slidesToScroll: 1,
+          dots: false,
+        
+        },
+      },
+    ],
+  };
   return (
-    <Container className={classes.root}>
+    <Container maxWidth="lg" className={classes.root}>
       <Typography variant="h4" className={classes.stay__title}>
         Ở bất cứ đâu
       </Typography>
+      <Slider {...settings}>
+        {fakeCities.map((item, index) => {
+          return (
+            <div key={index}>
+              <div className={classes.stay__item}>
+                <img
+                  className={classes.stay__img}
+                  src={item.img}
+                  alt="stayhome1"
+                />
+                <p className={classes.stay__content}>{item.name}</p>
+              </div>
+            </div>
+          );
+        })}
+      </Slider>
     </Container>
   );
 };
 
 export default Stay;
-// import React from 'react';
-// import hcmIcon from '../../../assets/img/hcmIcon.webp'
-// import ntIcon from '../../../assets/img/ntIcon.webp'
-// import vtIcon from '../../../assets/img/vtIcon.webp'
-// import pqIcon from '../../../assets/img/pqIcon.webp'
-// import ctIcon from '../../../assets/img/ctIcon.webp'
-// import thIcon from '../../../assets/img/thIcon.webp'
-// import bhIcon from '../../../assets/img/bhIcon.webp'
-// import prIcon from '../../../assets/img/prIcon.webp'
-// import { Container, Grid, Typography } from '@material-ui/core';
-// import useStyles from './style';
 
-// const ExploreNearby = () => {
-//     const fakeCities = [
-//         { name: 'Thành phố Hồ Chí Minh', driveHour: '15 phút lái xe', img: hcmIcon },
-//         { name: 'Nha Trang', driveHour: '6.5 giờ lái xe', img: ntIcon },
-//         { name: 'Vũng Tàu', driveHour: '2 phút lái xe', img: vtIcon },
-//         { name: 'Phú Quốc', driveHour: '', img: pqIcon },
-//         { name: 'Cần Thơ', driveHour: '3 giờ lái xe', img: ctIcon },
-//         { name: 'Thành phố Tuy Hòa', driveHour: '7,5 giờ lái xe', img: thIcon },
-//         { name: 'Thành phố Biên Hòa', driveHour: '45 phút lái xe', img: bhIcon },
-//         { name: 'Thành phố Phan Rang', driveHour: '5 giờ lái xe', img: prIcon },
-//     ]
-//     const classes = useStyles()
-
-//     return (
-//         <Container className={classes.places}>
-//             <Typography variant="h4" className={classes.places__title}>
-//                 Khám phá những điểm đến gần đây
-//             </Typography>
-
-//             <Grid container spacing={2}>
-//                 {fakeCities.map((city, index) => (
-//                     <Grid item md={3} key={index}>
-//                         <div className={classes.cities}>
-//                             <img src={city.img} alt="city"
-//                                 className={classes.city__img} />
-//                             <div className={classes.city__info}>
-//                                 <Typography variant="subtitle2">
-//                                     {city.name}
-//                                 </Typography>
-//                                 <p>{city.driveHour}</p>
-//                             </div>
-//                         </div>
-//                     </Grid>
-//                 ))}
-//             </Grid>
-//         </Container>
-//     );
-// };
-
-// export default ExploreNearby;
