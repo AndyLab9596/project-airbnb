@@ -6,6 +6,7 @@ import { theme } from "./constants/config";
 import MainLayout from "./layouts/MainLayout";
 // Pages
 import Home from "./pages/Home";
+import Profile from "./pages/Profile";
 
 //Components
 import ModalSignUp from "./components/ModalSignUp";
@@ -17,6 +18,7 @@ function App() {
         <ModalSignUp />
         <Switch>
           <MainLayout path="/" exact Component={Home} />
+          <MainLayout path="/profile" exact Component={Profile} />
         </Switch>
       </ThemeProvider>
     </BrowserRouter>
