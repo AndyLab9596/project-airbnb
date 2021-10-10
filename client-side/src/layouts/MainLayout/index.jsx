@@ -14,7 +14,7 @@ const MainLayout = (props) => {
                 <Fragment>
                     <Header {...propsRoute} />
                     <Component {...propsRoute} />
-                    {/* <Footer {...propsRoute} /> */}
+                    <Footer {...propsRoute} />
                 </Fragment>
             )
         }}>
