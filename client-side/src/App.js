@@ -7,13 +7,17 @@ import MainLayout from "./layouts/MainLayout";
 // Pages
 import Home from "./pages/Home";
 
+//Components
+import ModalSignUp from "./components/ModalSignUp";
+
 function App() {
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
-        <Switch>
+        <ModalSignUp />
+        {/* <Switch>
           <MainLayout path="/" exact Component={Home} />
-        </Switch>
+        </Switch> */}
       </ThemeProvider>
     </BrowserRouter>
   );
