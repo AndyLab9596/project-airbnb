@@ -41,7 +41,6 @@ const ModalSignUp = () => {
   };
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    console.log(touched);
 
     if (!inValid) return;
   };
