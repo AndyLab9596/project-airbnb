@@ -35,18 +35,9 @@ export default makeStyles(theme => ({
         }
     },
 
-    navbar__content__menu_scroll: {
-        display: 'flex',
-        flex: 1,
-        maxWidth: 'fit-content',
-        alignItems: 'center',
+    navbar__content__menu__scroll: {
         '& > span': {
-            fontSize: '1rem',
-            lineHeight: '20px',
-            fontWeight: 400,
-            padding: '10px 16px',
             color: '#000',
-            cursor: 'pointer'
         }
     },
 
@@ -55,6 +46,12 @@ export default makeStyles(theme => ({
         alignItems: 'center',
         '& > span': {
             marginRight: '8px'
+        }
+    },
+
+    navbar__content__left__scroll: {
+        '& > span': {
+            color: '#000'
         }
     },
 
@@ -78,5 +75,17 @@ export default makeStyles(theme => ({
         '&:nth-child(2)': {
             borderBottom: '1px solid #e0e0e0'
         }
+    },
+
+    searchBar: {
+        // position: 'absolute',
+        // top: 80,
+        // left: '50%',
+        // transform: 'translateX(-50%)',
+        // minWidth: '850px'
+        maxWidth: '850px',
+        margin: 'auto',
+
     }
+
 }))
