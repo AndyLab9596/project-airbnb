@@ -15,9 +15,9 @@ function App() {
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <ModalSignUp />
-        {/* <Switch>
+        <Switch>
           <MainLayout path="/" exact Component={Home} />
-        </Switch> */}
+        </Switch>
       </ThemeProvider>
     </BrowserRouter>
   );
