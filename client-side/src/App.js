@@ -6,6 +6,7 @@ import { theme } from "./constants/config";
 import MainLayout from "./layouts/MainLayout";
 // Pages
 import Home from "./pages/Home";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Switch>
           <MainLayout path="/" exact Component={Home} />
+          <MainLayout path="/profile" exact Component={Profile} />
         </Switch>
       </ThemeProvider>
     </BrowserRouter>
