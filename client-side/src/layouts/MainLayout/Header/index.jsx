@@ -5,16 +5,15 @@ import {
     IconButton,
     Menu,
     MenuItem,
-    Toolbar,
+    Toolbar
 } from "@material-ui/core";
 import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
 import LanguageIcon from "@material-ui/icons/Language";
 import MenuOutlinedIcon from "@material-ui/icons/MenuOutlined";
 import React, { Fragment, useEffect, useState } from "react";
-import clsx from "clsx";
 import airbnbIcon from "../../../assets/img/airbnblogo.png";
+import SearchBar from './SearchBar/index'
 import useStyles from "./style";
-import SearchBar from "./SearchBar";
 
 const Header = () => {
     const classes = useStyles();
@@ -84,6 +83,7 @@ const Header = () => {
                     </div>
                 </Toolbar>
                 <Box className={classes.searchBar}>
+                    {/* <Search /> */}
                     <SearchBar />
                 </Box>
             </AppBar>
@@ -120,7 +120,6 @@ const Header = () => {
                 <MenuItem className={classes.menu__items}>Trợ giúp</MenuItem>
             </Menu>
 
-            {/* Search Bar*/}
 
 
 
