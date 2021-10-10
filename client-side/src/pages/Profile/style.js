@@ -89,11 +89,45 @@ export default makeStyles(theme => ({
         textAlign: "center"
     },
     profile__mobile: {
+        maxWidth: 632,
+        margin: "auto",
+        [theme.breakpoints.down(769)]: {
+
+            minHeight:"85vh",
+            marginTop:"20%"
+
+        },
+        [theme.breakpoints.down(1025)]: {
+
+            minHeight:"85vh",
+            marginTop:"20%"
+
+        },
+        [theme.breakpoints.down(376)]: {
+
+            margin: "0 25px",
+
+        },
+
+
+    },
+    profile__mobile__title: {
+        fontSize: 32,
+        lineHeight: "36px",
+        fontWeight: 600,
+        marginBottom: 8,
+        [theme.breakpoints.down(376)]: {
+
+            fontSize: 24
+
+        },
+    },
+    profile__mobile__item: {
         display: "block",
         paddingTop: 20,
         ...underLine
     },
-   
+
 
 
 

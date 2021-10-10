@@ -17,10 +17,10 @@ const Profile = () => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("xl"));
   return (
-    <Container className={classes.profile}>
+    <Container maxWidth="lg" className={classes.profile}>
       {isDesktop ? (
         <div>
-          <Grid container>s
+          <Grid container>
             <Grid item lg={4}>
               <Card className={classes.root} variant="outlined">
                 <CardContent className={classes.profile__top}>
@@ -98,10 +98,13 @@ const Profile = () => {
           </Grid>
         </div>
       ) : (
-        <div style={{ maxWidth: 632, margin: "auto" }}>
+        <div
+          className={classes.profile__mobile}
+         
+        >
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div>
-              <Typography variant="h5" className={classes.profile__title}>
+              <Typography variant="h5" className={classes.profile__mobile__title}>
                 Xin chào, tôi là Phat
               </Typography>
               <Typography className={classes.profile__text3}>
@@ -138,7 +141,7 @@ const Profile = () => {
             </Button>
           </div>
           <div
-            className={classes.profile__mobile}
+            className={classes.profile__mobile__item}
             style={{ display: "block", paddingTop: 20 }}
           >
             <Typography variant="h6" style={{ marginBottom: 12 }}>
