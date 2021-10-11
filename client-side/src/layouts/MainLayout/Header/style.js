@@ -41,6 +41,47 @@ export default makeStyles(theme => ({
         }
     },
 
+    navbar__content__search: {
+        display: 'flex',
+        boxShadow: '0px 1px 2px rgb(0 0 0 / 8%), 0px 4px 12px rgb(0 0 0 / 5%)',
+        color: '#222222',
+    },
+
+    navbar__search__button: {
+        display: 'flex',
+        alignItems: 'center',
+        borderRadius: '40px',
+        width: '300px'
+    },
+
+    navbar__search__button__title: {
+        fontSize: '14px',
+        lineHeight: '18px',
+        flex: '1 1 auto',
+        fontWeight: 600,
+        padding: '0 16px',
+        overflow: 'hidden',
+        textAlign: 'left'
+    },
+
+    navbar__search__button__wrap: {
+        width: '32px',
+        height: '32px',
+        borderRadius: '50%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: theme.palette.secondary.main,
+        margin: '7px 7px 7px 0',
+
+    },
+
+    navbar__search__button__icon: {
+        fontSize: '17px',
+        color: '#fff',
+        fontWeight: 500
+    },
+
     navbar__content__left: {
         display: 'flex',
         alignItems: 'center',
@@ -78,11 +119,6 @@ export default makeStyles(theme => ({
     },
 
     searchBar: {
-        // position: 'absolute',
-        // top: 80,
-        // left: '50%',
-        // transform: 'translateX(-50%)',
-        // minWidth: '850px'
         maxWidth: '850px',
         margin: 'auto',
 

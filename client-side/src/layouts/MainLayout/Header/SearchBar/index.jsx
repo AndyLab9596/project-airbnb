@@ -1,17 +1,14 @@
-import { Menu, MenuItem, TextField } from '@material-ui/core';
+import { Menu, MenuItem } from '@material-ui/core';
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import SearchIcon from '@material-ui/icons/Search';
 import useAutocomplete from '@material-ui/lab/useAutocomplete';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import DateRangePicker from '@mui/lab/DateRangePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import React, { Fragment, useRef, useState } from 'react';
-import useStyles from './style';
 import { vi } from 'date-fns/locale';
-
-
-
-
+// import {} from 'moment/locale/vi'
+import React, { Fragment, useState } from 'react';
+import useStyles from './style';
 
 const top100Films = [
     { title: 'The Shawshank Redemption', year: 1994 },
@@ -30,7 +27,7 @@ const top100Films = [
 
 const SearchBar = () => {
     const classes = useStyles();
-
+    // const viMoment = moment.locale('vi')
     const {
         getRootProps,
         getInputLabelProps,
@@ -96,6 +93,7 @@ const SearchBar = () => {
         if (countToddler < 1) return;
         setCountToddler(countToddler - 1)
     }
+
 
 
 
@@ -221,7 +219,7 @@ const SearchBar = () => {
                                     <p>Từ 13 tuổi trở lên</p>
                                 </div>
                                 <div className={classes.count__action}>
-                                    <button className={classes.count__action__button} onClick={() => handleMinusAdult()} >
+                                    <button disabled={countAdult < 1} className={classes.count__action__button} onClick={() => handleMinusAdult()} >
                                         <span>-</span>
                                     </button>
                                     <span className={classes.count__action__display}>
@@ -259,7 +257,7 @@ const SearchBar = () => {
                                     <p>Dưới 2 tuổi</p>
                                 </div>
                                 <div className={classes.count__action}>
-                                    <button className={classes.count__action__button} onClick={() => handleMinusToddler()}>
+                                    <button disabled={countToddler < 1} className={classes.count__action__button} onClick={() => handleMinusToddler()}>
                                         <span>-</span>
                                     </button>
                                     <span className={classes.count__action__display}>{countToddler}</span>

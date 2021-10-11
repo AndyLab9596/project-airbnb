@@ -14,7 +14,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import airbnbIcon from "../../../assets/img/airbnblogo.png";
 import SearchBar from './SearchBar/index'
 import useStyles from "./style";
-
+import SearchIcon from '@material-ui/icons/Search';
 const Header = () => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = useState(null);
@@ -55,13 +55,22 @@ const Header = () => {
                         </a>
                     </Box>
 
-                    <Box
+                    {/* <Box
                         className={scroll
                             ? `${classes.navbar__content__menu} ${classes.navbar__content__menu__scroll}`
                             : `${classes.navbar__content__menu}`}>
                         <span>Nơi ở</span>
                         <span>Trải nghiệm</span>
                         <span>Trải nghiệm trực tuyến</span>
+                    </Box> */}
+
+                    <Box className={classes.navbar__content__search}>
+                        <button className={classes.navbar__search__button}>
+                            <h3 className={classes.navbar__search__button__title}>Bắt đầu tìm kiếm</h3>
+                            <div className={classes.navbar__search__button__wrap}>
+                                <SearchIcon className={classes.navbar__search__button__icon} />
+                            </div>
+                        </button>
                     </Box>
 
                     <div className={scroll ? `${classes.navbar__content__left} ${classes.navbar__content__left__scroll}` : `${classes.navbar__content__left}`}>
@@ -83,7 +92,6 @@ const Header = () => {
                     </div>
                 </Toolbar>
                 <Box className={classes.searchBar}>
-                    {/* <Search /> */}
                     <SearchBar />
                 </Box>
             </AppBar>
