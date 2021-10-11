@@ -24,6 +24,10 @@ export default makeStyles((theme) => ({
             backgroundColor: '#EBEBEB',
             borderRadius: '32px',
             boxShadow: '8px 0px 10px -3px rgba(0,0,0,0.3)',
+
+            '&::after': {
+                height: 0
+            }
         },
 
         "&::after": {
@@ -77,7 +81,10 @@ export default makeStyles((theme) => ({
         flex: '2.5 0 0',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        '& .DateInput_input__focused': {
+            borderBottom: 'none'
+        }
 
     },
 
@@ -90,7 +97,6 @@ export default makeStyles((theme) => ({
             borderRadius: '32px',
             boxShadow: '9px 0px 10px -3px rgba(0,0,0,0.3)',
         },
-
         "&::after": {
             content: "''",
             position: 'absolute',
@@ -282,7 +288,29 @@ export default makeStyles((theme) => ({
         fontWeight: 400,
         color: 'rgb(34,34,34)',
         maxHeight: '120px',
-    }
+    },
+
+    //// Date picker css
+    // DateInput_input: {
+    //     fontSize: '12px',
+    //     lineHeight: '16px',
+    //     fontWeight: 600,
+    //     paddingBottom: '2px',
+    //     paddingLeft: '2px',
+    //     color: '#000'
+    // }
+
+    // datePicker: {
+    //     '& .DateRangePickerInput': {
+    //         backgroundColor: 'red !important'
+    //     }
+    // },
+
+    // dateRangePicker: {
+    //     '& .DateRangePickerInput': {
+    //         backgroundColor: 'red !important'
+    //     }
+    // }
 
 
 }));

@@ -12,6 +12,13 @@ import useStyles from './style';
 import useAutocomplete from '@material-ui/lab/useAutocomplete';
 
 
+import "react-dates/initialize";
+import { DateRangePicker } from "react-dates";
+import "react-dates/lib/css/_datepicker.css";
+import moment from "moment";
+import 'moment/locale/vi'
+
+
 
 const top100Films = [
     { title: 'The Shawshank Redemption', year: 1994 },
@@ -45,6 +52,14 @@ const SearchBar = () => {
     });
 
     const [clickSearchLocation, setClickSearchLocation] = useState(false)
+
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
+    const [focusedInput, setFocusedInput] = useState(null);
+    const handleDatesChange = ({ startDate, endDate }) => {
+        setStartDate(startDate);
+        setEndDate(endDate);
+    };
 
 
     return (
@@ -83,7 +98,7 @@ const SearchBar = () => {
                 {/* Date picker */}
                 <div className={classes.datePicker}>
 
-                    <div className={classes.datePicker__el}>
+                    {/* <div className={classes.datePicker__el}>
                         <div className={classes.datePicker__wrapper}>
                             <p className={classes.datePicker__el__title}>Nhận phòng</p>
                             <p className={classes.datePicker__el__text}>Thêm ngày</p>
@@ -95,7 +110,31 @@ const SearchBar = () => {
                             <p className={classes.datePicker__el__title}>Trả phòng</p>
                             <p className={classes.datePicker__el__text}>Thêm ngày</p>
                         </div>
-                    </div>
+                    </div> */}
+                    <DateRangePicker
+                        noBorder
+
+                        // customInputIcon={<div className={classes.datePicker__el}>
+                        //     <div className={classes.datePicker__wrapper}>
+                        //         <p className={classes.datePicker__el__title}>Trả phòng</p>
+                        //         <p className={classes.datePicker__el__text}>Thêm ngày</p>
+                        //     </div>
+                        // </div>}
+                        // renderCalendarDay={() => {
+
+                        // }}
+
+                        className={classes.dateRangePicker}
+                        // startDatePlaceholderText="Thêm ngày"
+                        // endDatePlaceholderText="Thêm ngày"
+                        startDate={startDate}
+                        startDateId="tata-start-date"
+                        endDate={endDate}
+                        endDateId="tata-end-date"
+                        onDatesChange={handleDatesChange}
+                        focusedInput={focusedInput}
+                        onFocusChange={focusedInput => setFocusedInput(focusedInput)}
+                    />
                 </div>
 
                 {/* Customer count & search button */}
