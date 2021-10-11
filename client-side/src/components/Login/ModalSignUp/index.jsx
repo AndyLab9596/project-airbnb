@@ -16,6 +16,7 @@ import moment from "moment";
 import React, { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
+import { registerAction } from "../../../store/action/Auth";
 import { createAction } from "../../../store/action/createAction/createAction";
 import {
   HIDE_MODAL_SIGNUP,
@@ -53,6 +54,7 @@ const ModalSignUp = () => {
     e.preventDefault();
 
     if (!formik.isValid) return;
+    dispatch(registerAction(formik.values));
   };
   const formik = useFormik({
     validateOnMount: true,

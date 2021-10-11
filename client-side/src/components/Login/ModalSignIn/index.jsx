@@ -7,6 +7,7 @@ import { FaApple, FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
+import { loginAction } from "../../../store/action/Auth";
 import { createAction } from "../../../store/action/createAction/createAction";
 import { HIDE_MODAL_SIGNIN } from "../../../store/types/AuthType";
 import TextFieldComponent from "../TextField";
@@ -26,6 +27,7 @@ const ModalSignIn = () => {
   const handleSubmitForm = (e) => {
     e.preventDefault();
     if (!formik.isValid) return;
+    dispatch(loginAction(formik.values));
   };
   const formik = useFormik({
     validateOnMount: true,
