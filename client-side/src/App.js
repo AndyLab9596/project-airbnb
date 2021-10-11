@@ -8,13 +8,15 @@ import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home";
 
 //Components
-import ModalSignUp from "./components/ModalSignUp";
+import ModalSignUp from "./components/Login/ModalSignUp";
+import ModalSignIn from "./components/Login/ModalSignIn";
 
 function App() {
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <ModalSignUp />
+        <ModalSignIn />
         <Switch>
           <MainLayout path="/" exact Component={Home} />
         </Switch>
