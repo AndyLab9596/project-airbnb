@@ -17,10 +17,11 @@ function App() {
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <ModalSignUp />
-        {/* <Switch>
+        <ModalSignIn />
+        <Switch>
           <MainLayout path="/" exact Component={Home} />
           <MainLayout path="/profile" exact Component={Profile} />
-        </Switch> */}
+        </Switch>
       </ThemeProvider>
     </BrowserRouter>
   );

@@ -14,8 +14,13 @@ import CloseIcon from "@material-ui/icons/Close";
 import { useFormik } from "formik";
 import moment from "moment";
 import React, { Fragment } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
+import { createAction } from "../../../store/action/createAction/createAction";
+import {
+  HIDE_MODAL_SIGNUP,
+  SHOW_MODAL_SIGNIN,
+} from "../../../store/types/AuthType";
 import TextFieldComponent from "../TextField";
 import useStyles from "./style";
 
@@ -36,7 +41,14 @@ const schema = yup.object().shape({
 
 const ModalSignUp = () => {
   const { modalSignUp } = useSelector((state) => state.AuthReducer);
-
+  const dispatch = useDispatch();
+  const handleClose = () => {
+    dispatch(createAction(HIDE_MODAL_SIGNUP));
+  };
+  const handleMoveToLogin = () => {
+    dispatch(createAction(SHOW_MODAL_SIGNIN));
+    handleClose();
+  };
   const handleSubmitForm = (e) => {
     e.preventDefault();
 
@@ -71,127 +83,127 @@ const ModalSignUp = () => {
     <Fragment>
       <Modal
         open={modalSignUp}
-        onClose={!modalSignUp}
+        onClose={handleClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
+        className={classes.root}
       >
-        <div className={classes.root}>
-          <div className={classes.modal__content}>
-            <div className={classes.modal__header}>
-              <IconButton>
-                <CloseIcon />
-              </IconButton>
-              <Typography variant="body2">
-                Chào mừng bạn đến với Airbnb
-              </Typography>
-              <div></div>
-            </div>
-            <div className={classes.modal__detail}>
-              <Typography variant="h3">Đăng Ký</Typography>
-              <form onSubmit={handleSubmitForm}>
-                <TextFieldComponent
-                  {...formik}
-                  label="Email"
-                  name="email"
-                  valueInput={formik.values.email}
-                  errorInput={formik.errors.email}
-                  touchedInput={formik.touched.email}
-                />
-                <TextFieldComponent
-                  {...formik}
-                  type="password"
-                  label="Password"
-                  name="password"
-                  valueInput={formik.values.password}
-                  errorInput={formik.errors.password}
-                  touchedInput={formik.touched.password}
-                />
-                <TextFieldComponent
-                  {...formik}
-                  type="password"
-                  label="Confirm PassWord"
-                  name="confirmPassword"
-                  valueInput={formik.values.confirmPassword}
-                  errorInput={formik.errors.confirmPassword}
-                  touchedInput={formik.touched.confirmPassword}
-                />
+        <div className={classes.modal__content}>
+          <div className={classes.modal__header}>
+            <IconButton onClick={handleClose}>
+              <CloseIcon />
+            </IconButton>
+            <Typography variant="body2">
+              Chào mừng bạn đến với Airbnb
+            </Typography>
+            <div></div>
+          </div>
+          <div className={classes.modal__detail}>
+            <Typography variant="h3">Đăng Ký</Typography>
+            <form onSubmit={handleSubmitForm}>
+              <TextFieldComponent
+                {...formik}
+                label="Email"
+                name="email"
+                valueInput={formik.values.email}
+                errorInput={formik.errors.email}
+                touchedInput={formik.touched.email}
+              />
+              <TextFieldComponent
+                {...formik}
+                type="password"
+                label="Password"
+                name="password"
+                valueInput={formik.values.password}
+                errorInput={formik.errors.password}
+                touchedInput={formik.touched.password}
+              />
+              <TextFieldComponent
+                {...formik}
+                type="password"
+                label="Confirm PassWord"
+                name="confirmPassword"
+                valueInput={formik.values.confirmPassword}
+                errorInput={formik.errors.confirmPassword}
+                touchedInput={formik.touched.confirmPassword}
+              />
 
-                <TextFieldComponent
-                  {...formik}
-                  label="Full Name"
-                  name="name"
-                  valueInput={formik.values.name}
-                  errorInput={formik.errors.name}
-                  touchedInput={formik.touched.name}
-                />
-                <TextFieldComponent
-                  {...formik}
-                  type="number"
-                  label="Phone"
-                  name="phone"
-                  valueInput={formik.values.phone}
-                  errorInput={formik.errors.phone}
-                  touchedInput={formik.touched.phone}
-                />
+              <TextFieldComponent
+                {...formik}
+                label="Full Name"
+                name="name"
+                valueInput={formik.values.name}
+                errorInput={formik.errors.name}
+                touchedInput={formik.touched.name}
+              />
+              <TextFieldComponent
+                {...formik}
+                type="number"
+                label="Phone"
+                name="phone"
+                valueInput={formik.values.phone}
+                errorInput={formik.errors.phone}
+                touchedInput={formik.touched.phone}
+              />
 
-                <TextField
-                  type="date"
-                  variant="outlined"
-                  label="Birthday"
-                  className={classes.form__input}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  name="birthday"
-                  onChange={handleChangeDate}
-                  onBLur={formik.handleBlur}
-                />
-                <RadioGroup
-                  className={classes.form__radio}
-                  onChange={handleChangeGender}
-                >
-                  <Box display="flex" alignItems="center">
-                    <FormLabel>Gender : </FormLabel>
-                    <FormControlLabel
-                      control={<Radio color="primary" />}
-                      label="Male"
-                      name="male"
-                      value="true"
-                    />
+              <TextField
+                type="date"
+                variant="outlined"
+                label="Birthday"
+                className={classes.form__input}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                name="birthday"
+                onChange={handleChangeDate}
+                onBLur={formik.handleBlur}
+              />
+              <RadioGroup
+                className={classes.form__radio}
+                onChange={handleChangeGender}
+              >
+                <Box display="flex" alignItems="center">
+                  <FormLabel>Gender : </FormLabel>
+                  <FormControlLabel
+                    control={<Radio color="primary" />}
+                    label="Male"
+                    name="male"
+                    value="true"
+                  />
 
-                    <FormControlLabel
-                      control={<Radio />}
-                      label="Fermale"
-                      name="fermale"
-                      value="false"
-                    />
-                  </Box>
-                </RadioGroup>
-                <TextFieldComponent
-                  {...formik}
-                  label="Address"
-                  name="address"
-                  valueInput={formik.values.address}
-                  errorInput={formik.errors.address}
-                  touchedInput={formik.touched.address}
-                />
-
-                <Button type="submit" className={classes.form__btnSubmit}>
-                  Tiếp tục
-                </Button>
-                <Box textAlign="center">
-                  <Typography variant="span">
-                    Already have an account?
-                    <Typography
-                      variant="span"
-                      className={classes.form__textLogin}
-                    >
-                      Login Here
-                    </Typography>
-                  </Typography>
+                  <FormControlLabel
+                    control={<Radio />}
+                    label="Fermale"
+                    name="fermale"
+                    value="false"
+                  />
                 </Box>
-              </form>
-            </div>
+              </RadioGroup>
+              <TextFieldComponent
+                {...formik}
+                label="Address"
+                name="address"
+                valueInput={formik.values.address}
+                errorInput={formik.errors.address}
+                touchedInput={formik.touched.address}
+              />
+
+              <Button type="submit" className={classes.form__btnSubmit}>
+                Tiếp tục
+              </Button>
+              <Box textAlign="center">
+                <Typography variant="span">
+                  Already have an account?
+                  <Typography
+                    variant="span"
+                    className={classes.form__textLogin}
+                    onClick={handleMoveToLogin}
+                  >
+                    Login Here
+                  </Typography>
+                </Typography>
+              </Box>
+            </form>
           </div>
         </div>
       </Modal>

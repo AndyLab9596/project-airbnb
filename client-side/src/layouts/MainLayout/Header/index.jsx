@@ -14,11 +14,18 @@ import React, { Fragment, useEffect, useState } from "react";
 import clsx from "clsx";
 import airbnbIcon from "../../../assets/img/airbnblogo.png";
 import useStyles from "./style";
+import { useDispatch } from "react-redux";
+import { createAction } from "../../../store/action/createAction/createAction";
+import {
+  SHOW_MODAL_SIGNIN,
+  SHOW_MODAL_SIGNUP,
+} from "../../../store/types/AuthType";
 
 const Header = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const windowWidth = window.innerWidth;
+  const dispatch = useDispatch();
 
   const handleOpenMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -26,6 +33,15 @@ const Header = () => {
 
   const handleCloseMenu = () => {
     setAnchorEl(null);
+  };
+  const ShowModalSignIn = () => {
+    setAnchorEl(null);
+    dispatch(createAction(SHOW_MODAL_SIGNIN));
+  };
+
+  const ShowModalSignUp = () => {
+    setAnchorEl(null);
+    dispatch(createAction(SHOW_MODAL_SIGNUP));
   };
 
   const [scroll, setScroll] = useState(false);
@@ -112,8 +128,12 @@ const Header = () => {
           },
         }}
       >
-        <MenuItem className={classes.menu__items}>Đăng nhập</MenuItem>
-        <MenuItem className={classes.menu__items}>Đăng Ký</MenuItem>
+        <MenuItem className={classes.menu__items} onClick={ShowModalSignIn}>
+          Đăng nhập
+        </MenuItem>
+        <MenuItem className={classes.menu__items} onClick={ShowModalSignUp}>
+          Đăng Ký
+        </MenuItem>
         <MenuItem className={classes.menu__items}>Cho thuê nhà</MenuItem>
         <MenuItem className={classes.menu__items}>Tổ chức trải nghiệm</MenuItem>
         <MenuItem className={classes.menu__items}>Trợ giúp</MenuItem>

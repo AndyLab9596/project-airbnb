@@ -20,10 +20,10 @@ const AuthReducer = (state = initialState, { type, payload }) => {
       return { ...state, modalSignIn: false };
     }
     case SHOW_MODAL_SIGNUP: {
-      return { ...state, modalSignIn: true };
+      return { ...state, modalSignUp: true };
     }
     case HIDE_MODAL_SIGNUP: {
-      return { ...state, modalSignIn: false };
+      return { ...state, modalSignUp: false };
     }
     default:
       return { ...state };

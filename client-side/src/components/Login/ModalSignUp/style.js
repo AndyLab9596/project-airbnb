@@ -1,21 +1,10 @@
 import { makeStyles } from "@material-ui/styles";
 export default makeStyles((theme) => ({
-  // "@keyframes slide": {
-  //   "0%": {
-  //     transform: "translateY(100%)",
-  //     opacity: 0,
-  //   },
-  //   "100%": {
-  //     transform: "translateY(0)",
-  //     opacity: 1,
-  //   },
-  // },
   root: {
     width: "100%",
     height: "100%",
     display: "flex",
     justifyContent: "center",
-    backgroundColor: "rgb(34,34,34,0.5)",
   },
   modal__content: {
     width: "100%",
@@ -80,5 +69,6 @@ export default makeStyles((theme) => ({
   form__textLogin: {
     color: "#6363e8",
     marginLeft: 10,
+    cursor: "pointer",
   },
 }));
