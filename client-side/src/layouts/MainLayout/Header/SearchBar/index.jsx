@@ -1,22 +1,15 @@
-import { Button, FilledInput, FormControl, FormHelperText, Input, InputLabel, OutlinedInput, TextField } from '@material-ui/core';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import InputBase from '@material-ui/core/InputBase';
-import Paper from '@material-ui/core/Paper';
-import DirectionsIcon from '@material-ui/icons/Directions';
-import MenuIcon from '@material-ui/icons/Menu';
+import { Menu, MenuItem, TextField } from '@material-ui/core';
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import SearchIcon from '@material-ui/icons/Search';
-import React, { Fragment, useState } from 'react';
-import useStyles from './style';
 import useAutocomplete from '@material-ui/lab/useAutocomplete';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import DateRangePicker from '@mui/lab/DateRangePicker';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import React, { Fragment, useRef, useState } from 'react';
+import useStyles from './style';
+import { vi } from 'date-fns/locale';
 
 
-import "react-dates/initialize";
-import { DateRangePicker } from "react-dates";
-import "react-dates/lib/css/_datepicker.css";
-import moment from "moment";
-import 'moment/locale/vi'
 
 
 
@@ -60,6 +53,50 @@ const SearchBar = () => {
         setStartDate(startDate);
         setEndDate(endDate);
     };
+    const [value, setValue] = useState([null, null]);
+    const windowWidth = window.innerWidth;
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handleOpenMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleCloseMenu = () => {
+        setAnchorEl(null);
+    };
+
+    const [countAdult, setCountAdult] = useState(0);
+    const [countBaby, setCountBaby] = useState(0);
+
+    const [countToddler, setCountToddler] = useState(0);
+
+    const handleAddAdult = () => {
+        if (countAdult > 15) return;
+        setCountAdult(countAdult + 1)
+    }
+    const handleMinusAdult = () => {
+        if (countAdult < 1) return;
+        setCountAdult(countAdult - 1)
+    }
+
+    const handleAddBaby = () => {
+        if (countBaby > 4) return;
+        setCountBaby(countBaby + 1)
+    }
+    const handleMinusBaby = () => {
+        if (countBaby < 1) return;
+        setCountBaby(countBaby - 1)
+    }
+
+    const handleAddToddler = () => {
+        if (countToddler > 4) return;
+        setCountToddler(countToddler + 1)
+    }
+    const handleMinusToddler = () => {
+        if (countToddler < 1) return;
+        setCountToddler(countToddler - 1)
+    }
+
 
 
     return (
@@ -97,49 +134,47 @@ const SearchBar = () => {
 
                 {/* Date picker */}
                 <div className={classes.datePicker}>
-
-                    {/* <div className={classes.datePicker__el}>
-                        <div className={classes.datePicker__wrapper}>
-                            <p className={classes.datePicker__el__title}>Nhận phòng</p>
-                            <p className={classes.datePicker__el__text}>Thêm ngày</p>
-                        </div>
-                    </div>
-
-                    <div className={classes.datePicker__el}>
-                        <div className={classes.datePicker__wrapper}>
-                            <p className={classes.datePicker__el__title}>Trả phòng</p>
-                            <p className={classes.datePicker__el__text}>Thêm ngày</p>
-                        </div>
-                    </div> */}
-                    <DateRangePicker
-                        noBorder
-
-                        // customInputIcon={<div className={classes.datePicker__el}>
-                        //     <div className={classes.datePicker__wrapper}>
-                        //         <p className={classes.datePicker__el__title}>Trả phòng</p>
-                        //         <p className={classes.datePicker__el__text}>Thêm ngày</p>
-                        //     </div>
-                        // </div>}
-                        // renderCalendarDay={() => {
-
-                        // }}
-
-                        className={classes.dateRangePicker}
-                        // startDatePlaceholderText="Thêm ngày"
-                        // endDatePlaceholderText="Thêm ngày"
-                        startDate={startDate}
-                        startDateId="tata-start-date"
-                        endDate={endDate}
-                        endDateId="tata-end-date"
-                        onDatesChange={handleDatesChange}
-                        focusedInput={focusedInput}
-                        onFocusChange={focusedInput => setFocusedInput(focusedInput)}
-                    />
+                    <LocalizationProvider dateAdapter={AdapterDateFns} locale={vi} >
+                        <DateRangePicker
+                            disablePast
+                            className={classes.dateRangePicker}
+                            value={value}
+                            onChange={(newValue) => {
+                                setValue(newValue);
+                            }}
+                            renderInput={(startProps, endProps) => (
+                                <React.Fragment>
+                                    <div>
+                                        <label htmlFor="" className={classes.locationSearch__label}>
+                                            Nhận phòng
+                                        </label>
+                                        <input
+                                            ref={startProps.inputRef}
+                                            {...startProps.inputProps}
+                                            className={classes.locationSearch__input}
+                                            placeholder="Thêm ngày"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="" className={classes.locationSearch__label}>
+                                            Trả phòng
+                                        </label>
+                                        <input
+                                            ref={endProps.inputRef}
+                                            {...endProps.inputProps}
+                                            className={classes.locationSearch__input}
+                                            placeholder="Thêm ngày"
+                                        />
+                                    </div>
+                                </React.Fragment>
+                            )}
+                        />
+                    </LocalizationProvider>
                 </div>
 
                 {/* Customer count & search button */}
                 <div className={classes.customer}>
-                    <div className={classes.customer__el}>
+                    <div className={classes.customer__el} onClick={handleOpenMenu}>
                         <div className={classes.customer__el__content}>
                             <p className={classes.customer__title}>Khách</p>
                             <p className={classes.customer__text}>Thêm khách</p>
@@ -148,7 +183,95 @@ const SearchBar = () => {
                             <SearchIcon className={classes.formControl__button__icon} />
                         </button>
                     </div>
+                    <Menu
+                        id="simple-menu"
+                        anchorReference="anchorPosition"
+                        anchorPosition={{ top: 140, left: windowWidth - 270 }}
+                        anchorOrigin={{
+                            vertical: "bottom",
+                            horizontal: "right",
+                        }}
+                        transformOrigin={{
+                            vertical: "top",
+                            horizontal: "right",
+                        }}
+                        anchorEl={anchorEl}
+                        keepMounted
+                        open={Boolean(anchorEl)}
+                        onClose={handleCloseMenu}
+                        PaperProps={{
+                            style: {
+                                minWidth: "200px",
+                                padding: "16px 32px",
+                                borderRadius: "32px",
+                                backgroundColor: '#fff',
+                                boxShadow: '0px 6px 20px rgb(0 0 0 / 20%)',
+                                maxHeight: 'calc(100vh -220px)',
+                                overflowX: 'hidden',
+                                overflowY: 'auto'
+                            },
+                        }}
+
+                    >
+
+                        <MenuItem className={classes.menu__items}>
+                            <div className={classes.count}>
+                                <div className={classes.count__content}>
+                                    <h6>Nguời lớn</h6>
+                                    <p>Từ 13 tuổi trở lên</p>
+                                </div>
+                                <div className={classes.count__action}>
+                                    <button className={classes.count__action__button} onClick={() => handleMinusAdult()} >
+                                        <span>-</span>
+                                    </button>
+                                    <span className={classes.count__action__display}>
+                                        {countAdult}
+                                    </span>
+                                    <button className={classes.count__action__button} onClick={() => handleAddAdult()}>
+                                        <span>+</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </MenuItem>
+
+                        <MenuItem className={classes.menu__items}>
+                            <div className={classes.count}>
+                                <div className={classes.count__content}>
+                                    <h6>Trẻ em</h6>
+                                    <p>Độ tuổi 2-12</p>
+                                </div>
+                                <div className={classes.count__action}>
+                                    <button className={classes.count__action__button} onClick={() => handleMinusBaby()}>
+                                        <span>-</span>
+                                    </button>
+                                    <span className={classes.count__action__display}>{countBaby}</span>
+                                    <button className={classes.count__action__button} onClick={() => handleAddBaby()}>
+                                        <span>+</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </MenuItem>
+
+                        <MenuItem className={classes.menu__items}>
+                            <div className={classes.count}>
+                                <div className={classes.count__content}>
+                                    <h6>Em bé</h6>
+                                    <p>Dưới 2 tuổi</p>
+                                </div>
+                                <div className={classes.count__action}>
+                                    <button className={classes.count__action__button} onClick={() => handleMinusToddler()}>
+                                        <span>-</span>
+                                    </button>
+                                    <span className={classes.count__action__display}>{countToddler}</span>
+                                    <button className={classes.count__action__button} onClick={() => handleAddToddler()}>
+                                        <span>+</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </MenuItem>
+                    </Menu>
                 </div>
+
             </form>
 
         </Fragment>

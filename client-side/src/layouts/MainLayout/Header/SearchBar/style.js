@@ -30,18 +30,18 @@ export default makeStyles((theme) => ({
             }
         },
 
-        "&::after": {
-            content: "''",
-            position: 'absolute',
-            display: 'block',
-            width: '1px',
-            height: '50%',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            right: 0,
-            backgroundColor: '#222222',
-            opacity: .3,
-        },
+        // "&::after": {
+        //     content: "''",
+        //     position: 'absolute',
+        //     display: 'block',
+        //     width: '1px',
+        //     height: '50%',
+        //     top: '50%',
+        //     transform: 'translateY(-50%)',
+        //     right: 0,
+        //     backgroundColor: '#222222',
+        //     opacity: .3,
+        // },
     },
 
     locationSearch__wrapper: {
@@ -84,8 +84,7 @@ export default makeStyles((theme) => ({
         justifyContent: 'space-around',
         '& .DateInput_input__focused': {
             borderBottom: 'none'
-        }
-
+        },
     },
 
     datePicker__el: {
@@ -97,19 +96,19 @@ export default makeStyles((theme) => ({
             borderRadius: '32px',
             boxShadow: '9px 0px 10px -3px rgba(0,0,0,0.3)',
         },
-        "&::after": {
-            content: "''",
-            position: 'absolute',
-            display: 'block',
-            width: '1px',
-            height: '50%',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            right: 0,
-            backgroundColor: '#222222',
-            opacity: .3,
-            zIndex: 1,
-        },
+        // "&::after": {
+        //     content: "''",
+        //     position: 'absolute',
+        //     display: 'block',
+        //     width: '1px',
+        //     height: '50%',
+        //     top: '50%',
+        //     transform: 'translateY(-50%)',
+        //     right: 0,
+        //     backgroundColor: '#222222',
+        //     opacity: .3,
+        //     zIndex: 1,
+        // },
         width: '100%',
         '&>p': {
             margin: '0'
@@ -290,27 +289,79 @@ export default makeStyles((theme) => ({
         maxHeight: '120px',
     },
 
-    //// Date picker css
-    // DateInput_input: {
-    //     fontSize: '12px',
-    //     lineHeight: '16px',
-    //     fontWeight: 600,
-    //     paddingBottom: '2px',
-    //     paddingLeft: '2px',
-    //     color: '#000'
-    // }
 
-    // datePicker: {
-    //     '& .DateRangePickerInput': {
-    //         backgroundColor: 'red !important'
-    //     }
-    // },
+    dateRangePicker: {
+        marginTop: '24px',
+        minWidth: '500px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '32px',
+        borderRadius: '32px'
+    },
 
-    // dateRangePicker: {
-    //     '& .DateRangePickerInput': {
-    //         backgroundColor: 'red !important'
-    //     }
-    // }
+    count: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderBottom: '1px solid rgb(235, 235, 235)',
+        padding: '16px 4px 16px 0',
+        minWidth: '330px',
+    },
+
+    count__content: {
+        flexGrow: 1,
+
+        '&>h6': {
+            margin: 0,
+            fontSize: '16px',
+            lineHeight: '20px',
+            fontWeight: 600,
+            color: 'rgb(34,34,34)'
+        },
+
+        '&>p': {
+            margin: 0,
+            fontSize: '14px',
+            lineHeight: '18px',
+            fontWeight: 400,
+            color: 'rgb(113, 113, 113)'
+        }
+    },
+
+    count__action: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        width: '104px',
+        height: '32px',
+        color: 'rgb(34, 34, 34)',
+        fontWeight: 400,
+        fontSize: '16px',
+        lineHeight: '20px'
+
+    },
+
+    count__action__button: {
+        width: '32px',
+        height: '32px',
+        cursor: 'pointer',
+        border: '1px solid rgb(113, 113, 113)',
+        color: 'rgb(113, 113, 113)',
+        outline: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'rgb(255, 255, 255)',
+        borderRadius: '50%'
+    }
+
+
+
+
+
+
+
 
 
 }));
