@@ -14,51 +14,41 @@ import CloseIcon from "@material-ui/icons/Close";
 import { useFormik } from "formik";
 import moment from "moment";
 import React, { Fragment } from "react";
-import useStyles from "./style";
+import { useSelector } from "react-redux";
 import * as yup from "yup";
+import TextFieldComponent from "../TextField";
+import useStyles from "./style";
 
-const schemaValidation = yup.object().shape({
+const schema = yup.object().shape({
   name: yup.string().required("*FulName is required"),
-  password: yup.string().required("*Password is required"),
+  password: yup
+    .string()
+    .required("*Password is required")
+    .min(6, "*Password must be least 6 character"),
+  confirmPassword: yup
+    .string()
+    .required("*Confirm Password is required")
+    .oneOf([yup.ref("password"), null], "*Password must match"),
   email: yup.string().required("*Email is required").email("*Email is Invalid"),
-  phone: yup
-    .number()
-    .required("*Phone is required")
-    .min(8, "Phone must have 8-11 characters")
-    .max(11, "Phone must have 8-11 characters"),
+  phone: yup.number().required("*Phone is required"),
   address: yup.string().required("*Address is required"),
 });
 
 const ModalSignUp = () => {
-  const [open, setOpen] = React.useState(false);
+  const { modalSignUp } = useSelector((state) => state.AuthReducer);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    console.log(touched);
 
-    if (!inValid) return;
+    if (!formik.isValid) return;
   };
-  const {
-    values,
-    handleChange,
-    handleBlur,
-    errors,
-    inValid,
-    setFieldValue,
-    touched,
-  } = useFormik({
+  const formik = useFormik({
     validateOnMount: true,
-    validationSchema: schemaValidation,
+    validationSchema: schema,
     initialValues: {
       email: "",
       password: "",
+      confirmPassword: "",
       name: "",
       phone: "",
       gender: "",
@@ -68,20 +58,20 @@ const ModalSignUp = () => {
   });
 
   const handleChangeDate = (e) => {
-    setFieldValue("birthday", moment(e.target.value).format("YYYY/MM/DD"));
+    formik.setFieldValue(
+      "birthday",
+      moment(e.target.value).format("YYYY/MM/DD")
+    );
   };
   const handleChangeGender = (e) => {
-    setFieldValue("gender", e.target.value);
+    formik.setFieldValue("gender", e.target.value);
   };
   const classes = useStyles();
   return (
     <Fragment>
-      <button type="button" onClick={handleOpen}>
-        Open Modal
-      </button>
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={modalSignUp}
+        onClose={!modalSignUp}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
@@ -99,73 +89,50 @@ const ModalSignUp = () => {
             <div className={classes.modal__detail}>
               <Typography variant="h3">Đăng Ký</Typography>
               <form onSubmit={handleSubmitForm}>
-                <TextField
-                  variant="outlined"
+                <TextFieldComponent
+                  {...formik}
                   label="Email"
-                  className={classes.form__input}
-                  InputLabelProps={{
-                    style: { fontSize: 13 },
-                  }}
                   name="email"
-                  onChange={handleChange}
-                  onBLur={handleBlur}
-                  value={values.email}
+                  valueInput={formik.values.email}
+                  errorInput={formik.errors.email}
+                  touchedInput={formik.touched.email}
                 />
-
-                {touched.email && (
-                  <Typography variant="body2"> {errors.email}</Typography>
-                )}
-
-                <TextField
+                <TextFieldComponent
+                  {...formik}
                   type="password"
-                  variant="outlined"
                   label="Password"
-                  className={classes.form__input}
-                  InputLabelProps={{
-                    style: { fontSize: 13 },
-                  }}
                   name="password"
-                  onChange={handleChange}
-                  onBLur={handleBlur}
-                  value={values.password}
+                  valueInput={formik.values.password}
+                  errorInput={formik.errors.password}
+                  touchedInput={formik.touched.password}
+                />
+                <TextFieldComponent
+                  {...formik}
+                  type="password"
+                  label="Confirm PassWord"
+                  name="confirmPassword"
+                  valueInput={formik.values.confirmPassword}
+                  errorInput={formik.errors.confirmPassword}
+                  touchedInput={formik.touched.confirmPassword}
                 />
 
-                {touched.password && (
-                  <Typography variant="body2">{errors.password}</Typography>
-                )}
-
-                <TextField
-                  variant="outlined"
+                <TextFieldComponent
+                  {...formik}
                   label="Full Name"
-                  className={classes.form__input}
-                  InputLabelProps={{
-                    style: { fontSize: 13 },
-                  }}
                   name="name"
-                  onChange={handleChange}
-                  onBLur={handleBlur}
-                  value={values.name}
+                  valueInput={formik.values.name}
+                  errorInput={formik.errors.name}
+                  touchedInput={formik.touched.name}
                 />
-
-                {touched.name && (
-                  <Typography variant="body2">{errors.name}</Typography>
-                )}
-                <TextField
+                <TextFieldComponent
+                  {...formik}
                   type="number"
-                  variant="outlined"
                   label="Phone"
-                  className={classes.form__input}
-                  InputLabelProps={{
-                    style: { fontSize: 13 },
-                  }}
                   name="phone"
-                  onChange={handleChange}
-                  onBLur={handleBlur}
-                  value={values.phone}
+                  valueInput={formik.values.phone}
+                  errorInput={formik.errors.phone}
+                  touchedInput={formik.touched.phone}
                 />
-                {touched.phone && (
-                  <Typography variant="body2"> {errors.phone}</Typography>
-                )}
 
                 <TextField
                   type="date"
@@ -177,7 +144,7 @@ const ModalSignUp = () => {
                   }}
                   name="birthday"
                   onChange={handleChangeDate}
-                  onBLur={handleBlur}
+                  onBLur={formik.handleBlur}
                 />
                 <RadioGroup
                   className={classes.form__radio}
@@ -200,21 +167,15 @@ const ModalSignUp = () => {
                     />
                   </Box>
                 </RadioGroup>
-                <TextField
-                  variant="outlined"
+                <TextFieldComponent
+                  {...formik}
                   label="Address"
-                  className={classes.form__input}
-                  InputLabelProps={{
-                    style: { fontSize: 13 },
-                  }}
                   name="address"
-                  onChange={handleChange}
-                  onBLur={handleBlur}
-                  value={values.address}
+                  valueInput={formik.values.address}
+                  errorInput={formik.errors.address}
+                  touchedInput={formik.touched.address}
                 />
-                {touched.address && (
-                  <Typography variant="body2"> {errors.address}</Typography>
-                )}
+
                 <Button type="submit" className={classes.form__btnSubmit}>
                   Tiếp tục
                 </Button>

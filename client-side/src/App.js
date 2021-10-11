@@ -9,7 +9,8 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 
 //Components
-import ModalSignUp from "./components/ModalSignUp";
+import ModalSignUp from "./components/Login/ModalSignUp";
+import ModalSignIn from "./components/Login/ModalSignIn";
 
 function App() {
   return (
