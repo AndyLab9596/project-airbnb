@@ -16,21 +16,36 @@ export default makeStyles((theme) => ({
     // location
 
     locationSearch: {
+        position: 'relative',
         flex: '1.5 0 0',
         padding: '14px 32px',
         cursor: 'pointer',
         '&:hover': {
             backgroundColor: '#EBEBEB',
-            borderRadius: '40px',
-            boxShadow: '9px 0px 10px -3px rgba(0,0,0,0.3)',
-        }
+            borderRadius: '32px',
+            boxShadow: '8px 0px 10px -3px rgba(0,0,0,0.3)',
+        },
+
+        "&::after": {
+            content: "''",
+            position: 'absolute',
+            display: 'block',
+            width: '1px',
+            height: '50%',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            right: 0,
+            backgroundColor: '#222222',
+            opacity: .3,
+        },
     },
 
     locationSearch__wrapper: {
-        borderRight: '1px solid #2222',
+        // borderRight: '1px solid #2222',
         '&:hover': {
             borderRight: 'none'
-        }
+        },
+
     },
 
     locationSearch__label: {
@@ -62,13 +77,33 @@ export default makeStyles((theme) => ({
         flex: '2.5 0 0',
         display: 'flex',
         alignItems: 'center',
-        // justifyContent: 'space-evenly'
+        justifyContent: 'space-around'
 
     },
 
     datePicker__el: {
         padding: '14px 24px',
+        position: 'relative',
 
+        '&:hover': {
+            backgroundColor: '#EBEBEB',
+            borderRadius: '32px',
+            boxShadow: '9px 0px 10px -3px rgba(0,0,0,0.3)',
+        },
+
+        "&::after": {
+            content: "''",
+            position: 'absolute',
+            display: 'block',
+            width: '1px',
+            height: '50%',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            right: 0,
+            backgroundColor: '#222222',
+            opacity: .3,
+            zIndex: 1,
+        },
         width: '100%',
         '&>p': {
             margin: '0'
@@ -76,10 +111,14 @@ export default makeStyles((theme) => ({
     },
 
     datePicker__wrapper: {
-        borderRight: '1px solid #2222',
+        // borderRight: '1px solid #2222',
+        '&:hover': {
+            borderRight: 'none'
+        },
         '&>p': {
             margin: '0'
-        }
+        },
+
     },
 
     datePicker__el__title: {
@@ -106,6 +145,11 @@ export default makeStyles((theme) => ({
         flex: '2 0 0',
         display: 'flex',
         alignItems: 'center',
+        '&:hover': {
+            backgroundColor: '#EBEBEB',
+            borderRadius: '32px',
+            boxShadow: '9px 0px 10px -3px rgba(0,0,0,0.3)',
+        },
 
     },
 
@@ -171,61 +215,73 @@ export default makeStyles((theme) => ({
 
 
     locationSearch__dropdown: {
-
         position: 'absolute',
         left: '0',
         top: '100%',
         backgroundColor: theme.palette.background.paper,
         zIndex: 1,
         marginTop: '12px',
-        maxHeight: 'calc(100vh - 220px)',
-        width: '500px',
         borderRadius: '32px',
         boxShadow: '0px 6px 20px rgb(0 0 0 / 20%)',
-        overFlowX: 'hidden',
-        overFlowY: 'auto',
+
     },
 
     locationSearch__lists: {
-        padding: '16px 32px'
+        padding: "16px 0 0",
+        margin: "0 - 32px - 8px ",
+        listStyle: 'none',
+        overflow: 'auto',
+        overflowX: 'hidden',
+        maxHeight: 'calc(100vh - 220px)',
+        width: '500px',
 
-        // position: 'absolute',
-        // left: '0',
-        // top: '100%',
-        // backgroundColor: theme.palette.background.paper,
-        // zIndex: 1,
-        // borderRadius: '32px',
-        // marginTop: '12px',
-        // maxHeight: 'calc(100vh - 220px)',
-        // width: '500px',
-        // listStyle: 'none',
-        // overflow: 'auto',
-        // border: '1px solid rgba(0,0,0,.25)',
-        // boxShadow: '0px 6px 20px rgb(0 0 0 / 20%)',
-        // '& li[data-focus="true"]': {
-        //     backgroundColor: '#4a8df6',
-        //     color: 'white',
-        //     cursor: 'pointer',
-        // },
-        // '& li:active': {
-        //     backgroundColor: '#2977f5',
-        //     color: 'white',
-        // },
+        '& li[data-focus="true"]': {
+            backgroundColor: 'rgba(247, 247, 247)',
+            cursor: 'pointer',
+            width: '100%'
+        },
+        '& li:active': {
+            backgroundColor: 'rgba(247, 247, 247)',
+            cursor: 'pointer'
+        },
 
-        // '& li': {
-        //     display: 'flex',
-        //     width: '100%',
-        //     padding: '8px 16ppx 8px 32px',
-        //     cursor: 'pointer',
-        // }
     },
 
     locationSearch__list: {
         cursor: 'pointer',
         width: '100%',
         display: 'flex',
+        alignItems: 'center',
         padding: '8px 16px 8px 32px',
 
+    },
+
+    locationSearch__lists__icon: {
+        fontSize: '17px',
+        backgroundColor: 'rgb(241, 241, 241)',
+        border: '1px solid rgba(176,176,176,0.2)',
+        borderRadius: '8px',
+        minWidth: '48px',
+        height: '48px',
+        marginRight: '16px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    locationSearch__lists__icon__item: {
+        display: 'block',
+        height: '22px',
+        width: '22px',
+        lineHeight: '22px'
+    },
+
+    locationSearch__lists__title: {
+        fontSize: '16px',
+        lineHeight: '20px',
+        fontWeight: 400,
+        color: 'rgb(34,34,34)',
+        maxHeight: '120px',
     }
 
 

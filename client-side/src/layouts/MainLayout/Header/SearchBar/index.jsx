@@ -5,6 +5,7 @@ import InputBase from '@material-ui/core/InputBase';
 import Paper from '@material-ui/core/Paper';
 import DirectionsIcon from '@material-ui/icons/Directions';
 import MenuIcon from '@material-ui/icons/Menu';
+import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import SearchIcon from '@material-ui/icons/Search';
 import React, { Fragment, useState } from 'react';
 import useStyles from './style';
@@ -19,6 +20,10 @@ const top100Films = [
     { title: 'The Dark Knight', year: 2008 },
     { title: '12 Angry Men', year: 1957 },
     { title: "Schindler's List", year: 1993 },
+    { title: 'Pulp Fiction', year: 1994 },
+    { title: 'Pulp Fiction', year: 1994 },
+    { title: 'Pulp Fiction', year: 1994 },
+    { title: 'Pulp Fiction', year: 1994 },
     { title: 'Pulp Fiction', year: 1994 },
 ]
 
@@ -59,8 +64,14 @@ const SearchBar = () => {
                         {groupedOptions.length > 0 ? (
                             <ul className={classes.locationSearch__lists} {...getListboxProps()}>
                                 {groupedOptions.map((option, index) => (
-                                    <li {...getOptionProps({ option, index })} className={classes.locationSearch__list}>
-                                        {option.title}
+                                    <li {...getOptionProps({ option, index })}
+                                        className={classes.locationSearch__list}>
+                                        <div className={classes.locationSearch__lists__icon}>
+                                            <LocationOnOutlinedIcon className={classes.locationSearch__lists__icon__item} />
+                                        </div>
+                                        <span
+                                            className={classes.locationSearch__lists__title}
+                                        >{option.title}</span>
                                     </li>
                                 ))}
                             </ul>
