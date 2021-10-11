@@ -1,15 +1,15 @@
 import { makeStyles } from "@material-ui/styles";
 export default makeStyles((theme) => ({
-  "@keyframes slide": {
-    "0%": {
-      transform: "translateY(100%)",
-      opacity: 0,
-    },
-    "100%": {
-      transform: "translateY(0)",
-      opacity: 1,
-    },
-  },
+  // "@keyframes slide": {
+  //   "0%": {
+  //     transform: "translateY(100%)",
+  //     opacity: 0,
+  //   },
+  //   "100%": {
+  //     transform: "translateY(0)",
+  //     opacity: 1,
+  //   },
+  // },
   root: {
     width: "100%",
     height: "100%",
@@ -21,7 +21,7 @@ export default makeStyles((theme) => ({
     width: "100%",
     maxWidth: 560,
     borderRadius: 12,
-    animation: "$slide 0.4s linear",
+    animation: "slide 0.4s linear",
     backgroundColor: "#fff",
     zIndex: 999,
     display: "flex",
