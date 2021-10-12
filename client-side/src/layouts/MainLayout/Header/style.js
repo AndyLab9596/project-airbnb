@@ -37,7 +37,7 @@ export default makeStyles(theme => ({
             transition: 'all .3s linear',
             '&:hover': {
                 opacity: '.7',
-                borderBottom: '1px solid #fff'
+                borderBottom: props => props.scroll ? `1px solid #000` : `1px solid #fff`
             },
             '&:nth-child(1)': {
                 fontWeight: 500,

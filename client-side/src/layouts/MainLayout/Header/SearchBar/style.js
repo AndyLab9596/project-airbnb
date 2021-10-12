@@ -13,8 +13,6 @@ export default makeStyles((theme) => ({
         borderRadius: '32px',
     },
 
-    // location
-
     locationSearch: {
         position: 'relative',
         flex: '1.5 0 0',
@@ -29,23 +27,9 @@ export default makeStyles((theme) => ({
                 height: 0
             }
         },
-
-        // "&::after": {
-        //     content: "''",
-        //     position: 'absolute',
-        //     display: 'block',
-        //     width: '1px',
-        //     height: '50%',
-        //     top: '50%',
-        //     transform: 'translateY(-50%)',
-        //     right: 0,
-        //     backgroundColor: '#222222',
-        //     opacity: .3,
-        // },
     },
 
     locationSearch__wrapper: {
-        // borderRight: '1px solid #2222',
         '&:hover': {
             borderRight: 'none'
         },
@@ -95,14 +79,6 @@ export default makeStyles((theme) => ({
     datePicker__el: {
         cursor: 'pointer',
         margin: 'auto',
-        // display: 'inline-flex',
-        // justifyContent: 'center',
-        // alignItems: 'center',
-        // '&:hover': {
-        //     backgroundColor: '#EBEBEB',
-        //     borderRadius: '32px',
-        //     boxShadow: '9px 0px 10px -3px rgba(0,0,0,0.3)',
-        // }
     },
 
     datePicker__label: {
@@ -137,51 +113,6 @@ export default makeStyles((theme) => ({
 
     },
 
-    // datePicker__el: {
-    //     padding: '14px 24px',
-    //     position: 'relative',
-    //     '&:hover': {
-    // backgroundColor: '#EBEBEB',
-    // borderRadius: '32px',
-    // boxShadow: '9px 0px 10px -3px rgba(0,0,0,0.3)',
-    //     },
-    //     width: '100%',
-    //     '&>p': {
-    //         margin: '0'
-    //     }
-    // },
-
-    // datePicker__wrapper: {
-    //     // borderRight: '1px solid #2222',
-    //     '&:hover': {
-    //         borderRight: 'none'
-    //     },
-    //     '&>p': {
-    //         margin: '0'
-    //     },
-
-    // },
-
-    // datePicker__el__title: {
-    //     fontSize: '12px',
-    //     lineHeight: '16px',
-    //     fontWeight: 600,
-    //     paddingBottom: '2px',
-    //     paddingLeft: '2px',
-    //     color: '#000'
-    // },
-
-    // datePicker__el__text: {
-    //     fontSize: '14px',
-    //     lineHeight: '18px',
-    //     width: '100%',
-    //     color: '#222222',
-    //     backgroundColor: 'transparent',
-    //     outline: 'none',
-    //     border: 'none'
-    // },
-
-    // End picker
     customer: {
         flex: '2 0 0',
         display: 'flex',
@@ -225,7 +156,8 @@ export default makeStyles((theme) => ({
         color: '#222222',
         backgroundColor: 'transparent',
         outline: 'none',
-        border: 'none'
+        border: 'none',
+        textOverflow: 'ellipsis'
     },
 
     formControl__button: {
@@ -236,7 +168,6 @@ export default makeStyles((theme) => ({
         outline: 'none',
         backgroundColor: theme.palette.secondary.main,
         cursor: 'pointer',
-        // marginRight: '24px'
     },
 
     formControl__button__icon: {

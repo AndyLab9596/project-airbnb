@@ -189,7 +189,9 @@ const SearchBar = () => {
                     <div className={classes.customer__el} onClick={handleOpenMenu}>
                         <div className={classes.customer__el__content}>
                             <p className={classes.customer__title}>Khách</p>
-                            <p className={classes.customer__text}>Thêm khách</p>
+                            <p className={classes.customer__text}>
+                                {numbers.adult === 0 ? 'Thêm khách' : `${numbers.adult + numbers.baby} khách, ${numbers.toddler} em bé`}
+                            </p>
                         </div>
                         <button className={classes.formControl__button}>
                             <SearchIcon className={classes.formControl__button__icon} />
