@@ -3,13 +3,16 @@ import Modal from "@material-ui/core/Modal";
 import CloseIcon from "@material-ui/icons/Close";
 import { useFormik } from "formik";
 import React, { Fragment } from "react";
-import { FaApple, FaFacebook } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
 import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
 import { loginAction } from "../../../store/action/Auth";
 import { createAction } from "../../../store/action/createAction/createAction";
-import { HIDE_MODAL_SIGNIN } from "../../../store/types/AuthType";
+import {
+  HIDE_MODAL_SIGNIN,
+  SHOW_MODAL_SIGNUP,
+} from "../../../store/types/AuthType";
+import LoginWithFacebook from "../FacebookLogin";
+import LoginWithGoogle from "../GoogleLogin";
 import TextFieldComponent from "../TextField";
 import useStyles from "./style";
 
@@ -23,6 +26,10 @@ const ModalSignIn = () => {
   const dispatch = useDispatch();
   const handleClose = () => {
     dispatch(createAction(HIDE_MODAL_SIGNIN));
+  };
+  const handleClickToSignUp = () => {
+    dispatch(createAction(HIDE_MODAL_SIGNIN));
+    dispatch(createAction(SHOW_MODAL_SIGNUP));
   };
   const handleSubmitForm = (e) => {
     e.preventDefault();
@@ -39,21 +46,6 @@ const ModalSignIn = () => {
   });
 
   const classes = useStyles();
-
-  const arrLoginWith = [
-    {
-      name: "Tiếp tục với Facebook",
-      icon: <FaFacebook className={classes.iconFacebook} />,
-    },
-    {
-      name: "Tiếp tục với Google",
-      icon: <FcGoogle />,
-    },
-    {
-      name: "Tiếp tục với Apple",
-      icon: <FaApple />,
-    },
-  ];
 
   return (
     <Fragment>
@@ -102,16 +94,21 @@ const ModalSignIn = () => {
               <Typography variant="span">hoặc</Typography>
             </div>
             <div className={classes.form__continue__login}>
-              {arrLoginWith.map((item, index) => (
-                <div
-                  key={index}
-                  className={classes.form__continue__login__with}
-                >
-                  <div>{item.icon}</div>
-                  <Typography variant="span">{item.name}</Typography>
-                  <div></div>
-                </div>
-              ))}
+              <LoginWithFacebook
+                className={classes.form__continue__login__with}
+              />
+              <LoginWithGoogle
+                className={classes.form__continue__login__with}
+              />
+            </div>
+
+            <div className={classes.linkToSignUp}>
+              <Typography variant="body2">
+                Don't have an account?
+                <Typography variant="span" onClick={handleClickToSignUp}>
+                  Sign Up
+                </Typography>
+              </Typography>
             </div>
           </div>
         </div>

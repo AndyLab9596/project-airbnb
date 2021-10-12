@@ -46,7 +46,7 @@ const ModalSignUp = () => {
   const handleClose = () => {
     dispatch(createAction(HIDE_MODAL_SIGNUP));
   };
-  const handleMoveToLogin = () => {
+  const handleClickToSignIn = () => {
     dispatch(createAction(SHOW_MODAL_SIGNIN));
     handleClose();
   };
@@ -199,7 +199,7 @@ const ModalSignUp = () => {
                   <Typography
                     variant="span"
                     className={classes.form__textLogin}
-                    onClick={handleMoveToLogin}
+                    onClick={handleClickToSignIn}
                   >
                     Login Here
                   </Typography>

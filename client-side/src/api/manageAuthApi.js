@@ -9,7 +9,13 @@ const manageAuthApi = {
   register(data) {
     const url = "/auth/register";
     return axiosClient.post(url, data);
-    // data {name: '', email: '', password: '', phone: '', birthday: '', gender: * chú ý để là true, address: ''}
+    // data {name: '', email: '', password: '', phone: '', birthday: '', gender: true(male), false(fermale), address: ''}
+  },
+
+  getInfoUser(idUser) {
+    const url = `/users/${idUser}`;
+    return axiosClient.get(url);
+    // data {name: '', email: '', password: '', phone: '', birthday: '', gender: true(male), false(fermale), address: ''}
   },
 };
 

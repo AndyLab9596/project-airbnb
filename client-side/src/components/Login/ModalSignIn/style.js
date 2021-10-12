@@ -95,15 +95,18 @@ export default makeStyles((theme) => ({
     border: "2px solid #cecece",
     borderRadius: 8,
     cursor: "pointer",
+    backgroundColor: "#fff",
     "&:hover": {
       border: "2px solid #222222",
     },
-    "& >span": {
-      fontWeight: 600,
-      fontSize: 15,
-    },
   },
-  iconFacebook: {
-    color: "#1877f2",
+  linkToSignUp: {
+    textAlign: "center",
+    margin: "15px 0",
+    "& >p> span": {
+      color: "#6363e8",
+      cursor: "pointer",
+      marginLeft: 5,
+    },
   },
 }));
