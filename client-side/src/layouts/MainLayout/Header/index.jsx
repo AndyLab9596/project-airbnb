@@ -21,6 +21,8 @@ const Header = () => {
 
     // scroll Y to more than 250 -> change background color from transparent to white + hide searchBar -> display appSearch + hide menu content
     // click appSearch while at Y more than 250 -> hide appSearch + display searchBar display menu content
+    // clickAwayListener -> listen to the event of clicking outside appBar component in order to hide the menu content
+    // *Note: clickAwayListener is only active when window.innerHeight is more than 100
 
     const [anchorEl, setAnchorEl] = useState(null);
     const windowWidth = window.innerWidth;
@@ -34,9 +36,12 @@ const Header = () => {
     };
 
     const [scroll, setScroll] = useState(false);
-
-
     const [displaySearchBar, setDisplaySearchBar] = useState(true)
+
+    const handleClickAwayListener = () => {
+        if (!scroll) return;
+        setDisplaySearchBar(false)
+    }
 
     useEffect(() => {
         if (scroll) {
@@ -65,7 +70,7 @@ const Header = () => {
     return (
         <Fragment>
             {/* AppBar */}
-            <ClickAwayListener onClickAway={() => setDisplaySearchBar(false)}>
+            <ClickAwayListener onClickAway={() => handleClickAwayListener()}>
                 <AppBar position="fixed" elevation={0} className={classes.root} >
                     <Toolbar className={classes.navbar__content}>
                         <Box style={{ minWidth: "250px" }}>
@@ -78,17 +83,8 @@ const Header = () => {
                             </a>
                         </Box>
 
-                        {/* <Box className={classes.navbar__content__search} onClick={() => setDisplaySearchBar(prevState => !prevState)}>
-                        <button className={classes.navbar__search__button}>
-                            <h3 className={classes.navbar__search__button__title}>Bắt đầu tìm kiếm</h3>
-                            <div className={classes.navbar__search__button__wrap}>
-                                <SearchIcon className={classes.navbar__search__button__icon} />
-                            </div>
-                        </button>
-                    </Box> */}
 
                         {scroll && !displaySearchBar ? (
-                            // <ClickAwayListener onClickAway={() => setDisplaySearchBar(false)}>
                             <Box className={classes.navbar__content__search}
                                 onClick={() => setDisplaySearchBar(prevState => !prevState)}>
                                 <button className={classes.navbar__search__button}>
@@ -98,7 +94,6 @@ const Header = () => {
                                     </div>
                                 </button>
                             </Box>
-                            // </ClickAwayListener>
                         ) : (
                             <Box
                                 className={scroll
@@ -172,10 +167,6 @@ const Header = () => {
                 <MenuItem className={classes.menu__items}>Tổ chức trải nghiệm</MenuItem>
                 <MenuItem className={classes.menu__items}>Trợ giúp</MenuItem>
             </Menu>
-
-
-
-
         </Fragment>
     );
 };
