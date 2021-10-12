@@ -2,13 +2,14 @@ import {
   Box,
   Chip,
   Container,
+  Dialog,
   Grid,
   Menu,
   Modal,
   Typography,
 } from "@material-ui/core";
 import Switch from "@material-ui/core/Switch";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import useStyles from "./style";
 import Checkbox from "@material-ui/core/Checkbox";
 import Slider from "@material-ui/core/Slider";
@@ -353,21 +354,22 @@ const ListRoom = () => {
         </div>
       </Menu>
       {/* Modal Bộ lọc khác */}
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-        className={classes.root}
-      >
-        <div>
-          <div className={classes.modal__content}>
-            <div className={classes.modal__header}>
-              <h1>12312312</h1>
+      <Fragment>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+        >
+          <div className={classes.root}>
+            <div className={classes.modal__content}>
+              <div className={classes.modal__header}>
+                <h1>12312312</h1>
+              </div>
             </div>
           </div>
-        </div>
-      </Modal>
+        </Modal>
+      </Fragment>
     </Container>
   );
 };
