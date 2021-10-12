@@ -10,16 +10,18 @@ import Profile from "./pages/Profile";
 
 //Components
 import ModalSignUp from "./components/ModalSignUp";
+import ListRoom from "./pages/ListRoom";
 
 function App() {
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <ModalSignUp />
-        {/* <Switch>
+        <Switch>
           <MainLayout path="/" exact Component={Home} />
           <MainLayout path="/profile" exact Component={Profile} />
-        </Switch> */}
+          <MainLayout path="/list" exact Component={ListRoom} />
+        </Switch>
       </ThemeProvider>
     </BrowserRouter>
   );
