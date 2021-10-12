@@ -126,11 +126,14 @@ const Header = () => {
                     </Toolbar>
 
 
-                    {displaySearchBar && (
+                    {/* {displaySearchBar && (
                         <Box className={classes.searchBar}>
                             <SearchBar />
                         </Box>
-                    )}
+                    )} */}
+                    <Box className={classes.searchBar}>
+                        <SearchBar />
+                    </Box>
 
                 </AppBar>
             </ClickAwayListener>

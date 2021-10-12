@@ -135,7 +135,9 @@ const SearchBar = () => {
                                         </div>
                                         <span
                                             className={classes.locationSearch__lists__title}
-                                        >{option.title}</span>
+                                        >
+                                            {option.title}
+                                        </span>
                                     </li>
                                 ))}
                             </ul>

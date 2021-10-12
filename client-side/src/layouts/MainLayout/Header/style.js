@@ -14,8 +14,7 @@ export default makeStyles(theme => ({
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: '8px'
-
+        marginTop: '8px',
     },
     navbar__content__icon: {
         height: '35px',
@@ -56,7 +55,9 @@ export default makeStyles(theme => ({
         color: '#222222',
         outline: 'none',
         border: 'none',
-        backgroundColor: 'transparent'
+        backgroundColor: 'transparent',
+        opacity: props => !props.displaySearchBar ? '1' : '0',
+        transform: props => !props.displaySearchBar ? 'scale(1)' : 'scale(0)'
     },
 
     navbar__search__button: {
@@ -153,19 +154,8 @@ export default makeStyles(theme => ({
         zIndex: 2,
         transformOrigin: '50% 0',
         transition: 'all .3s linear',
-        // transform: props => props.scroll ? 'scale(0)' : 'scale(1)'
-        // transform: props => props.displaySearchBar ? 'scale(1)' : 'scale(0)'
-        // animation: props => props.scroll && 'shrinkEffect 2s linear 1'
+        opacity: props => props.displaySearchBar ? '1' : '0',
+        transform: props => props.displaySearchBar ? 'scale(1)' : 'scale(0)'
     },
-
-    // "@keyframes shrinkEffect": {
-    //     from: {
-    //         transform: 'scale(1)',
-    //     },
-
-    //     to: {
-    //         transform: 'scale(0)'
-    //     }
-    // }
 
 }))
