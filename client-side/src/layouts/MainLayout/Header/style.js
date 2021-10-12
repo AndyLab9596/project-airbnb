@@ -155,6 +155,17 @@ export default makeStyles(theme => ({
         transition: 'all .3s linear',
         // transform: props => props.scroll ? 'scale(0)' : 'scale(1)'
         // transform: props => props.displaySearchBar ? 'scale(1)' : 'scale(0)'
-    }
+        // animation: props => props.scroll && 'shrinkEffect 2s linear 1'
+    },
+
+    // "@keyframes shrinkEffect": {
+    //     from: {
+    //         transform: 'scale(1)',
+    //     },
+
+    //     to: {
+    //         transform: 'scale(0)'
+    //     }
+    // }
 
 }))
