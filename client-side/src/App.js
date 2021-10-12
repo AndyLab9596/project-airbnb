@@ -1,18 +1,26 @@
 import { ThemeProvider } from "@material-ui/styles";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { BrowserRouter, Switch } from "react-router-dom";
+import ModalSignIn from "./components/Login/ModalSignIn";
+//Components
+import ModalSignUp from "./components/Login/ModalSignUp";
 import { theme } from "./constants/config";
 // Layout
 import MainLayout from "./layouts/MainLayout";
 // Pages
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import { getInfoUserAction } from "./store/action/Auth";
 
-//Components
-import ModalSignUp from "./components/Login/ModalSignUp";
-import ModalSignIn from "./components/Login/ModalSignIn";
-
-function App() {
+const App = () => {
+  const idUser = localStorage.getItem("idUser");
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (idUser) {
+      dispatch(getInfoUserAction(idUser));
+    }
+  });
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
@@ -25,6 +33,6 @@ function App() {
       </ThemeProvider>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

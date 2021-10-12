@@ -14,19 +14,21 @@ import React, { Fragment, useEffect, useState } from "react";
 import clsx from "clsx";
 import airbnbIcon from "../../../assets/img/airbnblogo.png";
 import useStyles from "./style";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createAction } from "../../../store/action/createAction/createAction";
 import {
   SHOW_MODAL_SIGNIN,
   SHOW_MODAL_SIGNUP,
 } from "../../../store/types/AuthType";
+import { FAKE_AVATAR } from "../../../constants/config";
 
 const Header = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const windowWidth = window.innerWidth;
   const dispatch = useDispatch();
-
+  const idUser = localStorage.getItem("idUser");
+  const { infoUser } = useSelector((state) => state.AuthReducer);
   const handleOpenMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -93,7 +95,17 @@ const Header = () => {
               className={classes.chip}
               size="medium"
               icon={<MenuOutlinedIcon fontSize="small" />}
-              label={<AccountCircleOutlinedIcon fontSize="medium" />}
+              label={
+                idUser ? (
+                  <img
+                    src={`${FAKE_AVATAR}${infoUser._id}`}
+                    alt="avatar"
+                    className={classes.avatar}
+                  />
+                ) : (
+                  <AccountCircleOutlinedIcon fontSize="medium" />
+                )
+              }
               // onClick={handleClick}
               // onDelete={handleDelete}
               variant="default"

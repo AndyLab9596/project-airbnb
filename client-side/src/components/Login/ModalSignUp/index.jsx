@@ -16,6 +16,7 @@ import moment from "moment";
 import React, { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
+import { registerAction } from "../../../store/action/Auth";
 import { createAction } from "../../../store/action/createAction/createAction";
 import {
   HIDE_MODAL_SIGNUP,
@@ -45,7 +46,7 @@ const ModalSignUp = () => {
   const handleClose = () => {
     dispatch(createAction(HIDE_MODAL_SIGNUP));
   };
-  const handleMoveToLogin = () => {
+  const handleClickToSignIn = () => {
     dispatch(createAction(SHOW_MODAL_SIGNIN));
     handleClose();
   };
@@ -53,6 +54,7 @@ const ModalSignUp = () => {
     e.preventDefault();
 
     if (!formik.isValid) return;
+    dispatch(registerAction(formik.values));
   };
   const formik = useFormik({
     validateOnMount: true,
@@ -197,7 +199,7 @@ const ModalSignUp = () => {
                   <Typography
                     variant="span"
                     className={classes.form__textLogin}
-                    onClick={handleMoveToLogin}
+                    onClick={handleClickToSignIn}
                   >
                     Login Here
                   </Typography>
