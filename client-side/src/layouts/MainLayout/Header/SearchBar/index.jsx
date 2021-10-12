@@ -10,6 +10,7 @@ import { vi } from 'date-fns/locale';
 import React, { Fragment, useState } from 'react';
 import useStyles from './style';
 
+
 const top100Films = [
     { title: 'The Shawshank Redemption', year: 1994 },
     { title: 'The Godfather', year: 1972 },

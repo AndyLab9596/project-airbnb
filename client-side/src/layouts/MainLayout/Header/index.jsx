@@ -10,13 +10,18 @@ import {
 import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
 import LanguageIcon from "@material-ui/icons/Language";
 import MenuOutlinedIcon from "@material-ui/icons/MenuOutlined";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useRef } from "react";
 import airbnbIcon from "../../../assets/img/airbnblogo.png";
 import SearchBar from './SearchBar/index'
 import useStyles from "./style";
 import SearchIcon from '@material-ui/icons/Search';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+
 const Header = () => {
-    const classes = useStyles();
+
+    // scroll Y to more than 250 -> change background color from transparent to white + hide searchBar -> display appSearch + hide menu content
+    // click appSearch while at Y more than 250 -> hide appSearch + display searchBar display menu content
+
     const [anchorEl, setAnchorEl] = useState(null);
     const windowWidth = window.innerWidth;
 
@@ -29,9 +34,22 @@ const Header = () => {
     };
 
     const [scroll, setScroll] = useState(false);
+
+
+    const [displaySearchBar, setDisplaySearchBar] = useState(true)
+
+    useEffect(() => {
+        if (scroll) {
+            setDisplaySearchBar(false)
+        } else {
+            setDisplaySearchBar(true)
+        }
+    }, [scroll])
+
     useEffect(() => {
         const handleScroll = () => {
             setScroll(window.scrollY > 100);
+
         };
         window.addEventListener("scroll", handleScroll);
 
@@ -40,62 +58,89 @@ const Header = () => {
         };
     }, [scroll]);
 
+
+
+    const classes = useStyles({ scroll, displaySearchBar });
+
     return (
         <Fragment>
             {/* AppBar */}
-            <AppBar position="fixed" elevation={0} className={classes.root}>
-                <Toolbar className={classes.navbar__content}>
-                    <Box style={{ minWidth: "250px" }}>
-                        <a href="/" target="_blank" rel="noreferrer">
-                            <img
-                                src={airbnbIcon}
-                                alt="icon"
-                                className={classes.navbar__content__icon}
-                            />
-                        </a>
-                    </Box>
+            <ClickAwayListener onClickAway={() => setDisplaySearchBar(false)}>
+                <AppBar position="fixed" elevation={0} className={classes.root} >
+                    <Toolbar className={classes.navbar__content}>
+                        <Box style={{ minWidth: "250px" }}>
+                            <a href="/" target="_blank" rel="noreferrer">
+                                <img
+                                    src={airbnbIcon}
+                                    alt="icon"
+                                    className={classes.navbar__content__icon}
+                                />
+                            </a>
+                        </Box>
 
-                    {/* <Box
-                        className={scroll
-                            ? `${classes.navbar__content__menu} ${classes.navbar__content__menu__scroll}`
-                            : `${classes.navbar__content__menu}`}>
-                        <span>Nơi ở</span>
-                        <span>Trải nghiệm</span>
-                        <span>Trải nghiệm trực tuyến</span>
-                    </Box> */}
-
-                    <Box className={classes.navbar__content__search}>
+                        {/* <Box className={classes.navbar__content__search} onClick={() => setDisplaySearchBar(prevState => !prevState)}>
                         <button className={classes.navbar__search__button}>
                             <h3 className={classes.navbar__search__button__title}>Bắt đầu tìm kiếm</h3>
                             <div className={classes.navbar__search__button__wrap}>
                                 <SearchIcon className={classes.navbar__search__button__icon} />
                             </div>
                         </button>
-                    </Box>
+                    </Box> */}
 
-                    <div className={scroll ? `${classes.navbar__content__left} ${classes.navbar__content__left__scroll}` : `${classes.navbar__content__left}`}>
-                        <span>Trở thành chủ nhà</span>
-                        <IconButton className={classes.language__icon}>
-                            <LanguageIcon fontSize="small" />
-                        </IconButton>
-                        <Chip
-                            onClick={handleOpenMenu}
-                            className={classes.chip}
-                            size="medium"
-                            icon={<MenuOutlinedIcon fontSize="small" />}
-                            label={<AccountCircleOutlinedIcon fontSize="medium" />}
-                            // onClick={handleClick}
-                            // onDelete={handleDelete}
-                            variant="default"
-                            color="#ffffff"
-                        />
-                    </div>
-                </Toolbar>
-                <Box className={classes.searchBar}>
-                    <SearchBar />
-                </Box>
-            </AppBar>
+                        {scroll && !displaySearchBar ? (
+                            // <ClickAwayListener onClickAway={() => setDisplaySearchBar(false)}>
+                            <Box className={classes.navbar__content__search}
+                                onClick={() => setDisplaySearchBar(prevState => !prevState)}>
+                                <button className={classes.navbar__search__button}>
+                                    <h3 className={classes.navbar__search__button__title}>Bắt đầu tìm kiếm</h3>
+                                    <div className={classes.navbar__search__button__wrap}>
+                                        <SearchIcon className={classes.navbar__search__button__icon} />
+                                    </div>
+                                </button>
+                            </Box>
+                            // </ClickAwayListener>
+                        ) : (
+                            <Box
+                                className={scroll
+                                    ? `${classes.navbar__content__menu} ${classes.navbar__content__menu__scroll}`
+                                    : `${classes.navbar__content__menu}`}>
+                                <span>Nơi ở</span>
+                                <span>Trải nghiệm</span>
+                                <span>Trải nghiệm trực tuyến</span>
+                            </Box>
+                        )}
 
+                        <div className={scroll
+                            ? `${classes.navbar__content__left} ${classes.navbar__content__left__scroll}`
+                            : `${classes.navbar__content__left}`}>
+                            <span>Trở thành chủ nhà</span>
+                            <IconButton className={classes.language__icon}>
+                                <LanguageIcon fontSize="small" />
+                            </IconButton>
+                            <Chip
+                                onClick={handleOpenMenu}
+                                className={classes.chip}
+                                size="medium"
+                                icon={<MenuOutlinedIcon fontSize="small" />}
+                                label={<AccountCircleOutlinedIcon fontSize="medium" />}
+                                // onClick={handleClick}
+                                // onDelete={handleDelete}
+                                variant="default"
+                                color="#ffffff"
+                            />
+                        </div>
+
+                    </Toolbar>
+
+
+                    {displaySearchBar && (
+                        <Box className={classes.searchBar}>
+                            <SearchBar />
+                        </Box>
+                    )}
+
+                </AppBar>
+            </ClickAwayListener>
             {/* Menu Toggle from Chip*/}
             <Menu
                 id="simple-menu"

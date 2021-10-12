@@ -2,20 +2,21 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(theme => ({
     root: {
-        height: '80px',
+        height: props => props.displaySearchBar ? '160px' : '80px',
         width: '100%',
-        margin: 'auto',
+        margin: '0 auto',
         padding: '0 40px',
         paddingBottom: 0,
         marginBottom: 0,
-        backgroundColor: 'transparent'
-
+        backgroundColor: props => props.scroll ? '#fff' : 'transparent'
     },
     navbar__content: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        height: '100%',
+        marginTop: '8px'
+        // marginTop: '32px',
+        // height: '100%',
     },
     navbar__content__icon: {
         height: '35px',
@@ -43,15 +44,20 @@ export default makeStyles(theme => ({
 
     navbar__content__search: {
         display: 'flex',
-        boxShadow: '0px 1px 2px rgb(0 0 0 / 8%), 0px 4px 12px rgb(0 0 0 / 5%)',
+        // boxShadow: '0px 1px 2px rgb(0 0 0 / 8%), 0px 4px 12px rgb(0 0 0 / 5%)',
         color: '#222222',
+        outline: 'none',
+        border: 'none',
+        backgroundColor: 'transparent'
     },
 
     navbar__search__button: {
         display: 'flex',
         alignItems: 'center',
         borderRadius: '40px',
-        width: '300px'
+        width: '300px',
+        outline: 'none',
+        border: 'none'
     },
 
     navbar__search__button__title: {
@@ -119,9 +125,9 @@ export default makeStyles(theme => ({
     },
 
     searchBar: {
+        margin: '0 auto',
         maxWidth: '850px',
-        margin: 'auto',
-
+        zIndex: 2
     }
 
 }))
