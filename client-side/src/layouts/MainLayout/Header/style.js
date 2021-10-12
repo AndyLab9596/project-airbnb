@@ -15,8 +15,7 @@ export default makeStyles(theme => ({
         justifyContent: 'space-between',
         alignItems: 'center',
         marginTop: '8px'
-        // marginTop: '32px',
-        // height: '100%',
+
     },
     navbar__content__icon: {
         height: '35px',
@@ -30,15 +29,24 @@ export default makeStyles(theme => ({
             fontSize: '1rem',
             lineHeight: '20px',
             fontWeight: 400,
-            padding: '10px 16px',
-            color: '#fff',
-            cursor: 'pointer'
-        }
-    },
-
-    navbar__content__menu__scroll: {
-        '& > span': {
-            color: '#000',
+            // padding: '10px 16px',
+            padding: '10px 0',
+            margin: '0 16px',
+            color: props => props.scroll ? '#000' : '#fff',
+            cursor: 'pointer',
+            transition: 'all .3s linear',
+            '&:hover': {
+                opacity: '.7',
+                borderBottom: '1px solid #fff'
+            },
+            '&:nth-child(1)': {
+                fontWeight: 500,
+                borderBottom: '2px solid #fff',
+                // '&:hover': {
+                //     opacity: '1',
+                //     borderBottom: '2px solid #fff'
+                // }
+            },
         }
     },
 
@@ -57,7 +65,8 @@ export default makeStyles(theme => ({
         borderRadius: '40px',
         width: '300px',
         outline: 'none',
-        border: 'none'
+        boxShadow: '0px 1px 2px rgb(0 0 0 / 8%), 0px 4px 12px rgb(0 0 0 / 5%)',
+        backgroundColor: 'transparent'
     },
 
     navbar__search__button__title: {
@@ -92,25 +101,39 @@ export default makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
         '& > span': {
-            marginRight: '8px'
+            marginRight: '8px',
+            color: props => props.scroll ? '#000' : '#fff',
         }
     },
 
-    navbar__content__left__scroll: {
-        '& > span': {
-            color: '#000'
+    navbar__content__left__button: {
+        color: props => props.scroll ? '#000' : '#fff',
+        fontWeight: 400,
+        fontSize: '14px',
+        lineHeight: '18px',
+        outline: 'none',
+        padding: '12px',
+        borderRadius: '22px',
+        textTransform: 'lowercase',
+        '&:hover': {
+            backgroundColor: 'rgba(255, 255, 255, 0.15)',
         }
+    },
+
+    language__wrapper: {
+        color: '#fff',
     },
 
     language__icon: {
-        color: '#fff',
-
+        color: props => props.scroll ? '#000' : '#fff',
+        fontSize: '24px'
     },
 
     chip: {
         height: '42px',
-        borderRadius: '21px'
+        borderRadius: '21px',
     },
+
 
     menu__items: {
         padding: '8px',
@@ -127,7 +150,11 @@ export default makeStyles(theme => ({
     searchBar: {
         margin: '0 auto',
         maxWidth: '850px',
-        zIndex: 2
+        zIndex: 2,
+        transformOrigin: '50% 0',
+        transition: 'all .3s linear',
+        // transform: props => props.scroll ? 'scale(0)' : 'scale(1)'
+        // transform: props => props.displaySearchBar ? 'scale(1)' : 'scale(0)'
     }
 
 }))

@@ -210,9 +210,7 @@ const SearchBar = () => {
                                 overflowY: 'auto'
                             },
                         }}
-
                     >
-
                         <MenuItem className={classes.menu__items}>
                             <div className={classes.count}>
                                 <div className={classes.count__content}>

@@ -1,21 +1,22 @@
 import {
     AppBar,
     Box,
+    Button,
     Chip,
     IconButton,
     Menu,
     MenuItem,
     Toolbar
 } from "@material-ui/core";
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
 import LanguageIcon from "@material-ui/icons/Language";
 import MenuOutlinedIcon from "@material-ui/icons/MenuOutlined";
-import React, { Fragment, useEffect, useState, useRef } from "react";
-import airbnbIcon from "../../../assets/img/airbnblogo.png";
-import SearchBar from './SearchBar/index'
-import useStyles from "./style";
 import SearchIcon from '@material-ui/icons/Search';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import React, { Fragment, useEffect, useState } from "react";
+import airbnbIcon from "../../../assets/img/airbnblogo.png";
+import SearchBar from './SearchBar/index';
+import useStyles from "./style";
 
 const Header = () => {
 
@@ -23,6 +24,8 @@ const Header = () => {
     // click appSearch while at Y more than 250 -> hide appSearch + display searchBar display menu content
     // clickAwayListener -> listen to the event of clicking outside appBar component in order to hide the menu content
     // *Note: clickAwayListener is only active when window.innerHeight is more than 100
+
+    // missing animation
 
     const [anchorEl, setAnchorEl] = useState(null);
     const windowWidth = window.innerWidth;
@@ -83,7 +86,6 @@ const Header = () => {
                             </a>
                         </Box>
 
-
                         {scroll && !displaySearchBar ? (
                             <Box className={classes.navbar__content__search}
                                 onClick={() => setDisplaySearchBar(prevState => !prevState)}>
@@ -96,21 +98,17 @@ const Header = () => {
                             </Box>
                         ) : (
                             <Box
-                                className={scroll
-                                    ? `${classes.navbar__content__menu} ${classes.navbar__content__menu__scroll}`
-                                    : `${classes.navbar__content__menu}`}>
+                                className={classes.navbar__content__menu}>
                                 <span>Nơi ở</span>
                                 <span>Trải nghiệm</span>
                                 <span>Trải nghiệm trực tuyến</span>
                             </Box>
                         )}
 
-                        <div className={scroll
-                            ? `${classes.navbar__content__left} ${classes.navbar__content__left__scroll}`
-                            : `${classes.navbar__content__left}`}>
-                            <span>Trở thành chủ nhà</span>
-                            <IconButton className={classes.language__icon}>
-                                <LanguageIcon fontSize="small" />
+                        <div className={classes.navbar__content__left}>
+                            <Button className={classes.navbar__content__left__button}>Trở thành chủ nhà</Button>
+                            <IconButton className={classes.language__wrapper}>
+                                <LanguageIcon className={classes.language__icon} />
                             </IconButton>
                             <Chip
                                 onClick={handleOpenMenu}
@@ -120,7 +118,7 @@ const Header = () => {
                                 label={<AccountCircleOutlinedIcon fontSize="medium" />}
                                 // onClick={handleClick}
                                 // onDelete={handleDelete}
-                                variant="default"
+                                variant={scroll ? 'outlined' : 'default'}
                                 color="#ffffff"
                             />
                         </div>
