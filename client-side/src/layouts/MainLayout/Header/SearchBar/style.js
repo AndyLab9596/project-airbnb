@@ -83,67 +83,103 @@ export default makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'space-around',
         '& .DateInput_input__focused': {
-            borderBottom: 'none'
+            borderBottom: 'none',
         },
-    },
-
-    datePicker__el: {
-        padding: '14px 24px',
-        position: 'relative',
-
         '&:hover': {
             backgroundColor: '#EBEBEB',
             borderRadius: '32px',
             boxShadow: '9px 0px 10px -3px rgba(0,0,0,0.3)',
-        },
-        // "&::after": {
-        //     content: "''",
-        //     position: 'absolute',
-        //     display: 'block',
-        //     width: '1px',
-        //     height: '50%',
-        //     top: '50%',
-        //     transform: 'translateY(-50%)',
-        //     right: 0,
-        //     backgroundColor: '#222222',
-        //     opacity: .3,
-        //     zIndex: 1,
-        // },
-        width: '100%',
-        '&>p': {
-            margin: '0'
         }
     },
 
-    datePicker__wrapper: {
-        // borderRight: '1px solid #2222',
-        '&:hover': {
-            borderRight: 'none'
-        },
-        '&>p': {
-            margin: '0'
-        },
-
+    datePicker__el: {
+        cursor: 'pointer',
+        margin: 'auto',
+        // display: 'inline-flex',
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        // '&:hover': {
+        //     backgroundColor: '#EBEBEB',
+        //     borderRadius: '32px',
+        //     boxShadow: '9px 0px 10px -3px rgba(0,0,0,0.3)',
+        // }
     },
 
-    datePicker__el__title: {
+    datePicker__label: {
         fontSize: '12px',
         lineHeight: '16px',
         fontWeight: 600,
         paddingBottom: '2px',
         paddingLeft: '2px',
-        color: '#000'
+        color: '#000',
+        width: '100%',
+        margin: '0 auto',
+        textAlign: 'center'
     },
 
-    datePicker__el__text: {
+    datePicker__input: {
         fontSize: '14px',
         lineHeight: '18px',
         width: '100%',
+        // textShadow: "0px 0px 1px #222222",
+        // color: 'transparent',
         color: '#222222',
+        fontWeight: 500,
         backgroundColor: 'transparent',
         outline: 'none',
-        border: 'none'
+        border: 'none',
+        cursor: 'pointer',
+        textAlign: 'center',
+        '&::placeholder': {
+            fontSize: '14px',
+            textAlign: 'center'
+        }
+
     },
+
+    // datePicker__el: {
+    //     padding: '14px 24px',
+    //     position: 'relative',
+    //     '&:hover': {
+    // backgroundColor: '#EBEBEB',
+    // borderRadius: '32px',
+    // boxShadow: '9px 0px 10px -3px rgba(0,0,0,0.3)',
+    //     },
+    //     width: '100%',
+    //     '&>p': {
+    //         margin: '0'
+    //     }
+    // },
+
+    // datePicker__wrapper: {
+    //     // borderRight: '1px solid #2222',
+    //     '&:hover': {
+    //         borderRight: 'none'
+    //     },
+    //     '&>p': {
+    //         margin: '0'
+    //     },
+
+    // },
+
+    // datePicker__el__title: {
+    //     fontSize: '12px',
+    //     lineHeight: '16px',
+    //     fontWeight: 600,
+    //     paddingBottom: '2px',
+    //     paddingLeft: '2px',
+    //     color: '#000'
+    // },
+
+    // datePicker__el__text: {
+    //     fontSize: '14px',
+    //     lineHeight: '18px',
+    //     width: '100%',
+    //     color: '#222222',
+    //     backgroundColor: 'transparent',
+    //     outline: 'none',
+    //     border: 'none'
+    // },
 
     // End picker
     customer: {
@@ -207,16 +243,6 @@ export default makeStyles((theme) => ({
         color: '#fff',
         lineHeight: '48px',
     },
-
-    /////
-
-    // label: {
-    //     display: 'block',
-    // },
-    // input: {
-    //     width: 200,
-    // },
-
 
 
     locationSearch__dropdown: {
@@ -300,6 +326,15 @@ export default makeStyles((theme) => ({
         borderRadius: '32px'
     },
 
+    menu__items: {
+        '&:hover': {
+            backgroundColor: '#fff',
+            '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+
+            },
+        },
+    },
+
     count: {
         display: 'flex',
         alignItems: 'center',
@@ -355,13 +390,5 @@ export default makeStyles((theme) => ({
         backgroundColor: 'rgb(255, 255, 255)',
         borderRadius: '50%'
     }
-
-
-
-
-
-
-
-
 
 }));

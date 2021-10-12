@@ -63,39 +63,52 @@ const SearchBar = () => {
         setAnchorEl(null);
     };
 
-    const [countAdult, setCountAdult] = useState(0);
-    const [countBaby, setCountBaby] = useState(0);
 
-    const [countToddler, setCountToddler] = useState(0);
+    const [numbers, setNumbers] = useState({
+        adult: 0,
+        baby: 0,
+        toddler: 0,
+    })
 
-    const handleAddAdult = () => {
-        if (countAdult > 15) return;
-        setCountAdult(countAdult + 1)
-    }
-    const handleMinusAdult = () => {
-        if (countAdult < 1) return;
-        setCountAdult(countAdult - 1)
+    const addAdult = () => {
+        if (numbers.adult > 15) return;
+        setNumbers({ ...numbers, adult: numbers.adult + 1 })
     }
 
-    const handleAddBaby = () => {
-        if (countBaby > 4) return;
-        setCountBaby(countBaby + 1)
-    }
-    const handleMinusBaby = () => {
-        if (countBaby < 1) return;
-        setCountBaby(countBaby - 1)
+    const minusAdult = () => {
+        if (numbers.adult < 1) return;
+        setNumbers({ ...numbers, adult: numbers.adult - 1 })
     }
 
-    const handleAddToddler = () => {
-        if (countToddler > 4) return;
-        setCountToddler(countToddler + 1)
-    }
-    const handleMinusToddler = () => {
-        if (countToddler < 1) return;
-        setCountToddler(countToddler - 1)
+    const addBaby = () => {
+        if (numbers.baby > 4) return;
+
+        if (numbers.adult === 0) {
+            setNumbers({ ...numbers, baby: numbers.baby + 1, adult: numbers.adult + 1 })
+        } else {
+            setNumbers({ ...numbers, baby: numbers.baby + 1 })
+        }
     }
 
+    const minusBaby = () => {
+        if (numbers.baby < 1) return;
+        setNumbers({ ...numbers, baby: numbers.baby - 1 })
+    }
 
+    const addToddler = () => {
+        if (numbers.toddler > 4) return;
+
+        if (numbers.adult === 0) {
+            setNumbers({ ...numbers, toddler: numbers.toddler + 1, adult: numbers.adult + 1 })
+        } else {
+            setNumbers({ ...numbers, toddler: numbers.toddler + 1 })
+        }
+    }
+
+    const minusToddler = () => {
+        if (numbers.toddler < 1) return;
+        setNumbers({ ...numbers, toddler: numbers.toddler - 1 })
+    }
 
 
     return (
@@ -143,25 +156,25 @@ const SearchBar = () => {
                             }}
                             renderInput={(startProps, endProps) => (
                                 <React.Fragment>
-                                    <div>
-                                        <label htmlFor="" className={classes.locationSearch__label}>
+                                    <div className={classes.datePicker__el}>
+                                        <p className={classes.datePicker__label}>
                                             Nhận phòng
-                                        </label>
+                                        </p>
                                         <input
                                             ref={startProps.inputRef}
                                             {...startProps.inputProps}
-                                            className={classes.locationSearch__input}
+                                            className={classes.datePicker__input}
                                             placeholder="Thêm ngày"
                                         />
                                     </div>
-                                    <div>
-                                        <label htmlFor="" className={classes.locationSearch__label}>
+                                    <div className={classes.datePicker__el}>
+                                        <p className={classes.datePicker__label}>
                                             Trả phòng
-                                        </label>
+                                        </p>
                                         <input
                                             ref={endProps.inputRef}
                                             {...endProps.inputProps}
-                                            className={classes.locationSearch__input}
+                                            className={classes.datePicker__input}
                                             placeholder="Thêm ngày"
                                         />
                                     </div>
@@ -185,7 +198,7 @@ const SearchBar = () => {
                     <Menu
                         id="simple-menu"
                         anchorReference="anchorPosition"
-                        anchorPosition={{ top: 140, left: windowWidth - 270 }}
+                        anchorPosition={{ top: 140, left: windowWidth - 290 }}
                         anchorOrigin={{
                             vertical: "bottom",
                             horizontal: "right",
@@ -211,6 +224,8 @@ const SearchBar = () => {
                             },
                         }}
                     >
+
+
                         <MenuItem className={classes.menu__items}>
                             <div className={classes.count}>
                                 <div className={classes.count__content}>
@@ -218,13 +233,13 @@ const SearchBar = () => {
                                     <p>Từ 13 tuổi trở lên</p>
                                 </div>
                                 <div className={classes.count__action}>
-                                    <button disabled={countAdult < 1} className={classes.count__action__button} onClick={() => handleMinusAdult()} >
+                                    <button className={classes.count__action__button} onClick={() => minusAdult()} >
                                         <span>-</span>
                                     </button>
                                     <span className={classes.count__action__display}>
-                                        {countAdult}
+                                        {numbers.adult}
                                     </span>
-                                    <button className={classes.count__action__button} onClick={() => handleAddAdult()}>
+                                    <button className={classes.count__action__button} onClick={() => addAdult()}>
                                         <span>+</span>
                                     </button>
                                 </div>
@@ -238,11 +253,11 @@ const SearchBar = () => {
                                     <p>Độ tuổi 2-12</p>
                                 </div>
                                 <div className={classes.count__action}>
-                                    <button className={classes.count__action__button} onClick={() => handleMinusBaby()}>
+                                    <button className={classes.count__action__button} onClick={() => minusBaby()}>
                                         <span>-</span>
                                     </button>
-                                    <span className={classes.count__action__display}>{countBaby}</span>
-                                    <button className={classes.count__action__button} onClick={() => handleAddBaby()}>
+                                    <span className={classes.count__action__display}>{numbers.baby}</span>
+                                    <button className={classes.count__action__button} onClick={() => addBaby()}>
                                         <span>+</span>
                                     </button>
                                 </div>
@@ -256,22 +271,24 @@ const SearchBar = () => {
                                     <p>Dưới 2 tuổi</p>
                                 </div>
                                 <div className={classes.count__action}>
-                                    <button disabled={countToddler < 1} className={classes.count__action__button} onClick={() => handleMinusToddler()}>
+                                    <button className={classes.count__action__button} onClick={() => minusToddler()}>
                                         <span>-</span>
                                     </button>
-                                    <span className={classes.count__action__display}>{countToddler}</span>
-                                    <button className={classes.count__action__button} onClick={() => handleAddToddler()}>
+                                    <span className={classes.count__action__display}>{numbers.toddler}</span>
+                                    <button className={classes.count__action__button} onClick={() => addToddler()}>
                                         <span>+</span>
                                     </button>
                                 </div>
                             </div>
                         </MenuItem>
+
+
                     </Menu>
                 </div>
 
             </form>
 
-        </Fragment>
+        </Fragment >
     );
 };
 
