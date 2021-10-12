@@ -21,14 +21,22 @@ import {
   SHOW_MODAL_SIGNUP,
 } from "../../../store/types/AuthType";
 import { FAKE_AVATAR } from "../../../constants/config";
+import { useHistory } from "react-router";
 
 const Header = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const windowWidth = window.innerWidth;
   const dispatch = useDispatch();
+  const history = useHistory();
   const idUser = localStorage.getItem("idUser");
   const { infoUser } = useSelector((state) => state.AuthReducer);
+  const handleLogout = () => {
+    setAnchorEl(null);
+    localStorage.removeItem("idUser");
+    history.push("/");
+    dispatch(createAction(SHOW_MODAL_SIGNIN));
+  };
   const handleOpenMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -140,15 +148,38 @@ const Header = () => {
           },
         }}
       >
-        <MenuItem className={classes.menu__items} onClick={ShowModalSignIn}>
-          Đăng nhập
-        </MenuItem>
-        <MenuItem className={classes.menu__items} onClick={ShowModalSignUp}>
-          Đăng Ký
-        </MenuItem>
+        {infoUser ? null : (
+          <>
+            {" "}
+            <MenuItem className={classes.menu__items} onClick={ShowModalSignIn}>
+              Đăng nhập
+            </MenuItem>
+            <MenuItem className={classes.menu__items} onClick={ShowModalSignUp}>
+              Đăng Ký
+            </MenuItem>
+          </>
+        )}
         <MenuItem className={classes.menu__items}>Cho thuê nhà</MenuItem>
         <MenuItem className={classes.menu__items}>Tổ chức trải nghiệm</MenuItem>
+
+        {infoUser && (
+          <MenuItem
+            onClick={() => {
+              history.push("/profile");
+              setAnchorEl(null);
+            }}
+            className={classes.menu__items}
+          >
+            Tài Khoản
+          </MenuItem>
+        )}
         <MenuItem className={classes.menu__items}>Trợ giúp</MenuItem>
+
+        {infoUser && (
+          <MenuItem onClick={handleLogout} className={classes.menu__items}>
+            Đăng xuất
+          </MenuItem>
+        )}
       </Menu>
     </Fragment>
   );
