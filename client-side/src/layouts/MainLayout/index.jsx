@@ -4,6 +4,7 @@ import Footer from './Footer';
 import Header from './Header';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
+import HeaderMobile from './HeaderMobile';
 
 const MainLayout = (props) => {
 
@@ -19,7 +20,7 @@ const MainLayout = (props) => {
                     {isDesktop ? (
                         <Header {...propsRoute} />
                     ) : (
-                        'Hello'
+                        <HeaderMobile {...propsRoute} />
                     )}
 
                     <Component {...propsRoute} />
