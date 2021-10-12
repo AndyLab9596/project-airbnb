@@ -1,20 +1,30 @@
 import {
   Box,
   Chip,
-  Container,
-  Dialog,
   Grid,
+  IconButton,
   Menu,
   Modal,
   Typography,
 } from "@material-ui/core";
-import Switch from "@material-ui/core/Switch";
-import React, { Fragment, useState } from "react";
-import useStyles from "./style";
+import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import Slider from "@material-ui/core/Slider";
+import Switch from "@material-ui/core/Switch";
+import AddIcon from "@material-ui/icons/Add";
+import CloseIcon from "@material-ui/icons/Close";
+import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
+import RemoveIcon from "@material-ui/icons/Remove";
+import StarRateOutlinedIcon from "@material-ui/icons/StarRateOutlined";
+import GoogleMapReact from "google-map-react";
+import React, { Fragment, useState } from "react";
+import useStyles from "./style";
+import mapStyles from "./mapStyles";
 const ListRoom = () => {
   const classes = useStyles();
+
+  const [coords, setCoords] = useState({ lat: 12.270371, lng: 109.204196 });
+
   //State Hủy miễn phí
   const [anchorEl, setAnchorEl] = useState(null);
   //State Loại nơi ở
@@ -93,10 +103,11 @@ const ListRoom = () => {
       [event.target.name]: event.target.checked,
     });
   };
+
   return (
-    <Container maxWidth="home" style={{ marginTop: 50 }}>
+    <div style={{ marginTop: 50 }}>
       <Grid container>
-        <Grid item lg={6}>
+        <Grid item lg={6} style={{ padding: "0 25px" }}>
           <Box>
             <Typography>Hơn 300 chỗ ở</Typography>
             <Typography>Chỗ ở tại khu vực bản đồ đã chọn</Typography>
@@ -148,8 +159,115 @@ const ListRoom = () => {
               />
             </Box>
           </Box>
+          <Box className={classes.check__info} style={{ display: "flex" }}>
+            <Typography>
+              Kiểm tra lại quy định hạn chế đi lại trong đại dịch COVID-19 trước
+              khi đặt.
+            </Typography>
+            <Typography>Tìm hiểu thêm</Typography>
+          </Box>
+          <Box>
+            <div style={{ padding: "20px 0" }}>
+              <Grid container>
+                <Grid item lg={5}>
+                  <img
+                    src="https://a0.muscache.com/im/pictures/miso/Hosting-37995187/original/ee69bf19-153c-4739-bd23-0de4f822953c.jpeg?im_w=1200"
+                    alt="room"
+                    style={{ width: "100%", borderRadius: "10px" }}
+                  />
+                </Grid>
+                <Grid item lg={7}>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div>
+                      <Typography>
+                        Toàn bộ căn hộ cho thuê tại Thành phố Nha Trang
+                      </Typography>
+                      <Typography>
+                        Amazing seaview home with sauna 2 bedroom
+                      </Typography>
+                    </div>
+                    <div>
+                      <FavoriteBorderOutlinedIcon />
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      marginTop: 11,
+                      width: 32,
+                      borderTop: "1px solid rgb(221, 221, 221)",
+                    }}
+                  ></div>
+                  <div style={{ marginTop: 9 }}>
+                    <ul style={{ display: "flex", margin: 0 }}>
+                      <li>4 khách</li>
+                      <li>2 phong ngủ</li>
+                      <li>2 giường</li>
+                    </ul>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "flex-end",
+                      flexGrow: 1,
+                      height: "95px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <StarRateOutlinedIcon style={{ color: "red" }} />
+                      <Typography>4.82</Typography>
+                      <Typography>(17 đánh giá)</Typography>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      $22 / Đêm
+                    </div>
+                  </div>
+                </Grid>
+              </Grid>
+            </div>
+          </Box>
         </Grid>
-        <Grid item lg={6}></Grid>
+        <Grid item lg={6}>
+          <div style={{ height: "85vh", width: "100%" }}>
+            <GoogleMapReact
+              bootstrapURLKeys={{
+                key: "AIzaSyCg9PkLEPcSDdeySq6iHC_YC4m-67XP_Rk",
+              }}
+              defaultCenter={coords}
+              center={coords}
+              defaultZoom={14}
+              margin={[50, 50, 50, 50]}
+              options={{
+                disableDefaultUI: true,
+                zoomControl: true,
+                styles: mapStyles,
+              }}
+              // onChange={(e) => {
+              //   setCoords({ lat: e.center.lat, lng: e.center.lng });
+              //   setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw });
+              // }}
+              // onChildClick={(child) => setChildClicked(child)}
+            ></GoogleMapReact>
+          </div>
+        </Grid>
       </Grid>
       {/* Menu hủy miễn phí */}
       <Menu
@@ -354,23 +472,519 @@ const ListRoom = () => {
         </div>
       </Menu>
       {/* Modal Bộ lọc khác */}
+
       <Fragment>
         <Modal
           open={open}
           onClose={handleClose}
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
+          className={classes.modal}
         >
           <div className={classes.root}>
             <div className={classes.modal__content}>
               <div className={classes.modal__header}>
-                <h1>12312312</h1>
+                <IconButton className={classes.icon} onClick={handleClose}>
+                  <CloseIcon />
+                </IconButton>
+                <Typography variant="body2">Bộ lọc khác</Typography>
+                <div></div>
               </div>
+
+              <div
+                style={{
+                  overflowX: "hidden",
+                  paddingRight: "25px",
+                  paddingLeft: "25px",
+                }}
+              >
+                <div className={classes.modal__bedroom}>
+                  <Typography>Phòng và phòng ngủ</Typography>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      padding: "12px 0",
+                    }}
+                  >
+                    <Typography>Giường</Typography>
+                    <div className={classes.modal__bedroom__item}>
+                      <button className={classes.button}>
+                        <AddIcon />
+                      </button>
+                      <Typography style={{ padding: "0 15px" }}>1</Typography>
+                      <button className={classes.button}>
+                        <RemoveIcon />
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      padding: "12px 0",
+                    }}
+                  >
+                    <Typography>Phòng ngủ</Typography>
+                    <div className={classes.modal__bedroom__item}>
+                      <button className={classes.button}>
+                        <AddIcon />
+                      </button>
+                      <Typography style={{ padding: "0 15px" }}>1</Typography>
+                      <button className={classes.button}>
+                        <RemoveIcon />
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      padding: "12px 0",
+                    }}
+                  >
+                    <Typography>Phòng tắm</Typography>
+                    <div className={classes.modal__bedroom__item}>
+                      <button className={classes.button}>
+                        <AddIcon />
+                      </button>
+                      <Typography style={{ padding: "0 15px" }}>1</Typography>
+                      <button className={classes.button}>
+                        <RemoveIcon />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={classes.modal__another}>
+                  <Typography>Lựa chọn khác</Typography>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div>
+                      <Typography>Chủ nhà siêu cấp</Typography>
+                      <Typography>
+                        Ở cùng với các chủ nhà được công nhận
+                      </Typography>
+                      <Typography>Tìm hiểu thêm</Typography>
+                    </div>
+                    <div>
+                      <Switch
+                        // checked={state.checkedA}
+                        // onChange={handleChangeSwitch}
+                        name="checkedA"
+                        inputProps={{ "aria-label": "secondary checkbox" }}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Typography>Hỗ trợ người có nhu cầu đặc biệt</Typography>
+                    <Typography>
+                      Tìm một nơi ở đáp ứng nhu cầu di chuyển của bạn
+                    </Typography>
+                    <Typography>Chọn tính năng nơi bạn ở</Typography>
+                  </div>
+                </div>
+
+                <div className={classes.modal__convenient}>
+                  <Typography>Tiện nghi</Typography>
+                  <div>
+                    <Grid container>
+                      <Grid item lg={6}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "centet",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Checkbox
+                            // checked={checked}
+                            // onChange={handleChangeCheckBox}
+                            inputProps={{ "aria-label": "primary checkbox" }}
+                          />
+                          <Typography>Bếp</Typography>
+                        </div>
+                      </Grid>
+                      <Grid item lg={6}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "centet",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Checkbox
+                            // checked={checked}
+                            // onChange={handleChangeCheckBox}
+                            inputProps={{ "aria-label": "primary checkbox" }}
+                          />
+                          <Typography>Hệ thống sưởi</Typography>
+                        </div>
+                      </Grid>
+                      <Grid item lg={6}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "centet",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Checkbox
+                            // checked={checked}
+                            // onChange={handleChangeCheckBox}
+                            inputProps={{ "aria-label": "primary checkbox" }}
+                          />
+                          <Typography>Điều hòa nhiệt độ</Typography>
+                        </div>
+                      </Grid>
+                      <Grid item lg={6}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "centet",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Checkbox
+                            // checked={checked}
+                            // onChange={handleChangeCheckBox}
+                            inputProps={{ "aria-label": "primary checkbox" }}
+                          />
+                          <Typography>Máy giặt</Typography>
+                        </div>
+                      </Grid>
+                    </Grid>
+                    <div>
+                      <Typography>Hiển thị tất cả tiện nghi</Typography>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={classes.modal__convenient}>
+                  <Typography>Tiện ích</Typography>
+                  <div>
+                    <Grid container>
+                      <Grid item lg={6}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "centet",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Checkbox
+                            // checked={checked}
+                            // onChange={handleChangeCheckBox}
+                            inputProps={{ "aria-label": "primary checkbox" }}
+                          />
+                          <Typography>Chỗ đỗ xe miễn phí tại nơi ở</Typography>
+                        </div>
+                      </Grid>
+                      <Grid item lg={6}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "centet",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Checkbox
+                            // checked={checked}
+                            // onChange={handleChangeCheckBox}
+                            inputProps={{ "aria-label": "primary checkbox" }}
+                          />
+                          <Typography>Phòng tập thể hình</Typography>
+                        </div>
+                      </Grid>
+                      <Grid item lg={6}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "centet",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Checkbox
+                            // checked={checked}
+                            // onChange={handleChangeCheckBox}
+                            inputProps={{ "aria-label": "primary checkbox" }}
+                          />
+                          <Typography>Bồn tắm nước nóng</Typography>
+                        </div>
+                      </Grid>
+                      <Grid item lg={6}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "centet",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Checkbox
+                            // checked={checked}
+                            // onChange={handleChangeCheckBox}
+                            inputProps={{ "aria-label": "primary checkbox" }}
+                          />
+                          <Typography>Bể bơi</Typography>
+                        </div>
+                      </Grid>
+                    </Grid>
+                    <div>
+                      <Typography>Hiển thị tất cả các tiện ích</Typography>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={classes.modal__convenient}>
+                  <Typography>Loại nhà/phòng</Typography>
+                  <div>
+                    <Grid container>
+                      <Grid item lg={6}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "centet",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Checkbox
+                            // checked={checked}
+                            // onChange={handleChangeCheckBox}
+                            inputProps={{ "aria-label": "primary checkbox" }}
+                          />
+                          <Typography>Nhà</Typography>
+                        </div>
+                      </Grid>
+                      <Grid item lg={6}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "centet",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Checkbox
+                            // checked={checked}
+                            // onChange={handleChangeCheckBox}
+                            inputProps={{ "aria-label": "primary checkbox" }}
+                          />
+                          <Typography>Căn hộ</Typography>
+                        </div>
+                      </Grid>
+                      <Grid item lg={6}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "centet",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Checkbox
+                            // checked={checked}
+                            // onChange={handleChangeCheckBox}
+                            inputProps={{ "aria-label": "primary checkbox" }}
+                          />
+                          <Typography>Chỗ nghỉ phục vụ bữa sáng</Typography>
+                        </div>
+                      </Grid>
+                      <Grid item lg={6}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "centet",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Checkbox
+                            // checked={checked}
+                            // onChange={handleChangeCheckBox}
+                            inputProps={{ "aria-label": "primary checkbox" }}
+                          />
+                          <Typography>Khách sạn boutique</Typography>
+                        </div>
+                      </Grid>
+                    </Grid>
+                    <div>
+                      <Typography>Hiển thị tất cả các loại chỗ ở</Typography>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={classes.modal__convenient}>
+                  <Typography>Nơi ở độc đáo</Typography>
+                  <div>
+                    <Grid container>
+                      <Grid item lg={6}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "centet",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Checkbox
+                            // checked={checked}
+                            // onChange={handleChangeCheckBox}
+                            inputProps={{ "aria-label": "primary checkbox" }}
+                          />
+                          <Typography>Hải đăng</Typography>
+                        </div>
+                      </Grid>
+                      <Grid item lg={6}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "centet",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Checkbox
+                            // checked={checked}
+                            // onChange={handleChangeCheckBox}
+                            inputProps={{ "aria-label": "primary checkbox" }}
+                          />
+                          <Typography>Lâu đài</Typography>
+                        </div>
+                      </Grid>
+                      <Grid item lg={6}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "centet",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Checkbox
+                            // checked={checked}
+                            // onChange={handleChangeCheckBox}
+                            inputProps={{ "aria-label": "primary checkbox" }}
+                          />
+                          <Typography>Nhà nghỉ giữa thiên nhiên</Typography>
+                        </div>
+                      </Grid>
+                      <Grid item lg={6}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "centet",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Checkbox
+                            // checked={checked}
+                            // onChange={handleChangeCheckBox}
+                            inputProps={{ "aria-label": "primary checkbox" }}
+                          />
+                          <Typography>Nhà nhỏ</Typography>
+                        </div>
+                      </Grid>
+                    </Grid>
+                    <div>
+                      <Typography>Hiển thị mọi nơi ở độc đáo</Typography>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={classes.modal__convenient}>
+                  <Typography>Nội quy nhà</Typography>
+                  <div>
+                    <Grid container>
+                      <Grid item lg={6}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "centet",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Checkbox
+                            // checked={checked}
+                            // onChange={handleChangeCheckBox}
+                            inputProps={{ "aria-label": "primary checkbox" }}
+                          />
+                          <Typography>Cho phép thú cưng</Typography>
+                        </div>
+                      </Grid>
+                      <Grid item lg={6}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "centet",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Checkbox
+                            // checked={checked}
+                            // onChange={handleChangeCheckBox}
+                            inputProps={{ "aria-label": "primary checkbox" }}
+                          />
+                          <Typography>Cho phép hút thuốc</Typography>
+                        </div>
+                      </Grid>
+                    </Grid>
+                  </div>
+                </div>
+
+                <div className={classes.modal__convenient}>
+                  <Typography>Ngôn ngữ chủ nhà</Typography>
+                  <div>
+                    <Grid container>
+                      <Grid item lg={6}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "centet",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Checkbox
+                            // checked={checked}
+                            // onChange={handleChangeCheckBox}
+                            inputProps={{ "aria-label": "primary checkbox" }}
+                          />
+                          <Typography>Tiếng Anh</Typography>
+                        </div>
+                      </Grid>
+                      <Grid item lg={6}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "centet",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Checkbox
+                            // checked={checked}
+                            // onChange={handleChangeCheckBox}
+                            inputProps={{ "aria-label": "primary checkbox" }}
+                          />
+                          <Typography>Tiếng Việt</Typography>
+                        </div>
+                      </Grid>
+                    </Grid>
+                  </div>
+                </div>
+
+                {/*  */}
+              </div>
+
+              {/* modal footer */}
+              <div className={classes.modal__footer}>
+                <Button>Xóa tất cả</Button>
+                <Button>Hiển thị hơn 300 chỗ ở</Button>
+              </div>
+
+              {/*  */}
             </div>
           </div>
         </Modal>
       </Fragment>
-    </Container>
+    </div>
   );
 };
 

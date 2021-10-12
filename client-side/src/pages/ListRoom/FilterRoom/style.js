@@ -1,44 +1,12 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { underLine } from '../Profile/underline';
+import { underLine } from '../../Profile/underline';
+
 export default makeStyles(theme => ({
 
-    slider: {
-        width: 100,
-        color: "#f9ab00",
-        marginTop: "25px",
-        "& .MuiSlider-root": {
-            padding: 0,
-        },
-        [theme.breakpoints.down("sm")]: {
-            width: 150,
-        },
-    },
+
     modal: {
-
+        
     },
-    root: {
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        justifyContent: "center",
-        backgroundColor: "rgb(34,34,34,0.5)",
-
-    },
-
-    check__info: {
-        display: "flex",
-        padding:"25px 0",
-        ...underLine
-    },
-
-
-
-
-
-
-
-
-
     modal__content: {
         width: "100%",
         maxWidth: 764,
@@ -104,20 +72,4 @@ export default makeStyles(theme => ({
         padding: "20px 0",
         ...underLine
     },
-
-
-
-    modal__footer: {
-        borderTop: "1px solid rgb(235, 235, 235) !important",
-        display: "flex",
-        padding: "16px 24px",
-        alignItems: "center",
-        justifyContent: "space-between",
-        fontSize: "16px",
-        lineHeight: "20px"
-
-    },
-
-
-
 }))
