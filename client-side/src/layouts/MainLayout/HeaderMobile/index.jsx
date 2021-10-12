@@ -1,10 +1,9 @@
-import React, { Fragment, useState } from 'react';
-import SearchIcon from '@material-ui/icons/Search';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import SearchIcon from '@material-ui/icons/Search';
+import React, { Fragment, useState } from 'react';
 import useStyles from "./style";
-import { Button } from '@material-ui/core';
 
 
 const HeaderMobile = () => {
@@ -17,18 +16,13 @@ const HeaderMobile = () => {
             <div className={classes.overlay}>
                 <div className={classes.overlay__wrapper}>
                     <div className={classes.overlay__searchBar}>
-
                         <button className={classes.overlay__searchBar__button} onClick={() => setShow(false)} >
                             <ChevronLeftIcon />
                         </button>
                         <div className={classes.overlay__searchBar__inputField}>
                             <input type="text" placeholder="Bạn muốn đi đâu?" />
-
                         </div>
-
                     </div>
-                    {/* <ChevronLeftIcon className={classes.overlay__icon} />
-                    <input type="text" className={classes.overlay__input} /> */}
                 </div>
             </div>
 
