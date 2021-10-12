@@ -9,14 +9,14 @@ const MainLayout = (props) => {
 
     const { Component, redirectPath, ...restProps } = props;
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.up('md'))
+    const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
 
 
     return (
         <Route {...restProps} render={(propsRoute) => {
             return (
                 <Fragment>
-                    {isMobile ? (
+                    {isDesktop ? (
                         <Header {...propsRoute} />
                     ) : (
                         'Hello'

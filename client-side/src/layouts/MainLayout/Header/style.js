@@ -16,6 +16,15 @@ export default makeStyles(theme => ({
         alignItems: 'center',
         marginTop: '8px',
     },
+
+    navbar__content__right: {
+        minWidth: "fix-content",
+        marginRight: '8px',
+        [theme.breakpoints.up("xl")]: {
+            minWidth: "250px",
+        },
+    },
+
     navbar__content__icon: {
         height: '35px',
     },
@@ -25,7 +34,13 @@ export default makeStyles(theme => ({
         maxWidth: 'fit-content',
         alignItems: 'center',
         '& > span': {
-            fontSize: '1rem',
+            fontSize: '12px',
+            [theme.breakpoints.up("lg")]: {
+                fontSize: '14px',
+            },
+            [theme.breakpoints.up("xl")]: {
+                fontSize: '16px',
+            },
             lineHeight: '20px',
             fontWeight: 400,
             // padding: '10px 16px',
@@ -110,12 +125,21 @@ export default makeStyles(theme => ({
     navbar__content__left__button: {
         color: props => props.scroll ? '#000' : '#fff',
         fontWeight: 400,
-        fontSize: '14px',
+        fontSize: '12px',
+        [theme.breakpoints.up("lg")]: {
+            fontSize: '14px',
+        },
+        [theme.breakpoints.up("xl")]: {
+            fontSize: '16px',
+        },
         lineHeight: '18px',
         outline: 'none',
         padding: '12px',
         borderRadius: '22px',
         textTransform: 'lowercase',
+        minWidth: '150px',
+        display: 'flex',
+        flexWrap: 'noWrap',
         '&:hover': {
             backgroundColor: 'rgba(255, 255, 255, 0.15)',
         }

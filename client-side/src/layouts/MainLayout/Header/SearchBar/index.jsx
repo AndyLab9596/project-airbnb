@@ -1,15 +1,18 @@
-import { Menu, MenuItem } from '@material-ui/core';
+import { Menu, MenuItem, TextField } from '@material-ui/core';
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import SearchIcon from '@material-ui/icons/Search';
 import useAutocomplete from '@material-ui/lab/useAutocomplete';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import DateRangePicker from '@mui/lab/DateRangePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import MobileDateRangePicker from '@mui/lab/MobileDateRangePicker';
 import { vi } from 'date-fns/locale';
 // import {} from 'moment/locale/vi'
 import React, { Fragment, useState } from 'react';
 import useStyles from './style';
-
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { DesktopDateRangePicker } from '@mui/lab';
 
 const top100Films = [
     { title: 'The Shawshank Redemption', year: 1994 },
@@ -26,9 +29,9 @@ const top100Films = [
 ]
 
 
-const SearchBar = () => {
+const SearchBar = ({ isDesktop }) => {
     const classes = useStyles();
-    // const viMoment = moment.locale('vi')
+
     const {
         getRootProps,
         getInputLabelProps,
@@ -53,6 +56,9 @@ const SearchBar = () => {
     };
     const [value, setValue] = useState([null, null]);
     const windowWidth = window.innerWidth;
+
+    const menuLeftAnchor = isDesktop ? windowWidth - 300 : windowWidth - 100;
+
     const [anchorEl, setAnchorEl] = useState(null);
 
     const handleOpenMenu = (event) => {
@@ -62,7 +68,6 @@ const SearchBar = () => {
     const handleCloseMenu = () => {
         setAnchorEl(null);
     };
-
 
     const [numbers, setNumbers] = useState({
         adult: 0,
@@ -149,7 +154,7 @@ const SearchBar = () => {
                 {/* Date picker */}
                 <div className={classes.datePicker}>
                     <LocalizationProvider dateAdapter={AdapterDateFns} locale={vi} >
-                        <DateRangePicker
+                        <DesktopDateRangePicker
                             disablePast
                             className={classes.dateRangePicker}
                             value={value}
@@ -202,7 +207,7 @@ const SearchBar = () => {
                     <Menu
                         id="simple-menu"
                         anchorReference="anchorPosition"
-                        anchorPosition={{ top: 140, left: windowWidth - 290 }}
+                        anchorPosition={{ top: 160, left: menuLeftAnchor }}
                         anchorOrigin={{
                             vertical: "bottom",
                             horizontal: "right",

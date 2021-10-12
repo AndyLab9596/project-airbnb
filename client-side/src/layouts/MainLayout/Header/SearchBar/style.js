@@ -4,7 +4,10 @@ export default makeStyles((theme) => ({
     root: {
         position: 'relative',
         height: '66px',
-        minWidth: '800px',
+        minWidth: '300px',
+        [theme.breakpoints.up("lg")]: {
+            minWidth: '800px',
+        },
         backgroundColor: '#fff',
         width: '100%',
         boxShadow: '0px 16px 32px rgb(0 0 0 / 15%), 0px 3px 8px rgb(0 0 0 / 10%) ',
@@ -249,7 +252,7 @@ export default makeStyles((theme) => ({
 
     dateRangePicker: {
         marginTop: '24px',
-        minWidth: '500px',
+        // minWidth: '500px',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

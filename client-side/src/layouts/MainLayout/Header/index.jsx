@@ -15,8 +15,11 @@ import MenuOutlinedIcon from "@material-ui/icons/MenuOutlined";
 import SearchIcon from '@material-ui/icons/Search';
 import React, { Fragment, useEffect, useState } from "react";
 import airbnbIcon from "../../../assets/img/airbnblogo.png";
+import airbnbRedIcon from "../../../assets/img/airbnbRedIcon.png";
 import SearchBar from './SearchBar/index';
 import useStyles from "./style";
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const Header = () => {
 
@@ -29,6 +32,10 @@ const Header = () => {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const windowWidth = window.innerWidth;
+    const theme = useTheme();
+    const isDesktop = useMediaQuery(theme.breakpoints.up('xl'))
+    // const anchorCoors = isDesktop ? `${windowWidth - 180}` : `${windowWidth - 80} `;
+
 
     const handleOpenMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -76,10 +83,10 @@ const Header = () => {
             <ClickAwayListener onClickAway={() => handleClickAwayListener()}>
                 <AppBar position="fixed" elevation={0} className={classes.root} >
                     <Toolbar className={classes.navbar__content}>
-                        <Box style={{ minWidth: "250px" }}>
+                        <Box className={classes.navbar__content__right}>
                             <a href="/" target="_blank" rel="noreferrer">
                                 <img
-                                    src={airbnbIcon}
+                                    src={isDesktop ? airbnbIcon : airbnbRedIcon}
                                     alt="icon"
                                     className={classes.navbar__content__icon}
                                 />
@@ -125,14 +132,8 @@ const Header = () => {
 
                     </Toolbar>
 
-
-                    {/* {displaySearchBar && (
-                        <Box className={classes.searchBar}>
-                            <SearchBar />
-                        </Box>
-                    )} */}
                     <Box className={classes.searchBar}>
-                        <SearchBar />
+                        <SearchBar isDesktop={isDesktop} />
                     </Box>
 
                 </AppBar>
