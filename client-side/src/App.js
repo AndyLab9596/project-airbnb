@@ -11,6 +11,7 @@ import MainLayout from "./layouts/MainLayout";
 // Pages
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import Detail from "./pages/Detail";
 import { getInfoUserAction } from "./store/action/Auth";
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
         <Switch>
           <MainLayout path="/" exact Component={Home} />
           <MainLayout path="/profile" exact Component={Profile} />
+          <MainLayout path="/detail" exact Component={Detail} />
         </Switch>
       </ThemeProvider>
     </BrowserRouter>

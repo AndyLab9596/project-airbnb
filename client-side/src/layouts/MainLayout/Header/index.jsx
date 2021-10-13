@@ -148,9 +148,8 @@ const Header = () => {
           },
         }}
       >
-        {infoUser ? null : (
+        {idUser ? null : (
           <>
-            {" "}
             <MenuItem className={classes.menu__items} onClick={ShowModalSignIn}>
               Đăng nhập
             </MenuItem>
@@ -162,7 +161,7 @@ const Header = () => {
         <MenuItem className={classes.menu__items}>Cho thuê nhà</MenuItem>
         <MenuItem className={classes.menu__items}>Tổ chức trải nghiệm</MenuItem>
 
-        {infoUser && (
+        {idUser && (
           <MenuItem
             onClick={() => {
               history.push("/profile");
@@ -175,7 +174,7 @@ const Header = () => {
         )}
         <MenuItem className={classes.menu__items}>Trợ giúp</MenuItem>
 
-        {infoUser && (
+        {idUser && (
           <MenuItem onClick={handleLogout} className={classes.menu__items}>
             Đăng xuất
           </MenuItem>
