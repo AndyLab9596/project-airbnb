@@ -55,6 +55,7 @@ const SearchBar = ({ isDesktop }) => {
         setAnchorEl(null);
     };
 
+
     const [numbers, setNumbers] = useState({
         adult: 0,
         baby: 0,
@@ -233,7 +234,7 @@ const SearchBar = ({ isDesktop }) => {
                                 {numbers.adult === 0 ? 'Thêm khách' : `${numbers.adult + numbers.baby} khách, ${numbers.toddler} em bé`}
                             </p>
                         </div>
-                        <button type="submit" className={classes.formControl__button}>
+                        <button className={classes.formControl__button}>
                             <SearchIcon className={classes.formControl__button__icon} />
                         </button>
                     </div>
