@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation, useParams } from 'react-router';
 import queryString from 'query-string'
 
-const Locations = () => {
+const Testing = () => {
     const location = useLocation();
     console.log('location', location);
     const params = useParams();
@@ -30,4 +30,4 @@ const Locations = () => {
     );
 };
 
-export default Locations;
+export default Testing;
