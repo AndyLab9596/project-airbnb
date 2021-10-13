@@ -14,6 +14,7 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Detail from "./pages/Detail";
 import { getInfoUserAction } from "./store/action/Auth";
+import TestingApi from "./pages/TestingApi";
 
 const App = () => {
   const idUser = localStorage.getItem("idUser");
@@ -31,8 +32,10 @@ const App = () => {
         <Switch>
           <MainLayout path="/" exact Component={Home} />
           <Route path="/locationListPage/:locationId" exact component={Testing} />
+          <Route path="/testingApi" exact component={TestingApi} />
           <MainLayout path="/profile" exact Component={Profile} />
           <MainLayout path="/detail" exact Component={Detail} />
+
         </Switch>
       </ThemeProvider>
     </BrowserRouter>
