@@ -28,13 +28,10 @@ const Header = () => {
     // clickAwayListener -> listen to the event of clicking outside appBar component in order to hide the menu content
     // *Note: clickAwayListener is only active when window.innerHeight is more than 100
 
-    // missing animation
-
     const [anchorEl, setAnchorEl] = useState(null);
     const windowWidth = window.innerWidth;
     const theme = useTheme();
     const isDesktop = useMediaQuery(theme.breakpoints.up('xl'))
-    // const anchorCoors = isDesktop ? `${windowWidth - 180}` : `${windowWidth - 80} `;
 
 
     const handleOpenMenu = (event) => {

@@ -1,60 +1,46 @@
-import { Menu, MenuItem, TextField } from '@material-ui/core';
+import { Menu, MenuItem } from '@material-ui/core';
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import SearchIcon from '@material-ui/icons/Search';
 import useAutocomplete from '@material-ui/lab/useAutocomplete';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import DateRangePicker from '@mui/lab/DateRangePicker';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import MobileDateRangePicker from '@mui/lab/MobileDateRangePicker';
-import { vi } from 'date-fns/locale';
-// import {} from 'moment/locale/vi'
-import React, { Fragment, useState } from 'react';
-import useStyles from './style';
-import { useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { DesktopDateRangePicker } from '@mui/lab';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import { vi } from 'date-fns/locale';
+import queryString from 'query-string';
+import React, { Fragment, useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router';
+import manageLocationApi from '../../../../api/manageLocationApi';
+import useStyles from './style';
 
-const top100Films = [
-    { title: 'The Shawshank Redemption', year: 1994 },
-    { title: 'The Godfather', year: 1972 },
-    { title: 'The Godfather: Part II', year: 1974 },
-    { title: 'The Dark Knight', year: 2008 },
-    { title: '12 Angry Men', year: 1957 },
-    { title: "Schindler's List", year: 1993 },
-    { title: 'Pulp Fiction', year: 1994 },
-    { title: 'Pulp Fiction', year: 1994 },
-    { title: 'Pulp Fiction', year: 1994 },
-    { title: 'Pulp Fiction', year: 1994 },
-    { title: 'Pulp Fiction', year: 1994 },
-]
+
+// Data from API 9 
+// {
+//     "_id": "61627836dd5f72001d8686eb",
+//     "name": "Khu du lịch sinh thái Hồng Hào",
+//     "province": "Bến tre",
+//     "country": "viet nam",
+//     "valueate": 8,
+//     "__v": 0
+// },
 
 
 const SearchBar = ({ isDesktop }) => {
-    const classes = useStyles();
+    // const [clickSearchLocation, setClickSearchLocation] = useState(false)
 
-    const {
-        getRootProps,
-        getInputLabelProps,
-        getInputProps,
-        getListboxProps,
-        getOptionProps,
-        groupedOptions,
-    } = useAutocomplete({
-        id: 'use-autocomplete-demo',
-        options: top100Films,
-        getOptionLabel: (option) => option.title,
-    });
+    // const [startDate, setStartDate] = useState(null);
+    // const [endDate, setEndDate] = useState(null);
+    // const [focusedInput, setFocusedInput] = useState(null);
+    // const handleDatesChange = ({ startDate, endDate }) => {
+    //     setStartDate(startDate);
+    //     setEndDate(endDate);
+    // };
+    const history = useHistory();
+    const location = useLocation();
 
-    const [clickSearchLocation, setClickSearchLocation] = useState(false)
 
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
-    const [focusedInput, setFocusedInput] = useState(null);
-    const handleDatesChange = ({ startDate, endDate }) => {
-        setStartDate(startDate);
-        setEndDate(endDate);
-    };
-    const [value, setValue] = useState([null, null]);
+    const [locationList, setLocationList] = useState([]);
+
+    const [bookingTime, setBookingTime] = useState([null, null]);
     const windowWidth = window.innerWidth;
 
     const menuLeftAnchor = isDesktop ? windowWidth - 300 : windowWidth - 100;
@@ -116,9 +102,68 @@ const SearchBar = ({ isDesktop }) => {
     }
 
 
+
+    useEffect(() => {
+        (async () => {
+            const response = await manageLocationApi.getAll();
+            setLocationList(response)
+        })()
+    }, []);
+
+    const {
+        getRootProps,
+        getInputLabelProps,
+        getInputProps,
+        getListboxProps,
+        getOptionProps,
+        groupedOptions,
+    } = useAutocomplete({
+        options: locationList,
+        id: 'useAutocomplete',
+        getOptionLabel: (option) => (option.province && option.name),
+    });
+
+    const inputValue = ({ ...getInputProps() }).value;
+
+    const locationInputValue = locationList.find((location) => location.name === inputValue);
+    const locationId = locationInputValue?._id;
+
+    // console.log(location);
+
+    // const queryParams = () => {
+    //     const params = queryString.parse(location.search);
+    //     return {
+    //         ...params,
+    //         _checkIn: "",
+    //         _checkOut: "",
+    //         _adult: "",
+    //         _baby: "",
+    //         _toddler: "",
+    //     }
+    // }
+    console.log(bookingTime)
+
+    const queryParams = {
+        _checkIn: bookingTime[0],
+        _checkOut: bookingTime[1],
+        _adult: numbers.adult,
+        _baby: numbers.baby,
+        _toddler: numbers.toddler,
+    }
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        history.push({
+            pathname: `/locationListPage/${locationId}`,
+            search: queryString.stringify(queryParams)
+        })
+    };
+
+    const classes = useStyles();
+
     return (
         <Fragment>
-            <form className={classes.root}>
+            <form className={classes.root} onSubmit={(e) => handleSearchSubmit(e)}>
 
                 {/* Location */}
                 <div className={classes.locationSearch}>
@@ -141,7 +186,7 @@ const SearchBar = ({ isDesktop }) => {
                                         <span
                                             className={classes.locationSearch__lists__title}
                                         >
-                                            {option.title}
+                                            {option.province}, {option.name}
                                         </span>
                                     </li>
                                 ))}
@@ -157,9 +202,9 @@ const SearchBar = ({ isDesktop }) => {
                         <DesktopDateRangePicker
                             disablePast
                             className={classes.dateRangePicker}
-                            value={value}
+                            value={bookingTime}
                             onChange={(newValue) => {
-                                setValue(newValue);
+                                setBookingTime(newValue);
                             }}
                             renderInput={(startProps, endProps) => (
                                 <React.Fragment>
@@ -200,7 +245,7 @@ const SearchBar = ({ isDesktop }) => {
                                 {numbers.adult === 0 ? 'Thêm khách' : `${numbers.adult + numbers.baby} khách, ${numbers.toddler} em bé`}
                             </p>
                         </div>
-                        <button className={classes.formControl__button}>
+                        <button type="submit" className={classes.formControl__button}>
                             <SearchIcon className={classes.formControl__button__icon} />
                         </button>
                     </div>
