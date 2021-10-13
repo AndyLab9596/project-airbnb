@@ -20,7 +20,9 @@ import GoogleMapReact from "google-map-react";
 import React, { Fragment, useState } from "react";
 import useStyles from "./style";
 import mapStyles from "./mapStyles";
+import clsx from "clsx";
 const ListRoom = () => {
+  
   const classes = useStyles();
 
   const [coords, setCoords] = useState({ lat: 12.270371, lng: 109.204196 });
@@ -107,59 +109,57 @@ const ListRoom = () => {
   return (
     <div style={{ marginTop: 50 }}>
       <Grid container>
-        <Grid item lg={6} style={{ padding: "0 25px" }}>
+        <Grid item lg={7} style={{ padding: "0 25px" }}>
           <Box>
-            <Typography>Hơn 300 chỗ ở</Typography>
-            <Typography>Chỗ ở tại khu vực bản đồ đã chọn</Typography>
-            <Box>
-              <Chip
-                onClick={handleOpenMenu}
-                className={classes.chip}
-                size="medium"
-                label="Hủy miễn phí"
-                fontSize="medium"
-                variant="default"
-                color="#ffffff"
-              />
-              <Chip
-                onClick={handleOpenMenuAccommodation}
-                className={classes.chip}
-                size="medium"
-                label="Loại nơi ở"
-                fontSize="medium"
-                variant="default"
-                color="#ffffff"
-              />
-              <Chip
-                onClick={handleOpenMenuPrice}
-                className={classes.chip}
-                size="medium"
-                label="Giá"
-                fontSize="medium"
-                variant="default"
-                color="#ffffff"
-              />
-              <Chip
-                onClick={handleOpenMenuBookingNow}
-                className={classes.chip}
-                size="medium"
-                label="Đặt ngay"
-                fontSize="medium"
-                variant="default"
-                color="#ffffff"
-              />
-              <Chip
-                onClick={handleOpen}
-                className={classes.chip}
-                size="medium"
-                label="Bộ lọc khác"
-                fontSize="medium"
-                variant="default"
-                color="#ffffff"
-              />
+            <Typography className={classes.list__text__titile}>
+              Hơn 300 chỗ ở
+            </Typography>
+            <Typography className={classes.list__title}>
+              Chỗ ở tại khu vực bản đồ đã chọn
+            </Typography>
+            <Box className={classes.list__filter}>
+              <div className={classes.list__filter__item}>
+                <Chip
+                  onClick={handleOpenMenu}
+                  classes={{ root: classes.chip }}
+                  label="Hủy miễn phí"
+                />
+              </div>
+              <div className={classes.list__filter__item}>
+                <Chip
+                  onClick={handleOpenMenuAccommodation}
+                  classes={{ root: classes.chip }}
+                  label="Loại nơi ở"
+                />
+              </div>
+              <div className={classes.list__filter__item}>
+                <Chip
+                  onClick={handleOpenMenuPrice}
+                  classes={{ root: classes.chip }}
+                  label="Giá"
+                />
+              </div>
+              <div className={classes.list__filter__item}>
+                <Chip
+                  onClick={handleOpenMenuBookingNow}
+                  classes={{ root: classes.chip }}
+                  label="Đặt ngay"
+                />
+              </div>
+              <div className={classes.list__filter__item}>
+                <Chip
+                  onClick={handleOpen}
+                  classes={{ root: classes.chip }}
+                  size="medium"
+                  label="Bộ lọc khác"
+                  fontSize="medium"
+                  variant="default"
+                  color="#ffffff"
+                />
+              </div>
             </Box>
           </Box>
-          <Box className={classes.check__info} style={{ display: "flex" }}>
+          <Box className={classes.check__info} display="flex">
             <Typography>
               Kiểm tra lại quy định hạn chế đi lại trong đại dịch COVID-19 trước
               khi đặt.
@@ -245,7 +245,7 @@ const ListRoom = () => {
             </div>
           </Box>
         </Grid>
-        <Grid item lg={6}>
+        <Grid item lg={5}>
           <div style={{ height: "85vh", width: "100%" }}>
             <GoogleMapReact
               bootstrapURLKeys={{
@@ -269,10 +269,11 @@ const ListRoom = () => {
           </div>
         </Grid>
       </Grid>
+
       {/* Menu hủy miễn phí */}
       <Menu
         anchorReference="anchorPosition"
-        anchorPosition={{ top: 160, left: 20 }}
+        anchorPosition={{ top: 200, left: 20 }}
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
@@ -280,123 +281,153 @@ const ListRoom = () => {
         PaperProps={{
           style: {
             maxWidth: "300px",
-            padding: "8px",
+
             borderRadius: "16px",
           },
         }}
       >
         <div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <Typography>
-              Chỉ hiển thị những chỗ ở cho phép hủy miễn phí
-            </Typography>
+          <div className={classes.list__style__flex}>
+            <div className={classes.list__menu__cancel__top}>
+              <Typography>
+                Chỉ hiển thị những chỗ ở cho phép hủy miễn phí
+              </Typography>
+            </div>
             <div>
               <Switch
+                focusVisibleClassName={classes.focusVisible}
+                disableRipple
+                classes={{
+                  root: classes.roott,
+                  switchBase: classes.switchBase,
+                  thumb: classes.thumb,
+                  track: classes.track,
+                  checked: classes.checked,
+                  colorSecondary: classes.colorSecondary,
+                }}
                 checked={state.checkedA}
                 onChange={handleChangeSwitch}
                 name="checkedA"
-                inputProps={{ "aria-label": "secondary checkbox" }}
               />
             </div>
           </div>
-          <div></div>
+          <div className={classes.list__menu__cancel__bot}>
+            <div>
+              <button className={classes.button__erase}>Xóa</button>
+            </div>
+            <div>
+              <button className={classes.button__save}>Lưu</button>
+            </div>
+          </div>
         </div>
       </Menu>
       {/* Menu Loại nơi ở */}
       <Menu
         anchorReference="anchorPosition"
-        anchorPosition={{ top: 160, left: 120 }}
+        anchorPosition={{ top: 200, left: 135 }}
         anchorEl={anchorElAccommodation}
         keepMounted
         open={Boolean(anchorElAccommodation)}
         onClose={handleCloseMenuAccommodatio}
         PaperProps={{
           style: {
-            maxWidth: "300px",
-            padding: "8px",
+            maxWidth: "320px",
             borderRadius: "16px",
           },
         }}
       >
-        <div
-          style={{
-            display: "flex",
-
-            alignItems: "flex-start",
-          }}
-        >
-          <Checkbox
-            checked={checked}
-            onChange={handleChangeCheckBox}
-            inputProps={{ "aria-label": "primary checkbox" }}
-          />
-          <div>
-            <Typography>Toàn bộ nhà</Typography>
-            <Typography>Tìm một nơi cho riêng bạn</Typography>
+        <div>
+          <div className={classes.list__menu__accommodation__top}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+              }}
+            >
+              <Checkbox
+                checked={checked}
+                onChange={handleChangeCheckBox}
+                inputProps={{ "aria-label": "primary checkbox" }}
+                classes={{
+                  root: classes.checkbox,
+                }}
+              />
+              <div>
+                <Typography className={classes.list__menu__accommodation__text}>
+                  Toàn bộ nhà
+                </Typography>
+                <Typography
+                  className={classes.list__menu__accommodation__text2}
+                >
+                  Tìm một nơi cho riêng bạn
+                </Typography>
+              </div>
+            </div>
+            <div className={classes.list__menu__accommodation__item}>
+              <Checkbox
+                checked={checked}
+                onChange={handleChangeCheckBox}
+                inputProps={{ "aria-label": "primary checkbox" }}
+                classes={{
+                  root: classes.checkbox,
+                }}
+              />
+              <div>
+                <Typography className={classes.list__menu__accommodation__text}>
+                  Phòng riêng
+                </Typography>
+                <Typography
+                  className={classes.list__menu__accommodation__text2}
+                >
+                  Có phòng riêng và chia sẻ một số không gian chung
+                </Typography>
+              </div>
+            </div>
+            <div className={classes.list__menu__accommodation__item}>
+              <Checkbox
+                checked={checked}
+                onChange={handleChangeCheckBox}
+                inputProps={{ "aria-label": "primary checkbox" }}
+                classes={{
+                  root: classes.checkbox,
+                }}
+              />
+              <div>
+                <Typography className={classes.list__menu__accommodation__text}>
+                  Phòng khách sạn
+                </Typography>
+                <span className={classes.list__menu__accommodation__text2}>
+                  Có phòng riêng/chia sẻ ở khách sạn boutique, khách sạn giá rẻ
+                  và những chỗ ở khác
+                </span>
+              </div>
+            </div>
+            <div className={classes.list__menu__accommodation__item}>
+              <Checkbox
+                checked={checked}
+                onChange={handleChangeCheckBox}
+                inputProps={{ "aria-label": "primary checkbox" }}
+                classes={{
+                  root: classes.checkbox,
+                }}
+              />
+              <div>
+                <Typography className={classes.list__menu__accommodation__text}>
+                  Phòng chung
+                </Typography>
+                <span className={classes.list__menu__accommodation__text2}>
+                  Ở trong một không gian chia sẻ, như phòng chung
+                </span>
+              </div>
+            </div>
           </div>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-          }}
-        >
-          <Checkbox
-            checked={checked}
-            onChange={handleChangeCheckBox}
-            inputProps={{ "aria-label": "primary checkbox" }}
-          />
-          <div>
-            <Typography>Phòng riêng</Typography>
-            <Typography>
-              Có phòng riêng và chia sẻ một số không gian chung
-            </Typography>
-          </div>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-          }}
-        >
-          <Checkbox
-            checked={checked}
-            onChange={handleChangeCheckBox}
-            inputProps={{ "aria-label": "primary checkbox" }}
-          />
-          <div>
-            <Typography>Phòng khách sạn</Typography>
-            <Typography>
-              Có phòng riêng/chia sẻ ở khách sạn boutique, khách sạn giá rẻ và
-              những chỗ ở khác
-            </Typography>
-          </div>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-          }}
-        >
-          <Checkbox
-            checked={checked}
-            onChange={handleChangeCheckBox}
-            inputProps={{ "aria-label": "primary checkbox" }}
-          />
-          <div>
-            <Typography>Phòng chung</Typography>
-            <Typography>
-              Ở trong một không gian chia sẻ, như phòng chung
-            </Typography>
+          <div className={classes.list__menu__accommodation__bot}>
+            <div>
+              <button className={classes.button__erase}>Xóa</button>
+            </div>
+            <div>
+              <button className={classes.button__save}>Lưu</button>
+            </div>
           </div>
         </div>
       </Menu>
