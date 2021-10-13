@@ -1,13 +1,14 @@
 import { ThemeProvider } from "@material-ui/styles";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { BrowserRouter, Switch } from "react-router-dom";
 import ModalSignIn from "./components/Login/ModalSignIn";
 //Components
 import ModalSignUp from "./components/Login/ModalSignUp";
 import { theme } from "./constants/config";
 // Layout
 import MainLayout from "./layouts/MainLayout";
+import Testing from "./pages/Testing";
 // Pages
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
@@ -29,6 +30,7 @@ const App = () => {
         <ModalSignIn />
         <Switch>
           <MainLayout path="/" exact Component={Home} />
+          <Route path="/locationListPage/:locationId" exact component={Testing} />
           <MainLayout path="/profile" exact Component={Profile} />
           <MainLayout path="/detail" exact Component={Detail} />
         </Switch>
