@@ -87,7 +87,13 @@ const ListRoom = () => {
   const [anchorElBookingNow, setAnchorElBookingNow] = useState(null);
   //State Hủy miễn phí
   const [open, setOpen] = useState(false);
-
+  const [dropdown, setDropdown] = useState(false);
+  const handleOpenDropdown = () => {
+    setDropdown(true);
+  };
+  const handleCloseDropdown = () => {
+    setDropdown(false);
+  };
   // const fakeCheckBox = [
   //   {
   //     id: 1,
@@ -220,6 +226,7 @@ const ListRoom = () => {
     if (numbers.bathroom < 1) return;
     setNumbers({ ...numbers, bathroom: numbers.bathroom - 1 });
   };
+
   return (
     <div style={{ marginTop: 50 }}>
       <Grid container>
@@ -823,12 +830,66 @@ const ListRoom = () => {
                               root: classes.checkbox,
                             }}
                           />
-                          <Typography>Máy giặt</Typography>
+                          <Typography>Lò sưởi trong nhà</Typography>
                         </div>
                       </Grid>
                     </Grid>
-                    <div>
-                      <Typography className={classes.modal__text_style}>
+
+                    <div
+                      className={classes.dropdown}
+                      style={{ display: dropdown ? "block" : "none" }}
+                    >
+                      <Grid container>
+                        <Grid item lg={6}>
+                          <div className={classes.modal__style__checkbox}>
+                            <Checkbox
+                              // checked={checked}
+                              // onChange={handleChangeCheckBox}
+                              inputProps={{
+                                style: {
+                                  border: "none",
+                                  paddingRight: 50,
+                                  fontSize: 30,
+                                },
+                              }}
+                              classes={{
+                                root: classes.checkbox,
+                              }}
+                            />
+                            <Typography>Bếp</Typography>
+                          </div>
+                        </Grid>
+                        <Grid item lg={6}>
+                          <div className={classes.modal__style__checkbox}>
+                            <Checkbox
+                              // checked={checked}
+                              // onChange={handleChangeCheckBox}
+                              inputProps={{ "aria-label": "primary checkbox" }}
+                              classes={{
+                                root: classes.checkbox,
+                              }}
+                            />
+                            <Typography>Hệ thống sưởi</Typography>
+                          </div>
+                        </Grid>
+                      </Grid>
+                      <div style={{ display: dropdown ? "block" : "none" }}>
+                        <Typography
+                          onClick={handleCloseDropdown}
+                          className={classes.modal__text_style}
+                        >
+                          Đóng tất cả tiện nghi
+                        </Typography>
+                      </div>
+                    </div>
+                    <div
+                      className={classes.dropdown}
+                      style={{ display: dropdown ? "none" : "block" }}
+                    >
+                      <Typography
+                        onClick={handleOpenDropdown}
+                        className={classes.modal__text_style}
+                      >
                         Hiển thị tất cả tiện nghi
                       </Typography>
                     </div>
@@ -965,7 +1026,7 @@ const ListRoom = () => {
                   </div>
                 </div>
 
-                <div className={classes.modal__convenient}>
+                {/* <div className={classes.modal__convenient}>
                   <Typography>Nơi ở độc đáo</Typography>
                   <div>
                     <Grid container>
@@ -1028,9 +1089,9 @@ const ListRoom = () => {
                       </Typography>
                     </div>
                   </div>
-                </div>
+                </div> */}
 
-                <div className={classes.modal__convenient}>
+                {/* <div className={classes.modal__convenient}>
                   <Typography>Nội quy nhà</Typography>
                   <div>
                     <Grid container>
@@ -1062,7 +1123,7 @@ const ListRoom = () => {
                       </Grid>
                     </Grid>
                   </div>
-                </div>
+                </div> */}
 
                 <div className={classes.modal__convenient}>
                   <Typography>Ngôn ngữ chủ nhà</Typography>

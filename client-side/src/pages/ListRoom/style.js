@@ -397,7 +397,7 @@ export default makeStyles(theme => ({
         padding: "14px 24px",
         backgroundColor: "rgb(34, 34, 34)",
         color: "rgb(255, 255, 255)",
-      
+
         outline: "none",
         fontSize: 16,
         lineHeight: "20px0",
@@ -407,7 +407,20 @@ export default makeStyles(theme => ({
         transition: "box-shadow 0.2s ease 0s",
         "&:hover": { backgroundColor: "rgb(0, 0, 0)" }
 
-    }
+    },
+    dropdown: {
+        animation: "$myEffect 0.2s linear",
+    },
 
+    "@keyframes myEffect": {
+        "0%": {
+            transform: "translateY(-10%)",
+            opacity: 0,
+        },
+        "100%": {
+            transform: "translateY(0)",
+            opacity: 1,
+        },
+    },
 
 }))
