@@ -64,6 +64,7 @@ export default makeStyles((theme) => ({
 
     // Date picker
 
+
     datePicker: {
         flex: '2.5 0 0',
         display: 'flex',
