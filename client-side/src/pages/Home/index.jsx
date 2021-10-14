@@ -1,10 +1,10 @@
 import React from "react";
-import useStyles from "./style";
-import HomeBanner from "./HomeBanner";
 import ExploreNearby from "./ExploreNearby";
+import ExploreToExp from "./ExploreToExp";
+import HomeBanner from "./HomeBanner";
 import News from "./News";
 import Stay from "./Stay";
-import ExploreToExp from "./ExploreToExp";
+import useStyles from "./style";
 
 const Home = () => {
   const classes = useStyles();
@@ -16,6 +16,7 @@ const Home = () => {
       <Stay />
       <News />
       <ExploreToExp />
+
     </div>
   );
 };
