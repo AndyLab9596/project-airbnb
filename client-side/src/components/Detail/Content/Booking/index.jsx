@@ -29,26 +29,30 @@ const Booking = ({
     _toddler: 0,
   });
   const handleAddAdult = () => {
+    if (numbersFilter._adult > 13) return;
     setNumbersFilter({ ...numbersFilter, _adult: numbersFilter._adult + 1 });
   };
   const handleMinusAdult = () => {
+    if (numbersFilter._adult < 2) return;
     setNumbersFilter({ ...numbersFilter, _adult: numbersFilter._adult - 1 });
   };
-
   const handleAddBaby = () => {
+    if (numbersFilter._baby > 13) return;
     setNumbersFilter({ ...numbersFilter, _baby: numbersFilter._baby + 1 });
   };
   const handleMinusBaby = () => {
+    if (numbersFilter._baby < 1) return;
     setNumbersFilter({ ...numbersFilter, _baby: numbersFilter._baby - 1 });
   };
-
   const handleAddToddler = () => {
+    if (numbersFilter._toddler > 13) return;
     setNumbersFilter({
       ...numbersFilter,
       _toddler: numbersFilter._toddler + 1,
     });
   };
   const handleMinusToddler = () => {
+    if (numbersFilter._toddler < 1) return;
     setNumbersFilter({
       ...numbersFilter,
       _toddler: numbersFilter._toddler - 1,
@@ -157,7 +161,6 @@ const Booking = ({
                   </Typography>
                   <Box>
                     <button
-                      disabled={numbersFilter._adult > 1 ? false : true}
                       className={
                         numbersFilter._adult > 1
                           ? classes.room__booking__filter__btn
@@ -183,7 +186,6 @@ const Booking = ({
                             )
                       }
                       onClick={handleAddAdult}
-                      disabled={numbersFilter._adult > 13 ? true : false}
                     >
                       +
                     </button>
@@ -210,7 +212,6 @@ const Booking = ({
                               classes.room__booking__filter__btn__disabled
                             )
                       }
-                      disabled={numbersFilter._baby > 0 ? false : true}
                       onClick={handleMinusBaby}
                     >
                       -
@@ -227,7 +228,6 @@ const Booking = ({
                               classes.room__booking__filter__btn__disabled
                             )
                       }
-                      disabled={numbersFilter._baby > 13 ? true : false}
                       onClick={handleAddBaby}
                     >
                       +
@@ -255,7 +255,6 @@ const Booking = ({
                               classes.room__booking__filter__btn__disabled
                             )
                       }
-                      disabled={numbersFilter._toddler > 0 ? false : true}
                       onClick={handleMinusToddler}
                     >
                       -
@@ -272,7 +271,6 @@ const Booking = ({
                               classes.room__booking__filter__btn__disabled
                             )
                       }
-                      disabled={numbersFilter._toddler > 13 ? true : false}
                       onClick={handleAddToddler}
                     >
                       +
