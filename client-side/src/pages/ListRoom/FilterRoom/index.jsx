@@ -1,747 +1,529 @@
-// import {
-//   Chip,
-//   Grid,
-//   IconButton,
-//   Menu,
-//   Modal,
-//   Typography,
-// } from "@material-ui/core";
-// import Button from "@material-ui/core/Button";
-// import Checkbox from "@material-ui/core/Checkbox";
-// import Slider from "@material-ui/core/Slider";
-// import Switch from "@material-ui/core/Switch";
-// import AddIcon from "@material-ui/icons/Add";
-// import CloseIcon from "@material-ui/icons/Close";
-// import RemoveIcon from "@material-ui/icons/Remove";
-// import React, { Fragment, useState } from "react";
-// import useStyles from "./style";
-// const FilterRoom = () => {
-//   const classes = useStyles();
+import {
+  Box,
+  Checkbox,
+  Chip,
+  Menu,
+  Switch,
+  TextField,
+  Typography,
+} from "@material-ui/core";
+import Slider from "@material-ui/core/Slider";
+import MaximizeIcon from "@material-ui/icons/Maximize";
+import { withStyles } from "@material-ui/styles";
+import React, { Fragment, useState } from "react";
+import ModalFilter from "../Modal/index";
+import useStyles from "./style";
+const AirbnbSlider = withStyles({
+  root: {
+    color: "#3a8589",
+    height: 3,
+    padding: "13px 0",
+  },
+  thumb: {
+    height: 27,
+    width: 27,
+    backgroundColor: "#fff",
+    border: "1px solid currentColor",
+    marginTop: -12,
+    marginLeft: -13,
+    boxShadow: "#ebebeb 0 2px 2px",
+    "&:focus, &:hover, &$active": {
+      boxShadow: "#ccc 0 2px 3px 1px",
+    },
+    "& .bar": {
+      // display: inline-block !important;
+      height: 9,
+      width: 1,
+      backgroundColor: "currentColor",
+      marginLeft: 1,
+      marginRight: 1,
+    },
+  },
+  active: {},
+  track: {
+    height: 3,
+  },
+  rail: {
+    color: "#d8d8d8",
+    opacity: 1,
+    height: 3,
+  },
+})(Slider);
 
+function AirbnbThumbComponent(props) {
+  return (
+    <span {...props}>
+      <span className="bar" />
+      <span className="bar" />
+      <span className="bar" />
+    </span>
+  );
+}
+const FilterRoom = () => {
+  const classes = useStyles();
 
-//   return (
-//     <Fragment>
-//       <div>
-//         {/* Menu hủy miễn phí */}
-//         <Menu
-//           anchorReference="anchorPosition"
-//           anchorPosition={{ top: 160, left: 20 }}
-//           anchorEl={anchorEl}
-//           keepMounted
-//           open={Boolean(anchorEl)}
-//           onClose={handleCloseMenu}
-//           PaperProps={{
-//             style: {
-//               maxWidth: "300px",
-//               padding: "8px",
-//               borderRadius: "16px",
-//             },
-//           }}
-//         >
-//           <div>
-//             <div
-//               style={{
-//                 display: "flex",
-//                 justifyContent: "space-between",
-//                 alignItems: "center",
-//               }}
-//             >
-//               <Typography>
-//                 Chỉ hiển thị những chỗ ở cho phép hủy miễn phí
-//               </Typography>
-//               <div>
-//                 <Switch
-//                   checked={state.checkedA}
-//                   onChange={handleChangeSwitch}
-//                   name="checkedA"
-//                   inputProps={{ "aria-label": "secondary checkbox" }}
-//                 />
-//               </div>
-//             </div>
-//             <div></div>
-//           </div>
-//         </Menu>
-//         {/* Menu Loại nơi ở
-//         <Menu
-//           anchorReference="anchorPosition"
-//           anchorPosition={{ top: 160, left: 120 }}
-//           anchorEl={anchorElAccommodation}
-//           keepMounted
-//           open={Boolean(anchorElAccommodation)}
-//           onClose={handleCloseMenuAccommodatio}
-//           PaperProps={{
-//             style: {
-//               maxWidth: "300px",
-//               padding: "8px",
-//               borderRadius: "16px",
-//             },
-//           }}
-//         >
-//           <div
-//             style={{
-//               display: "flex",
+  //State Hủy miễn phí
+  const [anchorEl, setAnchorEl] = useState(null);
 
-//               alignItems: "flex-start",
-//             }}
-//           >
-//             <Checkbox
-//               checked={checked}
-//               onChange={handleChangeCheckBox}
-//               inputProps={{ "aria-label": "primary checkbox" }}
-//             />
-//             <div>
-//               <Typography>Toàn bộ nhà</Typography>
-//               <Typography>Tìm một nơi cho riêng bạn</Typography>
-//             </div>
-//           </div>
-//           <div
-//             style={{
-//               display: "flex",
-//               justifyContent: "space-between",
-//               alignItems: "flex-start",
-//             }}
-//           >
-//             <Checkbox
-//               checked={checked}
-//               onChange={handleChangeCheckBox}
-//               inputProps={{ "aria-label": "primary checkbox" }}
-//             />
-//             <div>
-//               <Typography>Phòng riêng</Typography>
-//               <Typography>
-//                 Có phòng riêng và chia sẻ một số không gian chung
-//               </Typography>
-//             </div>
-//           </div>
-//           <div
-//             style={{
-//               display: "flex",
-//               justifyContent: "space-between",
-//               alignItems: "flex-start",
-//             }}
-//           >
-//             <Checkbox
-//               checked={checked}
-//               onChange={handleChangeCheckBox}
-//               inputProps={{ "aria-label": "primary checkbox" }}
-//             />
-//             <div>
-//               <Typography>Phòng khách sạn</Typography>
-//               <Typography>
-//                 Có phòng riêng/chia sẻ ở khách sạn boutique, khách sạn giá rẻ và
-//                 những chỗ ở khác
-//               </Typography>
-//             </div>
-//           </div>
-//           <div
-//             style={{
-//               display: "flex",
-//               justifyContent: "space-between",
-//               alignItems: "flex-start",
-//             }}
-//           >
-//             <Checkbox
-//               checked={checked}
-//               onChange={handleChangeCheckBox}
-//               inputProps={{ "aria-label": "primary checkbox" }}
-//             />
-//             <div>
-//               <Typography>Phòng chung</Typography>
-//               <Typography>
-//                 Ở trong một không gian chia sẻ, như phòng chung
-//               </Typography>
-//             </div>
-//           </div>
-//         </Menu>
-//         {/* Menu Giá */}
-//         <Menu
-//           anchorReference="anchorPosition"
-//           anchorPosition={{ top: 160, left: 120 }}
-//           anchorEl={anchorElPrice}
-//           keepMounted
-//           open={Boolean(anchorElPrice)}
-//           onClose={handleCloseMenuPrice}
-//           PaperProps={{
-//             style: {
-//               width: "300px",
-//               height: "100px",
-//               padding: "8px",
-//               borderRadius: "16px",
-//             },
-//           }}
-//         >
-//           <div>
-//             <Slider
-//               min={1}
-//               max={10}
-//               step={1}
-//               value={rating}
-//               onChange={handleChangeRating}
-//               valueLabelDisplay="auto"
-//               aria-labelledby="range-slider"
-//               className={classes.slider}
-//             />
-//           </div>
-//         </Menu>
-//         {/* Menu Đặt ngay */}
-//         <Menu
-//           anchorReference="anchorPosition"
-//           anchorPosition={{ top: 160, left: 20 }}
-//           anchorEl={anchorElBookingNow}
-//           keepMounted
-//           open={Boolean(anchorElBookingNow)}
-//           onClose={handleCloseMenuBookingNow}
-//           PaperProps={{
-//             style: {
-//               maxWidth: "300px",
-//               padding: "8px",
-//               borderRadius: "16px",
-//             },
-//           }}
-//         >
-//           <div>
-//             <Typography>Đặt ngay</Typography>
-//             <div
-//               style={{
-//                 display: "flex",
-//                 justifyContent: "space-between",
-//                 alignItems: "flex-start",
-//               }}
-//             >
-//               <Typography>
-//                 Nhà/phòng cho thuê bạn có thể đặt mà không cần chờ chủ nhà chấp
-//                 thuận
-//               </Typography>
-//               <div>
-//                 <Switch
-//                   checked={stateBookingNow.checkedA}
-//                   onChange={handleChangeSwitchBookingNow}
-//                   name="checkedA"
-//                   inputProps={{ "aria-label": "secondary checkbox" }}
-//                 />
-//               </div>
-//             </div>
-//             <div></div>
-//           </div>
-//         </Menu>
-//         {/* Modal Bộ lọc khác */}
+  // //State Loại nơi ở
+  const [anchorElAccommodation, setAnchorElAccommodation] = useState(null);
+  //State Giá
+  const [anchorElPrice, setAnchorElPrice] = useState(null);
 
-//         <Fragment>
-//           <Modal
-//             open={open}
-//             onClose={handleClose}
-//             aria-labelledby="simple-modal-title"
-//             aria-describedby="simple-modal-description"
-//             className={classes.modal}
-//           >
-//             <div className={classes.root}>
-//               <div className={classes.modal__content}>
-//                 <div className={classes.modal__header}>
-//                   <IconButton className={classes.icon} onClick={handleClose}>
-//                     <CloseIcon />
-//                   </IconButton>
-//                   <Typography variant="body2">Bộ lọc khác</Typography>
-//                   <div></div>
-//                 </div>
+  //State Đặt ngay
+  const [anchorElBookingNow, setAnchorElBookingNow] = useState(null);
+  //State Hủy miễn phí
+  const [open, setOpen] = useState(false);
+  const [dropdown, setDropdown] = useState(false);
 
-//                 <div
-//                   style={{
-//                     overflowX: "hidden",
-//                     paddingRight: "25px",
-//                     paddingLeft: "25px",
-//                   }}
-//                 >
-//                   <div className={classes.modal__bedroom}>
-//                     <Typography>Phòng và phòng ngủ</Typography>
-//                     <div
-//                       style={{
-//                         display: "flex",
-//                         justifyContent: "space-between",
-//                         padding: "12px 0",
-//                       }}
-//                     >
-//                       <Typography>Giường</Typography>
-//                       <div className={classes.modal__bedroom__item}>
-//                         <button className={classes.button}>
-//                           <AddIcon />
-//                         </button>
-//                         <Typography style={{ padding: "0 15px" }}>1</Typography>
-//                         <button className={classes.button}>
-//                           <RemoveIcon />
-//                         </button>
-//                       </div>
-//                     </div>
-//                     <div
-//                       style={{
-//                         display: "flex",
-//                         justifyContent: "space-between",
-//                         padding: "12px 0",
-//                       }}
-//                     >
-//                       <Typography>Phòng ngủ</Typography>
-//                       <div className={classes.modal__bedroom__item}>
-//                         <button className={classes.button}>
-//                           <AddIcon />
-//                         </button>
-//                         <Typography style={{ padding: "0 15px" }}>1</Typography>
-//                         <button className={classes.button}>
-//                           <RemoveIcon />
-//                         </button>
-//                       </div>
-//                     </div>
-//                     <div
-//                       style={{
-//                         display: "flex",
-//                         justifyContent: "space-between",
-//                         padding: "12px 0",
-//                       }}
-//                     >
-//                       <Typography>Phòng tắm</Typography>
-//                       <div className={classes.modal__bedroom__item}>
-//                         <button className={classes.button}>
-//                           <AddIcon />
-//                         </button>
-//                         <Typography style={{ padding: "0 15px" }}>1</Typography>
-//                         <button className={classes.button}>
-//                           <RemoveIcon />
-//                         </button>
-//                       </div>
-//                     </div>
-//                   </div>
+  // const fakeCheckBox = [
+  //   {
+  //     id: 1,
+  //     name: "wholeHouse",
+  //     title: "Toàn bộ nhà",
+  //     desc: "Tìm một nơi cho riêng bạn",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "room",
+  //     title: "Phòng riêng",
+  //     desc: "Có phòng riêng và chia sẻ một số không gian chung",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "hotelRoom",
+  //     title: "Phòng khách sạn",
+  //     desc: "Có phòng riêng/chia sẻ ở khách sạn boutique, khách sạn giá rẻ và những chỗ ở khác",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "commonRoom",
+  //     title: "Phòng chung",
+  //     desc: "Ở trong một không gian chia sẻ, như phòng chung",
+  //   },
+  // ];
+  //Menu Hủy miễn phí
+  // const handleOpenMenu = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  //   console.log(event.currentTarget);
+  // };
+  // const handleCloseMenu = () => {
+  //   setAnchorEl(null);
+  //   setAnchorElBookingNow(null);
+  //   setAnchorElPrice(null);
+  //   setAnchorElBookingNow(null);
+  // };
+  //Menu Loại nơi ở
+  // const handleOpenMenuAccommodation = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  //   console.log(event.currentTarget);
+  // };
+  // const handleCloseMenuAccommodatio = () => {
+  //   setAnchorEl(null);
+  // };
 
-//                   <div className={classes.modal__another}>
-//                     <Typography>Lựa chọn khác</Typography>
-//                     <div
-//                       style={{
-//                         display: "flex",
-//                         justifyContent: "space-between",
-//                         alignItems: "center",
-//                       }}
-//                     >
-//                       <div>
-//                         <Typography>Chủ nhà siêu cấp</Typography>
-//                         <Typography>
-//                           Ở cùng với các chủ nhà được công nhận
-//                         </Typography>
-//                         <Typography>Tìm hiểu thêm</Typography>
-//                       </div>
-//                       <div>
-//                         <Switch
-//                           // checked={state.checkedA}
-//                           // onChange={handleChangeSwitch}
-//                           name="checkedA"
-//                           inputProps={{ "aria-label": "secondary checkbox" }}
-//                         />
-//                       </div>
-//                     </div>
-//                     <div>
-//                       <Typography>Hỗ trợ người có nhu cầu đặc biệt</Typography>
-//                       <Typography>
-//                         Tìm một nơi ở đáp ứng nhu cầu di chuyển của bạn
-//                       </Typography>
-//                       <Typography>Chọn tính năng nơi bạn ở</Typography>
-//                     </div>
-//                   </div>
+  // //Menu Giá
+  // const handleOpenMenuPrice = (event) => {
+  //   setAnchorElPrice(event.currentTarget);
+  //   console.log(event.currentTarget);
+  // };
+  // const handleCloseMenuPrice = () => {
+  //   setAnchorElPrice(null);
+  // };
+  // //Menu Đặt ngay
+  // const handleOpenMenuBookingNow = (event) => {
+  //   setAnchorElBookingNow(event.currentTarget);
+  // };
+  // const handleCloseMenuBookingNow = () => {
+  //   setAnchorElBookingNow(null);
+  // };
+  //Menu Bộ lọc khác
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-//                   <div className={classes.modal__convenient}>
-//                     <Typography>Tiện nghi</Typography>
-//                     <div>
-//                       <Grid container>
-//                         <Grid item lg={6}>
-//                           <div
-//                             style={{
-//                               display: "flex",
-//                               justifyContent: "centet",
-//                               alignItems: "center",
-//                             }}
-//                           >
-//                             <Checkbox
-//                               // checked={checked}
-//                               // onChange={handleChangeCheckBox}
-//                               inputProps={{ "aria-label": "primary checkbox" }}
-//                             />
-//                             <Typography>Bếp</Typography>
-//                           </div>
-//                         </Grid>
-//                         <Grid item lg={6}>
-//                           <div
-//                             style={{
-//                               display: "flex",
-//                               justifyContent: "centet",
-//                               alignItems: "center",
-//                             }}
-//                           >
-//                             <Checkbox
-//                               // checked={checked}
-//                               // onChange={handleChangeCheckBox}
-//                               inputProps={{ "aria-label": "primary checkbox" }}
-//                             />
-//                             <Typography>Hệ thống sưởi</Typography>
-//                           </div>
-//                         </Grid>
-//                         <Grid item lg={6}>
-//                           <div
-//                             style={{
-//                               display: "flex",
-//                               justifyContent: "centet",
-//                               alignItems: "center",
-//                             }}
-//                           >
-//                             <Checkbox
-//                               // checked={checked}
-//                               // onChange={handleChangeCheckBox}
-//                               inputProps={{ "aria-label": "primary checkbox" }}
-//                             />
-//                             <Typography>Điều hòa nhiệt độ</Typography>
-//                           </div>
-//                         </Grid>
-//                         <Grid item lg={6}>
-//                           <div
-//                             style={{
-//                               display: "flex",
-//                               justifyContent: "centet",
-//                               alignItems: "center",
-//                             }}
-//                           >
-//                             <Checkbox
-//                               // checked={checked}
-//                               // onChange={handleChangeCheckBox}
-//                               inputProps={{ "aria-label": "primary checkbox" }}
-//                             />
-//                             <Typography>Máy giặt</Typography>
-//                           </div>
-//                         </Grid>
-//                       </Grid>
-//                       <div>
-//                         <Typography>Hiển thị tất cả tiện nghi</Typography>
-//                       </div>
-//                     </div>
-//                   </div>
+  // Switch Hủy miễn phí
+  const [state, setState] = React.useState({
+    checkedA: true,
+  });
+  const handleChangeSwitch = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+  };
+  // Checkbox loại nơi ở
+  const [checked, setChecked] = React.useState({
+    wholeHouse: false,
+    room: false,
+    hotelRoom: false,
+    commonRoom: false,
+  });
 
-//                   <div className={classes.modal__convenient}>
-//                     <Typography>Tiện ích</Typography>
-//                     <div>
-//                       <Grid container>
-//                         <Grid item lg={6}>
-//                           <div
-//                             style={{
-//                               display: "flex",
-//                               justifyContent: "centet",
-//                               alignItems: "center",
-//                             }}
-//                           >
-//                             <Checkbox
-//                               // checked={checked}
-//                               // onChange={handleChangeCheckBox}
-//                               inputProps={{ "aria-label": "primary checkbox" }}
-//                             />
-//                             <Typography>
-//                               Chỗ đỗ xe miễn phí tại nơi ở
-//                             </Typography>
-//                           </div>
-//                         </Grid>
-//                         <Grid item lg={6}>
-//                           <div
-//                             style={{
-//                               display: "flex",
-//                               justifyContent: "centet",
-//                               alignItems: "center",
-//                             }}
-//                           >
-//                             <Checkbox
-//                               // checked={checked}
-//                               // onChange={handleChangeCheckBox}
-//                               inputProps={{ "aria-label": "primary checkbox" }}
-//                             />
-//                             <Typography>Phòng tập thể hình</Typography>
-//                           </div>
-//                         </Grid>
-//                         <Grid item lg={6}>
-//                           <div
-//                             style={{
-//                               display: "flex",
-//                               justifyContent: "centet",
-//                               alignItems: "center",
-//                             }}
-//                           >
-//                             <Checkbox
-//                               // checked={checked}
-//                               // onChange={handleChangeCheckBox}
-//                               inputProps={{ "aria-label": "primary checkbox" }}
-//                             />
-//                             <Typography>Bồn tắm nước nóng</Typography>
-//                           </div>
-//                         </Grid>
-//                         <Grid item lg={6}>
-//                           <div
-//                             style={{
-//                               display: "flex",
-//                               justifyContent: "centet",
-//                               alignItems: "center",
-//                             }}
-//                           >
-//                             <Checkbox
-//                               // checked={checked}
-//                               // onChange={handleChangeCheckBox}
-//                               inputProps={{ "aria-label": "primary checkbox" }}
-//                             />
-//                             <Typography>Bể bơi</Typography>
-//                           </div>
-//                         </Grid>
-//                       </Grid>
-//                       <div>
-//                         <Typography>Hiển thị tất cả các tiện ích</Typography>
-//                       </div>
-//                     </div>
-//                   </div>
+  const handleChangeCheckBox = (event) => {
+    setChecked({ ...checked, [event.target.name]: event.target.checked });
+  };
+  // Slider Giá
+  const [rating, setRating] = React.useState([5, 10]);
 
-//                   <div className={classes.modal__convenient}>
-//                     <Typography>Loại nhà/phòng</Typography>
-//                     <div>
-//                       <Grid container>
-//                         <Grid item lg={6}>
-//                           <div
-//                             style={{
-//                               display: "flex",
-//                               justifyContent: "centet",
-//                               alignItems: "center",
-//                             }}
-//                           >
-//                             <Checkbox
-//                               // checked={checked}
-//                               // onChange={handleChangeCheckBox}
-//                               inputProps={{ "aria-label": "primary checkbox" }}
-//                             />
-//                             <Typography>Nhà</Typography>
-//                           </div>
-//                         </Grid>
-//                         <Grid item lg={6}>
-//                           <div
-//                             style={{
-//                               display: "flex",
-//                               justifyContent: "centet",
-//                               alignItems: "center",
-//                             }}
-//                           >
-//                             <Checkbox
-//                               // checked={checked}
-//                               // onChange={handleChangeCheckBox}
-//                               inputProps={{ "aria-label": "primary checkbox" }}
-//                             />
-//                             <Typography>Căn hộ</Typography>
-//                           </div>
-//                         </Grid>
-//                         <Grid item lg={6}>
-//                           <div
-//                             style={{
-//                               display: "flex",
-//                               justifyContent: "centet",
-//                               alignItems: "center",
-//                             }}
-//                           >
-//                             <Checkbox
-//                               // checked={checked}
-//                               // onChange={handleChangeCheckBox}
-//                               inputProps={{ "aria-label": "primary checkbox" }}
-//                             />
-//                             <Typography>Chỗ nghỉ phục vụ bữa sáng</Typography>
-//                           </div>
-//                         </Grid>
-//                         <Grid item lg={6}>
-//                           <div
-//                             style={{
-//                               display: "flex",
-//                               justifyContent: "centet",
-//                               alignItems: "center",
-//                             }}
-//                           >
-//                             <Checkbox
-//                               // checked={checked}
-//                               // onChange={handleChangeCheckBox}
-//                               inputProps={{ "aria-label": "primary checkbox" }}
-//                             />
-//                             <Typography>Khách sạn boutique</Typography>
-//                           </div>
-//                         </Grid>
-//                       </Grid>
-//                       <div>
-//                         <Typography>Hiển thị tất cả các loại chỗ ở</Typography>
-//                       </div>
-//                     </div>
-//                   </div>
+  const rateGte = rating?.join("").slice(0, 1);
+  const rateLte = rating?.join("").slice(1, 3);
+  const handleChangeRating = (event, newValue) => {
+    setRating(newValue);
+  };
 
-//                   <div className={classes.modal__convenient}>
-//                     <Typography>Nơi ở độc đáo</Typography>
-//                     <div>
-//                       <Grid container>
-//                         <Grid item lg={6}>
-//                           <div
-//                             style={{
-//                               display: "flex",
-//                               justifyContent: "centet",
-//                               alignItems: "center",
-//                             }}
-//                           >
-//                             <Checkbox
-//                               // checked={checked}
-//                               // onChange={handleChangeCheckBox}
-//                               inputProps={{ "aria-label": "primary checkbox" }}
-//                             />
-//                             <Typography>Hải đăng</Typography>
-//                           </div>
-//                         </Grid>
-//                         <Grid item lg={6}>
-//                           <div
-//                             style={{
-//                               display: "flex",
-//                               justifyContent: "centet",
-//                               alignItems: "center",
-//                             }}
-//                           >
-//                             <Checkbox
-//                               // checked={checked}
-//                               // onChange={handleChangeCheckBox}
-//                               inputProps={{ "aria-label": "primary checkbox" }}
-//                             />
-//                             <Typography>Lâu đài</Typography>
-//                           </div>
-//                         </Grid>
-//                         <Grid item lg={6}>
-//                           <div
-//                             style={{
-//                               display: "flex",
-//                               justifyContent: "centet",
-//                               alignItems: "center",
-//                             }}
-//                           >
-//                             <Checkbox
-//                               // checked={checked}
-//                               // onChange={handleChangeCheckBox}
-//                               inputProps={{ "aria-label": "primary checkbox" }}
-//                             />
-//                             <Typography>Nhà nghỉ giữa thiên nhiên</Typography>
-//                           </div>
-//                         </Grid>
-//                         <Grid item lg={6}>
-//                           <div
-//                             style={{
-//                               display: "flex",
-//                               justifyContent: "centet",
-//                               alignItems: "center",
-//                             }}
-//                           >
-//                             <Checkbox
-//                               // checked={checked}
-//                               // onChange={handleChangeCheckBox}
-//                               inputProps={{ "aria-label": "primary checkbox" }}
-//                             />
-//                             <Typography>Nhà nhỏ</Typography>
-//                           </div>
-//                         </Grid>
-//                       </Grid>
-//                       <div>
-//                         <Typography>Hiển thị mọi nơi ở độc đáo</Typography>
-//                       </div>
-//                     </div>
-//                   </div>
+  //MODAL
+  // PHÒNG VÀ PHÒNG NGỦ
+  const [numbers, setNumbers] = useState({
+    bed: 0,
+    bedroom: 0,
+    bathroom: 0,
+  });
+  const addBed = () => {
+    if (numbers.bed >= 16) return;
+    setNumbers({ ...numbers, bed: numbers.bed + 1 });
+  };
 
-//                   <div className={classes.modal__convenient}>
-//                     <Typography>Nội quy nhà</Typography>
-//                     <div>
-//                       <Grid container>
-//                         <Grid item lg={6}>
-//                           <div
-//                             style={{
-//                               display: "flex",
-//                               justifyContent: "centet",
-//                               alignItems: "center",
-//                             }}
-//                           >
-//                             <Checkbox
-//                               // checked={checked}
-//                               // onChange={handleChangeCheckBox}
-//                               inputProps={{ "aria-label": "primary checkbox" }}
-//                             />
-//                             <Typography>Cho phép thú cưng</Typography>
-//                           </div>
-//                         </Grid>
-//                         <Grid item lg={6}>
-//                           <div
-//                             style={{
-//                               display: "flex",
-//                               justifyContent: "centet",
-//                               alignItems: "center",
-//                             }}
-//                           >
-//                             <Checkbox
-//                               // checked={checked}
-//                               // onChange={handleChangeCheckBox}
-//                               inputProps={{ "aria-label": "primary checkbox" }}
-//                             />
-//                             <Typography>Cho phép hút thuốc</Typography>
-//                           </div>
-//                         </Grid>
-//                       </Grid>
-//                     </div>
-//                   </div>
+  const minusBed = () => {
+    if (numbers.bed < 1) return;
+    setNumbers({ ...numbers, bed: numbers.bed - 1 });
+  };
 
-//                   <div className={classes.modal__convenient}>
-//                     <Typography>Ngôn ngữ chủ nhà</Typography>
-//                     <div>
-//                       <Grid container>
-//                         <Grid item lg={6}>
-//                           <div
-//                             style={{
-//                               display: "flex",
-//                               justifyContent: "centet",
-//                               alignItems: "center",
-//                             }}
-//                           >
-//                             <Checkbox
-//                               // checked={checked}
-//                               // onChange={handleChangeCheckBox}
-//                               inputProps={{ "aria-label": "primary checkbox" }}
-//                             />
-//                             <Typography>Tiếng Anh</Typography>
-//                           </div>
-//                         </Grid>
-//                         <Grid item lg={6}>
-//                           <div
-//                             style={{
-//                               display: "flex",
-//                               justifyContent: "centet",
-//                               alignItems: "center",
-//                             }}
-//                           >
-//                             <Checkbox
-//                               // checked={checked}
-//                               // onChange={handleChangeCheckBox}
-//                               inputProps={{ "aria-label": "primary checkbox" }}
-//                             />
-//                             <Typography>Tiếng Việt</Typography>
-//                           </div>
-//                         </Grid>
-//                       </Grid>
-//                     </div>
-//                   </div>
+  const addBedroom = () => {
+    if (numbers.bedroom >= 16) return;
+    setNumbers({ ...numbers, bedroom: numbers.bedroom + 1 });
+  };
 
-//                   {/*  */}
-//                 </div>
+  const minusBedroom = () => {
+    if (numbers.bedroom < 1) return;
+    setNumbers({ ...numbers, bedroom: numbers.bedroom - 1 });
+  };
 
-//                 {/* modal footer */}
-//                 <div className={classes.modal__footer}>
-//                   <Button>Xóa tất cả</Button>
-//                   <Button>Hiển thị hơn 300 chỗ ở</Button>
-//                 </div>
+  const addBathroom = () => {
+    if (numbers.bathroom >= 16) return;
+    setNumbers({ ...numbers, bathroom: numbers.bathroom + 1 });
+  };
 
-//                 {/*  */}
-//               </div>
-//             </div>
-//           </Modal>
-//         </Fragment> */}
-//       </div>
-//     </Fragment>
-//   );
-// };
+  const minusBathroom = () => {
+    if (numbers.bathroom < 1) return;
+    setNumbers({ ...numbers, bathroom: numbers.bathroom - 1 });
+  };
+  return (
+    <Fragment>
+      <div>
+        <Box>
+          <Typography className={classes.list__text__titile}>
+            Hơn 300 chỗ ở
+          </Typography>
+          <Typography className={classes.list__title}>
+            Chỗ ở tại khu vực bản đồ đã chọn
+          </Typography>
+          <Box className={classes.list__filter}>
+            <div className={classes.list__filter__item}>
+              <Chip
+                onClick={(e) => setAnchorEl(e.currentTarget)}
+                classes={{ root: classes.chip }}
+                label="Hủy miễn phí"
+              />
+            </div>
+            <div className={classes.list__filter__item}>
+              <Chip
+                onClick={(e) => setAnchorElAccommodation(e.currentTarget)}
+                classes={{ root: classes.chip }}
+                label="Loại nơi ở"
+              />
+            </div>
+            <div className={classes.list__filter__item}>
+              <Chip
+                onClick={(e) => setAnchorElPrice(e.currentTarget)}
+                classes={{ root: classes.chip }}
+                label="Giá"
+              />
+            </div>
 
-// export default FilterRoom;
+            <div className={classes.list__filter__item}>
+              <Chip
+                onClick={handleOpen}
+                classes={{ root: classes.chip }}
+                size="medium"
+                label="Bộ lọc khác"
+                fontSize="medium"
+                variant="default"
+                color="#ffffff"
+              />
+            </div>
+          </Box>
+        </Box>
+        <Box className={classes.check__info} display="flex">
+          <Typography>
+            Kiểm tra lại quy định hạn chế đi lại trong đại dịch COVID-19 trước
+            khi đặt.
+          </Typography>
+          <Typography>Tìm hiểu thêm</Typography>
+        </Box>
+      </div>
+      {/* Menu hủy miễn phí */}
+      <Menu
+        anchorReference="anchorPosition"
+        anchorPosition={{ top: 200, left: 20 }}
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={(e) => setAnchorEl(null)}
+        PaperProps={{
+          style: {
+            maxWidth: "300px",
+
+            borderRadius: "16px",
+          },
+        }}
+      >
+        <div>
+          <div className={classes.list__style__flex}>
+            <div className={classes.list__menu__cancel__top}>
+              <Typography variant="h5">
+                Chỉ hiển thị những chỗ ở cho phép hủy miễn phí
+              </Typography>
+            </div>
+            <div>
+              <Switch
+                focusVisibleClassName={classes.focusVisible}
+                disableRipple
+                classes={{
+                  root: classes.roott,
+                  switchBase: classes.switchBase,
+                  thumb: classes.thumb,
+                  track: classes.track,
+                  checked: classes.checked,
+                  colorSecondary: classes.colorSecondary,
+                }}
+                checked={state.checkedA}
+                onChange={handleChangeSwitch}
+                name="checkedA"
+              />
+            </div>
+          </div>
+          <div className={classes.list__menu__cancel__bot}>
+            <div>
+              <button className={classes.button__erase}>Xóa</button>
+            </div>
+            <div>
+              <button className={classes.button__save}>Lưu</button>
+            </div>
+          </div>
+        </div>
+      </Menu>
+      {/* Menu Loại nơi ở */}
+      <Menu
+        anchorReference="anchorPosition"
+        anchorPosition={{ top: 200, left: 135 }}
+        anchorEl={anchorElAccommodation}
+        keepMounted
+        open={Boolean(anchorElAccommodation)}
+        onClose={(e) => setAnchorElAccommodation(null)}
+        PaperProps={{
+          style: {
+            maxWidth: "320px",
+            borderRadius: "16px",
+          },
+        }}
+      >
+        <div>
+          <div className={classes.list__menu__accommodation__top}>
+            {/* {fakeCheckBox.map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  className={classes.list__menu__accommodation__item}
+                >
+                  <Checkbox
+                    checked={item.name}
+                    onChange={handleChangeCheckBox}
+                    inputProps={{ "aria-label": "primary checkbox" }}
+                    classes={{
+                      root: classes.checkbox,
+                    }}
+                    name={item.name}
+                  />
+                  <div>
+                    <Typography
+                      className={classes.list__menu__accommodation__text}
+                    >
+                      {item.title}
+                    </Typography>
+                    <Typography
+                      className={classes.list__menu__accommodation__text2}
+                    >
+                      {item.desc}
+                    </Typography>
+                  </div>
+                </div>
+              );
+            })} */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+              }}
+            >
+              <Checkbox
+                checked={checked.wholeHouse}
+                onChange={handleChangeCheckBox}
+                inputProps={{ "aria-label": "primary checkbox" }}
+                classes={{
+                  root: classes.checkbox,
+                }}
+                name="wholeHouse"
+              />
+              <div>
+                <Typography className={classes.list__menu__accommodation__text}>
+                  Toàn bộ nhà
+                </Typography>
+                <Typography
+                  className={classes.list__menu__accommodation__text2}
+                >
+                  Tìm một nơi cho riêng bạn
+                </Typography>
+              </div>
+            </div>
+            <div className={classes.list__menu__accommodation__item}>
+              <Checkbox
+                checked={checked.room}
+                onChange={handleChangeCheckBox}
+                inputProps={{ "aria-label": "primary checkbox" }}
+                classes={{
+                  root: classes.checkbox,
+                }}
+                name="room"
+              />
+              <div>
+                <Typography className={classes.list__menu__accommodation__text}>
+                  Phòng riêng
+                </Typography>
+                <Typography
+                  className={classes.list__menu__accommodation__text2}
+                >
+                  Có phòng riêng và chia sẻ một số không gian chung
+                </Typography>
+              </div>
+            </div>
+            <div className={classes.list__menu__accommodation__item}>
+              <Checkbox
+                checked={checked.hotelRoom}
+                onChange={handleChangeCheckBox}
+                inputProps={{ "aria-label": "primary checkbox" }}
+                classes={{
+                  root: classes.checkbox,
+                }}
+                name="hotelRoom"
+              />
+              <div>
+                <Typography className={classes.list__menu__accommodation__text}>
+                  Phòng khách sạn
+                </Typography>
+                <span className={classes.list__menu__accommodation__text2}>
+                  Có phòng riêng/chia sẻ ở khách sạn boutique, khách sạn giá rẻ
+                  và những chỗ ở khác
+                </span>
+              </div>
+            </div>
+            <div className={classes.list__menu__accommodation__item}>
+              <Checkbox
+                checked={checked.commonRoom}
+                onChange={handleChangeCheckBox}
+                inputProps={{ "aria-label": "primary checkbox" }}
+                classes={{
+                  root: classes.checkbox,
+                }}
+                name="commonRoom"
+              />
+              <div>
+                <Typography className={classes.list__menu__accommodation__text}>
+                  Phòng chung
+                </Typography>
+                <span className={classes.list__menu__accommodation__text2}>
+                  Ở trong một không gian chia sẻ, như phòng chung
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className={classes.list__menu__accommodation__bot}>
+            <div>
+              <button className={classes.button__erase}>Xóa</button>
+            </div>
+            <div>
+              <button className={classes.button__save}>Lưu</button>
+            </div>
+          </div>
+        </div>
+      </Menu>
+      {/* Menu Giá */}
+      <Menu
+        anchorReference="anchorPosition"
+        anchorPosition={{ top: 200, left: 225 }}
+        anchorEl={anchorElPrice}
+        keepMounted
+        open={Boolean(anchorElPrice)}
+        onClose={(e) => setAnchorElPrice(null)}
+        PaperProps={{
+          style: {
+            maxWidth: "320px",
+            borderRadius: "16px",
+          },
+        }}
+      >
+        <div className={classes.list__menu__price__top}>
+          <Typography
+            variant="subtitle1"
+            className={classes.list__menu__price__text}
+          >
+            Giá trung bình hàng đêm là $40
+          </Typography>
+          <AirbnbSlider
+            ThumbComponent={AirbnbThumbComponent}
+            getAriaLabel={(index) =>
+              index === 0 ? "Minimum price" : "Maximum price"
+            }
+            defaultValue={[20, 40]}
+          />
+          <Box display="flex" justifyContent="center" alignItems="center">
+            <TextField
+              variant="outlined"
+              label="Giá tối thiểu"
+              InputLabelProps={{
+                style: { fontSize: 13 },
+              }}
+              name="email"
+            />
+            <Box margin=" 16px 6px 0 6px">
+              <MaximizeIcon />
+            </Box>
+            <TextField
+              variant="outlined"
+              label="Giá tối đa"
+              InputLabelProps={{
+                style: { fontSize: 13 },
+              }}
+              name="email"
+            />
+          </Box>
+        </div>
+        <div>
+          <div className={classes.list__menu__cancel__bot}>
+            <div>
+              <button className={classes.button__erase}>Xóa</button>
+            </div>
+            <div>
+              <button className={classes.button__save}>Lưu</button>
+            </div>
+          </div>
+        </div>
+      </Menu>
+
+      {/* Modal Bộ lọc khác */}
+      <ModalFilter handleClose={handleClose} open={open} />
+    </Fragment>
+  );
+};
+
+export default FilterRoom;
