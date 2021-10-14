@@ -44,7 +44,7 @@ const ExploreToExp = () => {
   };
   return (
     <div className={classes.root}>
-      <Container maxWidth="home">
+      <Container maxWidth={false}>
         <Typography variant="h1" className={classes.explore__title}>
           Khám phá những điều nên trải nghiệm
         </Typography>
