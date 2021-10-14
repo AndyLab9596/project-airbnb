@@ -22,15 +22,17 @@ import useStyles from "./style";
 import mapStyles from "./mapStyles";
 import clsx from "clsx";
 const ListRoom = () => {
-  
   const classes = useStyles();
 
   const [coords, setCoords] = useState({ lat: 12.270371, lng: 109.204196 });
 
   //State Hủy miễn phí
-  const [anchorEl, setAnchorEl] = useState(null);
-  //State Loại nơi ở
-  const [anchorElAccommodation, setAnchorElAccommodation] = useState(null);
+  const [anchorEl, setAnchorEl] = useState({
+    cancel: null,
+    accommodation: null,
+  });
+  // //State Loại nơi ở
+  // const [anchorElAccommodation, setAnchorElAccommodation] = useState(null);
   //State Giá
   const [anchorElPrice, setAnchorElPrice] = useState(null);
   //State Đặt ngay
@@ -47,11 +49,14 @@ const ListRoom = () => {
   };
   //Menu Loại nơi ở
   const handleOpenMenuAccommodation = (event) => {
-    setAnchorElAccommodation(event.currentTarget);
+    setAnchorEl(event.currentTarget);
   };
   const handleCloseMenuAccommodatio = () => {
-    setAnchorElAccommodation(null);
+    setAnchorEl(null);
   };
+
+
+  
   //Menu Giá
   const handleOpenMenuPrice = (event) => {
     setAnchorElPrice(event.currentTarget);
@@ -274,9 +279,9 @@ const ListRoom = () => {
       <Menu
         anchorReference="anchorPosition"
         anchorPosition={{ top: 200, left: 20 }}
-        anchorEl={anchorEl}
+        anchorEl={anchorEl.cancel}
         keepMounted
-        open={Boolean(anchorEl)}
+        open={Boolean(anchorEl.cancel)}
         onClose={handleCloseMenu}
         PaperProps={{
           style: {
@@ -325,9 +330,9 @@ const ListRoom = () => {
       <Menu
         anchorReference="anchorPosition"
         anchorPosition={{ top: 200, left: 135 }}
-        anchorEl={anchorElAccommodation}
+        anchorEl={anchorEl.accommodation}
         keepMounted
-        open={Boolean(anchorElAccommodation)}
+        open={Boolean(anchorEl.accommodation)}
         onClose={handleCloseMenuAccommodatio}
         PaperProps={{
           style: {
