@@ -3,9 +3,15 @@ export default makeStyles(theme => ({
 
     places: {
         width: '100%',
-        margin: 'auto',
-        padding: '0 8px',
-        paddingBottom: '16px'
+        "& .MuiContainer-root": {
+            padding: "0 24px",
+            [theme.breakpoints.up("sm")]: {
+                padding: "0 40px",
+            },
+            [theme.breakpoints.up("xl")]: {
+                padding: "0 80px",
+            },
+        },
     },
 
     places__title: {
