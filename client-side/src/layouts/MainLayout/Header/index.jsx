@@ -23,6 +23,7 @@ import useStyles from "./style";
 import SearchBar from './SearchBar';
 import { useDispatch, useSelector } from "react-redux";
 import { useTheme } from '@material-ui/core/styles';
+import { useRouteMatch } from "react-router-dom";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -67,10 +68,17 @@ const Header = () => {
 
     const [scroll, setScroll] = useState(false);
     const [displaySearchBar, setDisplaySearchBar] = useState(true)
+    const [listPageDisplaySearchBar, setListPageDisplaySearchBar] = useState(false);
 
     const handleClickAwayListener = () => {
-        if (!scroll) return;
-        setDisplaySearchBar(false)
+        if (homepageRoute) {
+            if (!scroll) return;
+            setDisplaySearchBar(false)
+        }
+        if (listpageRoute) {
+            setListPageDisplaySearchBar(false)
+        }
+
     }
 
     useEffect(() => {
@@ -93,15 +101,20 @@ const Header = () => {
         };
     }, [scroll]);
 
+    const matchUrl = useRouteMatch();
+    console.log('matchUrl', matchUrl)
+    const homepageRoute = matchUrl.url === "/";
+    const listpageRoute = matchUrl.url === "/list";
+    const detailpageRoute = matchUrl.url === "detail";
 
-
-    const classes = useStyles({ scroll, displaySearchBar });
+    const classes = useStyles({ scroll, displaySearchBar, homepageRoute, listpageRoute, detailpageRoute, listPageDisplaySearchBar });
 
     return (
         <Fragment>
             {/* AppBar */}
             <ClickAwayListener onClickAway={() => handleClickAwayListener()}>
-                <AppBar position="fixed" elevation={0} className={classes.root} >
+                <AppBar position="fixed" elevation={0}
+                    className={`${homepageRoute && classes.root} ${listpageRoute && classes.listRoot}`} >
                     <Toolbar className={classes.navbar__content}>
                         <Box className={classes.navbar__content__right}>
                             <a href="/" target="_blank" rel="noreferrer">
@@ -113,29 +126,75 @@ const Header = () => {
                             </a>
                         </Box>
 
-                        {scroll && !displaySearchBar ? (
-                            <Box className={classes.navbar__content__search}
-                                onClick={() => setDisplaySearchBar(prevState => !prevState)}>
-                                <button className={classes.navbar__search__button}>
-                                    <h3 className={classes.navbar__search__button__title}>Bắt đầu tìm kiếm</h3>
-                                    <div className={classes.navbar__search__button__wrap}>
-                                        <SearchIcon className={classes.navbar__search__button__icon} />
-                                    </div>
-                                </button>
-                            </Box>
-                        ) : (
-                            <Box
-                                className={classes.navbar__content__menu}>
-                                <span>Nơi ở</span>
-                                <span>Trải nghiệm</span>
-                                <span>Trải nghiệm trực tuyến</span>
-                            </Box>
+                        {homepageRoute && (
+                            <>
+                                {scroll && !displaySearchBar ? (
+                                    <Box className={classes.navbar__content__search}
+                                        onClick={() => setDisplaySearchBar(prevState => !prevState)}>
+
+                                        <button className={classes.navbar__search__button}>
+                                            <h3 className={classes.navbar__search__button__title}>Bắt đầu tìm kiếm</h3>
+                                            <div className={classes.navbar__search__button__wrap}>
+                                                <SearchIcon className={classes.navbar__search__button__icon} />
+                                            </div>
+                                        </button>
+
+
+                                    </Box>
+                                ) : (
+                                    <Box
+                                        className={classes.navbar__content__menu}>
+                                        <span>Nơi ở</span>
+                                        <span>Trải nghiệm</span>
+                                        <span>Trải nghiệm trực tuyến</span>
+                                    </Box>
+                                )}
+                            </>
                         )}
 
-                        <div className={classes.navbar__content__left}>
-                            <Button className={classes.navbar__content__left__button}>Trở thành chủ nhà</Button>
-                            <IconButton className={classes.language__wrapper}>
-                                <LanguageIcon className={classes.language__icon} />
+                        {listpageRoute && (
+                            <>
+                                {listPageDisplaySearchBar ? (
+                                    <Box
+                                        className={`${classes.navbar__content__menu} ${classes.list__navbar__content__menu}`}>
+                                        <span>Nơi ở</span>
+                                        <span>Trải nghiệm</span>
+                                        <span>Trải nghiệm trực tuyến</span>
+                                    </Box>
+
+                                ) : (
+                                    <Box className={`${classes.navbar__content__search}${classes.list__navbar__content__search}`}
+                                        onClick={() => setListPageDisplaySearchBar(prevState => !prevState)}>
+
+                                        <div className={classes.list__navbar__search__wrapper}>
+                                            <button className={classes.list__navbar__button}>
+                                                <span>Sài Gòn</span>
+                                            </button>
+                                            <span className={classes.list__navbar__dash}></span>
+                                            <button className={classes.list__navbar__button}>
+                                                <span>17 thg10 - 15 thg11</span>
+                                            </button>
+                                            <span className={classes.list__navbar__dash}></span>
+                                            <button className={classes.list__navbar__button}>
+                                                <span>2 khách</span>
+                                                <div className={classes.navbar__search__button__wrap}>
+                                                    <SearchIcon className={classes.navbar__search__button__icon} />
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </Box>
+                                )}
+                            </>
+                        )}
+
+
+                        <div className={`${classes.navbar__content__left} 
+                        ${classes.list__navbar__content__left}`}>
+                            <Button className={`${classes.navbar__content__left__button} ${classes.list__navbar__content__left__button}`}>
+                                Trở thành chủ nhà
+                            </Button>
+                            <IconButton className={`${classes.language__wrapper} ${classes.list__language__wrapper}`}>
+                                <LanguageIcon className={`${classes.language__icon} ${classes.list__language__icon}`} />
                             </IconButton>
                             <Chip
                                 onClick={handleOpenMenu}
@@ -143,8 +202,6 @@ const Header = () => {
                                 size="medium"
                                 icon={<MenuOutlinedIcon fontSize="small" />}
                                 label={<AccountCircleOutlinedIcon fontSize="medium" />}
-                                // onClick={handleClick}
-                                // onDelete={handleDelete}
                                 variant={scroll ? 'outlined' : 'default'}
                                 color="#ffffff"
                             />
@@ -152,7 +209,7 @@ const Header = () => {
 
                     </Toolbar>
 
-                    <Box className={classes.searchBar}>
+                    <Box className={`${homepageRoute && classes.searchBar} ${listpageRoute && classes.list__searchBar}`}>
                         <SearchBar isDesktop={isDesktop} />
                     </Box>
 
