@@ -77,13 +77,14 @@ export default makeStyles(theme => ({
     },
 
     modal__text_style: {
-        fontWeight: 600,
+        fontWeight: 700,
         textDecoration: "underline",
         borderRadius: 4,
         outline: "none",
         fontSize: 14,
         cursor: "pointer",
-        padding: "5px 0"
+        padding: "5px 0",
+        color: "#222222"
     },
     // lựa chọn khác
     modal__another: {
@@ -104,21 +105,30 @@ export default makeStyles(theme => ({
         ...underLine
     },
 
-    root: {
-        width: "100%",
-        height: "100%",
+
+
+    button: {
+        width: "32px",
+        height: "32px",
+        cursor: "pointer",
+        border: "1px solid rgb(113,113,113)",
+        color: "rgb(113,113,113)",
+        outline: "none",
         display: "flex",
+        alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "rgb(34,34,34,0.5)",
-
+        backgroundColor: "rgb(255,255,255)",
+        borderRadius: "50%"
     },
-
-
     check__info: {
         display: "flex",
         padding: "25px 0",
         ...underLine
     },
+    icon: {
+        position: "absolute",
+        left: "1%",
+    },
 
 
 
@@ -127,8 +137,14 @@ export default makeStyles(theme => ({
 
 
 
-
+    root: {
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        justifyContent: "center",
+    },
     modal__content: {
+
         width: "100%",
         maxWidth: 764,
         borderRadius: 12,
@@ -158,31 +174,6 @@ export default makeStyles(theme => ({
             padding: 6,
         },
     },
-
-    icon: {
-        position: "absolute",
-        left: "1%",
-    },
-
-
-
-    button: {
-        width: "32px",
-        height: "32px",
-        cursor: "pointer",
-        border: "1px solid rgb(113,113,113)",
-        color: "rgb(113,113,113)",
-        outline: "none",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "rgb(255,255,255)",
-        borderRadius: "50%"
-    },
-
-
-
-
     modal__footer: {
         borderTop: "1px solid rgb(235, 235, 235) !important",
         display: "flex",
@@ -193,6 +184,11 @@ export default makeStyles(theme => ({
         lineHeight: "20px"
 
     },
+
+
+
+
+
     button__modal__button: {
         padding: "14px 24px",
         backgroundColor: "rgb(34, 34, 34)",

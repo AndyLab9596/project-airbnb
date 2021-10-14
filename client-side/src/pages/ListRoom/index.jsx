@@ -12,7 +12,7 @@ const ListRoom = () => {
   const classes = useStyles();
 
   return (
-    <div style={{ marginTop: 50 }}>
+    <div style={{ marginTop: 100 }}>
       <Grid container>
         <Grid item lg={7} style={{ padding: "0 25px" }}>
           <FilterRoom />
