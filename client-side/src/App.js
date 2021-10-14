@@ -15,6 +15,11 @@ import Profile from "./pages/Profile";
 import Detail from "./pages/Detail";
 import { getInfoUserAction } from "./store/action/Auth";
 
+//Components
+
+import ListRoom from "./pages/ListRoom";
+
+
 const App = () => {
   const idUser = localStorage.getItem("idUser");
   const dispatch = useDispatch();
@@ -32,6 +37,7 @@ const App = () => {
           <MainLayout path="/" exact Component={Home} />
           <Route path="/locationListPage/:locationId" exact component={Testing} />
           <MainLayout path="/profile" exact Component={Profile} />
+          <MainLayout path="/list" exact Component={ListRoom} />
           <MainLayout path="/detail" exact Component={Detail} />
         </Switch>
       </ThemeProvider>
