@@ -5,6 +5,7 @@ import {
   IconButton,
   Menu,
   Modal,
+  TextField,
   Typography,
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
@@ -16,61 +17,138 @@ import CloseIcon from "@material-ui/icons/Close";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import RemoveIcon from "@material-ui/icons/Remove";
 import StarRateOutlinedIcon from "@material-ui/icons/StarRateOutlined";
+import MaximizeIcon from "@material-ui/icons/Maximize";
 import GoogleMapReact from "google-map-react";
 import React, { Fragment, useState } from "react";
 import useStyles from "./style";
 import mapStyles from "./mapStyles";
 import clsx from "clsx";
+import { withStyles } from "@material-ui/styles";
+const AirbnbSlider = withStyles({
+  root: {
+    color: "#3a8589",
+    height: 3,
+    padding: "13px 0",
+  },
+  thumb: {
+    height: 27,
+    width: 27,
+    backgroundColor: "#fff",
+    border: "1px solid currentColor",
+    marginTop: -12,
+    marginLeft: -13,
+    boxShadow: "#ebebeb 0 2px 2px",
+    "&:focus, &:hover, &$active": {
+      boxShadow: "#ccc 0 2px 3px 1px",
+    },
+    "& .bar": {
+      // display: inline-block !important;
+      height: 9,
+      width: 1,
+      backgroundColor: "currentColor",
+      marginLeft: 1,
+      marginRight: 1,
+    },
+  },
+  active: {},
+  track: {
+    height: 3,
+  },
+  rail: {
+    color: "#d8d8d8",
+    opacity: 1,
+    height: 3,
+  },
+})(Slider);
+
+function AirbnbThumbComponent(props) {
+  return (
+    <span {...props}>
+      <span className="bar" />
+      <span className="bar" />
+      <span className="bar" />
+    </span>
+  );
+}
 const ListRoom = () => {
   const classes = useStyles();
 
   const [coords, setCoords] = useState({ lat: 12.270371, lng: 109.204196 });
 
   //State Hủy miễn phí
-  const [anchorEl, setAnchorEl] = useState({
-    cancel: null,
-    accommodation: null,
-  });
+  const [anchorEl, setAnchorEl] = useState(null);
+
   // //State Loại nơi ở
-  // const [anchorElAccommodation, setAnchorElAccommodation] = useState(null);
+  const [anchorElAccommodation, setAnchorElAccommodation] = useState(null);
   //State Giá
   const [anchorElPrice, setAnchorElPrice] = useState(null);
+
   //State Đặt ngay
   const [anchorElBookingNow, setAnchorElBookingNow] = useState(null);
   //State Hủy miễn phí
   const [open, setOpen] = useState(false);
 
+  // const fakeCheckBox = [
+  //   {
+  //     id: 1,
+  //     name: "wholeHouse",
+  //     title: "Toàn bộ nhà",
+  //     desc: "Tìm một nơi cho riêng bạn",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "room",
+  //     title: "Phòng riêng",
+  //     desc: "Có phòng riêng và chia sẻ một số không gian chung",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "hotelRoom",
+  //     title: "Phòng khách sạn",
+  //     desc: "Có phòng riêng/chia sẻ ở khách sạn boutique, khách sạn giá rẻ và những chỗ ở khác",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "commonRoom",
+  //     title: "Phòng chung",
+  //     desc: "Ở trong một không gian chia sẻ, như phòng chung",
+  //   },
+  // ];
   //Menu Hủy miễn phí
-  const handleOpenMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleCloseMenu = () => {
-    setAnchorEl(null);
-  };
+  // const handleOpenMenu = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  //   console.log(event.currentTarget);
+  // };
+  // const handleCloseMenu = () => {
+  //   setAnchorEl(null);
+  //   setAnchorElBookingNow(null);
+  //   setAnchorElPrice(null);
+  //   setAnchorElBookingNow(null);
+  // };
   //Menu Loại nơi ở
-  const handleOpenMenuAccommodation = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleCloseMenuAccommodatio = () => {
-    setAnchorEl(null);
-  };
+  // const handleOpenMenuAccommodation = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  //   console.log(event.currentTarget);
+  // };
+  // const handleCloseMenuAccommodatio = () => {
+  //   setAnchorEl(null);
+  // };
 
-
-  
-  //Menu Giá
-  const handleOpenMenuPrice = (event) => {
-    setAnchorElPrice(event.currentTarget);
-  };
-  const handleCloseMenuPrice = () => {
-    setAnchorElPrice(null);
-  };
-  //Menu Đặt ngay
-  const handleOpenMenuBookingNow = (event) => {
-    setAnchorElBookingNow(event.currentTarget);
-  };
-  const handleCloseMenuBookingNow = () => {
-    setAnchorElBookingNow(null);
-  };
+  // //Menu Giá
+  // const handleOpenMenuPrice = (event) => {
+  //   setAnchorElPrice(event.currentTarget);
+  //   console.log(event.currentTarget);
+  // };
+  // const handleCloseMenuPrice = () => {
+  //   setAnchorElPrice(null);
+  // };
+  // //Menu Đặt ngay
+  // const handleOpenMenuBookingNow = (event) => {
+  //   setAnchorElBookingNow(event.currentTarget);
+  // };
+  // const handleCloseMenuBookingNow = () => {
+  //   setAnchorElBookingNow(null);
+  // };
   //Menu Bộ lọc khác
   const handleOpen = () => {
     setOpen(true);
@@ -87,10 +165,15 @@ const ListRoom = () => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
   // Checkbox loại nơi ở
-  const [checked, setChecked] = React.useState(true);
+  const [checked, setChecked] = React.useState({
+    wholeHouse: false,
+    room: false,
+    hotelRoom: false,
+    commonRoom: false,
+  });
 
   const handleChangeCheckBox = (event) => {
-    setChecked(event.target.checked);
+    setChecked({ ...checked, [event.target.name]: event.target.checked });
   };
   // Slider Giá
   const [rating, setRating] = React.useState([5, 10]);
@@ -100,17 +183,43 @@ const ListRoom = () => {
   const handleChangeRating = (event, newValue) => {
     setRating(newValue);
   };
-  // Switch Hủy miễn phí
-  const [stateBookingNow, setStateBookingNow] = React.useState({
-    checkedA: true,
+
+  //MODAL
+  // PHÒNG VÀ PHÒNG NGỦ
+  const [numbers, setNumbers] = useState({
+    bed: 0,
+    bedroom: 0,
+    bathroom: 0,
   });
-  const handleChangeSwitchBookingNow = (event) => {
-    setStateBookingNow({
-      ...stateBookingNow,
-      [event.target.name]: event.target.checked,
-    });
+  const addBed = () => {
+    if (numbers.bed >= 16) return;
+    setNumbers({ ...numbers, bed: numbers.bed + 1 });
   };
 
+  const minusBed = () => {
+    if (numbers.bed < 1) return;
+    setNumbers({ ...numbers, bed: numbers.bed - 1 });
+  };
+
+  const addBedroom = () => {
+    if (numbers.bedroom >= 16) return;
+    setNumbers({ ...numbers, bedroom: numbers.bedroom + 1 });
+  };
+
+  const minusBedroom = () => {
+    if (numbers.bedroom < 1) return;
+    setNumbers({ ...numbers, bedroom: numbers.bedroom - 1 });
+  };
+
+  const addBathroom = () => {
+    if (numbers.bathroom >= 16) return;
+    setNumbers({ ...numbers, bathroom: numbers.bathroom + 1 });
+  };
+
+  const minusBathroom = () => {
+    if (numbers.bathroom < 1) return;
+    setNumbers({ ...numbers, bathroom: numbers.bathroom - 1 });
+  };
   return (
     <div style={{ marginTop: 50 }}>
       <Grid container>
@@ -125,32 +234,26 @@ const ListRoom = () => {
             <Box className={classes.list__filter}>
               <div className={classes.list__filter__item}>
                 <Chip
-                  onClick={handleOpenMenu}
+                  onClick={(e) => setAnchorEl(e.currentTarget)}
                   classes={{ root: classes.chip }}
                   label="Hủy miễn phí"
                 />
               </div>
               <div className={classes.list__filter__item}>
                 <Chip
-                  onClick={handleOpenMenuAccommodation}
+                  onClick={(e) => setAnchorElAccommodation(e.currentTarget)}
                   classes={{ root: classes.chip }}
                   label="Loại nơi ở"
                 />
               </div>
               <div className={classes.list__filter__item}>
                 <Chip
-                  onClick={handleOpenMenuPrice}
+                  onClick={(e) => setAnchorElPrice(e.currentTarget)}
                   classes={{ root: classes.chip }}
                   label="Giá"
                 />
               </div>
-              <div className={classes.list__filter__item}>
-                <Chip
-                  onClick={handleOpenMenuBookingNow}
-                  classes={{ root: classes.chip }}
-                  label="Đặt ngay"
-                />
-              </div>
+
               <div className={classes.list__filter__item}>
                 <Chip
                   onClick={handleOpen}
@@ -279,10 +382,10 @@ const ListRoom = () => {
       <Menu
         anchorReference="anchorPosition"
         anchorPosition={{ top: 200, left: 20 }}
-        anchorEl={anchorEl.cancel}
+        anchorEl={anchorEl}
         keepMounted
-        open={Boolean(anchorEl.cancel)}
-        onClose={handleCloseMenu}
+        open={Boolean(anchorEl)}
+        onClose={(e) => setAnchorEl(null)}
         PaperProps={{
           style: {
             maxWidth: "300px",
@@ -294,7 +397,7 @@ const ListRoom = () => {
         <div>
           <div className={classes.list__style__flex}>
             <div className={classes.list__menu__cancel__top}>
-              <Typography>
+              <Typography variant="h5">
                 Chỉ hiển thị những chỗ ở cho phép hủy miễn phí
               </Typography>
             </div>
@@ -330,10 +433,10 @@ const ListRoom = () => {
       <Menu
         anchorReference="anchorPosition"
         anchorPosition={{ top: 200, left: 135 }}
-        anchorEl={anchorEl.accommodation}
+        anchorEl={anchorElAccommodation}
         keepMounted
-        open={Boolean(anchorEl.accommodation)}
-        onClose={handleCloseMenuAccommodatio}
+        open={Boolean(anchorElAccommodation)}
+        onClose={(e) => setAnchorElAccommodation(null)}
         PaperProps={{
           style: {
             maxWidth: "320px",
@@ -343,6 +446,36 @@ const ListRoom = () => {
       >
         <div>
           <div className={classes.list__menu__accommodation__top}>
+            {/* {fakeCheckBox.map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  className={classes.list__menu__accommodation__item}
+                >
+                  <Checkbox
+                    checked={item.name}
+                    onChange={handleChangeCheckBox}
+                    inputProps={{ "aria-label": "primary checkbox" }}
+                    classes={{
+                      root: classes.checkbox,
+                    }}
+                    name={item.name}
+                  />
+                  <div>
+                    <Typography
+                      className={classes.list__menu__accommodation__text}
+                    >
+                      {item.title}
+                    </Typography>
+                    <Typography
+                      className={classes.list__menu__accommodation__text2}
+                    >
+                      {item.desc}
+                    </Typography>
+                  </div>
+                </div>
+              );
+            })} */}
             <div
               style={{
                 display: "flex",
@@ -350,12 +483,13 @@ const ListRoom = () => {
               }}
             >
               <Checkbox
-                checked={checked}
+                checked={checked.wholeHouse}
                 onChange={handleChangeCheckBox}
                 inputProps={{ "aria-label": "primary checkbox" }}
                 classes={{
                   root: classes.checkbox,
                 }}
+                name="wholeHouse"
               />
               <div>
                 <Typography className={classes.list__menu__accommodation__text}>
@@ -370,12 +504,13 @@ const ListRoom = () => {
             </div>
             <div className={classes.list__menu__accommodation__item}>
               <Checkbox
-                checked={checked}
+                checked={checked.room}
                 onChange={handleChangeCheckBox}
                 inputProps={{ "aria-label": "primary checkbox" }}
                 classes={{
                   root: classes.checkbox,
                 }}
+                name="room"
               />
               <div>
                 <Typography className={classes.list__menu__accommodation__text}>
@@ -390,12 +525,13 @@ const ListRoom = () => {
             </div>
             <div className={classes.list__menu__accommodation__item}>
               <Checkbox
-                checked={checked}
+                checked={checked.hotelRoom}
                 onChange={handleChangeCheckBox}
                 inputProps={{ "aria-label": "primary checkbox" }}
                 classes={{
                   root: classes.checkbox,
                 }}
+                name="hotelRoom"
               />
               <div>
                 <Typography className={classes.list__menu__accommodation__text}>
@@ -409,12 +545,13 @@ const ListRoom = () => {
             </div>
             <div className={classes.list__menu__accommodation__item}>
               <Checkbox
-                checked={checked}
+                checked={checked.commonRoom}
                 onChange={handleChangeCheckBox}
                 inputProps={{ "aria-label": "primary checkbox" }}
                 classes={{
                   root: classes.checkbox,
                 }}
+                name="commonRoom"
               />
               <div>
                 <Typography className={classes.list__menu__accommodation__text}>
@@ -439,74 +576,66 @@ const ListRoom = () => {
       {/* Menu Giá */}
       <Menu
         anchorReference="anchorPosition"
-        anchorPosition={{ top: 160, left: 120 }}
+        anchorPosition={{ top: 200, left: 225 }}
         anchorEl={anchorElPrice}
         keepMounted
         open={Boolean(anchorElPrice)}
-        onClose={handleCloseMenuPrice}
+        onClose={(e) => setAnchorElPrice(null)}
         PaperProps={{
           style: {
-            width: "300px",
-            height: "100px",
-            padding: "8px",
+            maxWidth: "320px",
             borderRadius: "16px",
           },
         }}
       >
-        <div>
-          <Slider
-            min={1}
-            max={10}
-            step={1}
-            value={rating}
-            onChange={handleChangeRating}
-            valueLabelDisplay="auto"
-            aria-labelledby="range-slider"
-            className={classes.slider}
-          />
-        </div>
-      </Menu>
-      {/* Menu Đặt ngay */}
-      <Menu
-        anchorReference="anchorPosition"
-        anchorPosition={{ top: 160, left: 20 }}
-        anchorEl={anchorElBookingNow}
-        keepMounted
-        open={Boolean(anchorElBookingNow)}
-        onClose={handleCloseMenuBookingNow}
-        PaperProps={{
-          style: {
-            maxWidth: "300px",
-            padding: "8px",
-            borderRadius: "16px",
-          },
-        }}
-      >
-        <div>
-          <Typography>Đặt ngay</Typography>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "flex-start",
-            }}
+        <div className={classes.list__menu__price__top}>
+          <Typography
+            variant="subtitle1"
+            className={classes.list__menu__price__text}
           >
-            <Typography>
-              Nhà/phòng cho thuê bạn có thể đặt mà không cần chờ chủ nhà chấp
-              thuận
-            </Typography>
+            Giá trung bình hàng đêm là $40
+          </Typography>
+          <AirbnbSlider
+            ThumbComponent={AirbnbThumbComponent}
+            getAriaLabel={(index) =>
+              index === 0 ? "Minimum price" : "Maximum price"
+            }
+            defaultValue={[20, 40]}
+          />
+          <Box display="flex" justifyContent="center" alignItems="center">
+            <TextField
+              variant="outlined"
+              label="Giá tối thiểu"
+              InputLabelProps={{
+                style: { fontSize: 13 },
+              }}
+              name="email"
+            />
+            <Box margin=" 16px 6px 0 6px">
+              <MaximizeIcon />
+            </Box>
+            <TextField
+              variant="outlined"
+              label="Giá tối đa"
+              InputLabelProps={{
+                style: { fontSize: 13 },
+              }}
+              name="email"
+            />
+          </Box>
+        </div>
+        <div>
+          <div className={classes.list__menu__cancel__bot}>
             <div>
-              <Switch
-                checked={stateBookingNow.checkedA}
-                onChange={handleChangeSwitchBookingNow}
-                name="checkedA"
-                inputProps={{ "aria-label": "secondary checkbox" }}
-              />
+              <button className={classes.button__erase}>Xóa</button>
+            </div>
+            <div>
+              <button className={classes.button__save}>Lưu</button>
             </div>
           </div>
-          <div></div>
         </div>
       </Menu>
+
       {/* Modal Bộ lọc khác */}
 
       <Fragment>
@@ -527,86 +656,86 @@ const ListRoom = () => {
                 <div></div>
               </div>
 
-              <div
-                style={{
-                  overflowX: "hidden",
-                  paddingRight: "25px",
-                  paddingLeft: "25px",
-                }}
-              >
+              <div className={classes.modal__style}>
                 <div className={classes.modal__bedroom}>
-                  <Typography>Phòng và phòng ngủ</Typography>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      padding: "12px 0",
-                    }}
+                  <Typography
+                    className={classes.modal__title__text}
+                    variant="subtitle1"
                   >
-                    <Typography>Giường</Typography>
+                    Phòng và phòng ngủ
+                  </Typography>
+                  <div className={classes.modal__style__content}>
+                    <Typography variant="subtitle1">Giường</Typography>
                     <div className={classes.modal__bedroom__item}>
-                      <button className={classes.button}>
-                        <AddIcon />
-                      </button>
-                      <Typography style={{ padding: "0 15px" }}>1</Typography>
-                      <button className={classes.button}>
+                      <button onClick={minusBed} className={classes.button}>
                         <RemoveIcon />
+                      </button>
+                      <Typography className={classes.modal__bedroom__text}>
+                        {numbers.bed}
+                      </Typography>
+                      <button onClick={addBed} className={classes.button}>
+                        <AddIcon />
                       </button>
                     </div>
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      padding: "12px 0",
-                    }}
-                  >
-                    <Typography>Phòng ngủ</Typography>
+                  <div className={classes.modal__style__content}>
+                    <Typography variant="subtitle1">Phòng ngủ</Typography>
                     <div className={classes.modal__bedroom__item}>
-                      <button className={classes.button}>
-                        <AddIcon />
-                      </button>
-                      <Typography style={{ padding: "0 15px" }}>1</Typography>
-                      <button className={classes.button}>
+                      <button onClick={minusBedroom} className={classes.button}>
                         <RemoveIcon />
+                      </button>
+
+                      <Typography className={classes.modal__bedroom__text}>
+                        {numbers.bedroom}
+                      </Typography>
+                      <button onClick={addBedroom} className={classes.button}>
+                        <AddIcon />
                       </button>
                     </div>
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      padding: "12px 0",
-                    }}
-                  >
-                    <Typography>Phòng tắm</Typography>
+                  <div className={classes.modal__style__content}>
+                    <Typography variant="subtitle1">Phòng tắm</Typography>
                     <div className={classes.modal__bedroom__item}>
-                      <button className={classes.button}>
-                        <AddIcon />
-                      </button>
-                      <Typography style={{ padding: "0 15px" }}>1</Typography>
-                      <button className={classes.button}>
+                      <button
+                        onClick={() => minusBathroom()}
+                        className={classes.button}
+                      >
                         <RemoveIcon />
+                      </button>
+                      <Typography className={classes.modal__bedroom__text}>
+                        {numbers.bathroom}
+                      </Typography>
+                      <button
+                        onClick={() => addBathroom()}
+                        className={classes.button}
+                      >
+                        <AddIcon />
                       </button>
                     </div>
                   </div>
                 </div>
 
                 <div className={classes.modal__another}>
-                  <Typography>Lựa chọn khác</Typography>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
+                  <Typography
+                    className={classes.modal__title__text}
+                    variant="subtitle1"
                   >
+                    Lựa chọn khác
+                  </Typography>
+                  <div className={classes.modal__style__content}>
                     <div>
-                      <Typography>Chủ nhà siêu cấp</Typography>
-                      <Typography>
+                      <Typography variant="subtitle1">
+                        Chủ nhà siêu cấp
+                      </Typography>
+                      <Typography
+                        className={classes.modal__another__text}
+                        variant="subtitle2"
+                      >
                         Ở cùng với các chủ nhà được công nhận
                       </Typography>
-                      <Typography>Tìm hiểu thêm</Typography>
+                      <Typography className={classes.modal__text_style}>
+                        Tìm hiểu thêm
+                      </Typography>
                     </div>
                     <div>
                       <Switch
@@ -618,85 +747,90 @@ const ListRoom = () => {
                     </div>
                   </div>
                   <div>
-                    <Typography>Hỗ trợ người có nhu cầu đặc biệt</Typography>
-                    <Typography>
+                    <Typography variant="subtitle1">
+                      Hỗ trợ người có nhu cầu đặc biệt
+                    </Typography>
+                    <Typography
+                      className={classes.modal__another__text}
+                      variant="subtitle2"
+                    >
                       Tìm một nơi ở đáp ứng nhu cầu di chuyển của bạn
                     </Typography>
-                    <Typography>Chọn tính năng nơi bạn ở</Typography>
+                    <Typography className={classes.modal__text_style}>
+                      Chọn tính năng nơi bạn ở
+                    </Typography>
                   </div>
                 </div>
 
                 <div className={classes.modal__convenient}>
-                  <Typography>Tiện nghi</Typography>
+                  <Typography className={classes.modal__title__text}>
+                    Tiện nghi
+                  </Typography>
                   <div>
                     <Grid container>
                       <Grid item lg={6}>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "centet",
-                            alignItems: "center",
-                          }}
-                        >
+                        <div className={classes.modal__style__checkbox}>
                           <Checkbox
                             // checked={checked}
                             // onChange={handleChangeCheckBox}
-                            inputProps={{ "aria-label": "primary checkbox" }}
+                            inputProps={{
+                              style: {
+                                border: "none",
+                                paddingRight: 50,
+                                fontSize: 30,
+                              },
+                            }}
+                            classes={{
+                              root: classes.checkbox,
+                            }}
                           />
                           <Typography>Bếp</Typography>
                         </div>
                       </Grid>
                       <Grid item lg={6}>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "centet",
-                            alignItems: "center",
-                          }}
-                        >
+                        <div className={classes.modal__style__checkbox}>
                           <Checkbox
                             // checked={checked}
                             // onChange={handleChangeCheckBox}
                             inputProps={{ "aria-label": "primary checkbox" }}
+                            classes={{
+                              root: classes.checkbox,
+                            }}
                           />
                           <Typography>Hệ thống sưởi</Typography>
                         </div>
                       </Grid>
                       <Grid item lg={6}>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "centet",
-                            alignItems: "center",
-                          }}
-                        >
+                        <div className={classes.modal__style__checkbox}>
                           <Checkbox
                             // checked={checked}
                             // onChange={handleChangeCheckBox}
                             inputProps={{ "aria-label": "primary checkbox" }}
+                            classes={{
+                              root: classes.checkbox,
+                            }}
                           />
                           <Typography>Điều hòa nhiệt độ</Typography>
                         </div>
                       </Grid>
                       <Grid item lg={6}>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "centet",
-                            alignItems: "center",
-                          }}
-                        >
+                        <div className={classes.modal__style__checkbox}>
                           <Checkbox
                             // checked={checked}
                             // onChange={handleChangeCheckBox}
                             inputProps={{ "aria-label": "primary checkbox" }}
+                            classes={{
+                              root: classes.checkbox,
+                            }}
                           />
                           <Typography>Máy giặt</Typography>
                         </div>
                       </Grid>
                     </Grid>
                     <div>
-                      <Typography>Hiển thị tất cả tiện nghi</Typography>
+                      <Typography className={classes.modal__text_style}>
+                        Hiển thị tất cả tiện nghi
+                      </Typography>
                     </div>
                   </div>
                 </div>
@@ -706,72 +840,62 @@ const ListRoom = () => {
                   <div>
                     <Grid container>
                       <Grid item lg={6}>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "centet",
-                            alignItems: "center",
-                          }}
-                        >
+                        <div className={classes.modal__style__checkbox}>
                           <Checkbox
                             // checked={checked}
                             // onChange={handleChangeCheckBox}
                             inputProps={{ "aria-label": "primary checkbox" }}
+                            classes={{
+                              root: classes.checkbox,
+                            }}
                           />
                           <Typography>Chỗ đỗ xe miễn phí tại nơi ở</Typography>
                         </div>
                       </Grid>
                       <Grid item lg={6}>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "centet",
-                            alignItems: "center",
-                          }}
-                        >
+                        <div className={classes.modal__style__checkbox}>
                           <Checkbox
                             // checked={checked}
                             // onChange={handleChangeCheckBox}
                             inputProps={{ "aria-label": "primary checkbox" }}
+                            classes={{
+                              root: classes.checkbox,
+                            }}
                           />
                           <Typography>Phòng tập thể hình</Typography>
                         </div>
                       </Grid>
                       <Grid item lg={6}>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "centet",
-                            alignItems: "center",
-                          }}
-                        >
+                        <div className={classes.modal__style__checkbox}>
                           <Checkbox
                             // checked={checked}
                             // onChange={handleChangeCheckBox}
                             inputProps={{ "aria-label": "primary checkbox" }}
+                            classes={{
+                              root: classes.checkbox,
+                            }}
                           />
                           <Typography>Bồn tắm nước nóng</Typography>
                         </div>
                       </Grid>
                       <Grid item lg={6}>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "centet",
-                            alignItems: "center",
-                          }}
-                        >
+                        <div className={classes.modal__style__checkbox}>
                           <Checkbox
                             // checked={checked}
                             // onChange={handleChangeCheckBox}
                             inputProps={{ "aria-label": "primary checkbox" }}
+                            classes={{
+                              root: classes.checkbox,
+                            }}
                           />
                           <Typography>Bể bơi</Typography>
                         </div>
                       </Grid>
                     </Grid>
                     <div>
-                      <Typography>Hiển thị tất cả các tiện ích</Typography>
+                      <Typography className={classes.modal__text_style}>
+                        Hiển thị tất cả các tiện ích
+                      </Typography>
                     </div>
                   </div>
                 </div>
@@ -781,72 +905,62 @@ const ListRoom = () => {
                   <div>
                     <Grid container>
                       <Grid item lg={6}>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "centet",
-                            alignItems: "center",
-                          }}
-                        >
+                        <div className={classes.modal__style__checkbox}>
                           <Checkbox
                             // checked={checked}
                             // onChange={handleChangeCheckBox}
                             inputProps={{ "aria-label": "primary checkbox" }}
+                            classes={{
+                              root: classes.checkbox,
+                            }}
                           />
                           <Typography>Nhà</Typography>
                         </div>
                       </Grid>
                       <Grid item lg={6}>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "centet",
-                            alignItems: "center",
-                          }}
-                        >
+                        <div className={classes.modal__style__checkbox}>
                           <Checkbox
                             // checked={checked}
                             // onChange={handleChangeCheckBox}
                             inputProps={{ "aria-label": "primary checkbox" }}
+                            classes={{
+                              root: classes.checkbox,
+                            }}
                           />
                           <Typography>Căn hộ</Typography>
                         </div>
                       </Grid>
                       <Grid item lg={6}>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "centet",
-                            alignItems: "center",
-                          }}
-                        >
+                        <div className={classes.modal__style__checkbox}>
                           <Checkbox
                             // checked={checked}
                             // onChange={handleChangeCheckBox}
                             inputProps={{ "aria-label": "primary checkbox" }}
+                            classes={{
+                              root: classes.checkbox,
+                            }}
                           />
                           <Typography>Chỗ nghỉ phục vụ bữa sáng</Typography>
                         </div>
                       </Grid>
                       <Grid item lg={6}>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "centet",
-                            alignItems: "center",
-                          }}
-                        >
+                        <div className={classes.modal__style__checkbox}>
                           <Checkbox
                             // checked={checked}
                             // onChange={handleChangeCheckBox}
                             inputProps={{ "aria-label": "primary checkbox" }}
+                            classes={{
+                              root: classes.checkbox,
+                            }}
                           />
                           <Typography>Khách sạn boutique</Typography>
                         </div>
                       </Grid>
                     </Grid>
                     <div>
-                      <Typography>Hiển thị tất cả các loại chỗ ở</Typography>
+                      <Typography className={classes.modal__text_style}>
+                        Hiển thị tất cả các loại chỗ ở
+                      </Typography>
                     </div>
                   </div>
                 </div>
@@ -856,72 +970,62 @@ const ListRoom = () => {
                   <div>
                     <Grid container>
                       <Grid item lg={6}>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "centet",
-                            alignItems: "center",
-                          }}
-                        >
+                        <div className={classes.modal__style__checkbox}>
                           <Checkbox
                             // checked={checked}
                             // onChange={handleChangeCheckBox}
                             inputProps={{ "aria-label": "primary checkbox" }}
+                            classes={{
+                              root: classes.checkbox,
+                            }}
                           />
                           <Typography>Hải đăng</Typography>
                         </div>
                       </Grid>
                       <Grid item lg={6}>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "centet",
-                            alignItems: "center",
-                          }}
-                        >
+                        <div className={classes.modal__style__checkbox}>
                           <Checkbox
                             // checked={checked}
                             // onChange={handleChangeCheckBox}
                             inputProps={{ "aria-label": "primary checkbox" }}
+                            classes={{
+                              root: classes.checkbox,
+                            }}
                           />
                           <Typography>Lâu đài</Typography>
                         </div>
                       </Grid>
                       <Grid item lg={6}>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "centet",
-                            alignItems: "center",
-                          }}
-                        >
+                        <div className={classes.modal__style__checkbox}>
                           <Checkbox
                             // checked={checked}
                             // onChange={handleChangeCheckBox}
                             inputProps={{ "aria-label": "primary checkbox" }}
+                            classes={{
+                              root: classes.checkbox,
+                            }}
                           />
                           <Typography>Nhà nghỉ giữa thiên nhiên</Typography>
                         </div>
                       </Grid>
                       <Grid item lg={6}>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "centet",
-                            alignItems: "center",
-                          }}
-                        >
+                        <div className={classes.modal__style__checkbox}>
                           <Checkbox
                             // checked={checked}
                             // onChange={handleChangeCheckBox}
                             inputProps={{ "aria-label": "primary checkbox" }}
+                            classes={{
+                              root: classes.checkbox,
+                            }}
                           />
                           <Typography>Nhà nhỏ</Typography>
                         </div>
                       </Grid>
                     </Grid>
                     <div>
-                      <Typography>Hiển thị mọi nơi ở độc đáo</Typography>
+                      <Typography className={classes.modal__text_style}>
+                        Hiển thị mọi nơi ở độc đáo
+                      </Typography>
                     </div>
                   </div>
                 </div>
@@ -931,33 +1035,27 @@ const ListRoom = () => {
                   <div>
                     <Grid container>
                       <Grid item lg={6}>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "centet",
-                            alignItems: "center",
-                          }}
-                        >
+                        <div className={classes.modal__style__checkbox}>
                           <Checkbox
                             // checked={checked}
                             // onChange={handleChangeCheckBox}
                             inputProps={{ "aria-label": "primary checkbox" }}
+                            classes={{
+                              root: classes.checkbox,
+                            }}
                           />
                           <Typography>Cho phép thú cưng</Typography>
                         </div>
                       </Grid>
                       <Grid item lg={6}>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "centet",
-                            alignItems: "center",
-                          }}
-                        >
+                        <div className={classes.modal__style__checkbox}>
                           <Checkbox
                             // checked={checked}
                             // onChange={handleChangeCheckBox}
                             inputProps={{ "aria-label": "primary checkbox" }}
+                            classes={{
+                              root: classes.checkbox,
+                            }}
                           />
                           <Typography>Cho phép hút thuốc</Typography>
                         </div>
@@ -971,33 +1069,27 @@ const ListRoom = () => {
                   <div>
                     <Grid container>
                       <Grid item lg={6}>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "centet",
-                            alignItems: "center",
-                          }}
-                        >
+                        <div className={classes.modal__style__checkbox}>
                           <Checkbox
                             // checked={checked}
                             // onChange={handleChangeCheckBox}
                             inputProps={{ "aria-label": "primary checkbox" }}
+                            classes={{
+                              root: classes.checkbox,
+                            }}
                           />
                           <Typography>Tiếng Anh</Typography>
                         </div>
                       </Grid>
                       <Grid item lg={6}>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "centet",
-                            alignItems: "center",
-                          }}
-                        >
+                        <div className={classes.modal__style__checkbox}>
                           <Checkbox
                             // checked={checked}
                             // onChange={handleChangeCheckBox}
                             inputProps={{ "aria-label": "primary checkbox" }}
+                            classes={{
+                              root: classes.checkbox,
+                            }}
                           />
                           <Typography>Tiếng Việt</Typography>
                         </div>
@@ -1011,8 +1103,10 @@ const ListRoom = () => {
 
               {/* modal footer */}
               <div className={classes.modal__footer}>
-                <Button>Xóa tất cả</Button>
-                <Button>Hiển thị hơn 300 chỗ ở</Button>
+                <button className={classes.button__erase}>Xóa tất cả</button>
+                <button className={classes.button__modal__button}>
+                  Hiển thị hơn 300 chỗ ở
+                </button>
               </div>
 
               {/*  */}
