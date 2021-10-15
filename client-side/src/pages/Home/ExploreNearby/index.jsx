@@ -28,25 +28,27 @@ const ExploreNearby = () => {
   const classes = useStyles();
 
   return (
-    <Container maxWidth="home" className={classes.places}>
-      <Typography variant="h4" className={classes.places__title}>
-        Khám phá những điểm đến gần đây
-      </Typography>
+    <div className={classes.root}>
+      <Container maxWidth={false} className={classes.places}>
+        <Typography variant="h4" className={classes.places__title}>
+          Khám phá những điểm đến gần đây
+        </Typography>
 
-      <Grid container spacing={2}>
-        {fakeCities.map((city, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
-            <div className={classes.cities}>
-              <img src={city.img} alt="city" className={classes.city__img} />
-              <div className={classes.city__info}>
-                <Typography variant="subtitle2">{city.name}</Typography>
-                <p>{city.driveHour}</p>
+        <Grid container spacing={2}>
+          {fakeCities.map((city, index) => (
+            <Grid item xs={12} sm={6} md={3} key={index}>
+              <div className={classes.cities}>
+                <img src={city.img} alt="city" className={classes.city__img} />
+                <div className={classes.city__info}>
+                  <Typography variant="subtitle2">{city.name}</Typography>
+                  <p>{city.driveHour}</p>
+                </div>
               </div>
-            </div>
-          </Grid>
-        ))}
-      </Grid>
-    </Container>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+    </div>
   );
 };
 

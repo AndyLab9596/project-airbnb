@@ -1,8 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles(theme => ({
+    root: {
+        margin: "32px 0",
 
-    places: {
-        width: '100%',
         "& .MuiContainer-root": {
             padding: "0 24px",
             [theme.breakpoints.up("sm")]: {
@@ -12,6 +12,18 @@ export default makeStyles(theme => ({
                 padding: "0 80px",
             },
         },
+    },
+    places: {
+        width: '100%',
+        // "& .MuiContainer-root": {
+        //     padding: "0 24px",
+        //     [theme.breakpoints.up("sm")]: {
+        //         padding: "0 40px",
+        //     },
+        //     [theme.breakpoints.up("xl")]: {
+        //         padding: "0 80px",
+        //     },
+        // },
     },
 
     places__title: {
