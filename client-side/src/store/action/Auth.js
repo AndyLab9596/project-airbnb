@@ -15,13 +15,8 @@ export const loginAction = (user) => {
       if (res.token) {
         dispatch(createAction(HIDE_MODAL_SIGNIN));
       }
-<<<<<<< HEAD
       dispatch((createAction(GET_INFO_USER, res.user)))
       localStorage.setItem(USERID, res.user._id);
-=======
-      localStorage.setItem("idUser", res.data.user._id);
-      console.log(res);
->>>>>>> 1bfaae01f24254019c9565fa93dbf2e176b31854
     } catch (error) {
       console.log(error);
     }
