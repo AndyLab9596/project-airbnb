@@ -106,10 +106,9 @@ const Header = () => {
     }, [scroll]);
 
     const matchUrl = useRouteMatch();
-    const homepageRoute = matchUrl.url === "/";
-    const listpageRoute = matchUrl.url === "/list";
-    const detailpageRoute = matchUrl.url === "/detail";
-
+    const homepageRoute = matchUrl.path === "/";
+    const listpageRoute = matchUrl.path === "/list/:locationId";
+    const detailpageRoute = matchUrl.path === "/detail/:roomId";
     const classes = useStyles({
         scroll,
         displaySearchBar,
