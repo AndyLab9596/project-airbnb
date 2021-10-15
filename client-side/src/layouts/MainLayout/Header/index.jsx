@@ -106,7 +106,6 @@ const Header = () => {
     }, [scroll]);
 
     const matchUrl = useRouteMatch();
-    console.log('matchUrl', matchUrl)
     const homepageRoute = matchUrl.url === "/";
     const listpageRoute = matchUrl.url === "/list";
     const detailpageRoute = matchUrl.url === "/detail";
