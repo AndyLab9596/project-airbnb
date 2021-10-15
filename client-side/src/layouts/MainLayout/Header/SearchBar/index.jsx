@@ -140,7 +140,7 @@ const SearchBar = ({ isDesktop }) => {
     const handleSearchSubmit = (e) => {
         e.preventDefault();
         history.push({
-            pathname: `/locationListPage/${locationId}`,
+            pathname: `/list/${locationId}`,
             search: queryString.stringify(queryParams)
         })
     };
