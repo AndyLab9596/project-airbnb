@@ -129,9 +129,6 @@ const SearchBar = ({ isDesktop }) => {
     const locationInputValue = locationList.find((location) => location.name === inputValue);
     const locationId = locationInputValue?._id;
 
-
-    console.log(bookingTime)
-
     const queryParams = {
         _checkIn: bookingTime[0],
         _checkOut: bookingTime[1],

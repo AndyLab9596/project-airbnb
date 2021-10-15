@@ -244,11 +244,44 @@ export default makeStyles(theme => ({
   chip: {
     height: '42px',
     borderRadius: '21px',
-    backgroundColor: props => props.homepageRoute && props.scroll ? "transparent" : "rgb(221, 221, 221)"
+    border: "1px solid #DDDDDD",
+    backgroundColor: props => props.homepageRoute && props.scroll ? "transparent" : "#fff",
+    "& .MuiChip-clickable.MuiChip-outlined": {
+      "&:hover": {
+        backgroundColor: 'rgb(221, 221, 221)'
+      }
+    }
+
   },
 
   list__chip: {
     backgroundColor: props => (props.listpageRoute || props.detailpageRoute) && "transparent"
+  },
+
+  button__chip: {
+    backgroundColor: props => props.homepageRoute && props.scroll ? "transparent" : "#fff",
+    border: "1px solid #DDDDDD",
+    color: "222222",
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '5px 5px 5px 12px',
+    borderRadius: '21px',
+    height: '42px',
+    width: '75px',
+    "&:hover": {
+      boxShadow: "0px 2px 4px rgb(0 0 0 / 18%)"
+    }
+  },
+
+  list__button__chip: {
+    backgroundColor: props => (props.listpageRoute || props.detailpageRoute) && "transparent"
+  },
+
+  avatar: {
+    width: 30,
+    height: 30
   },
 
 

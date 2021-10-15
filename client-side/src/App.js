@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import ModalSignIn from "./components/Login/ModalSignIn";
 //Components
 import ModalSignUp from "./components/Login/ModalSignUp";
-import { theme } from "./constants/config";
+import { theme, USERID } from "./constants/config";
 // Layout
 import MainLayout from "./layouts/MainLayout";
 import Testing from "./pages/Testing";
@@ -21,7 +21,8 @@ import ListRoom from "./pages/ListRoom";
 
 
 const App = () => {
-  const idUser = localStorage.getItem("idUser");
+  const idUser = localStorage.getItem(USERID);
+  console.log(idUser)
   const dispatch = useDispatch();
   useEffect(() => {
     if (idUser) {

@@ -172,6 +172,9 @@ export default makeStyles((theme) => ({
         outline: 'none',
         backgroundColor: theme.palette.secondary.main,
         cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 
     formControl__button__icon: {

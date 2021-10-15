@@ -1,5 +1,7 @@
 import {
     AppBar,
+    Avatar,
+    Badge,
     Box,
     Button,
     Chip,
@@ -10,6 +12,7 @@ import {
     Toolbar,
 } from "@material-ui/core";
 import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LanguageIcon from "@material-ui/icons/Language";
 import MenuOutlinedIcon from "@material-ui/icons/MenuOutlined";
 import React, { Fragment, useEffect, useState } from "react";
@@ -17,7 +20,7 @@ import airbnbIcon from "../../../assets/img/airbnblogo.png";
 import airbnbRedIcon from "../../../assets/img/airbnbRedIcon.png";
 import { createAction } from "../../../store/action/createAction/createAction";
 import { SHOW_MODAL_SIGNIN, SHOW_MODAL_SIGNUP, } from "../../../store/types/AuthType";
-import { FAKE_AVATAR } from "../../../constants/config";
+import { FAKE_AVATAR, USERID } from "../../../constants/config";
 import { useHistory } from "react-router";
 import useStyles from "./style";
 import SearchBar from './SearchBar';
@@ -226,8 +229,6 @@ const Header = () => {
                             </>
                         )}
 
-
-
                         <div className={`
                         ${classes.navbar__content__left} 
                         ${classes.list__navbar__content__left}`}>
@@ -239,14 +240,25 @@ const Header = () => {
                             <IconButton className={`${classes.language__wrapper} ${classes.list__language__wrapper}`}>
                                 <LanguageIcon className={`${classes.language__icon} ${classes.list__language__icon}`} />
                             </IconButton>
-                            <Chip
+                            {/* <Chip
                                 onClick={handleOpenMenu}
                                 className={`${classes.chip} ${classes.list__chip}`}
                                 size="medium"
                                 icon={<MenuOutlinedIcon fontSize="small" />}
                                 label={<AccountCircleOutlinedIcon fontSize="medium" />}
+                                avatar={<Avatar alt="Natacha" src="/static/images/avatar/1.jpg" />}
                                 variant="outlined"
-                            />
+                            /> */}
+                            <button className={`${classes.button__chip} ${classes.list__button__chip}`} onClick={handleOpenMenu}>
+                                <MenuOutlinedIcon fontSize="small" />
+                                {localStorage.getItem(USERID) ? (
+                                    <Badge badgeContent={1} color="secondary" >
+                                        <Avatar alt="user avatar" src={infoUser?.avatar} className={classes.avatar} />
+                                    </Badge>
+                                ) : (
+                                    <AccountCircleIcon fontSize="medium" />
+                                )}
+                            </button>
                         </div>
 
                     </Toolbar>
@@ -267,7 +279,7 @@ const Header = () => {
             <Menu
                 id="simple-menu"
                 anchorReference="anchorPosition"
-                anchorPosition={{ top: 80, left: windowWidth - 80 }}
+                anchorPosition={{ top: 75, left: windowWidth - 70 }}
                 anchorOrigin={{
                     vertical: "bottom",
                     horizontal: "right",
