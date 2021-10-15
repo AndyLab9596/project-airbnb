@@ -23,7 +23,7 @@ import airbnbIcon from "../../../assets/img/airbnblogo.png";
 import airbnbRedIcon from "../../../assets/img/airbnbRedIcon.png";
 import { USERID } from "../../../constants/config";
 import { createAction } from "../../../store/action/createAction/createAction";
-import { SHOW_MODAL_SIGNIN, SHOW_MODAL_SIGNUP } from "../../../store/types/AuthType";
+import { LOG_OUT, SHOW_MODAL_SIGNIN, SHOW_MODAL_SIGNUP } from "../../../store/types/AuthType";
 import SearchBar from './SearchBar';
 import useStyles from "./style";
 
@@ -39,7 +39,7 @@ const Header = () => {
         setAnchorEl(null);
         localStorage.removeItem(USERID);
         history.push("/");
-        dispatch(createAction(SHOW_MODAL_SIGNIN));
+        dispatch(createAction(LOG_OUT));
     };
     const handleOpenMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -85,6 +85,7 @@ const Header = () => {
         }
 
     }
+
 
     useEffect(() => {
         if (scroll) {
