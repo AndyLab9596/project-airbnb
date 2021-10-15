@@ -3,34 +3,32 @@ import {
     Avatar,
     Badge,
     Box,
-    Button,
-    Chip,
-    ClickAwayListener,
+    Button, ClickAwayListener,
     IconButton,
     Menu,
     MenuItem,
-    Toolbar,
+    Toolbar
 } from "@material-ui/core";
-import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LanguageIcon from "@material-ui/icons/Language";
 import MenuOutlinedIcon from "@material-ui/icons/MenuOutlined";
+import SearchIcon from '@material-ui/icons/Search';
 import React, { Fragment, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import { useRouteMatch } from "react-router-dom";
 import airbnbIcon from "../../../assets/img/airbnblogo.png";
 import airbnbRedIcon from "../../../assets/img/airbnbRedIcon.png";
+import { USERID } from "../../../constants/config";
 import { createAction } from "../../../store/action/createAction/createAction";
-import { SHOW_MODAL_SIGNIN, SHOW_MODAL_SIGNUP, } from "../../../store/types/AuthType";
-import { FAKE_AVATAR, USERID } from "../../../constants/config";
-import { useHistory } from "react-router";
-import useStyles from "./style";
+import { SHOW_MODAL_SIGNIN, SHOW_MODAL_SIGNUP } from "../../../store/types/AuthType";
 import SearchBar from './SearchBar';
-import { useDispatch, useSelector } from "react-redux";
-import { useTheme } from '@material-ui/core/styles';
-import { useRouteMatch } from "react-router-dom";
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import SearchIcon from '@material-ui/icons/Search';
+import useStyles from "./style";
 
 const Header = () => {
+    const isUserId = localStorage.getItem(USERID);
     const [anchorEl, setAnchorEl] = useState(null);
     const windowWidth = window.innerWidth;
     const dispatch = useDispatch();
@@ -119,7 +117,8 @@ const Header = () => {
         listpageRoute,
         detailpageRoute,
         listPageDisplaySearchBar,
-        detailPageDisplaySearchBar
+        detailPageDisplaySearchBar,
+        isUserId
     });
 
     return (
@@ -242,7 +241,7 @@ const Header = () => {
                             </IconButton>
                             <button className={`${classes.button__chip} ${classes.list__button__chip}`} onClick={handleOpenMenu}>
                                 <MenuOutlinedIcon fontSize="small" />
-                                {localStorage.getItem(USERID) ? (
+                                {isUserId ? (
                                     <Badge badgeContent={1} color="secondary" >
                                         <Avatar alt="user avatar" src={infoUser?.avatar} className={classes.avatar} />
                                     </Badge>
@@ -291,36 +290,37 @@ const Header = () => {
                     },
                 }}
             >
-                {idUser ? null : (
+
+                {isUserId ? (
                     <>
-                        <MenuItem className={classes.menu__items} onClick={ShowModalSignIn}>
+                        <MenuItem className={`${classes.menu__items} ${classes.menu__itemsBold}`}>Tin nhắn</MenuItem>
+                        <MenuItem className={`${classes.menu__items} ${classes.menu__itemsBold}`}>
+                            <Badge color="secondary" variant="dot">
+                                Thông báo
+                            </Badge>
+                        </MenuItem>
+                        <MenuItem className={`${classes.menu__items} ${classes.menu__itemsBold}`}>Chuyến đi</MenuItem>
+                        <MenuItem className={`${classes.menu__items} ${classes.menu__itemsBold}`}>Danh sách yêu thích</MenuItem>
+                        <MenuItem className={classes.menu__items}>Cho thuê nhà</MenuItem>
+                        <MenuItem className={classes.menu__items}>Tổ chức trải nghiệm</MenuItem>
+                        <MenuItem className={classes.menu__items}>Trải nghiệm</MenuItem>
+                        <MenuItem className={classes.menu__items}>Trợ giúp</MenuItem>
+                        <MenuItem className={classes.menu__items}
+                            onClick={handleLogout}
+                        >Đăng xuất</MenuItem>
+                    </>
+                ) : (
+                    <>
+                        <MenuItem className={`${classes.menu__items} ${classes.menu__itemsBold}`} onClick={ShowModalSignIn}>
                             Đăng nhập
                         </MenuItem>
                         <MenuItem className={classes.menu__items} onClick={ShowModalSignUp}>
                             Đăng Ký
                         </MenuItem>
+                        <MenuItem className={classes.menu__items}>Cho thuê nhà</MenuItem>
+                        <MenuItem className={classes.menu__items}>Tổ chức trải nghiệm</MenuItem>
+                        <MenuItem className={classes.menu__items}>Trải nghiệm</MenuItem>
                     </>
-                )}
-                <MenuItem className={classes.menu__items}>Cho thuê nhà</MenuItem>
-                <MenuItem className={classes.menu__items}>Tổ chức trải nghiệm</MenuItem>
-
-                {idUser && (
-                    <MenuItem
-                        onClick={() => {
-                            history.push("/profile");
-                            setAnchorEl(null);
-                        }}
-                        className={classes.menu__items}
-                    >
-                        Tài Khoản
-                    </MenuItem>
-                )}
-                <MenuItem className={classes.menu__items}>Trợ giúp</MenuItem>
-
-                {idUser && (
-                    <MenuItem onClick={handleLogout} className={classes.menu__items}>
-                        Đăng xuất
-                    </MenuItem>
                 )}
             </Menu>
         </Fragment>

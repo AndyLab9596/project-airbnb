@@ -271,14 +271,21 @@ export default makeStyles(theme => ({
 
   menu__items: {
     padding: '8px',
-
-    '&:nth-child(1)': {
-      fontWeight: 500,
+    '&:nth-child(4)': {
+      borderBottom: props => props.isUserId && '1px solid #e0e0e0'
+    },
+    '&:nth-child(7)': {
+      borderBottom: props => props.isUserId && '1px solid #e0e0e0'
     },
 
     '&:nth-child(2)': {
-      borderBottom: '1px solid #e0e0e0'
+      borderBottom: props => !props.isUserId && '1px solid #e0e0e0'
     }
+
+  },
+
+  "menu__itemsBold": {
+    fontWeight: 500,
   },
 
   searchBar: {
