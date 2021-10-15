@@ -70,11 +70,8 @@ const FilterRoom = () => {
   //State Giá
   const [anchorElPrice, setAnchorElPrice] = useState(null);
 
-  //State Đặt ngay
-  const [anchorElBookingNow, setAnchorElBookingNow] = useState(null);
-  //State Hủy miễn phí
+  //modal
   const [open, setOpen] = useState(false);
-  const [dropdown, setDropdown] = useState(false);
 
   // const fakeCheckBox = [
   //   {
@@ -163,54 +160,18 @@ const FilterRoom = () => {
   const handleChangeCheckBox = (event) => {
     setChecked({ ...checked, [event.target.name]: event.target.checked });
   };
-  // Slider Giá
-  const [rating, setRating] = React.useState([5, 10]);
+  //   // Slider Giá
+  //   const [rating, setRating] = React.useState([5, 10]);
 
-  const rateGte = rating?.join("").slice(0, 1);
-  const rateLte = rating?.join("").slice(1, 3);
-  const handleChangeRating = (event, newValue) => {
-    setRating(newValue);
-  };
+  //   const rateGte = rating?.join("").slice(0, 1);
+  //   const rateLte = rating?.join("").slice(1, 3);
+  //   const handleChangeRating = (event, newValue) => {
+  //     setRating(newValue);
+  //   };
 
-  //MODAL
-  // PHÒNG VÀ PHÒNG NGỦ
-  const [numbers, setNumbers] = useState({
-    bed: 0,
-    bedroom: 0,
-    bathroom: 0,
-  });
-  const addBed = () => {
-    if (numbers.bed >= 16) return;
-    setNumbers({ ...numbers, bed: numbers.bed + 1 });
-  };
-
-  const minusBed = () => {
-    if (numbers.bed < 1) return;
-    setNumbers({ ...numbers, bed: numbers.bed - 1 });
-  };
-
-  const addBedroom = () => {
-    if (numbers.bedroom >= 16) return;
-    setNumbers({ ...numbers, bedroom: numbers.bedroom + 1 });
-  };
-
-  const minusBedroom = () => {
-    if (numbers.bedroom < 1) return;
-    setNumbers({ ...numbers, bedroom: numbers.bedroom - 1 });
-  };
-
-  const addBathroom = () => {
-    if (numbers.bathroom >= 16) return;
-    setNumbers({ ...numbers, bathroom: numbers.bathroom + 1 });
-  };
-
-  const minusBathroom = () => {
-    if (numbers.bathroom < 1) return;
-    setNumbers({ ...numbers, bathroom: numbers.bathroom - 1 });
-  };
   return (
     <Fragment>
-      <div>
+      <div style={{ marginTop: 30 }}>
         <Box>
           <Typography className={classes.list__text__titile}>
             Hơn 300 chỗ ở
@@ -281,7 +242,7 @@ const FilterRoom = () => {
         <div>
           <div className={classes.list__style__flex}>
             <div className={classes.list__menu__cancel__top}>
-              <Typography variant="h5">
+              <Typography variant="subtitle2">
                 Chỉ hiển thị những chỗ ở cho phép hủy miễn phí
               </Typography>
             </div>
@@ -488,23 +449,23 @@ const FilterRoom = () => {
           />
           <Box display="flex" justifyContent="center" alignItems="center">
             <TextField
-              variant="outlined"
               label="Giá tối thiểu"
               InputLabelProps={{
                 style: { fontSize: 13 },
               }}
-              name="email"
+              className={classes.textField}
+              //   name="email"
             />
             <Box margin=" 16px 6px 0 6px">
               <MaximizeIcon />
             </Box>
             <TextField
-              variant="outlined"
               label="Giá tối đa"
               InputLabelProps={{
                 style: { fontSize: 13 },
               }}
-              name="email"
+              className={classes.textField}
+              //   name="email"
             />
           </Box>
         </div>

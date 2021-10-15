@@ -423,5 +423,37 @@ export default makeStyles(theme => ({
             opacity: 1,
         },
     },
+    textField: {
+        '& > div': {
+            marginTop: 0,
+            paddingBottom: "0px !important",
+            '& > input': {
+                padding: "18px 0px !important",
+                paddingLeft: "20px !important",
+                border: "1px solid #000",
+                borderRadius:"5px",
+                fontSize: 14,
+            },
+            '&:before': {
+                borderBottom: "none !important"
+            },
+            '&:after': {
+                borderBottom: "none"
+            },
+            '& > div:hover:not(.Mui-disabled):before': {
+                borderBottom: 'none',
+            },
+        },
+        '& > label': {
+            color: "#000",
+            fontSize: 14,
+            top: -3,
+            left: 20,
+            display: props => props.openPhim ? "none" : "block"
+        },
+        '& > label.Mui-focused': {
+            display: "none"
+        },
+    },
 
 }))
