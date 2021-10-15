@@ -9,7 +9,7 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 const Footer = () => {
   const classes = useStyles();
   return (
-    <Container maxWidth="2xl" className={classes.footer}>
+    <Container maxWidth={false} className={classes.footer}>
       <div style={{ paddingTop: "50px", paddingBottom: "50px" }}>
         <Grid container>
           <Grid className={classes.footer__content} item xl={3} md={12}>
@@ -78,7 +78,7 @@ const Footer = () => {
               </div>
             </div>
           </Grid>
-          <Grid className={classes.footer__content}  item xl={3} md={12}>
+          <Grid className={classes.footer__content} item xl={3} md={12}>
             <Typography variant="h7" className={classes.footer__title}>
               CỘNG ĐỒNG
             </Typography>
@@ -92,7 +92,7 @@ const Footer = () => {
                   </li>
                   <li>
                     <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                      Tiện nghi phù hợp với người có nhu cầu đặc biệt
+                      Tiện nghi phù hợp với người có <br /> nhu cầu đặc biệt
                     </a>
                   </li>
                   <li>
@@ -143,6 +143,11 @@ const Footer = () => {
                   </li>
                   <li>
                     <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                      Giới thiệu chủ nhà/người tổ chức
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.airbnb.com.vn/d/howairbnbworks">
                       Đón tiếp khách có trách nhiệm
                     </a>
                   </li>
@@ -162,14 +167,14 @@ const Footer = () => {
           </Grid>
           <Grid className={classes.footer__content} item xl={3} md={12}>
             <Typography variant="h7" className={classes.footer__title}>
-            HỖ TRỢ
+              HỖ TRỢ
             </Typography>
             <div style={{ display: "flex" }}>
               <div className={classes.footer__item}>
                 <ul>
                   <li>
                     <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                      Biện pháp ứng phó với đại dịch COVID
+                      Biện pháp ứng phó với đại dịch <br /> COVID-19
                     </a>
                   </li>
                   <li>
@@ -197,11 +202,15 @@ const Footer = () => {
                       Tin cậy và an toàn
                     </a>
                   </li>
+                  <li>
+                    <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                      Trung tâm cộng đồng
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>
           </Grid>
-         
         </Grid>
       </div>
       <div className={classes.footer__bot}>

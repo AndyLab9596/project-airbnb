@@ -2,7 +2,14 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles(theme => ({
     root: {
         width: "100%",
-        margin: "32px auto"
+        margin: "32px auto",
+
+        [theme.breakpoints.up("sm")]: {
+            padding: "0 40px",
+        },
+        [theme.breakpoints.up("xl")]: {
+            padding: "0 80px",
+        },
     },
     stay__title: {
         fontWeight: 700,
