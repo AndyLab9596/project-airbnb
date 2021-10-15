@@ -33,11 +33,11 @@ const Header = () => {
     const windowWidth = window.innerWidth;
     const dispatch = useDispatch();
     const history = useHistory();
-    const idUser = localStorage.getItem("idUser");
+    const idUser = localStorage.getItem(USERID);
     const { infoUser } = useSelector((state) => state.AuthReducer);
     const handleLogout = () => {
         setAnchorEl(null);
-        localStorage.removeItem("idUser");
+        localStorage.removeItem(USERID);
         history.push("/");
         dispatch(createAction(SHOW_MODAL_SIGNIN));
     };
