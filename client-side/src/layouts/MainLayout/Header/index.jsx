@@ -198,12 +198,11 @@ const Header = () => {
                             </IconButton>
                             <Chip
                                 onClick={handleOpenMenu}
-                                className={classes.chip}
+                                className={`${classes.chip} ${classes.list__chip}`}
                                 size="medium"
                                 icon={<MenuOutlinedIcon fontSize="small" />}
                                 label={<AccountCircleOutlinedIcon fontSize="medium" />}
-                                variant={scroll ? 'outlined' : 'default'}
-                                color="#ffffff"
+                                variant="outlined"
                             />
                         </div>
 
@@ -215,6 +214,7 @@ const Header = () => {
 
                 </AppBar>
             </ClickAwayListener>
+
             {/* Menu Toggle from Chip*/}
             <Menu
                 id="simple-menu"

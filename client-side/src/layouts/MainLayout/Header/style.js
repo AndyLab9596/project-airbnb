@@ -213,6 +213,11 @@ export default makeStyles(theme => ({
   chip: {
     height: '42px',
     borderRadius: '21px',
+    backgroundColor: props => props.homepageRoute && props.scroll ? "transparent" : "rgb(221, 221, 221)"
+  },
+
+  list__chip: {
+    backgroundColor: props => props.listpageRoute && "transparent"
   },
 
 
