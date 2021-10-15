@@ -46,7 +46,8 @@ export default makeStyles(theme => ({
         objectFit: 'cover',
         display: 'block',
         borderRadius: '8px',
-        marginRight: '1rem'
+        marginRight: '1rem',
+        cursor: 'pointer',
     },
 
     city__info: {
