@@ -57,6 +57,12 @@ export default makeStyles(theme => ({
         alignItems: "flex-end",
         flexGrow: 1,
         height: "130px",
+        [theme.breakpoints.down("lg")]: {
+            height: "185px",
+        },
+        [theme.breakpoints.down("md")]: {
+            height: "120px",
+        },
     },
     room__item__bot__style: {
         display: "flex",
