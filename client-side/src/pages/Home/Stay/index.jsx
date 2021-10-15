@@ -32,7 +32,7 @@ const Stay = () => {
     initialSlide: 0,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1025,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
@@ -54,13 +54,12 @@ const Stay = () => {
           slidesToShow: 1.5,
           slidesToScroll: 1,
           dots: false,
-
         },
       },
     ],
   };
   return (
-    <Container maxWidth="home" className={classes.root}>
+    <Container maxWidth={false} className={classes.root}>
       <Typography variant="h4" className={classes.stay__title}>
         Ở bất cứ đâu
       </Typography>
@@ -85,4 +84,3 @@ const Stay = () => {
 };
 
 export default Stay;
-

@@ -4,7 +4,12 @@ export default makeStyles(theme => ({
         marginTop: "20px",
         backgroundColor: "#F7F7F7",
         borderTop: "1px solid #DDDDDD",
-
+        [theme.breakpoints.up("sm")]: {
+            padding: "0 40px",
+        },
+        [theme.breakpoints.up("xl")]: {
+            padding: "0 80px",
+        },
     },
     footer__title: {
         fontSize: "14px",
@@ -16,12 +21,19 @@ export default makeStyles(theme => ({
     //     // width: "calc(100%/3)"
     // },
     footer__content: {
-        [theme.breakpoints.down(1180)]: {
+        [theme.breakpoints.down(1025)]: {
             paddingTop: "20px",
             borderTop: "1px solid #DDDDDD",
-
+            width: "100%"
         },
+        [theme.breakpoints.down(376)]: {
+
+            borderTop: "1px solid #DDDDDD",
+            width: "100%"
+        },
+
     },
+
     footer__item: {
         // width: "45%",
 
@@ -32,11 +44,11 @@ export default makeStyles(theme => ({
             padding: 0,
             textDecoration: "none",
             display: "block",
-            [theme.breakpoints.down(1180)]: {
+            [theme.breakpoints.down(1025)]: {
 
                 display: "flex",
                 flexWrap: "wrap",
-
+                justifyContent: "left"
 
             },
             [theme.breakpoints.down(744)]: {
@@ -49,11 +61,9 @@ export default makeStyles(theme => ({
                 marginTop: "16px",
                 paddingLeft: 0,
                 paddingRight: 0,
-                [theme.breakpoints.down(1180)]: {
-                    flexBasis: "calc(100%/3)",
-
-
-
+                [theme.breakpoints.down(1025)]: {
+                    flexBasis: "calc(100%/3) !important",
+                    flexWrap: "wrap !important"
                 },
                 "& a": {
                     textDecoration: "none",
@@ -64,7 +74,24 @@ export default makeStyles(theme => ({
                     whiteSpace: "nowrap",
                     transition: "all .2s",
                     lineHeight: "18px",
+                    [theme.breakpoints.down(769)]: {
+                        fontSize: "14px !important",
 
+
+
+                    },
+                    [theme.breakpoints.down(1025)]: {
+
+                        fontSize: 18,
+
+
+                    },
+                    [theme.breakpoints.down(376)]: {
+
+                        fontSize: 14,
+
+
+                    },
                     "&:hover": {
                         color: "inherit",
                         cursor: "pointer",
@@ -80,7 +107,7 @@ export default makeStyles(theme => ({
         borderTop: "1px solid #DDDDDD",
         justifyContent: "space-between",
         alignItems: "center",
-        [theme.breakpoints.down(1180)]: {
+        [theme.breakpoints.down(1025)]: {
 
             display: "block",
 
@@ -99,7 +126,7 @@ export default makeStyles(theme => ({
         paddingRight: 10,
         textDecoration: "none",
         alignItems: "center",
-        [theme.breakpoints.down(1180)]: {
+        [theme.breakpoints.down(1025)]: {
 
             justifyContent: "center",
             alignItems: "center",
@@ -149,7 +176,7 @@ export default makeStyles(theme => ({
         }
     },
     footer__bot__content: {
-        [theme.breakpoints.down(1180)]: {
+        [theme.breakpoints.down(1025)]: {
             display: "flex",
             justifyContent: "center",
             alignItems: "center"
@@ -161,7 +188,7 @@ export default makeStyles(theme => ({
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-           
+
 
 
         },
