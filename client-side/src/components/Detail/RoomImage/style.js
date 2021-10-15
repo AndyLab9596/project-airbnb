@@ -1,6 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles((theme) => ({
   roomImage: {
+    paddingTop: 100,
     "& .slick-next,& .slick-prev": {
       display: "none !important",
     },

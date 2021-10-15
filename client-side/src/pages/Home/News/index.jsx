@@ -17,7 +17,7 @@ const News = () => {
 
   return (
     <div className={classes.root}>
-      <Container>
+      <Container maxWidth={false}>
         <a href="https://www.airbnb.com/host/homes?locale=vi">
           <div className={classes.news}>
             <div className={classes.news__overlay}>

@@ -156,7 +156,7 @@ const RoomImage = () => {
                   <BsFillStarFill />
                   5.0
                   <Button disableRipple={true}>
-                    ( {Math.floor(Math.random() * 10)} đánh giá)
+                    ( {Math.floor(Math.random() * 9 + 1)} đánh giá)
                   </Button>
                 </Typography>
                 <Typography variant="span" className={classes.room__medal}>
