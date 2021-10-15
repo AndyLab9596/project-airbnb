@@ -163,7 +163,8 @@ export default makeStyles((theme) => ({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 13,
-    paddingLeft: 15,
+    paddingRight: 20,
+
     "& >span": {
       width: "100%",
       fontSize: 13,
@@ -172,25 +173,6 @@ export default makeStyles((theme) => ({
         fontWeight: 600,
       },
     },
-  },
-  room__rating__modal__detailRating_percent: {
-    position: "relative",
-    height: 4,
-    width: "80%",
-    marginRight: 5,
-    backgroundColor: "rgb(221, 221, 221)",
-    borderRadius: 3,
-    "&> span": {
-      position: "absolute",
-      inset: 0,
-      backgroundColor: "#222222",
-    },
-  },
-  room__rating__modal__detailRating__value: {
-    fontSize: 12,
-    lineHeight: "16px",
-    fontWeight: 600,
-    marginLeft: 6,
   },
   room__rating__modal__content__userRated: {
     [theme.breakpoints.up("xl")]: {

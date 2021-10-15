@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 import { MdNavigateNext } from "react-icons/md";
 import useStyles from "../style";
 import moment from "moment";
-const ContentRating = ({ item, setOpenModal, openModal }) => {
+const ContentUserRating = ({ item, setOpenModal, openModal }) => {
   const classes = useStyles();
   return (
     <Fragment>
@@ -36,4 +36,4 @@ const ContentRating = ({ item, setOpenModal, openModal }) => {
   );
 };
 
-export default ContentRating;
+export default ContentUserRating;

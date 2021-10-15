@@ -16,7 +16,8 @@ import { BsFillStarFill } from "react-icons/bs";
 import { MdSearch } from "react-icons/md";
 import Slider from "react-slick";
 import { FAKE_AVATAR } from "../../../constants/config";
-import ContentRating from "./ContentRating";
+import CatalogRating from "./CatalogRating";
+import ContentUserRating from "./ContentUserRating";
 import useStyles from "./style";
 
 const DetailRating = () => {
@@ -218,10 +219,24 @@ const DetailRating = () => {
         </Typography>
       </div>
       {isTablet ? (
-        <Grid container spacing={3}>
+        <Grid container>
+          {arrDetailRating.map((item, index) => (
+            <Grid
+              item
+              xs={12}
+              md={6}
+              xl={openModal && 12}
+              key={index}
+              className={classes.room__rating__modal__detailRating}
+            >
+              <CatalogRating item={item} />
+            </Grid>
+          ))}
           {arrRating.slice(0, 6).map((item, index) => (
             <Grid item md={12} xl={6} key={index}>
-              <ContentRating item={item} setOpenModal={setOpenModal} />
+              <Box py={2}>
+                <ContentUserRating item={item} setOpenModal={setOpenModal} />
+              </Box>
             </Grid>
           ))}
         </Grid>
@@ -229,7 +244,7 @@ const DetailRating = () => {
         <Slider {...settings}>
           {arrRating.slice(0, 4).map((item, index) => (
             <Box key={index} className={classes.room__rating__container}>
-              <ContentRating item={item} setOpenModal={setOpenModal} />
+              <ContentUserRating item={item} setOpenModal={setOpenModal} />
             </Box>
           ))}
           {arrRating.length > 4 && (
@@ -308,32 +323,7 @@ const DetailRating = () => {
                     key={index}
                     className={classes.room__rating__modal__detailRating}
                   >
-                    <Typography variant="span">{item.name}</Typography>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                      width="75%"
-                    >
-                      <div
-                        className={
-                          classes.room__rating__modal__detailRating_percent
-                        }
-                      >
-                        <Typography
-                          variant="span"
-                          style={{ width: `${(item.value * 100) / 5}% ` }}
-                        ></Typography>
-                      </div>
-                      <Typography
-                        variant="body2"
-                        className={
-                          classes.room__rating__modal__detailRating__value
-                        }
-                      >
-                        {item.value}
-                      </Typography>
-                    </Box>
+                    <CatalogRating item={item} />
                   </Grid>
                 ))}
               </Grid>
@@ -343,7 +333,7 @@ const DetailRating = () => {
                 {arrFilterContent.length > 0
                   ? arrFilterContent.map((item) => (
                       <div>
-                        <ContentRating
+                        <ContentUserRating
                           item={item}
                           setOpenModal={setOpenModal}
                           openModal={openModal}
@@ -352,7 +342,7 @@ const DetailRating = () => {
                     ))
                   : arrRating.map((item) => (
                       <div>
-                        <ContentRating
+                        <ContentUserRating
                           item={item}
                           setOpenModal={setOpenModal}
                           openModal={openModal}
