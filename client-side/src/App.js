@@ -36,9 +36,9 @@ const App = () => {
         <Switch>
           <MainLayout path="/" exact Component={Home} />
           <Route path="/locationListPage/:locationId" exact component={Testing} />
-          <MainLayout path="/profile" exact Component={Profile} />
-          <MainLayout path="/list" exact Component={ListRoom} />
-          <MainLayout path="/detail" exact Component={Detail} />
+          <MainLayout path="/profile/:personId" exact Component={Profile} />
+          <MainLayout path="/list/:locationId" exact Component={ListRoom} />
+          <MainLayout path="/detail/:roomId" exact Component={Detail} />
         </Switch>
       </ThemeProvider>
     </BrowserRouter>
