@@ -60,7 +60,7 @@ const Booking = ({
   };
   return (
     <div className={classes.room__booking__content}>
-      <div>
+      <Box display="flex" justifyContent="space-between" alignItems="center">
         {totalDate < 30 && totalDate > 0 ? (
           <Typography variant="body2" className={classes.room__booking__price}>
             ${totalDate * 50}
@@ -79,7 +79,7 @@ const Booking = ({
             ( {Math.floor(Math.random() * 9 + 1)} đánh giá)
           </Button>
         </Typography>
-      </div>
+      </Box>
 
       {/* date picker */}
       <div className={classes.room__booking__datepicker}>

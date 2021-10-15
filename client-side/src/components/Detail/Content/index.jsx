@@ -39,6 +39,7 @@ const ContentRoom = () => {
   console.log(vi);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.up("sm"));
+  const isTablet = useMediaQuery(theme.breakpoints.up("md"));
   const isDesktop = useMediaQuery(theme.breakpoints.up("xl"));
   const classes = useStyles({ isMobile });
   const numberBedroom = 2; // sau này lấy từ query params của api về
@@ -270,7 +271,7 @@ const ContentRoom = () => {
           <div className={classes.room_datepicker}>
             {isBooking ? (
               <Fragment>
-                <Typography variant="h1">Chọn ngày trả phòng</Typography>
+                <Typography variant="h1">Chọn ngày nhận phòng</Typography>
                 <Typography variant="span">
                   Thêm ngày đi để biết giá chính xác
                 </Typography>
@@ -320,15 +321,17 @@ const ContentRoom = () => {
         </Grid>
 
         {/*  Booking */}
-        <Grid item sm={5} className={classes.room__booking}>
-          <Booking
-            bookingTime={bookingTime}
-            setBookingTime={setBookingTime}
-            locale={locale}
-            totalDate={totalDate}
-            isBooking={isBooking}
-          />
-        </Grid>
+        {isTablet && (
+          <Grid item sm={5} className={classes.room__booking}>
+            <Booking
+              bookingTime={bookingTime}
+              setBookingTime={setBookingTime}
+              locale={locale}
+              totalDate={totalDate}
+              isBooking={isBooking}
+            />
+          </Grid>
+        )}
       </Grid>
     </div>
   );

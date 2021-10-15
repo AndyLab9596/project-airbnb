@@ -12,6 +12,7 @@ export default makeStyles((theme) => ({
     height: (props) => (props.isMobile ? "100%" : 250),
     minHeight: (props) => (props.isMobile ? 180 : 250),
     objectFit: "cover",
+    cursor: "pointer",
   },
   currentImg: {
     position: "absolute",

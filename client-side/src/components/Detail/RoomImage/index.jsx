@@ -102,7 +102,12 @@ const RoomImage = () => {
           <Box position="relative">
             <Grid container spacing={1}>
               <Grid item xs={6}>
-                <img src={arrImg[0].img} alt="img" className={classes.image} />
+                <img
+                  src={arrImg[0].img}
+                  alt="img"
+                  className={classes.image}
+                  onClick={() => setOpenModal(true)}
+                />
               </Grid>
               <Grid item xs={6}>
                 <Grid container spacing={1}>
@@ -113,6 +118,7 @@ const RoomImage = () => {
                           src={item.img}
                           alt="img"
                           className={classes.image}
+                          onClick={() => setOpenModal(true)}
                         />
                       </Grid>
                     </Fragment>
@@ -134,13 +140,13 @@ const RoomImage = () => {
           <div className={classes.roomImage}>
             <Slider {...settings}>
               {arrImg.map((item, index) => (
-                <Box
-                  key={index}
-                  position="relative"
-                  cursor="pointer"
-                  onClick={() => setOpenModal(true)}
-                >
-                  <img src={item.img} alt="img" className={classes.image} />
+                <Box key={index} position="relative" cursor="pointer">
+                  <img
+                    src={item.img}
+                    alt="img"
+                    className={classes.image}
+                    onClick={() => setOpenModal(true)}
+                  />
                   <div className={classes.currentImg}>
                     {currentImg}/{arrImg.length}
                   </div>

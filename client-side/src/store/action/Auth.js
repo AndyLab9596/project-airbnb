@@ -15,6 +15,7 @@ export const loginAction = (user) => {
         dispatch(createAction(HIDE_MODAL_SIGNIN));
       }
       localStorage.setItem("idUser", res.data.user._id);
+      console.log(res);
     } catch (error) {
       console.log(error);
     }
