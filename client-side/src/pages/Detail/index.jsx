@@ -10,11 +10,7 @@ const Detail = () => {
   const useStyle = makeStyles(() => ({
     content: {
       padding: (props) =>
-        props.isDeskTop
-          ? "100px 80px 0 80px"
-          : props.isMobile
-          ? "100px 40px 0 40px"
-          : 0,
+        props.isDeskTop ? "0 80px" : props.isMobile ? " 0 40px" : 0,
 
       maxWidth: 1120,
       margin: "0 auto",

@@ -1,7 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles((theme) => ({
   roomImage: {
-    paddingTop: 100,
     "& .slick-next,& .slick-prev": {
       display: "none !important",
     },
@@ -37,6 +36,7 @@ export default makeStyles((theme) => ({
     justifyContent: "space-around",
     alignItems: "center",
     cursor: "pointer",
+    padding: 10,
     "& >span": {
       fontSize: 15,
     },
@@ -52,7 +52,7 @@ export default makeStyles((theme) => ({
     overflowY: "auto",
     overflowX: "hidden",
   },
-  modal_Show_all_img: {
+  modal_show_all_img: {
     maxWidth: (props) =>
       props.isDeskTop ? 700 : props.isMobile ? 400 : "100%",
     margin: "0 auto",
