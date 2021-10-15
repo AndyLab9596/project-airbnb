@@ -240,15 +240,6 @@ const Header = () => {
                             <IconButton className={`${classes.language__wrapper} ${classes.list__language__wrapper}`}>
                                 <LanguageIcon className={`${classes.language__icon} ${classes.list__language__icon}`} />
                             </IconButton>
-                            {/* <Chip
-                                onClick={handleOpenMenu}
-                                className={`${classes.chip} ${classes.list__chip}`}
-                                size="medium"
-                                icon={<MenuOutlinedIcon fontSize="small" />}
-                                label={<AccountCircleOutlinedIcon fontSize="medium" />}
-                                avatar={<Avatar alt="Natacha" src="/static/images/avatar/1.jpg" />}
-                                variant="outlined"
-                            /> */}
                             <button className={`${classes.button__chip} ${classes.list__button__chip}`} onClick={handleOpenMenu}>
                                 <MenuOutlinedIcon fontSize="small" />
                                 {localStorage.getItem(USERID) ? (

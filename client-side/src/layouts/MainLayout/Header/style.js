@@ -241,22 +241,6 @@ export default makeStyles(theme => ({
     color: props => (props.listpageRoute || props.detailpageRoute) && '#000',
   },
 
-  chip: {
-    height: '42px',
-    borderRadius: '21px',
-    border: "1px solid #DDDDDD",
-    backgroundColor: props => props.homepageRoute && props.scroll ? "transparent" : "#fff",
-    "& .MuiChip-clickable.MuiChip-outlined": {
-      "&:hover": {
-        backgroundColor: 'rgb(221, 221, 221)'
-      }
-    }
-
-  },
-
-  list__chip: {
-    backgroundColor: props => (props.listpageRoute || props.detailpageRoute) && "transparent"
-  },
 
   button__chip: {
     backgroundColor: props => props.homepageRoute && props.scroll ? "transparent" : "#fff",
