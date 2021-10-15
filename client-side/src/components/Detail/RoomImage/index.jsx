@@ -84,7 +84,7 @@ const RoomImage = () => {
               <Typography variant="span" className={classes.room__userRating}>
                 <BsFillStarFill />
                 5.0
-                <Button disableRipple={true}>
+                <Button disableRipple>
                   ( {Math.floor(Math.random() * 10)} đánh giá)
                 </Button>
               </Typography>
@@ -93,7 +93,7 @@ const RoomImage = () => {
                 Chủ nhà siêu cấp
               </Typography>
               <Typography variant="body2">
-                <Button disableRipple={true} className={classes.room__location}>
+                <Button disableRipple className={classes.room__location}>
                   Thành phố Vũng Tầu, Bà Rịa - Vũng Tàu, Việt Nam
                 </Button>
               </Typography>
@@ -188,7 +188,7 @@ const RoomImage = () => {
             <FcPrevious onClick={() => setOpenModal(false)} />
           </div>
 
-          <Grid container spacing={1} className={classes.modal_Show_all_img}>
+          <Grid container spacing={1} className={classes.modal_show_all_img}>
             {arrImg.map((item, index) => (
               <Fragment key={index}>
                 {index % 3 === 0 ? (

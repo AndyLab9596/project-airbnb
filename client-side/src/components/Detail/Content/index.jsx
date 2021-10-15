@@ -36,7 +36,6 @@ import Booking from "./Booking";
 import useStyles from "./style";
 
 const ContentRoom = () => {
-  console.log(vi);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.up("sm"));
   const isTablet = useMediaQuery(theme.breakpoints.up("md"));
@@ -176,7 +175,7 @@ const ContentRoom = () => {
             <div className={classes.room__info__host}>
               <div>
                 <Typography variant="body2">Toàn bộ biệt thự</Typography>
-                <Typography variant="body2">Chủ nhà Bạch Anh</Typography>
+                <Typography variant="body2">Chủ nhà Quang Huy</Typography>
               </div>
               <Box position="relative">
                 <img
