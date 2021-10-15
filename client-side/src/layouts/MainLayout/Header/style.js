@@ -6,18 +6,32 @@ export default makeStyles(theme => ({
 
   root: {
     height: props => props.displaySearchBar && props.homepageRoute ? '160px' : '80px',
-
+    position: "fixed",
     width: '100%',
     margin: '0 auto',
     padding: '0 40px',
     paddingBottom: 0,
     marginBottom: 0,
+    boxShadow: 'rgb(0 0 0 / 8%) 0px 1px 12px ',
     backgroundColor: props => props.scroll && props.homepageRoute ? '#fff' : 'transparent'
   },
 
   listRoot: {
     height: props => props.listPageDisplaySearchBar && props.listpageRoute ? '160px' : '80px',
     backgroundColor: props => props.listpageRoute && '#fff',
+    position: "fixed",
+    width: '100%',
+    margin: '0 auto',
+    padding: '0 40px',
+    paddingBottom: 0,
+    marginBottom: 0,
+    boxShadow: 'rgb(0 0 0 / 8%) 0px 1px 12px '
+  },
+
+  detailRoot: {
+    height: props => props.detailPageDisplaySearchBar && props.detailpageRoute ? '160px' : '80px',
+    backgroundColor: props => props.detailpageRoute && '#fff',
+    position: "static",
     width: '100%',
     margin: '0 auto',
     padding: '0 40px',
@@ -92,6 +106,18 @@ export default makeStyles(theme => ({
     }
   },
 
+  detail__navbar__content__menu: {
+    '& > span': {
+      color: props => props.detailpageRoute && '#000',
+      '&:hover': {
+        borderBottom: props => props.detailpageRoute && `1px solid #000`
+      },
+      '&:nth-child(1)': {
+        borderBottom: props => props.detailpageRoute && '2px solid #000',
+      },
+    }
+  },
+
 
   navbar__content__search: {
     display: 'flex',
@@ -108,6 +134,11 @@ export default makeStyles(theme => ({
 
     opacity: props => props.listPageDisplaySearchBar && props.listpageRoute ? '0' : '1',
     transform: props => props.listPageDisplaySearchBar && props.listpageRoute ? 'scale(0)' : 'scale(1)'
+  },
+
+  detail__navbar__content__search: {
+    opacity: props => props.detailPageDisplaySearchBar && props.detailpageRoute ? '0' : '1',
+    transform: props => props.detailPageDisplaySearchBar && props.detailpageRoute ? 'scale(0)' : 'scale(1)'
   },
 
   navbar__search__button: {
@@ -159,7 +190,7 @@ export default makeStyles(theme => ({
 
   list__navbar__content__left: {
     '& > span': {
-      color: props => props.listpageRoute && '#000'
+      color: props => (props.listpageRoute || props.detailpageRoute) && '#000'
     }
   },
 
@@ -187,7 +218,7 @@ export default makeStyles(theme => ({
   },
 
   list__navbar__content__left__button: {
-    color: props => props.listpageRoute && '#000',
+    color: props => (props.listpageRoute || props.detailpageRoute) && '#000',
     '&:hover': {
       backgroundColor: 'rgb(221, 221, 221)',
     }
@@ -198,7 +229,7 @@ export default makeStyles(theme => ({
   },
 
   list__language__wrapper: {
-    color: props => props.listpageRoute && '#fff',
+    color: props => (props.listpageRoute || props.detailpageRoute) && '#fff',
   },
 
   language__icon: {
@@ -207,7 +238,7 @@ export default makeStyles(theme => ({
   },
 
   list__language__icon: {
-    color: props => props.listpageRoute && '#000',
+    color: props => (props.listpageRoute || props.detailpageRoute) && '#000',
   },
 
   chip: {
@@ -217,7 +248,7 @@ export default makeStyles(theme => ({
   },
 
   list__chip: {
-    backgroundColor: props => props.listpageRoute && "transparent"
+    backgroundColor: props => (props.listpageRoute || props.detailpageRoute) && "transparent"
   },
 
 
@@ -251,6 +282,16 @@ export default makeStyles(theme => ({
     transition: 'all .3s linear',
     opacity: props => props.listPageDisplaySearchBar && props.listpageRoute ? '1' : '0',
     transform: props => props.listPageDisplaySearchBar && props.listpageRoute ? 'scale(1)' : 'scale(0)'
+  },
+
+  detail__searchBar: {
+    margin: '0 auto',
+    maxWidth: '850px',
+    zIndex: 2,
+    transformOrigin: '50% 0',
+    transition: 'all .3s linear',
+    opacity: props => props.detailPageDisplaySearchBar && props.detailpageRoute ? '1' : '0',
+    transform: props => props.detailPageDisplaySearchBar && props.detailpageRoute ? 'scale(1)' : 'scale(0)'
   },
 
   // Detail Page CSS

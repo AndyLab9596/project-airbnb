@@ -69,6 +69,7 @@ const Header = () => {
     const [scroll, setScroll] = useState(false);
     const [displaySearchBar, setDisplaySearchBar] = useState(true)
     const [listPageDisplaySearchBar, setListPageDisplaySearchBar] = useState(false);
+    const [detailPageDisplaySearchBar, setDetailPageDisplaySearchBar] = useState(false);
 
     const handleClickAwayListener = () => {
         if (homepageRoute) {
@@ -77,6 +78,9 @@ const Header = () => {
         }
         if (listpageRoute) {
             setListPageDisplaySearchBar(false)
+        }
+        if (detailpageRoute) {
+            setDetailPageDisplaySearchBar(false)
         }
 
     }
@@ -105,16 +109,28 @@ const Header = () => {
     console.log('matchUrl', matchUrl)
     const homepageRoute = matchUrl.url === "/";
     const listpageRoute = matchUrl.url === "/list";
-    const detailpageRoute = matchUrl.url === "detail";
+    const detailpageRoute = matchUrl.url === "/detail";
 
-    const classes = useStyles({ scroll, displaySearchBar, homepageRoute, listpageRoute, detailpageRoute, listPageDisplaySearchBar });
+    const classes = useStyles({
+        scroll,
+        displaySearchBar,
+        homepageRoute,
+        listpageRoute,
+        detailpageRoute,
+        listPageDisplaySearchBar,
+        detailPageDisplaySearchBar
+    });
 
     return (
         <Fragment>
             {/* AppBar */}
             <ClickAwayListener onClickAway={() => handleClickAwayListener()}>
-                <AppBar position="fixed" elevation={0}
-                    className={`${homepageRoute && classes.root} ${listpageRoute && classes.listRoot}`} >
+                <AppBar elevation={0}
+                    className={`
+                    ${homepageRoute && classes.root} 
+                    ${listpageRoute && classes.listRoot}
+                    ${detailpageRoute && classes.detailRoot}
+                    `} >
                     <Toolbar className={classes.navbar__content}>
                         <Box className={classes.navbar__content__right}>
                             <a href="/" target="_blank" rel="noreferrer">
@@ -187,10 +203,39 @@ const Header = () => {
                             </>
                         )}
 
+                        {detailpageRoute && (
+                            <>
+                                {detailPageDisplaySearchBar ? (
+                                    <Box
+                                        className={`${classes.navbar__content__menu} ${classes.detail__navbar__content__menu}`} >
+                                        <span>Nơi ở</span>
+                                        <span>Trải nghiệm</span>
+                                        <span>Trải nghiệm trực tuyến</span>
+                                    </Box>
+                                ) : (
 
-                        <div className={`${classes.navbar__content__left} 
+                                    <Box className={`${classes.navbar__content__search} ${classes.detail__navbar__content__search}`}
+                                        onClick={() => setDetailPageDisplaySearchBar(prevState => !prevState)}>
+
+                                        <button className={classes.navbar__search__button}>
+                                            <h3 className={classes.navbar__search__button__title}>Bắt đầu tìm kiếm</h3>
+                                            <div className={classes.navbar__search__button__wrap}>
+                                                <SearchIcon className={classes.navbar__search__button__icon} />
+                                            </div>
+                                        </button>
+                                    </Box>
+                                )}
+                            </>
+                        )}
+
+
+
+                        <div className={`
+                        ${classes.navbar__content__left} 
                         ${classes.list__navbar__content__left}`}>
-                            <Button className={`${classes.navbar__content__left__button} ${classes.list__navbar__content__left__button}`}>
+                            <Button className={`
+                            ${classes.navbar__content__left__button} 
+                            ${classes.list__navbar__content__left__button}`}>
                                 Trở thành chủ nhà
                             </Button>
                             <IconButton className={`${classes.language__wrapper} ${classes.list__language__wrapper}`}>
@@ -208,7 +253,12 @@ const Header = () => {
 
                     </Toolbar>
 
-                    <Box className={`${homepageRoute && classes.searchBar} ${listpageRoute && classes.list__searchBar}`}>
+                    <Box className={`
+                    ${homepageRoute && classes.searchBar} 
+                    ${listpageRoute && classes.list__searchBar}
+                    ${detailpageRoute && classes.detail__searchBar}
+                    
+                    `}>
                         <SearchBar isDesktop={isDesktop} />
                     </Box>
 
