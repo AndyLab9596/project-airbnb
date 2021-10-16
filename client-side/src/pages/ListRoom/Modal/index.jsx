@@ -223,47 +223,6 @@ const ModalFilter = ({ handleClose, open }) => {
     //   return value;
     // }
   });
-  // if (
-  //   item.bedRoom >= numbers.bedroom &&
-  //   item.guests >= numbers.bed &&
-  //   item.bath >= numbers.bathroom
-  //   // item.kitchen === true &&
-  //   // checkedConvenient.kitchen === true &&
-  //   // item.dryer === true &&
-  //   // checkedConvenient.dryer === true &&
-  //   // item.indoorFireplace === true &&
-  //   // checkedConvenient.indoorFireplace === true
-  // ) {
-  //   return true;
-  // } else {
-  //   return false;
-  // }
-
-  // const filterConvenient = arrListRoom.filter((item) => {
-  //   if ((item.kitchen === checkedConvenient.kitchen) === true) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // });
-  // filterRoomAndBedRoom.push(filterConvenient);
-
-  // const filterRoomAndBedRoom = arrListRoom.filter((item) => {
-  //   // if (
-  //   //   item.bedRoom >= numbers.bedroom &&
-  //   //   item.guests >= numbers.bed &&
-  //   //   item.bath >= numbers.bathroom &&
-  //   //   item.kitchen === true
-  //   // ) {
-  //   //   return true;
-  //   // } else {
-  //   //   return false;
-  //   // }
-  //   const filterCheckbox = arrListRoom.filter(
-  //     (item) => (item.kitchen === checkedConvenient.kitchen) === true
-  //   );
-  //   filterRoomAndBedRoom.push(filterCheckbox);
-  // });
 
   console.log("filterRoomAndBedRoom", filterRoomAndBedRoom);
   const filteredData = () => {
