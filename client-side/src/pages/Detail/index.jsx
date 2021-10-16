@@ -6,6 +6,7 @@ import InfoHost from "../../components/Detail/InfoHost";
 import DetailRoomMap from "../../components/Detail/Map";
 import DetailRating from "../../components/Detail/Rating";
 import RoomImage from "../../components/Detail/RoomImage";
+import DetailRules from "../../components/Detail/Rules";
 
 const Detail = () => {
   const useStyle = makeStyles(() => ({
@@ -28,6 +29,7 @@ const Detail = () => {
       <DetailRoomMap />
       <DetailRating />
       <InfoHost />
+      <DetailRules />
     </div>
   );
 };
