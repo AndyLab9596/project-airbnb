@@ -11,12 +11,10 @@ const ExploreNearby = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { locations } = useSelector(state => state.LocationReducer);
-  console.log(locations)
 
   const handleCityClick = (locationId) => {
     history.push(`/list/${locationId}`)
   }
-
 
   useEffect(() => {
     dispatch(getLocations())
