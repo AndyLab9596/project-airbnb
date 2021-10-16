@@ -21,12 +21,18 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.up("md")]: {
       padding: "24px 0",
     },
+    [theme.breakpoints.up("md")]: {
+      padding: "48px 0",
+    },
     "& .slick-next,& .slick-prev": {
       display: "none !important",
     },
   },
   room__rating__totalRated: {
-    padding: "15px 0",
+    paddingBottom: "24px",
+    [theme.breakpoints.up("md")]: {
+      paddingBottom: "48px",
+    },
     "& >span": {
       fontSize: 20,
       fontWeight: 600,
@@ -164,7 +170,9 @@ export default makeStyles((theme) => ({
     alignItems: "center",
     marginBottom: 13,
     paddingRight: 20,
-
+    [theme.breakpoints.up("md")]: {
+      paddingRight: 80,
+    },
     "& >span": {
       width: "100%",
       fontSize: 13,
