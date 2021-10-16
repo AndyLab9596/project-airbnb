@@ -27,6 +27,7 @@ const Detail = () => {
       <ContentRoom />
       <DetailRoomMap />
       <DetailRating />
+
       <DetailRules />
     </div>
   );
