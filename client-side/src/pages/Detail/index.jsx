@@ -5,6 +5,7 @@ import ContentRoom from "../../components/Detail/Content";
 import DetailRoomMap from "../../components/Detail/Map";
 import DetailRating from "../../components/Detail/Rating";
 import RoomImage from "../../components/Detail/RoomImage";
+import DetailRules from "../../components/Detail/Rules";
 
 const Detail = () => {
   const useStyle = makeStyles(() => ({
@@ -26,6 +27,7 @@ const Detail = () => {
       <ContentRoom />
       <DetailRoomMap />
       <DetailRating />
+      <DetailRules />
     </div>
   );
 };
