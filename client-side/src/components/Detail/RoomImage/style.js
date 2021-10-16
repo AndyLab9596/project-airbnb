@@ -1,72 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles((theme) => ({
-  roomImage: {
-    "& .slick-next,& .slick-prev": {
-      display: "none !important",
-    },
-  },
-
-  image: {
-    width: "100%",
-    height: (props) => (props.isMobile ? "100%" : 250),
-    minHeight: (props) => (props.isMobile ? 180 : 250),
-    objectFit: "cover",
-    cursor: "pointer",
-  },
-  currentImg: {
-    position: "absolute",
-    bottom: 20,
-    right: 20,
-    color: "#fff",
-    backgroundColor: "rgb(102 ,70, 70, 0.7)",
-    width: 70,
-    height: 20,
-    padding: 5,
-    textAlign: "center",
-    borderRadius: 8,
-    fontSize: 13,
-    fontWeight: 600,
-  },
-  text_show_all_img: {
-    backgroundColor: "#fff",
-    color: "#000",
-    width: 150,
-    border: "1px solid #000",
-    display: "flex",
-    justifyContent: "space-around",
-    alignItems: "center",
-    cursor: "pointer",
-    padding: 10,
-    "& >span": {
-      fontSize: 15,
-    },
-  },
-  modal__show__all: {
-    width: "100%",
-    height: "100%",
-    animation: "slide 0.4s linear",
-    backgroundColor: "#fff",
-    zIndex: 999,
-    display: "flex",
-    flexDirection: "column",
-    overflowY: "auto",
-    overflowX: "hidden",
-  },
-  modal_show_all_img: {
-    maxWidth: (props) =>
-      props.isDeskTop ? 700 : props.isMobile ? 400 : "100%",
-    margin: "0 auto",
-  },
-  btnPrev: {
-    backgroundColor: "#fff",
-    position: "fixed",
-    width: "100%",
-    padding: "10px 0 10px 10px",
-    "& >svg": {
-      cursor: "pointer",
-      fontSize: 20,
-    },
-  },
   room__title: {
     padding: "20px 0",
     "& > p": {
@@ -114,6 +47,101 @@ export default makeStyles((theme) => ({
     "& >span": {
       textDecoration: "underline",
       textAlign: "left",
+    },
+  },
+  room__image__content: {
+    position: "relative",
+    borderRadius: "12px",
+    overflow: "hidden",
+  },
+  roomImage: {
+    "& .slick-next,& .slick-prev": {
+      display: "none !important",
+    },
+  },
+
+  image: {
+    height: "100%",
+    cursor: "pointer",
+    position: "relative",
+    "& > img": {
+      width: "100%",
+      height: (props) => (props.isMobile ? "100%" : 250),
+      minHeight: (props) => (props.isMobile ? 180 : 250),
+      objectFit: "cover",
+      cursor: "pointer",
+    },
+    "&:hover": {
+      "&:after": {
+        opacity: 1,
+      },
+    },
+    "&:after": {
+      content: '""',
+      position: "absolute",
+      width: "100%",
+      height: "100%",
+      opacity: 0,
+      zIndex: 9,
+      inset: 0,
+      backgroundColor: "rgba(0,0,0,0.2)",
+      transition: "all 0.3s ease-in-out",
+    },
+  },
+  currentImg: {
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    color: "#fff",
+    backgroundColor: "rgb(102 ,70, 70, 0.7)",
+    width: 70,
+    height: 20,
+    padding: 5,
+    textAlign: "center",
+    borderRadius: 8,
+    fontSize: 13,
+    fontWeight: 600,
+  },
+  text_show_all_img: {
+    backgroundColor: "#fff",
+    color: "#000",
+    width: 150,
+    border: "1px solid #000",
+    display: "flex",
+    justifyContent: "space-around",
+    alignItems: "center",
+    cursor: "pointer",
+    padding: 10,
+    zIndex: 99,
+    "& >span": {
+      fontSize: 15,
+    },
+  },
+  modal__show__all: {
+    width: "100%",
+    height: "100%",
+    animation: "slide 0.4s linear",
+    backgroundColor: "#fff",
+    zIndex: 999,
+    display: "flex",
+    flexDirection: "column",
+    overflowY: "auto",
+    overflowX: "hidden",
+  },
+  modal_show_all_img: {
+    maxWidth: (props) =>
+      props.isDeskTop ? 700 : props.isMobile ? 400 : "100%",
+    margin: "0 auto",
+  },
+  btnPrev: {
+    backgroundColor: "#fff",
+    position: "fixed",
+    width: "100%",
+    padding: "10px 0 10px 10px",
+    zIndex: 99,
+    "& >svg": {
+      cursor: "pointer",
+      fontSize: 20,
     },
   },
 }));
