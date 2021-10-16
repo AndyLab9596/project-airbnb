@@ -9,7 +9,9 @@ const Map = () => {
   const [coords, setCoords] = useState({ lat: 12.270371, lng: 109.204196 });
 
   return (
-    <div style={{ height: "85vh", width: "100%" }}>
+    <div
+      style={{ height: "88.5vh", width: "100%", position: "sticky", top: 80 }}
+    >
       <GoogleMapReact
         bootstrapURLKeys={{
           key: "AIzaSyCg9PkLEPcSDdeySq6iHC_YC4m-67XP_Rk",

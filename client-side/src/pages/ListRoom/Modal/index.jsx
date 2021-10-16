@@ -31,6 +31,7 @@ const ModalFilter = ({ handleClose, open }) => {
     bathroom: 0,
   });
 
+  console.log(numbers.bedroom);
   const addBed = () => {
     if (numbers.bed >= 16) return;
     setNumbers({ ...numbers, bed: numbers.bed + 1 });
@@ -91,6 +92,9 @@ const ModalFilter = ({ handleClose, open }) => {
       ...checkedUtilities,
       [event.target.name]: event.target.checked,
     });
+  };
+  const filteredData = () => {
+
   };
   return (
     <Fragment>
@@ -487,105 +491,6 @@ const ModalFilter = ({ handleClose, open }) => {
                 </div>
               </div>
 
-              {/* <div className={classes.modal__convenient}>
-                  <Typography>Nơi ở độc đáo</Typography>
-                  <div>
-                    <Grid container>
-                      <Grid item lg={6}>
-                        <div className={classes.modal__style__checkbox}>
-                          <Checkbox
-                            // checked={checked}
-                            // onChange={handleChangeCheckBox}
-                            inputProps={{ "aria-label": "primary checkbox" }}
-                            classes={{
-                              root: classes.checkbox,
-                            }}
-                          />
-                          <Typography>Hải đăng</Typography>
-                        </div>
-                      </Grid>
-                      <Grid item lg={6}>
-                        <div className={classes.modal__style__checkbox}>
-                          <Checkbox
-                            // checked={checked}
-                            // onChange={handleChangeCheckBox}
-                            inputProps={{ "aria-label": "primary checkbox" }}
-                            classes={{
-                              root: classes.checkbox,
-                            }}
-                          />
-                          <Typography>Lâu đài</Typography>
-                        </div>
-                      </Grid>
-                      <Grid item lg={6}>
-                        <div className={classes.modal__style__checkbox}>
-                          <Checkbox
-                            // checked={checked}
-                            // onChange={handleChangeCheckBox}
-                            inputProps={{ "aria-label": "primary checkbox" }}
-                            classes={{
-                              root: classes.checkbox,
-                            }}
-                          />
-                          <Typography>Nhà nghỉ giữa thiên nhiên</Typography>
-                        </div>
-                      </Grid>
-                      <Grid item lg={6}>
-                        <div className={classes.modal__style__checkbox}>
-                          <Checkbox
-                            // checked={checked}
-                            // onChange={handleChangeCheckBox}
-                            inputProps={{ "aria-label": "primary checkbox" }}
-                            classes={{
-                              root: classes.checkbox,
-                            }}
-                          />
-                          <Typography>Nhà nhỏ</Typography>
-                        </div>
-                      </Grid>
-                    </Grid>
-                    <div>
-                      <Typography className={classes.modal__text_style}>
-                        Hiển thị mọi nơi ở độc đáo
-                      </Typography>
-                    </div>
-                  </div>
-                </div> */}
-
-              {/* <div className={classes.modal__convenient}>
-                  <Typography>Nội quy nhà</Typography>
-                  <div>
-                    <Grid container>
-                      <Grid item lg={6}>
-                        <div className={classes.modal__style__checkbox}>
-                          <Checkbox
-                            // checked={checked}
-                            // onChange={handleChangeCheckBox}
-                            inputProps={{ "aria-label": "primary checkbox" }}
-                            classes={{
-                              root: classes.checkbox,
-                            }}
-                          />
-                          <Typography>Cho phép thú cưng</Typography>
-                        </div>
-                      </Grid>
-                      <Grid item lg={6}>
-                        <div className={classes.modal__style__checkbox}>
-                          <Checkbox
-                            // checked={checked}
-                            // onChange={handleChangeCheckBox}
-                            inputProps={{ "aria-label": "primary checkbox" }}
-                            classes={{
-                              root: classes.checkbox,
-                            }}
-                          />
-                          <Typography>Cho phép hút thuốc</Typography>
-                        </div>
-                      </Grid>
-                    </Grid>
-                  </div>
-                </div> */}
-
               <div className={classes.modal__convenient}>
                 <Typography>Ngôn ngữ chủ nhà</Typography>
                 <div>
@@ -626,7 +531,10 @@ const ModalFilter = ({ handleClose, open }) => {
             {/* modal footer */}
             <div className={classes.modal__footer}>
               <button className={classes.button__erase}>Xóa tất cả</button>
-              <button className={classes.button__modal__button}>
+              <button
+                onClick={() => filteredData()}
+                className={classes.button__modal__button}
+              >
                 Hiển thị hơn 300 chỗ ở
               </button>
             </div>

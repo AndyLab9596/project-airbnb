@@ -1,6 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(theme => ({
+    room: {
+        padding: "30px 0",
+        borderBottom: "1px solid #DDDDDD"
+    },
     room__item__img: {
         width: "100%",
         borderRadius: "10px"
