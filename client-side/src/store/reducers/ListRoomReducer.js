@@ -1,10 +1,12 @@
 import {
 
 } from "../types/AuthType";
-import { GET_LISTROOM } from "../types/ListRoomType";
+import { CLOSE_MODAL_FILTER, FILTER_ROOM, GET_LISTROOM, OPEN_MODAL_FILTER } from "../types/ListRoomType";
 
 const initialState = {
-    arrListRoom: []
+    arrListRoom: [],
+    filter: [],
+    modal: false
 };
 
 const ListRoomReducer = (state = initialState, { type, payload }) => {
@@ -12,7 +14,15 @@ const ListRoomReducer = (state = initialState, { type, payload }) => {
         case GET_LISTROOM: {
             return { ...state, arrListRoom: payload }
         }
-
+        case FILTER_ROOM: {
+            return { ...state, filter: payload }
+        }
+        case OPEN_MODAL_FILTER: {
+            return { ...state, modal: true }
+        }
+        case CLOSE_MODAL_FILTER: {
+            return { ...state, modal: false }
+        }
         default:
             return { ...state };
     }

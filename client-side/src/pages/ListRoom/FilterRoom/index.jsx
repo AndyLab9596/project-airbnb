@@ -11,6 +11,12 @@ import Slider from "@material-ui/core/Slider";
 import MaximizeIcon from "@material-ui/icons/Maximize";
 import { withStyles } from "@material-ui/styles";
 import React, { Fragment, useState } from "react";
+import { useDispatch } from "react-redux";
+import { createAction } from "../../../store/action/createAction/createAction";
+import {
+  CLOSE_MODAL_FILTER,
+  OPEN_MODAL_FILTER,
+} from "../../../store/types/ListRoomType";
 import ModalFilter from "../Modal/index";
 import useStyles from "./style";
 const AirbnbSlider = withStyles({
@@ -61,7 +67,7 @@ function AirbnbThumbComponent(props) {
 }
 const FilterRoom = () => {
   const classes = useStyles();
-
+  const dispatch = useDispatch();
   //State Hủy miễn phí
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -71,14 +77,13 @@ const FilterRoom = () => {
   const [anchorElPrice, setAnchorElPrice] = useState(null);
 
   //modal
-  const [open, setOpen] = useState(false);
 
   //Menu Bộ lọc khác
   const handleOpen = () => {
-    setOpen(true);
+    dispatch(createAction(OPEN_MODAL_FILTER));
   };
   const handleClose = () => {
-    setOpen(false);
+    dispatch(createAction(CLOSE_MODAL_FILTER));
   };
 
   // Switch Hủy miễn phí
@@ -413,7 +418,7 @@ const FilterRoom = () => {
       </Menu>
 
       {/* Modal Bộ lọc khác */}
-      <ModalFilter handleClose={handleClose} open={open} />
+      <ModalFilter handleClose={handleClose}  />
     </Fragment>
   );
 };

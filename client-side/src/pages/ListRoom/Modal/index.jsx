@@ -6,23 +6,32 @@ import {
   Switch,
   Typography,
 } from "@material-ui/core";
-import React, { Fragment, useState } from "react";
 import AddIcon from "@material-ui/icons/Add";
 import CloseIcon from "@material-ui/icons/Close";
-import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import RemoveIcon from "@material-ui/icons/Remove";
-import StarRateOutlinedIcon from "@material-ui/icons/StarRateOutlined";
+import React, { Fragment, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createAction } from "../../../store/action/createAction/createAction";
+import {
+  CLOSE_MODAL_FILTER,
+  FILTER_ROOM,
+} from "../../../store/types/ListRoomType";
 import useStyles from "./style";
-import { NavLink } from "react-router-dom";
+
 const ModalFilter = ({ handleClose, open }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [dropdown, setDropdown] = useState(false);
+  const arrListRoom = useSelector((state) => state.ListRoomReducer.arrListRoom);
+
+  const modal = useSelector((state) => state.ListRoomReducer.modal);
   const handleOpenDropdown = () => {
     setDropdown(true);
   };
   const handleCloseDropdown = () => {
     setDropdown(false);
   };
+
   //MODAL
   // PHÒNG VÀ PHÒNG NGỦ
   const [numbers, setNumbers] = useState({
@@ -93,14 +102,60 @@ const ModalFilter = ({ handleClose, open }) => {
       [event.target.name]: event.target.checked,
     });
   };
-  const filteredData = () => {
 
+  const filterRoomAndBedRoom = arrListRoom.filter((item) => {
+    if (
+      item.bedRoom >= numbers.bedroom &&
+      item.guests >= numbers.bed &&
+      item.bath >= numbers.bathroom
+      // item.kitchen === true &&
+      // checkedConvenient.kitchen === true
+      //  &&
+      // item.dryer === checkedConvenient.dryer &&
+      // item.indoorFireplace === checkedConvenient.indoorFireplace
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+  // const filterConvenient = arrListRoom.filter((item) => {
+  //   if ((item.kitchen === checkedConvenient.kitchen) === true) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // });
+  // filterRoomAndBedRoom.push(filterConvenient);
+
+  // const filterRoomAndBedRoom = arrListRoom.filter((item) => {
+  //   // if (
+  //   //   item.bedRoom >= numbers.bedroom &&
+  //   //   item.guests >= numbers.bed &&
+  //   //   item.bath >= numbers.bathroom &&
+  //   //   item.kitchen === true
+  //   // ) {
+  //   //   return true;
+  //   // } else {
+  //   //   return false;
+  //   // }
+  //   const filterCheckbox = arrListRoom.filter(
+  //     (item) => (item.kitchen === checkedConvenient.kitchen) === true
+  //   );
+  //   filterRoomAndBedRoom.push(filterCheckbox);
+  // });
+
+  console.log("filterRoomAndBedRoom", filterRoomAndBedRoom);
+  const filteredData = () => {
+    dispatch(createAction(FILTER_ROOM, filterRoomAndBedRoom));
+    dispatch(createAction(CLOSE_MODAL_FILTER));
   };
+
   return (
     <Fragment>
       <Fragment>
         <Modal
-          open={open}
+          open={modal}
           onClose={handleClose}
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
@@ -535,7 +590,13 @@ const ModalFilter = ({ handleClose, open }) => {
                 onClick={() => filteredData()}
                 className={classes.button__modal__button}
               >
-                Hiển thị hơn 300 chỗ ở
+                Hiển thị hơn{" "}
+                {filterRoomAndBedRoom.length > 0 || numbers.bedroom > 0
+                  ? numbers.bedroom > filterRoomAndBedRoom.bedRoom
+                    ? 0
+                    : filterRoomAndBedRoom.length
+                  : 300}{" "}
+                chỗ ở
               </button>
             </div>
           </div>
