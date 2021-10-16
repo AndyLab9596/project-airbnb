@@ -19,16 +19,6 @@ const ExploreNearby = () => {
 
 
   useEffect(() => {
-    // (async () => {
-    //   try {
-    //     const response = await manageLocationApi.getAll()
-    //     setCities(response);
-    //     dispatch(GET_LOCATIONS, response)
-
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // })()
     dispatch(getLocations())
 
   }, [dispatch])
