@@ -11,7 +11,7 @@ const coordinateArray = [
 
 ];
 
-const findCenterCoordinate = (locationName) => {
+export const findCenterCoordinate = (locationName) => {
     return coordinateArray.find((location) => location.name === locationName)
 };
 
