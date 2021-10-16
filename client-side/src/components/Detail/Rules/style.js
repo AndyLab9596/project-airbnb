@@ -105,5 +105,6 @@ export default makeStyles((theme) => ({
     textDecoration: "underline",
     fontSize: 16,
     paddingLeft: 5,
+    cursor: "pointer",
   },
 }));
