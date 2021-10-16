@@ -36,7 +36,7 @@ const Header = () => {
     const idUser = localStorage.getItem(USERID);
     const { infoUser } = useSelector((state) => state.AuthReducer);
     const { searchResult } = useSelector(state => state.SearchReducer);
-    console.log("searchResult", searchResult)
+    // console.log("searchResult", searchResult)
 
     const handleLogout = () => {
         setAnchorEl(null);
