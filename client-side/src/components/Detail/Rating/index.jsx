@@ -23,7 +23,8 @@ import useStyles from "./style";
 const DetailRating = () => {
   const [openModal, setOpenModal] = useState(false);
   const theme = useTheme();
-  const isTablet = useMediaQuery(theme.breakpoints.up("sm"));
+  const isTablet = useMediaQuery(theme.breakpoints.up("md"));
+  const isDeskTop = useMediaQuery(theme.breakpoints.up("xl"));
   const [valueInput, setValueInput] = useState(null);
   const arrDetailRating = [
     {
@@ -234,7 +235,7 @@ const DetailRating = () => {
           ))}
           {arrRating.slice(0, 6).map((item, index) => (
             <Grid item md={12} xl={6} key={index}>
-              <Box py={2}>
+              <Box py={2} pr={isDeskTop && 10}>
                 <ContentUserRating item={item} setOpenModal={setOpenModal} />
               </Box>
             </Grid>
