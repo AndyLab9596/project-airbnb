@@ -3,11 +3,14 @@ import { Container, Grid, Typography } from "@material-ui/core";
 import manageLocationApi from '../../../api/manageLocationApi';
 import useStyles from "./style";
 import { useHistory } from "react-router-dom"
+import { useDispatch } from "react-redux";
+import { GET_LOCATIONS } from "../../../store/types/LocationType";
 
 const ExploreNearby = () => {
 
 
-  const history = useHistory()
+  const history = useHistory();
+  const dispatch = useDispatch();
   const [cities, setCities] = useState([]);
 
   const handleCityClick = (locationId) => {
@@ -18,8 +21,8 @@ const ExploreNearby = () => {
     (async () => {
       try {
         const response = await manageLocationApi.getAll()
-        // console.log('response', response)
-        setCities(response)
+        setCities(response);
+        dispatch(GET_LOCATIONS, response)
 
       } catch (error) {
         console.log(error)
