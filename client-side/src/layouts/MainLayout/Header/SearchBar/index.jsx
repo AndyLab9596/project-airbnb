@@ -6,12 +6,15 @@ import { DesktopDateRangePicker } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { vi } from 'date-fns/locale';
+import moment from 'moment';
 import queryString from 'query-string';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import manageLocationApi from '../../../../api/manageLocationApi';
 import useStyles from './style';
-
+import { useDispatch, useSelector } from "react-redux";
+import { createAction } from "../../../../store/action/createAction/createAction"
+import { SEARCH_RESULT } from '../../../../store/types/SearchType';
 
 // Data from API 9 
 // {
@@ -24,7 +27,7 @@ import useStyles from './style';
 // },
 
 
-const SearchBar = ({ isDesktop }) => {
+const SearchBar = ({ isDesktop, setSearchBarValue }) => {
     // const [clickSearchLocation, setClickSearchLocation] = useState(false)
 
     // const [startDate, setStartDate] = useState(null);
@@ -36,7 +39,7 @@ const SearchBar = ({ isDesktop }) => {
     // };
     const history = useHistory();
     const location = useLocation();
-
+    const dispatch = useDispatch()
 
     const [locationList, setLocationList] = useState([]);
 
@@ -121,13 +124,24 @@ const SearchBar = ({ isDesktop }) => {
     } = useAutocomplete({
         options: locationList,
         id: 'useAutocomplete',
-        getOptionLabel: (option) => (option.province && option.name),
+        getOptionLabel: (option) => option.province,
     });
 
     const inputValue = ({ ...getInputProps() }).value;
 
-    const locationInputValue = locationList.find((location) => location.name === inputValue);
+    const locationInputValue = locationList.find((location) => location.province === inputValue);
     const locationId = locationInputValue?._id;
+
+    const checkInFormatted = moment(bookingTime[0]).format('Do MMM');
+    const checkOutFormatted = moment(bookingTime[1]).format('Do MMM');
+
+    const searchBarValue = {
+        location: locationInputValue,
+        checkIn: checkInFormatted,
+        checkOut: checkOutFormatted,
+        guest: numbers.adult + numbers.baby,
+    }
+
 
     const queryParams = {
         _checkIn: bookingTime[0],
@@ -137,13 +151,19 @@ const SearchBar = ({ isDesktop }) => {
         _toddler: numbers.toddler,
     }
 
-    const handleSearchSubmit = (e) => {
+    const handleSearchSubmit = async (e) => {
         e.preventDefault();
-        history.push({
-            pathname: `/list/${locationId}`,
-            search: queryString.stringify(queryParams)
-        })
+        try {
+            await dispatch(createAction(SEARCH_RESULT, searchBarValue))
+            history.push({
+                pathname: `/list/${locationId}`,
+                search: queryString.stringify(queryParams)
+            })
+        } catch (error) {
+            console.log(error)
+        }
     };
+
 
     const classes = useStyles();
 
@@ -224,8 +244,8 @@ const SearchBar = ({ isDesktop }) => {
 
                 {/* Customer count & search button */}
                 <div className={classes.customer}>
-                    <div className={classes.customer__el} onClick={handleOpenMenu}>
-                        <div className={classes.customer__el__content}>
+                    <div className={classes.customer__el} >
+                        <div className={classes.customer__el__content} onClick={handleOpenMenu}>
                             <p className={classes.customer__title}>Khách</p>
                             <p className={classes.customer__text}>
                                 {numbers.adult === 0 ? 'Thêm khách' : `${numbers.adult + numbers.baby} khách, ${numbers.toddler} em bé`}

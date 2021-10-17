@@ -3,9 +3,13 @@ import thunk from "redux-thunk";
 
 // import reducer
 import AuthReducer from "./reducers/AuthReducer";
+import LocationReducer from "./reducers/LocationReducer";
+import SearchReducer from "./reducers/SearchReducer";
 
 const rootReducer = combineReducers({
   AuthReducer,
+  LocationReducer,
+  SearchReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

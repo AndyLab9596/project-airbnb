@@ -3,8 +3,8 @@ import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import ListIcon from "@material-ui/icons/List";
 import MapIcon from "@material-ui/icons/Map";
-import React, { useState } from "react";
-import { useLocation } from "react-router";
+import React, { useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router";
 import FilterRoom from "./FilterRoom";
 import ListRoomItem from "./ListIRoomItem";
 import Map from "./Map";
@@ -21,7 +21,8 @@ const ListRoom = () => {
   const handleCloseDisplay = () => {
     setDisplay(false);
   };
-  console.log(location);
+
+
   return (
     <div style={{ marginTop: 100 }}>
       <Grid container>
