@@ -9,22 +9,25 @@ export default makeStyles((theme) => ({
   room__info: {
     borderTop: "1px solid rgb(221, 221, 221,1) ",
     padding: "24px 0",
+    [theme.breakpoints.up("md")]: {
+      paddingTop: 48,
+    },
   },
   room__info__host: {
     display: "flex",
     justifyContent: "space-between",
     marginBottom: 10,
-
+    alignItems: "center",
     "& >div >p": {
-      fontSize: 16,
+      fontSize: 18,
       lineHeight: "20px",
       fontWeight: 600,
       marginBottom: 8,
     },
   },
   avatar__host: {
-    width: 30,
-    height: 30,
+    width: 48,
+    height: 48,
     borderRadius: "50%",
     position: "relative",
   },
@@ -54,22 +57,28 @@ export default makeStyles((theme) => ({
     },
     "& >div>span": {
       fontSize: 13,
-      lineHeihgt: 1.5,
+      lineHeight: 1.5,
       color: "rgb(113, 113, 113)",
     },
   },
   room_description: {
     borderTop: "1px solid rgb(221, 221, 221,1) ",
     padding: "24px 0",
+    [theme.breakpoints.up("md")]: {
+      padding: "48px 0",
+    },
   },
   room__bedroom: {
     borderTop: "1px solid rgb(221, 221, 221,1) ",
     padding: "24px 0",
+    [theme.breakpoints.up("md")]: {
+      padding: "48px 0",
+    },
     "& >h5": {
       fontSize: 20,
       fontWeight: 600,
       lineHeight: "20px",
-      paddingBottom: 14,
+      paddingBottom: 24,
     },
   },
   room__bedroom__content: {
@@ -98,11 +107,14 @@ export default makeStyles((theme) => ({
   room__reviews: {
     borderTop: "1px solid rgb(221, 221, 221,1) ",
     padding: "24px 0",
+    [theme.breakpoints.up("md")]: {
+      padding: "48px 0",
+    },
     "& >h1": {
       fontWeight: 600,
       fontSize: 20,
-      lineHeihgt: "20px",
-      padding: "15px 0",
+      lineHeight: "20px",
+      paddingBottom: 10,
     },
   },
   room__reviews__content: {
@@ -126,11 +138,13 @@ export default makeStyles((theme) => ({
   room_datepicker: {
     borderTop: "1px solid rgb(221, 221, 221,1) ",
     padding: "24px 0",
+    [theme.breakpoints.up("md")]: {
+      padding: "48px 0",
+    },
     "& >h1": {
       fontWeight: 600,
       fontSize: 20,
-      lineHeihgt: "20px",
-      paddingTop: 15,
+      lineHeight: "20px",
       paddingBottom: 5,
     },
     "& >span": {

@@ -2,9 +2,11 @@ import { useMediaQuery, useTheme } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import React from "react";
 import ContentRoom from "../../components/Detail/Content";
+import InfoHost from "../../components/Detail/InfoHost";
 import DetailRoomMap from "../../components/Detail/Map";
 import DetailRating from "../../components/Detail/Rating";
 import RoomImage from "../../components/Detail/RoomImage";
+import DetailRules from "../../components/Detail/Rules";
 
 const Detail = () => {
   const useStyle = makeStyles(() => ({
@@ -26,6 +28,8 @@ const Detail = () => {
       <ContentRoom />
       <DetailRoomMap />
       <DetailRating />
+      <InfoHost />
+      <DetailRules />
     </div>
   );
 };

@@ -99,27 +99,27 @@ const RoomImage = () => {
               </Typography>
             </div>
           </div>
-          <Box position="relative">
+          <div className={classes.room__image__content}>
             <Grid container spacing={1}>
               <Grid item xs={6}>
-                <img
-                  src={arrImg[0].img}
-                  alt="img"
+                <div
                   className={classes.image}
                   onClick={() => setOpenModal(true)}
-                />
+                >
+                  <img src={arrImg[0].img} alt="img" />
+                </div>
               </Grid>
               <Grid item xs={6}>
                 <Grid container spacing={1}>
                   {arrImg.slice(0, 4).map((item, index) => (
                     <Fragment key={index}>
                       <Grid item xs={6} key={index}>
-                        <img
-                          src={item.img}
-                          alt="img"
+                        <div
                           className={classes.image}
                           onClick={() => setOpenModal(true)}
-                        />
+                        >
+                          <img src={item.img} alt="img" />
+                        </div>
                       </Grid>
                     </Fragment>
                   ))}
@@ -133,7 +133,7 @@ const RoomImage = () => {
               <IoAppsOutline />
               <Typography variant="span">Hiển thị tất cả ảnh</Typography>
             </div>
-          </Box>
+          </div>
         </div>
       ) : (
         <Fragment>
@@ -141,12 +141,12 @@ const RoomImage = () => {
             <Slider {...settings}>
               {arrImg.map((item, index) => (
                 <Box key={index} position="relative" cursor="pointer">
-                  <img
-                    src={item.img}
-                    alt="img"
+                  <div
                     className={classes.image}
                     onClick={() => setOpenModal(true)}
-                  />
+                  >
+                    <img src={item.img} alt="img" />
+                  </div>
                   <div className={classes.currentImg}>
                     {currentImg}/{arrImg.length}
                   </div>
@@ -193,11 +193,15 @@ const RoomImage = () => {
               <Fragment key={index}>
                 {index % 3 === 0 ? (
                   <Grid item xs={12}>
-                    <img src={item.img} alt="img" className={classes.image} />
+                    <div className={classes.image}>
+                      <img src={item.img} alt="img" />
+                    </div>
                   </Grid>
                 ) : (
                   <Grid item xs={6}>
-                    <img src={item.img} alt="img" className={classes.image} />
+                    <div className={classes.image}>
+                      <img src={item.img} alt="img" />
+                    </div>
                   </Grid>
                 )}
               </Fragment>
