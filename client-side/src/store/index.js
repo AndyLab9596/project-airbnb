@@ -5,11 +5,12 @@ import thunk from "redux-thunk";
 import AuthReducer from "./reducers/AuthReducer";
 import LocationReducer from "./reducers/LocationReducer";
 import SearchReducer from "./reducers/SearchReducer";
-
+import ListRoomReducer from "./reducers/ListRoomReducer"
 const rootReducer = combineReducers({
   AuthReducer,
   LocationReducer,
-  SearchReducer
+  SearchReducer,
+  ListRoomReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -11,6 +11,12 @@ import Slider from "@material-ui/core/Slider";
 import MaximizeIcon from "@material-ui/icons/Maximize";
 import { withStyles } from "@material-ui/styles";
 import React, { Fragment, useState } from "react";
+import { useDispatch } from "react-redux";
+import { createAction } from "../../../store/action/createAction/createAction";
+import {
+  CLOSE_MODAL_FILTER,
+  OPEN_MODAL_FILTER,
+} from "../../../store/types/ListRoomType";
 import ModalFilter from "../Modal/index";
 import useStyles from "./style";
 const AirbnbSlider = withStyles({
@@ -61,7 +67,7 @@ function AirbnbThumbComponent(props) {
 }
 const FilterRoom = () => {
   const classes = useStyles();
-
+  const dispatch = useDispatch();
   //State Hủy miễn phí
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -71,75 +77,13 @@ const FilterRoom = () => {
   const [anchorElPrice, setAnchorElPrice] = useState(null);
 
   //modal
-  const [open, setOpen] = useState(false);
 
-  // const fakeCheckBox = [
-  //   {
-  //     id: 1,
-  //     name: "wholeHouse",
-  //     title: "Toàn bộ nhà",
-  //     desc: "Tìm một nơi cho riêng bạn",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "room",
-  //     title: "Phòng riêng",
-  //     desc: "Có phòng riêng và chia sẻ một số không gian chung",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "hotelRoom",
-  //     title: "Phòng khách sạn",
-  //     desc: "Có phòng riêng/chia sẻ ở khách sạn boutique, khách sạn giá rẻ và những chỗ ở khác",
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "commonRoom",
-  //     title: "Phòng chung",
-  //     desc: "Ở trong một không gian chia sẻ, như phòng chung",
-  //   },
-  // ];
-  //Menu Hủy miễn phí
-  // const handleOpenMenu = (event) => {
-  //   setAnchorEl(event.currentTarget);
-  //   console.log(event.currentTarget);
-  // };
-  // const handleCloseMenu = () => {
-  //   setAnchorEl(null);
-  //   setAnchorElBookingNow(null);
-  //   setAnchorElPrice(null);
-  //   setAnchorElBookingNow(null);
-  // };
-  //Menu Loại nơi ở
-  // const handleOpenMenuAccommodation = (event) => {
-  //   setAnchorEl(event.currentTarget);
-  //   console.log(event.currentTarget);
-  // };
-  // const handleCloseMenuAccommodatio = () => {
-  //   setAnchorEl(null);
-  // };
-
-  // //Menu Giá
-  // const handleOpenMenuPrice = (event) => {
-  //   setAnchorElPrice(event.currentTarget);
-  //   console.log(event.currentTarget);
-  // };
-  // const handleCloseMenuPrice = () => {
-  //   setAnchorElPrice(null);
-  // };
-  // //Menu Đặt ngay
-  // const handleOpenMenuBookingNow = (event) => {
-  //   setAnchorElBookingNow(event.currentTarget);
-  // };
-  // const handleCloseMenuBookingNow = () => {
-  //   setAnchorElBookingNow(null);
-  // };
   //Menu Bộ lọc khác
   const handleOpen = () => {
-    setOpen(true);
+    dispatch(createAction(OPEN_MODAL_FILTER));
   };
   const handleClose = () => {
-    setOpen(false);
+    dispatch(createAction(CLOSE_MODAL_FILTER));
   };
 
   // Switch Hủy miễn phí
@@ -160,14 +104,6 @@ const FilterRoom = () => {
   const handleChangeCheckBox = (event) => {
     setChecked({ ...checked, [event.target.name]: event.target.checked });
   };
-  //   // Slider Giá
-  //   const [rating, setRating] = React.useState([5, 10]);
-
-  //   const rateGte = rating?.join("").slice(0, 1);
-  //   const rateLte = rating?.join("").slice(1, 3);
-  //   const handleChangeRating = (event, newValue) => {
-  //     setRating(newValue);
-  //   };
 
   return (
     <Fragment>
@@ -482,7 +418,7 @@ const FilterRoom = () => {
       </Menu>
 
       {/* Modal Bộ lọc khác */}
-      <ModalFilter handleClose={handleClose} open={open} />
+      <ModalFilter handleClose={handleClose}  />
     </Fragment>
   );
 };

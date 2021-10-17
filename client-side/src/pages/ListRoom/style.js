@@ -48,7 +48,18 @@ export default makeStyles(theme => ({
         cursor: "pointer",
         backgroundColor: "rgb(34, 34, 34)",
         color: "rgb(255, 255, 255)",
-        display: props => props.display ? "block" : "none",
+
+        [theme.breakpoints.down(1025)]: {
+
+            display: props => props.display ? "block" : "none",
+
+        },
+        [theme.breakpoints.down(744)]: {
+
+            display: props => props.display ? "block" : "none",
+
+
+        },
         "& > span": {
             fontSize: 15
         },
@@ -73,10 +84,30 @@ export default makeStyles(theme => ({
     },
     grid__list: {
         padding: "0 25px",
-        display: props => props.display ? "none" : "block",
+
+        [theme.breakpoints.down(1025)]: {
+
+            display: props => props.display ? "none" : "block",
+
+        }, [theme.breakpoints.down(744)]: {
+
+            display: props => props.display ? "none" : "block",
+
+        },
     },
     grid__map: {
-        display: props => props.display ? "block" : "none",
+
+        [theme.breakpoints.down(1025)]: {
+
+            display: props => props.display ? "block" : "none",
+
+        },
+        [theme.breakpoints.down(744)]: {
+
+            display: props => props.display ? "block" : "none",
+
+
+        },
     }
 
 }))

@@ -6,23 +6,32 @@ import {
   Switch,
   Typography,
 } from "@material-ui/core";
-import React, { Fragment, useState } from "react";
 import AddIcon from "@material-ui/icons/Add";
 import CloseIcon from "@material-ui/icons/Close";
-import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import RemoveIcon from "@material-ui/icons/Remove";
-import StarRateOutlinedIcon from "@material-ui/icons/StarRateOutlined";
+import React, { Fragment, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createAction } from "../../../store/action/createAction/createAction";
+import {
+  CLOSE_MODAL_FILTER,
+  FILTER_ROOM,
+} from "../../../store/types/ListRoomType";
 import useStyles from "./style";
-import { NavLink } from "react-router-dom";
+
 const ModalFilter = ({ handleClose, open }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [dropdown, setDropdown] = useState(false);
+  const arrListRoom = useSelector((state) => state.ListRoomReducer.arrListRoom);
+
+  const modal = useSelector((state) => state.ListRoomReducer.modal);
   const handleOpenDropdown = () => {
     setDropdown(true);
   };
   const handleCloseDropdown = () => {
     setDropdown(false);
   };
+
   //MODAL
   // PHÒNG VÀ PHÒNG NGỦ
   const [numbers, setNumbers] = useState({
@@ -31,6 +40,7 @@ const ModalFilter = ({ handleClose, open }) => {
     bathroom: 0,
   });
 
+  console.log(numbers.bedroom);
   const addBed = () => {
     if (numbers.bed >= 16) return;
     setNumbers({ ...numbers, bed: numbers.bed + 1 });
@@ -92,11 +102,71 @@ const ModalFilter = ({ handleClose, open }) => {
       [event.target.name]: event.target.checked,
     });
   };
+
+  const filterRoomAndBedRoom = arrListRoom.filter((value) => {
+    if (checkedConvenient !== undefined && checkedUtilities !== undefined) {
+      let valuePassesFilters = true;
+
+      if (checkedConvenient.kitchen === true) {
+        valuePassesFilters = valuePassesFilters && value.kitchen === true;
+      }
+
+      if (checkedConvenient.dryer === true) {
+        valuePassesFilters = valuePassesFilters && value.dryer === true;
+      }
+      if (checkedConvenient.indoorFireplace === true) {
+        valuePassesFilters =
+          valuePassesFilters && value.indoorFireplace === true;
+      }
+      if (checkedConvenient.wifi === true) {
+        valuePassesFilters = valuePassesFilters && value.wifi === true;
+      }
+      if (checkedConvenient.cableTV === true) {
+        valuePassesFilters = valuePassesFilters && value.cableTV === true;
+      }
+      if (checkedConvenient.heating === true) {
+        valuePassesFilters = valuePassesFilters && value.heating === true;
+      }
+      if (value.bedRoom < numbers.bedroom) {
+        valuePassesFilters = valuePassesFilters && value.bedRoom === true;
+      }
+      if (value.guests < numbers.bed) {
+        valuePassesFilters = valuePassesFilters && value.guests === true;
+      }
+      if (value.bath < numbers.bathroom) {
+        valuePassesFilters = valuePassesFilters && value.bath === true;
+      }
+      if (checkedUtilities.gym === true) {
+        valuePassesFilters = valuePassesFilters && value.gym === true;
+      }
+      if (checkedUtilities.pool === true) {
+        valuePassesFilters = valuePassesFilters && value.pool === true;
+      }
+      if (checkedUtilities.hotTub === true) {
+        valuePassesFilters = valuePassesFilters && value.hotTub === true;
+      }
+      if (checkedUtilities.elevator === true) {
+        valuePassesFilters = valuePassesFilters && value.elevator === true;
+      }
+
+      console.log("valuePassesFilters", valuePassesFilters);
+      return valuePassesFilters;
+    } else {
+      return value;
+    }
+  });
+
+  console.log("filterRoomAndBedRoom", filterRoomAndBedRoom);
+  const filteredData = () => {
+    dispatch(createAction(FILTER_ROOM, filterRoomAndBedRoom));
+    dispatch(createAction(CLOSE_MODAL_FILTER));
+  };
+
   return (
     <Fragment>
       <Fragment>
         <Modal
-          open={open}
+          open={modal}
           onClose={handleClose}
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
@@ -487,105 +557,6 @@ const ModalFilter = ({ handleClose, open }) => {
                 </div>
               </div>
 
-              {/* <div className={classes.modal__convenient}>
-                  <Typography>Nơi ở độc đáo</Typography>
-                  <div>
-                    <Grid container>
-                      <Grid item lg={6}>
-                        <div className={classes.modal__style__checkbox}>
-                          <Checkbox
-                            // checked={checked}
-                            // onChange={handleChangeCheckBox}
-                            inputProps={{ "aria-label": "primary checkbox" }}
-                            classes={{
-                              root: classes.checkbox,
-                            }}
-                          />
-                          <Typography>Hải đăng</Typography>
-                        </div>
-                      </Grid>
-                      <Grid item lg={6}>
-                        <div className={classes.modal__style__checkbox}>
-                          <Checkbox
-                            // checked={checked}
-                            // onChange={handleChangeCheckBox}
-                            inputProps={{ "aria-label": "primary checkbox" }}
-                            classes={{
-                              root: classes.checkbox,
-                            }}
-                          />
-                          <Typography>Lâu đài</Typography>
-                        </div>
-                      </Grid>
-                      <Grid item lg={6}>
-                        <div className={classes.modal__style__checkbox}>
-                          <Checkbox
-                            // checked={checked}
-                            // onChange={handleChangeCheckBox}
-                            inputProps={{ "aria-label": "primary checkbox" }}
-                            classes={{
-                              root: classes.checkbox,
-                            }}
-                          />
-                          <Typography>Nhà nghỉ giữa thiên nhiên</Typography>
-                        </div>
-                      </Grid>
-                      <Grid item lg={6}>
-                        <div className={classes.modal__style__checkbox}>
-                          <Checkbox
-                            // checked={checked}
-                            // onChange={handleChangeCheckBox}
-                            inputProps={{ "aria-label": "primary checkbox" }}
-                            classes={{
-                              root: classes.checkbox,
-                            }}
-                          />
-                          <Typography>Nhà nhỏ</Typography>
-                        </div>
-                      </Grid>
-                    </Grid>
-                    <div>
-                      <Typography className={classes.modal__text_style}>
-                        Hiển thị mọi nơi ở độc đáo
-                      </Typography>
-                    </div>
-                  </div>
-                </div> */}
-
-              {/* <div className={classes.modal__convenient}>
-                  <Typography>Nội quy nhà</Typography>
-                  <div>
-                    <Grid container>
-                      <Grid item lg={6}>
-                        <div className={classes.modal__style__checkbox}>
-                          <Checkbox
-                            // checked={checked}
-                            // onChange={handleChangeCheckBox}
-                            inputProps={{ "aria-label": "primary checkbox" }}
-                            classes={{
-                              root: classes.checkbox,
-                            }}
-                          />
-                          <Typography>Cho phép thú cưng</Typography>
-                        </div>
-                      </Grid>
-                      <Grid item lg={6}>
-                        <div className={classes.modal__style__checkbox}>
-                          <Checkbox
-                            // checked={checked}
-                            // onChange={handleChangeCheckBox}
-                            inputProps={{ "aria-label": "primary checkbox" }}
-                            classes={{
-                              root: classes.checkbox,
-                            }}
-                          />
-                          <Typography>Cho phép hút thuốc</Typography>
-                        </div>
-                      </Grid>
-                    </Grid>
-                  </div>
-                </div> */}
-
               <div className={classes.modal__convenient}>
                 <Typography>Ngôn ngữ chủ nhà</Typography>
                 <div>
@@ -626,8 +597,17 @@ const ModalFilter = ({ handleClose, open }) => {
             {/* modal footer */}
             <div className={classes.modal__footer}>
               <button className={classes.button__erase}>Xóa tất cả</button>
-              <button className={classes.button__modal__button}>
-                Hiển thị hơn 300 chỗ ở
+              <button
+                onClick={() => filteredData()}
+                className={classes.button__modal__button}
+              >
+                Hiển thị hơn{" "}
+                {filterRoomAndBedRoom.length > 0 || numbers.bedroom > 0
+                  ? numbers.bedroom > filterRoomAndBedRoom.bedRoom
+                    ? 0
+                    : filterRoomAndBedRoom.length
+                  : 300}{" "}
+                chỗ ở
               </button>
             </div>
           </div>
