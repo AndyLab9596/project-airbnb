@@ -6,6 +6,7 @@ import manageLocationApi from "../../../api/manageLocationApi";
 import { MAPBOX_TOKEN } from "../../../constants/config";
 import useStyles from "./style";
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
+import _ from "lodash"
 
 const fakeRentRooms = [
   {
@@ -291,6 +292,7 @@ const Map = () => {
           // handle success
           console.log('rent room', response);
           newMarkerLocation.push({
+            ...room,
             longitude: response.data.features?.[0].center?.[0],
             latitude: response.data.features?.[0].center?.[1]
           })
@@ -309,18 +311,8 @@ const Map = () => {
   }, [])
 
 
-  // Cần phải gộp tọa độ và địa điểm
-  const newArray = fakeRentRooms.map((rentRoom) => {
-    return markerLocation.map((marker) => {
-      return { ...rentRoom, longitude: marker.longitude, latitude: marker.latitude }
-    })
-  })
 
-  console.log(newArray)
-
-  // console.log(locationCoordinate)
-  // console.log(viewport)
-  // console.log(markerLocation)
+  console.log(markerLocation)
 
 
   return (
@@ -332,19 +324,21 @@ const Map = () => {
         mapboxApiAccessToken="pk.eyJ1IjoidGhpZW52eTk1IiwiYSI6ImNrdXFkcTlycjByem8yeHBnbXVmNmwwMzQifQ.rLTXpQcU4iZjpeNw8DblUQ"
         onViewportChange={(viewport) => setViewport(viewport)}
       >
-        {markerLocation.map((marker, index) => (
+        {markerLocation.map((location, index) => (
           <Marker
-            key={index}
-            latitude={marker.latitude}
-            longitude={marker.longitude}
+            key={markerLocation._id}
+            latitude={location.latitude}
+            longitude={location.longitude}
             offsetLeft={-20}
             offsetTop={-10}
           >
             <Fragment>
+              <p style={{ fontSize: '16px' }}>{location.price}</p>
               <LocationOnOutlinedIcon />
             </Fragment>
           </Marker>
         ))}
+
 
 
       </ReactMapGL>
