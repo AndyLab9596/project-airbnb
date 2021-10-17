@@ -49,7 +49,7 @@ export default makeStyles((theme) => ({
       fontSize: 26,
       lineHeight: "30px",
       fontWeight: 500,
-      padding: (props) => (props.isMobile ? "10px 0" : "0 0 10px 24px"),
+      padding: (props) => (props.isTablet ? "10px 0" : "0 0 10px 24px"),
     },
   },
   room__content__rating: {
@@ -57,7 +57,7 @@ export default makeStyles((theme) => ({
     flexWrap: "wrap",
     alignItems: "center",
     marginTop: 5,
-    padding: (props) => (props.isMobile ? 0 : "0 24px"),
+    padding: (props) => (props.isTablet ? 0 : "0 24px"),
     "& .MuiButton-text": {
       padding: 0,
     },
@@ -109,8 +109,8 @@ export default makeStyles((theme) => ({
     position: "relative",
     "& > img": {
       width: "100%",
-      height: (props) => (props.isMobile ? "100%" : 250),
-      minHeight: (props) => (props.isMobile ? 180 : 250),
+      height: (props) => (props.isTablet ? "100%" : 250),
+      minHeight: (props) => (props.isTablet ? 180 : 250),
       objectFit: "cover",
       cursor: "pointer",
     },
@@ -173,7 +173,7 @@ export default makeStyles((theme) => ({
   },
   modal_show_all_img: {
     maxWidth: (props) =>
-      props.isDeskTop ? 700 : props.isMobile ? 400 : "100%",
+      props.isDeskTop ? 700 : props.isTablet ? 400 : "100%",
     margin: "0 auto",
   },
   btnPrev: {
