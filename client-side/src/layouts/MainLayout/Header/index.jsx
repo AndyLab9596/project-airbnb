@@ -35,6 +35,9 @@ const Header = () => {
     const history = useHistory();
     const idUser = localStorage.getItem(USERID);
     const { infoUser } = useSelector((state) => state.AuthReducer);
+    const { searchResult } = useSelector(state => state.SearchReducer);
+    // console.log("searchResult", searchResult)
+
     const handleLogout = () => {
         setAnchorEl(null);
         localStorage.removeItem(USERID);
@@ -185,15 +188,37 @@ const Header = () => {
 
                                         <div className={classes.list__navbar__search__wrapper}>
                                             <button className={classes.list__navbar__button}>
-                                                <span>Sài Gòn</span>
+                                                <span>
+                                                    {searchResult?.location?.province}
+                                                </span>
                                             </button>
                                             <span className={classes.list__navbar__dash}></span>
                                             <button className={classes.list__navbar__button}>
-                                                <span>17 thg10 - 15 thg11</span>
+                                                {(searchResult?.checkIn !== "Invalid date" && searchResult?.checkOut !== "Invalid date")
+                                                    ?
+                                                    (
+                                                        <span>
+                                                            {searchResult?.checkIn} - {searchResult?.checkOut}
+                                                        </span>
+                                                    )
+                                                    :
+                                                    (
+                                                        <span>Thêm ngày</span>
+                                                    )
+                                                }
                                             </button>
                                             <span className={classes.list__navbar__dash}></span>
                                             <button className={classes.list__navbar__button}>
-                                                <span>2 khách</span>
+                                                {searchResult?.guest > 0
+                                                    ? (
+                                                        <span>
+                                                            {searchResult?.guest} Khách
+                                                        </span>
+                                                    )
+                                                    : (
+                                                        <span>Thêm khách</span>
+                                                    )
+                                                }
                                                 <div className={classes.navbar__search__button__wrap}>
                                                     <SearchIcon className={classes.navbar__search__button__icon} />
                                                 </div>

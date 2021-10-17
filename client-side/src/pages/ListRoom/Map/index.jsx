@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { Box, Grid, Typography } from "@material-ui/core";
-import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
-import StarRateOutlinedIcon from "@material-ui/icons/StarRateOutlined";
-import GoogleMapReact from "google-map-react";
 import useStyles from "./style";
+import GoogleMapReact from "google-map-react";
 const Map = () => {
   const classes = useStyles();
-  const [coords, setCoords] = useState({ lat: 12.270371, lng: 109.204196 });
-
+  const [coords, setCoords] = useState({
+    lng: 109.20427054285005,
+    lat: 12.231278296800172,
+  });
   return (
     <div
       style={{ height: "88.5vh", width: "100%", position: "sticky", top: 80 }}

@@ -3,10 +3,13 @@ import thunk from "redux-thunk";
 
 // import reducer
 import AuthReducer from "./reducers/AuthReducer";
-import ListRoomReducer from "./reducers/ListRoomReducer";
-
+import LocationReducer from "./reducers/LocationReducer";
+import SearchReducer from "./reducers/SearchReducer";
+import ListRoomReducer from "./reducers/ListRoomReducer"
 const rootReducer = combineReducers({
   AuthReducer,
+  LocationReducer,
+  SearchReducer,
   ListRoomReducer
 });
 

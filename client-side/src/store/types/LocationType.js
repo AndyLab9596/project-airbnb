@@ -1,0 +1,4 @@
+const GET_LOCATIONS = "GET_LOCATIONS";
+export {
+    GET_LOCATIONS
+};
