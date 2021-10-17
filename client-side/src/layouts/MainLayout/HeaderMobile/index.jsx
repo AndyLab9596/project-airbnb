@@ -1,42 +1,42 @@
-import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import SearchIcon from '@material-ui/icons/Search';
-import React, { Fragment, useState } from 'react';
+import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import SearchIcon from "@material-ui/icons/Search";
+import React, { Fragment, useState } from "react";
 import useStyles from "./style";
 
-
 const HeaderMobile = () => {
-
-    const [show, setShow] = useState(false)
-    const classes = useStyles({ show });
-    return (
-        <Fragment>
-
-            <div className={classes.overlay}>
-                <div className={classes.overlay__wrapper}>
-                    <div className={classes.overlay__searchBar}>
-                        <button className={classes.overlay__searchBar__button} onClick={() => setShow(false)} >
-                            <ChevronLeftIcon />
-                        </button>
-                        <div className={classes.overlay__searchBar__inputField}>
-                            <input type="text" placeholder="Bạn muốn đi đâu?" />
-                        </div>
-                    </div>
-                </div>
+  const [show, setShow] = useState(false);
+  const classes = useStyles({ show });
+  return (
+    <Fragment>
+      <div className={classes.overlay}>
+        <div className={classes.overlay__wrapper}>
+          <div className={classes.overlay__searchBar}>
+            <button
+              className={classes.overlay__searchBar__button}
+              onClick={() => setShow(false)}
+            >
+              <ChevronLeftIcon />
+            </button>
+            <div className={classes.overlay__searchBar__inputField}>
+              <input type="text" placeholder="Bạn muốn đi đâu?" />
             </div>
+          </div>
+        </div>
+      </div>
 
-            <Fragment>
-                <div className={classes.root}>
-                    <div className={classes.header}>
-                        <button className={classes.button} onClick={() => setShow(true)}>
-                            <SearchIcon className={classes.button__icon} />
-                            <span>Bạn sắp đi đâu</span>
-                        </button>
-                    </div>
-                </div>
+      <Fragment>
+        <div className={classes.root}>
+          <div className={classes.header}>
+            <button className={classes.button} onClick={() => setShow(true)}>
+              <SearchIcon className={classes.button__icon} />
+              <span>Bạn sắp đi đâu</span>
+            </button>
+          </div>
+        </div>
 
-                <div className={classes.rootBottom}>
+        {/* <div className={classes.rootBottom}>
                     <div className={classes.headerBottom}>
                         <button className={classes.headerBottom__button}>
                             <SearchIcon className={classes.headerBottom__button__icon} />
@@ -51,11 +51,10 @@ const HeaderMobile = () => {
                             <p>Đăng nhập</p>
                         </button>
                     </div>
-                </div>
-            </Fragment>
-
-        </Fragment>
-    );
+                </div> */}
+      </Fragment>
+    </Fragment>
+  );
 };
 
 export default HeaderMobile;

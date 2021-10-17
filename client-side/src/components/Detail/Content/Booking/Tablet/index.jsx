@@ -14,7 +14,7 @@ import React, { Fragment, useState } from "react";
 import { BsFillStarFill } from "react-icons/bs";
 import useStyles from "./style";
 
-const Booking = ({
+const BookingTablet = ({
   bookingTime,
   setBookingTime,
   locale,
@@ -85,6 +85,7 @@ const Booking = ({
       <div className={classes.room__booking__datepicker}>
         <LocalizationProvider dateAdapter={AdapterDateFns} locale={locale}>
           <DateRangePicker
+            variant="inline"
             open={openDatePicker}
             onClose={() => setOpenDatePicker(false)}
             okText="Xác nhận"
@@ -355,4 +356,4 @@ const Booking = ({
   );
 };
 
-export default Booking;
+export default BookingTablet;

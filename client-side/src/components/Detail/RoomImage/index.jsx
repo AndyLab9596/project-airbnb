@@ -21,23 +21,25 @@ const RoomImage = () => {
   const [currentImg, setCurrentImg] = useState(1);
   const [openModal, setOpenModal] = useState(false);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.up("md"));
+  const isTablet = useMediaQuery(theme.breakpoints.up("md"));
   const isDeskTop = useMediaQuery(theme.breakpoints.up("xl"));
   const [scrolled, setScrolled] = useState(false);
   const ref = useRef(null);
 
   useEffect(() => {
-    // const currentHeight = ref.current.clientHeihgt + 80; // header 80px
-    // console.log(ref.current.clientHeight);
-
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 600);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [scrolled]);
+    if (isTablet) {
+      const timer = setTimeout(() => {
+        const currentHeight = ref.current.clientHeight + 80; // header 80px
+        const handleScroll = () => {
+          setScrolled(window.scrollY > currentHeight);
+        };
+        window.addEventListener("scroll", handleScroll);
+      }, 100);
+      return () => {
+        window.clearTimeout(timer);
+      };
+    }
+  }, [isTablet]);
   const settings = {
     dots: false,
     infinite: false,
@@ -107,10 +109,10 @@ const RoomImage = () => {
       offset: -70,
     });
   };
-  const classes = useStyles({ isMobile, isDeskTop, isScroll: scrolled });
+  const classes = useStyles({ isTablet, isDeskTop, isScroll: scrolled });
   return (
     <Fragment>
-      {isMobile ? (
+      {isTablet ? (
         <Fragment>
           <div className={classes.headerScroll}>
             <div className={classes.header__menu}>

@@ -32,7 +32,8 @@ import {
   MdWifi,
 } from "react-icons/md";
 import { FAKE_AVATAR } from "../../../constants/config";
-import Booking from "./Booking";
+import BookingMobile from "./Booking/Mobile";
+import BookingTabLet from "./Booking/Tablet";
 import useStyles from "./style";
 
 const ContentRoom = () => {
@@ -320,9 +321,9 @@ const ContentRoom = () => {
         </Grid>
 
         {/*  Booking */}
-        {isTablet && (
-          <Grid item sm={5} className={classes.room__booking}>
-            <Booking
+        {isTablet ? (
+          <Grid item md={5} className={classes.room__booking}>
+            <BookingTabLet
               bookingTime={bookingTime}
               setBookingTime={setBookingTime}
               locale={locale}
@@ -330,6 +331,14 @@ const ContentRoom = () => {
               isBooking={isBooking}
             />
           </Grid>
+        ) : (
+          <BookingMobile
+            bookingTime={bookingTime}
+            setBookingTime={setBookingTime}
+            locale={locale}
+            totalDate={totalDate}
+            isBooking={isBooking}
+          />
         )}
       </Grid>
     </div>
