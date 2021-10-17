@@ -24,7 +24,7 @@ const ListRoom = () => {
 
 
   return (
-    <div style={{ marginTop: 100 }}>
+    <div className={classes.root}>
       <Grid container>
         <div className={classes.button__display}>
           <div className={classes.display}>
