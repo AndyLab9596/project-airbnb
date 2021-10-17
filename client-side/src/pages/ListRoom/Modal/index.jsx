@@ -424,7 +424,9 @@ const ModalFilter = ({ handleClose, open }) => {
 
               {/* Tiện ích */}
               <div className={classes.modal__convenient}>
-                <Typography>Tiện ích</Typography>
+                <Typography className={classes.modal__title__text}>
+                  Tiện ích
+                </Typography>
                 <div>
                   <Grid container>
                     <Grid item lg={6}>
@@ -493,7 +495,9 @@ const ModalFilter = ({ handleClose, open }) => {
               </div>
 
               <div className={classes.modal__convenient}>
-                <Typography>Loại nhà/phòng</Typography>
+                <Typography className={classes.modal__title__text}>
+                  Loại nhà/phòng
+                </Typography>
                 <div>
                   <Grid container>
                     <Grid item lg={6}>
@@ -558,7 +562,9 @@ const ModalFilter = ({ handleClose, open }) => {
               </div>
 
               <div className={classes.modal__convenient}>
-                <Typography>Ngôn ngữ chủ nhà</Typography>
+                <Typography className={classes.modal__title__text}>
+                  Ngôn ngữ chủ nhà
+                </Typography>
                 <div>
                   <Grid container>
                     <Grid item lg={6}>

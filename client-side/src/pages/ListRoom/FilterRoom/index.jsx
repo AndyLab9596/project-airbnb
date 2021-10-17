@@ -10,11 +10,12 @@ import {
 import Slider from "@material-ui/core/Slider";
 import MaximizeIcon from "@material-ui/icons/Maximize";
 import { withStyles } from "@material-ui/styles";
-import React, { Fragment, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { Fragment, useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { createAction } from "../../../store/action/createAction/createAction";
 import {
   CLOSE_MODAL_FILTER,
+  FILTER_PRICE,
   OPEN_MODAL_FILTER,
 } from "../../../store/types/ListRoomType";
 import ModalFilter from "../Modal/index";
@@ -65,8 +66,32 @@ function AirbnbThumbComponent(props) {
     </span>
   );
 }
+function valuetext(value) {
+  return `${value}°C`;
+}
+
 const FilterRoom = () => {
   const classes = useStyles();
+  const [valuePrice, setValuePrice] = React.useState([0, 1000000]);
+
+  let beforeChange = null;
+  const handleChange = (event, newValue) => {
+    console.log(newValue);
+    if (!beforeChange) {
+      beforeChange = [...valuePrice];
+    }
+
+    if (beforeChange[0] !== newValue[0] && beforeChange[1] !== newValue[1]) {
+      return;
+    }
+
+    setValuePrice(newValue);
+    setInitialValues({ priceStart: newValue[0], priceEnd: newValue[1] });
+  };
+
+  const handleChangeCommitted = () => {
+    beforeChange = null;
+  };
   const dispatch = useDispatch();
   //State Hủy miễn phí
   const [anchorEl, setAnchorEl] = useState(null);
@@ -103,6 +128,43 @@ const FilterRoom = () => {
 
   const handleChangeCheckBox = (event) => {
     setChecked({ ...checked, [event.target.name]: event.target.checked });
+  };
+
+  const [initialValues, setInitialValues] = useState({
+    priceStart: valuePrice[0],
+    priceEnd: valuePrice[1],
+  });
+  const handleChangeField = (event) => {
+    console.log(event.target.value);
+    let { name, value } = event.target;
+    let newValue = { ...initialValues, [name]: value };
+
+    // setValue(value[0], value[1]);
+    setInitialValues(newValue);
+    if (newValue.priceStart > newValue.priceEnd) {
+      newValue.priceEnd = newValue.priceStart;
+      setValuePrice([newValue.priceStart, newValue.priceEnd]);
+    } else if (newValue.priceStart < newValue.priceEnd) {
+      setValuePrice([newValue.priceStart, newValue.priceEnd]);
+    }
+    if (newValue.priceEnd > 1000000) {
+      newValue.priceEnd = 1000000;
+    }
+  };
+  const arrListRoom = useSelector((state) => state.ListRoomReducer.arrListRoom);
+  const filter = useSelector((state) => state.ListRoomReducer.filter);
+
+  const filterPrice = arrListRoom.filter((value) => {
+    if (value.price <= valuePrice[1] && value.price >= valuePrice[0]) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+  console.log("filterPrice", filterPrice);
+  const filteredPrice = () => {
+    dispatch(createAction(FILTER_PRICE, filterPrice));
+    setAnchorElPrice(null);
   };
 
   return (
@@ -377,31 +439,47 @@ const FilterRoom = () => {
             Giá trung bình hàng đêm là $40
           </Typography>
           <AirbnbSlider
+            min={0}
+            max={1000000}
+            valueLabelDisplay="auto"
+            aria-labelledby="range-slider"
+            getAriaValueText={valuetext}
+            value={valuePrice}
             ThumbComponent={AirbnbThumbComponent}
             getAriaLabel={(index) =>
               index === 0 ? "Minimum price" : "Maximum price"
             }
-            defaultValue={[20, 40]}
+            defaultValue={[0, 1000000]}
+            onChangeCommitted={handleChangeCommitted}
+            onChange={handleChange}
           />
           <Box display="flex" justifyContent="center" alignItems="center">
             <TextField
-              label="Giá tối thiểu"
+              // label="Giá tối thiểu"
               InputLabelProps={{
                 style: { fontSize: 13 },
               }}
               className={classes.textField}
+              // defaultValue={`${value[0]}`}
+              value={initialValues.priceStart}
+              onChange={handleChangeField}
+              name="priceStart"
+              // type="number"
               //   name="email"
             />
             <Box margin=" 16px 6px 0 6px">
               <MaximizeIcon />
             </Box>
             <TextField
-              label="Giá tối đa"
+              // type="number"
+              value={initialValues.priceEnd}
+              onChange={handleChangeField}
+              // label="Giá tối đa"
               InputLabelProps={{
                 style: { fontSize: 13 },
               }}
               className={classes.textField}
-              //   name="email"
+              name="priceEnd"
             />
           </Box>
         </div>
@@ -411,14 +489,19 @@ const FilterRoom = () => {
               <button className={classes.button__erase}>Xóa</button>
             </div>
             <div>
-              <button className={classes.button__save}>Lưu</button>
+              <button
+                onClick={() => filteredPrice()}
+                className={classes.button__save}
+              >
+                Lưu
+              </button>
             </div>
           </div>
         </div>
       </Menu>
 
       {/* Modal Bộ lọc khác */}
-      <ModalFilter handleClose={handleClose}  />
+      <ModalFilter handleClose={handleClose} />
     </Fragment>
   );
 };

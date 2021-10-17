@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles(theme => ({
     footer: {
-        marginTop: "20px",
+        paddingTop: "20px",
         backgroundColor: "#F7F7F7",
         borderTop: "1px solid #DDDDDD",
         [theme.breakpoints.up("sm")]: {
@@ -10,6 +10,10 @@ export default makeStyles(theme => ({
         [theme.breakpoints.up("xl")]: {
             padding: "0 80px",
         },
+    },
+    footer__style: {
+        paddingTop: "50px",
+        paddingBottom: "50px"
     },
     footer__title: {
         fontSize: "14px",

@@ -4,10 +4,11 @@ import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutline
 import StarRateOutlinedIcon from "@material-ui/icons/StarRateOutlined";
 import useStyles from "./style";
 import { useSelector } from "react-redux";
+import { formMoney } from "../../../utilities/coordinates";
 const ListRoomItem = ({ arrListRoom }) => {
   const classes = useStyles();
   const filter = useSelector((state) => state.ListRoomReducer.filter);
-  console.log(filter);
+  console.log("filter", filter);
   return (
     <div>
       <Box>
@@ -58,7 +59,8 @@ const ListRoomItem = ({ arrListRoom }) => {
                           </div>
                           <div className={classes.room__item__bot__style}>
                             <span style={{ fontWeight: 700 }}>
-                              {room.price}VNĐ{" "}
+                              {formMoney(room.price)}
+                              {/* {room.price}VNĐ{" "} */}
                             </span>
                             / Đêm
                           </div>
