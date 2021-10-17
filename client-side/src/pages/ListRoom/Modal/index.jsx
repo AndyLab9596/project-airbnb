@@ -102,126 +102,58 @@ const ModalFilter = ({ handleClose, open }) => {
       [event.target.name]: event.target.checked,
     });
   };
-  // const [newHotel, setNewHotel] = useState([]);
-  // useEffect(() => {
-  //   function filterbyName(value) {
-  //     console.log("value", value);
-  //     if (checkedConvenient !== undefined) {
-  //       let valuePassesFilters = true; // NOTE 1
 
-  //       if (checkedConvenient.kitchen === true) {
-  //         valuePassesFilters = valuePassesFilters && value.kitchen === true; // NOTE 2
-  //       }
-
-  //       if (checkedConvenient.dryer === true) {
-  //         valuePassesFilters = valuePassesFilters && value.dryer === true; // NOTE 3
-  //       }
-  //       if (checkedConvenient.indoorFireplace === true) {
-  //         valuePassesFilters =
-  //           valuePassesFilters && value.indoorFireplace === true; // NOTE 3
-  //       }
-  //       if (checkedConvenient.wifi === true) {
-  //         valuePassesFilters = valuePassesFilters && value.wifi === true; // NOTE 3
-  //       }
-  //       if (checkedConvenient.cableTV === true) {
-  //         valuePassesFilters = valuePassesFilters && value.cableTV === true; // NOTE 3
-  //       }
-  //       if (checkedConvenient.heating === true) {
-  //         valuePassesFilters = valuePassesFilters && value.heating === true; // NOTE 3
-  //       }
-
-  //       // ...same thing for all other filters
-
-  //       return valuePassesFilters;
-  //     } else {
-  //       return value;
-  //     }
-  //   }
-
-  //   setNewHotel(arrListRoom.filter(filterbyName));
-  // }, [checkedConvenient, arrListRoom]);
   const filterRoomAndBedRoom = arrListRoom.filter((value) => {
     if (checkedConvenient !== undefined && checkedUtilities !== undefined) {
-      let valuePassesFilters = true; // NOTE 1
+      let valuePassesFilters = true;
 
       if (checkedConvenient.kitchen === true) {
-        valuePassesFilters = valuePassesFilters && value.kitchen === true; // NOTE 2
+        valuePassesFilters = valuePassesFilters && value.kitchen === true;
       }
 
       if (checkedConvenient.dryer === true) {
-        valuePassesFilters = valuePassesFilters && value.dryer === true; // NOTE 3
+        valuePassesFilters = valuePassesFilters && value.dryer === true;
       }
       if (checkedConvenient.indoorFireplace === true) {
         valuePassesFilters =
-          valuePassesFilters && value.indoorFireplace === true; // NOTE 3
+          valuePassesFilters && value.indoorFireplace === true;
       }
       if (checkedConvenient.wifi === true) {
-        valuePassesFilters = valuePassesFilters && value.wifi === true; // NOTE 3
+        valuePassesFilters = valuePassesFilters && value.wifi === true;
       }
       if (checkedConvenient.cableTV === true) {
-        valuePassesFilters = valuePassesFilters && value.cableTV === true; // NOTE 3
+        valuePassesFilters = valuePassesFilters && value.cableTV === true;
       }
       if (checkedConvenient.heating === true) {
-        valuePassesFilters = valuePassesFilters && value.heating === true; // NOTE 3
+        valuePassesFilters = valuePassesFilters && value.heating === true;
       }
       if (value.bedRoom < numbers.bedroom) {
-        valuePassesFilters = valuePassesFilters && value.bedRoom === true; // NOTE 3
+        valuePassesFilters = valuePassesFilters && value.bedRoom === true;
       }
       if (value.guests < numbers.bed) {
-        valuePassesFilters = valuePassesFilters && value.guests === true; // NOTE 3
+        valuePassesFilters = valuePassesFilters && value.guests === true;
       }
       if (value.bath < numbers.bathroom) {
-        valuePassesFilters = valuePassesFilters && value.bath === true; // NOTE 3
+        valuePassesFilters = valuePassesFilters && value.bath === true;
       }
       if (checkedUtilities.gym === true) {
-        valuePassesFilters = valuePassesFilters && value.gym === true; // NOTE 3
+        valuePassesFilters = valuePassesFilters && value.gym === true;
       }
       if (checkedUtilities.pool === true) {
-        valuePassesFilters = valuePassesFilters && value.pool === true; // NOTE 3
+        valuePassesFilters = valuePassesFilters && value.pool === true;
       }
       if (checkedUtilities.hotTub === true) {
-        valuePassesFilters = valuePassesFilters && value.hotTub === true; // NOTE 3
+        valuePassesFilters = valuePassesFilters && value.hotTub === true;
       }
       if (checkedUtilities.elevator === true) {
-        valuePassesFilters = valuePassesFilters && value.elevator === true; // NOTE 3
+        valuePassesFilters = valuePassesFilters && value.elevator === true;
       }
-      // if (
-      //   value.bedRoom >= numbers.bedroom &&
-      //   value.guests >= numbers.bed &&
-      //   value.bath >= numbers.bathroom
-      //   // item.kitchen === true &&
-      //   // checkedConvenient.kitchen === true &&
-      //   // item.dryer === true &&
-      //   // checkedConvenient.dryer === true &&
-      //   // item.indoorFireplace === true &&
-      //   // checkedConvenient.indoorFireplace === true
-      // ) {
-      //   return true;
-      // }
 
-      // ...same thing for all other filters
       console.log("valuePassesFilters", valuePassesFilters);
       return valuePassesFilters;
     } else {
       return value;
     }
-    // if (checkedConvenient !== undefined) {
-    //   let filterKeys = [
-    //     "kitchen",
-    //     "dryer",
-    //     "indoorFireplace",
-    //     "wifi",
-    //     "cableTV",
-    //     "heating",
-    //   ];
-
-    //   return filterKeys.every(function (key) {
-    //     console.log("key", checkedConvenient[key]);
-    //     return !checkedConvenient[key] || value[key];
-    //   });
-    // } else {
-    //   return value;
-    // }
   });
 
   console.log("filterRoomAndBedRoom", filterRoomAndBedRoom);
