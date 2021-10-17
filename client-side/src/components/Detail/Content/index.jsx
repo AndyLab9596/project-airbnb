@@ -241,7 +241,7 @@ const ContentRoom = () => {
 
           {/* Review */}
 
-          <div className={classes.room__reviews}>
+          <div className={classes.room__reviews} id="review">
             <Typography variant="h1">Nơi này có những gì cho bạn</Typography>
             <Grid container>
               {arrReviewsRoom.map((item, index) => (
