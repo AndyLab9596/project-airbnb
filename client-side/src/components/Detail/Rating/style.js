@@ -190,4 +190,20 @@ export default makeStyles((theme) => ({
       marginBottom: 20,
     },
   },
+  room__rating__title__notRating: {
+    [theme.breakpoints.up("md")]: {
+      width: "50%",
+    },
+    "& >h5": {
+      fontWeight: 600,
+      fontSize: 20,
+      lineHeight: "20px",
+      paddingBottom: 12,
+    },
+    "&> a": {
+      color: "#000",
+      paddingLeft: 5,
+      textDecoration: "underline",
+    },
+  },
 }));

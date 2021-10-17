@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import { useTheme } from "@material-ui/styles";
 import { Box } from "@mui/system";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BsFillStarFill } from "react-icons/bs";
 import { MdSearch } from "react-icons/md";
@@ -196,6 +196,7 @@ const DetailRating = () => {
       __v: 0,
     },
   ];
+  // const arrRating = [];
   const classes = useStyles();
   const settings = {
     dots: false,
@@ -210,151 +211,171 @@ const DetailRating = () => {
     item.content.toLowerCase().includes(valueInput)
   );
   return (
-    <div className={classes.room__rating}>
-      <div className={classes.room__rating__totalRated}>
-        <Typography variant="span">
-          <BsFillStarFill />
-        </Typography>
-        <Typography variant="span">
-          5,0 - {arrRating.length} đánh giá
-        </Typography>
-      </div>
-      {isTablet ? (
-        <Grid container>
-          {arrDetailRating.map((item, index) => (
-            <Grid
-              item
-              xs={12}
-              md={6}
-              xl={openModal && 12}
-              key={index}
-              className={classes.room__rating__modal__detailRating}
-            >
-              <CatalogRating item={item} />
-            </Grid>
-          ))}
-          {arrRating.slice(0, 6).map((item, index) => (
-            <Grid item md={12} xl={6} key={index}>
-              <Box py={2} pr={isDeskTop && 10}>
-                <ContentUserRating item={item} setOpenModal={setOpenModal} />
-              </Box>
-            </Grid>
-          ))}
-        </Grid>
-      ) : (
-        <Slider {...settings}>
-          {arrRating.slice(0, 4).map((item, index) => (
-            <Box key={index} className={classes.room__rating__container}>
-              <ContentUserRating item={item} setOpenModal={setOpenModal} />
-            </Box>
-          ))}
-          {arrRating.length > 4 && (
-            <Box className={classes.room__rating__container}>
-              <Typography
-                variant="body2"
-                className={classes.room__rating__textShowAll}
-                onClick={() => setOpenModal(true)}
-              >
-                Hiển thị tất cả {arrRating.length} đánh giá
-              </Typography>
-            </Box>
-          )}
-        </Slider>
-      )}
-
-      <div>
-        <Button
-          disableRipple
-          className={classes.room__rating__btnShowAll}
-          onClick={() => setOpenModal(true)}
-        >
-          Hiển thị tất cả {arrRating.length} đánh giá
-        </Button>
-      </div>
-      <Modal
-        open={openModal}
-        onClose={() => setOpenModal(false)}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-        className={classes.modal}
-      >
-        <div className={classes.room__rating__modal}>
-          <div className={classes.room__rating__modal__header}>
-            <IconButton>
-              <AiOutlineClose onClick={() => setOpenModal(false)} />
-            </IconButton>
-            <div>
-              <div className={classes.room__rating__totalRated}>
-                <Typography variant="span">
-                  <BsFillStarFill />
-                </Typography>
-                <Typography variant="span">
-                  5,0 - {arrRating.length} đánh giá
-                </Typography>
-              </div>
-
-              <div className={classes.room__rating__modal__inputSearch}>
-                <Input
-                  startAdornment={
-                    <InputAdornment position="start">
-                      <MdSearch />
-                    </InputAdornment>
-                  }
-                  placeholder="Tìm kiếm đánh giá"
-                  value={valueInput}
-                  onChange={(e) => setValueInput(e.target.value)}
-                >
-                  Tìm kiếm theo đánh giá
-                </Input>
-              </div>
-            </div>
+    <div className={classes.room__rating} id="rated">
+      {arrRating.length > 0 ? (
+        <Fragment>
+          <div className={classes.room__rating__totalRated}>
+            <Typography variant="span">
+              <BsFillStarFill />
+            </Typography>
+            <Typography variant="span">
+              5,0 - {arrRating.length} đánh giá
+            </Typography>
           </div>
-
-          {/* Detail Rating */}
-
-          <Grid container spacing={3}>
-            <Grid item xs={12} xl={4}>
-              <Grid item container>
-                {arrDetailRating.map((item, index) => (
-                  <Grid
-                    item
-                    xs={12}
-                    md={6}
-                    xl={12}
-                    key={index}
-                    className={classes.room__rating__modal__detailRating}
+          {isTablet ? (
+            <Grid container>
+              {arrDetailRating.map((item, index) => (
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
+                  xl={openModal && 12}
+                  key={index}
+                  className={classes.room__rating__modal__detailRating}
+                >
+                  <CatalogRating item={item} />
+                </Grid>
+              ))}
+              {arrRating.slice(0, 6).map((item, index) => (
+                <Grid item md={12} xl={6} key={index}>
+                  <Box py={2} pr={isDeskTop && 10}>
+                    <ContentUserRating
+                      item={item}
+                      setOpenModal={setOpenModal}
+                    />
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
+          ) : (
+            <Slider {...settings}>
+              {arrRating.slice(0, 4).map((item, index) => (
+                <Box key={index} className={classes.room__rating__container}>
+                  <ContentUserRating item={item} setOpenModal={setOpenModal} />
+                </Box>
+              ))}
+              {arrRating.length > 4 && (
+                <Box className={classes.room__rating__container}>
+                  <Typography
+                    variant="body2"
+                    className={classes.room__rating__textShowAll}
+                    onClick={() => setOpenModal(true)}
                   >
-                    <CatalogRating item={item} />
-                  </Grid>
-                ))}
-              </Grid>
-            </Grid>
-            <Grid item xs={12} xl={8}>
-              <div className={classes.room__rating__modal__content__userRated}>
-                {arrFilterContent.length > 0
-                  ? arrFilterContent.map((item) => (
-                      <div>
-                        <ContentUserRating
-                          item={item}
-                          setOpenModal={setOpenModal}
-                          openModal={openModal}
-                        />
-                      </div>
-                    ))
-                  : arrRating.map((item) => (
-                      <div>
-                        <ContentUserRating
-                          item={item}
-                          setOpenModal={setOpenModal}
-                          openModal={openModal}
-                        />
-                      </div>
-                    ))}
+                    Hiển thị tất cả {arrRating.length} đánh giá
+                  </Typography>
+                </Box>
+              )}
+            </Slider>
+          )}
+
+          <div>
+            <Button
+              disableRipple
+              className={classes.room__rating__btnShowAll}
+              onClick={() => setOpenModal(true)}
+            >
+              Hiển thị tất cả {arrRating.length} đánh giá
+            </Button>
+          </div>
+          <Modal
+            open={openModal}
+            onClose={() => setOpenModal(false)}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+            className={classes.modal}
+          >
+            <div className={classes.room__rating__modal}>
+              <div className={classes.room__rating__modal__header}>
+                <IconButton>
+                  <AiOutlineClose onClick={() => setOpenModal(false)} />
+                </IconButton>
+                <div>
+                  <div className={classes.room__rating__totalRated}>
+                    <Typography variant="span">
+                      <BsFillStarFill />
+                    </Typography>
+                    <Typography variant="span">
+                      5,0 - {arrRating.length} đánh giá
+                    </Typography>
+                  </div>
+
+                  <div className={classes.room__rating__modal__inputSearch}>
+                    <Input
+                      startAdornment={
+                        <InputAdornment position="start">
+                          <MdSearch />
+                        </InputAdornment>
+                      }
+                      placeholder="Tìm kiếm đánh giá"
+                      value={valueInput}
+                      onChange={(e) => setValueInput(e.target.value)}
+                    >
+                      Tìm kiếm theo đánh giá
+                    </Input>
+                  </div>
+                </div>
               </div>
-            </Grid>
-          </Grid>
+
+              {/* Detail Rating */}
+
+              <Grid container spacing={3}>
+                <Grid item xs={12} xl={4}>
+                  <Grid item container>
+                    {arrDetailRating.map((item, index) => (
+                      <Grid
+                        item
+                        xs={12}
+                        md={6}
+                        xl={12}
+                        key={index}
+                        className={classes.room__rating__modal__detailRating}
+                      >
+                        <CatalogRating item={item} />
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Grid>
+                <Grid item xs={12} xl={8}>
+                  <div
+                    className={classes.room__rating__modal__content__userRated}
+                  >
+                    {arrFilterContent.length > 0
+                      ? arrFilterContent.map((item) => (
+                          <div>
+                            <ContentUserRating
+                              item={item}
+                              setOpenModal={setOpenModal}
+                              openModal={openModal}
+                            />
+                          </div>
+                        ))
+                      : arrRating.map((item) => (
+                          <div>
+                            <ContentUserRating
+                              item={item}
+                              setOpenModal={setOpenModal}
+                              openModal={openModal}
+                            />
+                          </div>
+                        ))}
+                  </div>
+                </Grid>
+              </Grid>
+            </div>
+          </Modal>
+        </Fragment>
+      ) : (
+        <div className={classes.room__rating__title__notRating}>
+          <Typography variant="h5">Chưa có đánh giá</Typography>
+          <Typography variant="span">
+            Chúng tôi luôn sẵn sàng hỗ trợ để chuyến đi của bạn được suôn sẻ.
+            Mọi đặt phòng đều được bảo vệ theo
+          </Typography>
+          <a href="https://www.airbnb.com/help/article/544">
+            Chính sách hoàn tiền cho khách của Airbnb
+          </a>
         </div>
-      </Modal>
+      )}
     </div>
   );
 };

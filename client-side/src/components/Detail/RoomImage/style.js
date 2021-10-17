@@ -1,5 +1,48 @@
 import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles((theme) => ({
+  headerScroll: {
+    display: (props) => (props.isScroll ? "block" : "none"),
+    position: "fixed",
+    backgroundColor: "rgb(255, 255, 255)",
+    height: 80,
+    inset: 0,
+    zIndex: 999,
+    boxShadow: "rgb(0 0 0 / 10%) 0px 1px 0px",
+    padding: "0 40px",
+    maxWidth: 1120,
+    margin: "0 auto",
+    [theme.breakpoints.up("xl")]: {
+      padding: "0 80px",
+    },
+  },
+  header__menu: {
+    display: "flex",
+    alignItems: "center",
+    "& >div": {
+      marginRight: 24,
+      padding: "30px 0",
+      cursor: "pointer",
+      fontWeight: 600,
+      fontSize: 15,
+      position: "relative",
+      "&:hover": {
+        "&::after": {
+          opacity: 1,
+        },
+      },
+      "&::after": {
+        content: "''",
+        backgroundColor: "rgb(34, 34, 34)",
+        height: 4,
+        opacity: 0,
+        width: "100%",
+        position: "absolute",
+        display: "flex",
+        bottom: 0,
+        transition: "opacity 0.2s ease 0s",
+      },
+    },
+  },
   room__title: {
     padding: "20px 0",
     "& > p": {

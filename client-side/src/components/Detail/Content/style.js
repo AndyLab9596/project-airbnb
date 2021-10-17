@@ -177,6 +177,6 @@ export default makeStyles((theme) => ({
     height: "100%",
     marginLeft: "8.3%",
     position: "sticky",
-    top: "48px",
+    top: "120px",
   },
 }));

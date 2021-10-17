@@ -7,6 +7,9 @@ export default makeStyles((theme) => ({
     padding: 16,
     border: "1px solid rgb(221, 221, 221)",
     borderRadius: 12,
+    [theme.breakpoints.up("xl")]: {
+      padding: 24,
+    },
     "& .MuiAccordionDetails-root": {
       borderTop: "1px solid #999",
       padding: "20px 14px",
@@ -17,10 +20,6 @@ export default makeStyles((theme) => ({
         fontSize: 14,
       },
     },
-    [theme.breakpoints.up("xl")]: {
-      padding: 24,
-    },
-
     "& .MuiAccordionSummary-root": {
       padding: "0 8px",
       [theme.breakpoints.up("xl")]: {
@@ -150,6 +149,9 @@ export default makeStyles((theme) => ({
   },
   room__booking__filter__btn__disabled: {
     cursor: "not-allowed",
+    borderColor: "rgb(235, 235, 235)",
+    backgroundColor: "rgb(255, 255, 255)",
+    color: "rgb(235, 235, 235)",
   },
   room__booking__btnSubmit: {
     width: "100%",
