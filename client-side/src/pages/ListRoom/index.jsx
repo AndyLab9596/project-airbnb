@@ -3,7 +3,7 @@ import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import ListIcon from "@material-ui/icons/List";
 import MapIcon from "@material-ui/icons/Map";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { getListRoomAction } from "../../store/action/ListRoomAction";
@@ -28,8 +28,13 @@ const ListRoom = () => {
 
   const arrListRoom = useSelector((state) => state.ListRoomReducer.arrListRoom);
 
+  const fetchingListRoom = useCallback(() => {
+    dispatch(getListRoomAction(locationId))
+  }, [locationId])
+
   useEffect(() => {
-    dispatch(getListRoomAction(locationId));
+    // dispatch(getListRoomAction(locationId));
+    fetchingListRoom()
 
   }, [locationId]);
 
@@ -66,7 +71,9 @@ const ListRoom = () => {
           <ListRoomItem arrListRoom={arrListRoom} />
         </Grid>
         <Grid className={classes.grid__map} item xl={5} lg={12} md={12}>
+
           <Map arrListRoom={arrListRoom} />
+
         </Grid>
       </Grid>
     </div>

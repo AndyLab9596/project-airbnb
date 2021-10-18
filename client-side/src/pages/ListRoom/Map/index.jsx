@@ -324,6 +324,7 @@ const Map = ({ arrListRoom }) => {
     <div className={classes.root}>
       <ReactMapGL
         {...viewport}
+        className={classes.ReactMapGL}
         width="100%"
         height="100%"
         mapStyle="mapbox://styles/thienvy95/ckuvywfwtntgx17pr1vnuxbj8"
