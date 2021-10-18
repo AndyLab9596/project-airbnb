@@ -322,6 +322,7 @@ const Map = () => {
         {...viewport}
         width="100%"
         height="100%"
+        mapStyle="mapbox://styles/thienvy95/ckuvywfwtntgx17pr1vnuxbj8"
         mapboxApiAccessToken="pk.eyJ1IjoidGhpZW52eTk1IiwiYSI6ImNrdXFkcTlycjByem8yeHBnbXVmNmwwMzQifQ.rLTXpQcU4iZjpeNw8DblUQ"
         onViewportChange={(viewport) => setViewport(viewport)}
       >
@@ -331,48 +332,6 @@ const Map = () => {
             <Pin location={location} />
           </div>
         ))}
-
-        {/* {markerLocation.map((location, index) => (
-          <>
-
-            {showPopup && (
-              <Popup
-                latitude={location.latitude}
-                longitude={location.longitude}
-                closeButton={true}
-                closeOnClick={false}
-                onClose={() => togglePopup(false)}
-                offsetTop={10}
-                anchor="bottom" >
-                <div className={classes.popup}>
-                  <img src={location.image} alt={location.name} className={classes.popup__img} />
-                  <div className={classes.popup__content}>
-                    <div className={classes.popup__content__top}>
-                      <span>{location.locationId.valueate}</span>
-                    </div>
-                    <h6>{location.name}</h6>
-                    <p>{Number.parseInt(location.price / 23000)}$ / đêm</p>
-                  </div>
-                </div>
-              </Popup>
-            )}
-            <Marker
-              key={markerLocation._id}
-              latitude={location.latitude}
-              longitude={location.longitude}
-              offsetLeft={-20}
-              offsetTop={-10}
-              onClick={() => togglePopup(state => !state)}
-            >
-              <div className={classes.pin}>
-                <div className={classes.pin__content}>
-                  <span>{Number.parseInt(location.price / 23000)}$</span>
-                </div>
-              </div>
-            </Marker>
-          </>
-
-        ))} */}
 
       </ReactMapGL>
     </div>
