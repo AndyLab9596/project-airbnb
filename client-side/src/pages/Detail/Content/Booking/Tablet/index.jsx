@@ -12,6 +12,9 @@ import { Box } from "@mui/system";
 import clsx from "clsx";
 import React, { Fragment, useState } from "react";
 import { BsFillStarFill } from "react-icons/bs";
+import { useDispatch } from "react-redux";
+import { createAction } from "../../../../../store/action/createAction/createAction";
+import { SHOW_MODAL_RATED } from "../../../../../store/types/ListRoomType";
 import useStyles from "./style";
 
 const BookingTablet = ({
@@ -23,6 +26,7 @@ const BookingTablet = ({
 }) => {
   const classes = useStyles();
   const [openDatePicker, setOpenDatePicker] = useState(false);
+  const dispatch = useDispatch();
   const [numbersFilter, setNumbersFilter] = useState({
     _adult: 1,
     _baby: 0,
@@ -58,6 +62,9 @@ const BookingTablet = ({
       _toddler: numbersFilter._toddler - 1,
     });
   };
+  const handleShowRating = () => {
+    dispatch(createAction(SHOW_MODAL_RATED));
+  };
   return (
     <div className={classes.room__booking__content}>
       <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -75,7 +82,7 @@ const BookingTablet = ({
         <Typography variant="span" className={classes.room__booking__rating}>
           <BsFillStarFill />
           5.0
-          <Button disableRipple={true}>
+          <Button disableRipple onClick={handleShowRating}>
             ( {Math.floor(Math.random() * 9 + 1)} đánh giá)
           </Button>
         </Typography>

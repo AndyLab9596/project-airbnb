@@ -14,18 +14,31 @@ import React, { Fragment, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BsFillStarFill } from "react-icons/bs";
 import { MdSearch } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
 import { FAKE_AVATAR } from "../../../constants/config";
 import CatalogRating from "./CatalogRating";
 import ContentUserRating from "./ContentUserRating";
 import useStyles from "./style";
+import { createAction } from "../../../store/action/createAction/createAction";
+import {
+  SHOW_MODAL_RATED,
+  HIDE_MODAL_RATED,
+} from "../../../store/types/ListRoomType";
 
 const DetailRating = () => {
-  const [openModal, setOpenModal] = useState(false);
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.up("md"));
   const isDeskTop = useMediaQuery(theme.breakpoints.up("xl"));
   const [valueInput, setValueInput] = useState(null);
+  const dispatch = useDispatch();
+  const { modalRated } = useSelector((state) => state.ListRoomReducer);
+  const handleShowModal = () => {
+    dispatch(createAction(SHOW_MODAL_RATED));
+  };
+  const handleHideModal = () => {
+    dispatch(createAction(HIDE_MODAL_RATED));
+  };
   const arrDetailRating = [
     {
       name: "Mức độ sạch sẽ",
@@ -229,7 +242,7 @@ const DetailRating = () => {
                   item
                   xs={12}
                   md={6}
-                  xl={openModal && 12}
+                  xl={modalRated && 12}
                   key={index}
                   className={classes.room__rating__modal__detailRating}
                 >
@@ -241,7 +254,7 @@ const DetailRating = () => {
                   <Box py={2} pr={isDeskTop && 10}>
                     <ContentUserRating
                       item={item}
-                      setOpenModal={setOpenModal}
+                      handleShowModal={handleShowModal}
                     />
                   </Box>
                 </Grid>
@@ -251,7 +264,10 @@ const DetailRating = () => {
             <Slider {...settings}>
               {arrRating.slice(0, 4).map((item, index) => (
                 <Box key={index} className={classes.room__rating__container}>
-                  <ContentUserRating item={item} setOpenModal={setOpenModal} />
+                  <ContentUserRating
+                    item={item}
+                    handleShowModal={handleShowModal}
+                  />
                 </Box>
               ))}
               {arrRating.length > 4 && (
@@ -259,7 +275,7 @@ const DetailRating = () => {
                   <Typography
                     variant="body2"
                     className={classes.room__rating__textShowAll}
-                    onClick={() => setOpenModal(true)}
+                    onClick={handleShowModal}
                   >
                     Hiển thị tất cả {arrRating.length} đánh giá
                   </Typography>
@@ -272,14 +288,14 @@ const DetailRating = () => {
             <Button
               disableRipple
               className={classes.room__rating__btnShowAll}
-              onClick={() => setOpenModal(true)}
+              onClick={handleShowModal}
             >
               Hiển thị tất cả {arrRating.length} đánh giá
             </Button>
           </div>
           <Modal
-            open={openModal}
-            onClose={() => setOpenModal(false)}
+            open={modalRated}
+            onClose={handleHideModal}
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
             className={classes.modal}
@@ -287,7 +303,7 @@ const DetailRating = () => {
             <div className={classes.room__rating__modal}>
               <div className={classes.room__rating__modal__header}>
                 <IconButton>
-                  <AiOutlineClose onClick={() => setOpenModal(false)} />
+                  <AiOutlineClose onClick={handleHideModal} />
                 </IconButton>
                 <div>
                   <div className={classes.room__rating__totalRated}>
@@ -344,8 +360,8 @@ const DetailRating = () => {
                           <div>
                             <ContentUserRating
                               item={item}
-                              setOpenModal={setOpenModal}
-                              openModal={openModal}
+                              handleShowModal={handleShowModal}
+                              openModal={modalRated}
                             />
                           </div>
                         ))
@@ -353,8 +369,8 @@ const DetailRating = () => {
                           <div>
                             <ContentUserRating
                               item={item}
-                              setOpenModal={setOpenModal}
-                              openModal={openModal}
+                              handleShowModal={handleShowModal}
+                              openModal={modalRated}
                             />
                           </div>
                         ))}

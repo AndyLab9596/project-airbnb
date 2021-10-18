@@ -1,6 +1,8 @@
 import { useMediaQuery, useTheme } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { DetailRoomAction } from "../../store/action/ListRoomAction";
 import ContentRoom from "./Content";
 import InfoHost from "./InfoHost";
 import DetailRoomMap from "./Map";
@@ -22,9 +24,15 @@ const Detail = () => {
   const isMobile = useMediaQuery(theme.breakpoints.up("md"));
   const isDeskTop = useMediaQuery(theme.breakpoints.up("xl"));
   const classes = useStyle({ isMobile, isDeskTop });
+  const fakeRoom = "616cd2c8efe193001c0a6217";
+  const dispatch = useDispatch();
+  const { detailRoom } = useSelector((state) => state.ListRoomReducer);
+  useEffect(() => {
+    dispatch(DetailRoomAction(fakeRoom));
+  }, []);
   return (
     <div className={classes.content}>
-      <RoomImage />
+      <RoomImage detailRoom={detailRoom} />
       <ContentRoom />
       <DetailRoomMap />
       <DetailRating />

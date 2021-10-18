@@ -24,9 +24,6 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.up("md")]: {
       padding: "48px 0",
     },
-    "& .slick-next,& .slick-prev": {
-      display: "none !important",
-    },
   },
   room__rating__totalRated: {
     paddingBottom: "24px",
@@ -183,6 +180,10 @@ export default makeStyles((theme) => ({
     },
   },
   room__rating__modal__content__userRated: {
+    paddingBottom: 80,
+    [theme.breakpoints.up("md")]: {
+      paddingBottom: 0,
+    },
     [theme.breakpoints.up("xl")]: {
       paddingLeft: "10%",
     },

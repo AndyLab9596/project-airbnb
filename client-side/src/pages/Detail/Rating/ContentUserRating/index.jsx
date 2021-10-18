@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 import { MdNavigateNext } from "react-icons/md";
 import useStyles from "../style";
 import moment from "moment";
-const ContentUserRating = ({ item, setOpenModal, openModal }) => {
+const ContentUserRating = ({ item, handleShowModal, openModal }) => {
   const classes = useStyles();
   return (
     <Fragment>
@@ -24,7 +24,7 @@ const ContentUserRating = ({ item, setOpenModal, openModal }) => {
         {item.content.length > 180 && !openModal ? (
           <Fragment>
             {item.content.substr(0, 160)}...
-            <Typography variant="body2" onClick={() => setOpenModal(true)}>
+            <Typography variant="body2" onClick={handleShowModal}>
               Hiển thị thêm <MdNavigateNext />
             </Typography>
           </Fragment>

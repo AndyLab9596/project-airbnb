@@ -2,9 +2,6 @@ import { makeStyles } from "@material-ui/styles";
 export default makeStyles((theme) => ({
   root: {
     margin: "32px 0",
-    "& .slick-prev,.slick-next": {
-      display: "none !important",
-    },
     "& .MuiContainer-root": {
       padding: "0 24px",
       [theme.breakpoints.up("sm")]: {

@@ -97,11 +97,6 @@ export default makeStyles((theme) => ({
     borderRadius: "12px",
     overflow: "hidden",
   },
-  roomImage: {
-    "& .slick-next,& .slick-prev": {
-      display: "none !important",
-    },
-  },
 
   image: {
     height: "100%",

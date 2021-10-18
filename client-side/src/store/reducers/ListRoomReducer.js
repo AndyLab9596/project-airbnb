@@ -1,10 +1,13 @@
 import {} from "../types/AuthType";
 import {
   CLOSE_MODAL_FILTER,
+  DETAIL_ROOM,
   FILTER_PRICE,
   FILTER_ROOM,
   GET_LISTROOM,
+  HIDE_MODAL_RATED,
   OPEN_MODAL_FILTER,
+  SHOW_MODAL_RATED,
 } from "../types/ListRoomType";
 
 const initialState = {
@@ -15,6 +18,9 @@ const initialState = {
   filterRoom: false,
   modal: false,
   price: [0, 1000000],
+
+  detailRoom: {},
+  modalRated: false,
 };
 
 const ListRoomReducer = (state = initialState, { type, payload }) => {
@@ -39,6 +45,18 @@ const ListRoomReducer = (state = initialState, { type, payload }) => {
     }
     case CLOSE_MODAL_FILTER: {
       return { ...state, modal: false };
+    }
+
+    // Detail Room
+
+    case DETAIL_ROOM: {
+      return { ...state, detailRoom: payload };
+    }
+    case SHOW_MODAL_RATED: {
+      return { ...state, modalRated: true };
+    }
+    case HIDE_MODAL_RATED: {
+      return { ...state, modalRated: false };
     }
     default:
       return { ...state };
