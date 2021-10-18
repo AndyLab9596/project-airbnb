@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
-import ReactMapGL, { Marker } from 'react-map-gl';
+import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 import { useParams } from "react-router";
 import manageLocationApi from "../../../api/manageLocationApi";
 import { MAPBOX_TOKEN } from "../../../constants/config";
 import useStyles from "./style";
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import _ from "lodash"
+import Pin from "./Pin";
 
 const fakeRentRooms = [
   {
@@ -239,7 +240,7 @@ const Map = () => {
   const [locationInfo, setLocationInfo] = useState({});
   const [locationCoordinate, setLocationCoordinate] = useState({});
   const [markerLocation, setMarkerLocation] = useState([]);
-  const [rooms, setRooms] = useState([]);
+  const [showPopup, togglePopup] = useState(false);
   const [viewport, setViewport] = useState({
     latitude: locationCoordinate.latitude,
     longitude: locationCoordinate.longitude,
@@ -324,22 +325,54 @@ const Map = () => {
         mapboxApiAccessToken="pk.eyJ1IjoidGhpZW52eTk1IiwiYSI6ImNrdXFkcTlycjByem8yeHBnbXVmNmwwMzQifQ.rLTXpQcU4iZjpeNw8DblUQ"
         onViewportChange={(viewport) => setViewport(viewport)}
       >
+
         {markerLocation.map((location, index) => (
-          <Marker
-            key={markerLocation._id}
-            latitude={location.latitude}
-            longitude={location.longitude}
-            offsetLeft={-20}
-            offsetTop={-10}
-          >
-            <Fragment>
-              <p style={{ fontSize: '16px' }}>{location.price}</p>
-              <LocationOnOutlinedIcon />
-            </Fragment>
-          </Marker>
+          <div key={location._id}>
+            <Pin location={location} />
+          </div>
         ))}
 
+        {/* {markerLocation.map((location, index) => (
+          <>
 
+            {showPopup && (
+              <Popup
+                latitude={location.latitude}
+                longitude={location.longitude}
+                closeButton={true}
+                closeOnClick={false}
+                onClose={() => togglePopup(false)}
+                offsetTop={10}
+                anchor="bottom" >
+                <div className={classes.popup}>
+                  <img src={location.image} alt={location.name} className={classes.popup__img} />
+                  <div className={classes.popup__content}>
+                    <div className={classes.popup__content__top}>
+                      <span>{location.locationId.valueate}</span>
+                    </div>
+                    <h6>{location.name}</h6>
+                    <p>{Number.parseInt(location.price / 23000)}$ / đêm</p>
+                  </div>
+                </div>
+              </Popup>
+            )}
+            <Marker
+              key={markerLocation._id}
+              latitude={location.latitude}
+              longitude={location.longitude}
+              offsetLeft={-20}
+              offsetTop={-10}
+              onClick={() => togglePopup(state => !state)}
+            >
+              <div className={classes.pin}>
+                <div className={classes.pin__content}>
+                  <span>{Number.parseInt(location.price / 23000)}$</span>
+                </div>
+              </div>
+            </Marker>
+          </>
+
+        ))} */}
 
       </ReactMapGL>
     </div>
