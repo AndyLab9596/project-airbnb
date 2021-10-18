@@ -1,6 +1,4 @@
 
-
-
 import manageListApi from "../../../api/managerListApi";
 import { GET_LISTROOM } from "../../types/ListRoomType";
 import { createAction } from "../createAction/createAction";
