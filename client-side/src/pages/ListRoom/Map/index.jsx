@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import ReactMapGL, { FullscreenControl, GeolocateControl, NavigationControl } from 'react-map-gl';
+import ReactMapGL, { NavigationControl } from 'react-map-gl';
 import { useParams } from "react-router";
 import manageLocationApi from "../../../api/manageLocationApi";
 import manageRentApi from "../../../api/manageRentApi";
@@ -236,11 +236,9 @@ const fakeRentRooms = [
 
 const Map = () => {
   const classes = useStyles();
-  const [rentRooms, setRentRooms] = useState([])
   const [locationInfo, setLocationInfo] = useState({});
   const [locationCoordinate, setLocationCoordinate] = useState({});
   const [markerLocation, setMarkerLocation] = useState([]);
-  const [showPopup, togglePopup] = useState(false);
   const [viewport, setViewport] = useState({
     latitude: locationCoordinate.latitude,
     longitude: locationCoordinate.longitude,
@@ -267,18 +265,6 @@ const Map = () => {
       }
     })()
 
-  }, [])
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await manageRentApi.getRentRooms(locationId)
-        setRentRooms(res)
-
-      } catch (error) {
-        console.log(error)
-      }
-    })()
   }, [])
 
 
