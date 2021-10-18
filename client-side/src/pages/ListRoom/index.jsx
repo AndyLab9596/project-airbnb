@@ -13,7 +13,6 @@ import ListRoomItem from "./ListIRoomItem";
 import Map from "./Map";
 import useStyles from "./style";
 const ListRoom = () => {
-  const location = useLocation();
   const dispatch = useDispatch();
   const param = useParams();
   const theme = useTheme();
@@ -34,7 +33,7 @@ const ListRoom = () => {
   };
 
   return (
-    <div style={{ marginTop: 80 }}>
+    <div className={classes.root}>
       <Grid container>
         <div className={classes.button__display}>
           <div className={classes.display}>
