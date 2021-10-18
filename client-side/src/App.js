@@ -14,7 +14,7 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Detail from "./pages/Detail";
 import { getInfoUserAction } from "./store/action/Auth";
-
+import Pay from "./pages/Pay";
 //Components
 
 import ListRoom from "./pages/ListRoom";
@@ -42,6 +42,7 @@ const App = () => {
           <MainLayout path="/profile/:personId" exact Component={Profile} />
           <MainLayout path="/list/:locationId" exact Component={ListRoom} />
           <MainLayout path="/detail/:roomId" exact Component={Detail} />
+          <MainLayout path="/pay" exact Component={Pay} />
         </Switch>
       </ThemeProvider>
     </BrowserRouter>
