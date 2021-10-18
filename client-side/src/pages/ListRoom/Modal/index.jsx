@@ -38,9 +38,19 @@ const ModalFilter = ({ handleClose, open }) => {
     bed: 0,
     bedroom: 0,
     bathroom: 0,
+    kitchen: false,
+    dryer: false,
+    indoorFireplace: false,
+    wifi: false,
+    cableTV: false,
+    heating: false,
+    gym: false,
+    pool: false,
+    hotTub: false,
+    elevator: false,
   });
 
-  console.log(numbers.bedroom);
+  console.log("numbers", numbers);
   const addBed = () => {
     if (numbers.bed >= 16) return;
     setNumbers({ ...numbers, bed: numbers.bed + 1 });
@@ -72,59 +82,75 @@ const ModalFilter = ({ handleClose, open }) => {
   };
 
   // Tiện Nghi
-  const [checkedConvenient, setCheckedConvenient] = React.useState({
-    kitchen: false,
-    dryer: false,
-    indoorFireplace: false,
-    wifi: false,
-    cableTV: false,
-    heating: false,
-  });
+  // const [checkedConvenient, setCheckedConvenient] = React.useState({});
 
   const handleChangeCheckBox = (event) => {
-    setCheckedConvenient({
-      ...checkedConvenient,
+    setNumbers({
+      ...numbers,
       [event.target.name]: event.target.checked,
     });
   };
 
   // Tiện ích
-  const [checkedUtilities, setCheckedUtilities] = React.useState({
-    gym: false,
-    pool: false,
-    hotTub: false,
-    elevator: false,
-  });
+  // const [numbers, setnumbers] = React.useState({});
 
   const handleChangeCheckBoxUtilities = (event) => {
-    setCheckedUtilities({
-      ...checkedUtilities,
+    setNumbers({
+      ...numbers,
       [event.target.name]: event.target.checked,
     });
   };
+  const filtered = useSelector((state) => state.ListRoomReducer.filtered);
+  const filter = useSelector((state) => state.ListRoomReducer.filter);
+  // useEffect(() => {
+  //   function filterRoomAndBedRoom (value) {
 
-  const filterRoomAndBedRoom = arrListRoom.filter((value) => {
-    if (checkedConvenient !== undefined && checkedUtilities !== undefined) {
+  //   }
+
+  //   setNewHotel(
+  //       myHotel.filter(filterbyName)
+  //   )
+  //  }, [handleCheck, myHotel])
+  const filterPrice = useSelector((state) => state.ListRoomReducer.filterPrice);
+  // useEffect(() => {
+  //   const newListSeatSelected = filter?.reduce(
+  //     (newListSeatSelected, seat) => {
+  //       if (seat.selected) {
+  //         return [...newListSeatSelected, seat.label];
+  //       }
+  //       return newListSeatSelected;
+  //     },
+  //     []
+  //   );
+  // }, []);
+  // const newListSeatSelected = filter?.reduce(
+  //   (newListSeatSelected) => {
+  //     return [...newListSeatSelected];
+  //   },
+  //   [filter]
+  // );
+  const filterRoomAndBedRoom = filtered.filter((value) => {
+    if (numbers !== undefined && numbers !== undefined) {
       let valuePassesFilters = true;
 
-      if (checkedConvenient.kitchen === true) {
+      if (numbers.kitchen) {
         valuePassesFilters = valuePassesFilters && value.kitchen === true;
       }
 
-      if (checkedConvenient.dryer === true) {
+      if (numbers.dryer) {
         valuePassesFilters = valuePassesFilters && value.dryer === true;
       }
-      if (checkedConvenient.indoorFireplace === true) {
+      if (numbers.indoorFireplace) {
         valuePassesFilters =
           valuePassesFilters && value.indoorFireplace === true;
       }
-      if (checkedConvenient.wifi === true) {
+      if (numbers.wifi) {
         valuePassesFilters = valuePassesFilters && value.wifi === true;
       }
-      if (checkedConvenient.cableTV === true) {
+      if (numbers.cableTV) {
         valuePassesFilters = valuePassesFilters && value.cableTV === true;
       }
-      if (checkedConvenient.heating === true) {
+      if (numbers.heating) {
         valuePassesFilters = valuePassesFilters && value.heating === true;
       }
       if (value.bedRoom < numbers.bedroom) {
@@ -136,16 +162,16 @@ const ModalFilter = ({ handleClose, open }) => {
       if (value.bath < numbers.bathroom) {
         valuePassesFilters = valuePassesFilters && value.bath === true;
       }
-      if (checkedUtilities.gym === true) {
+      if (numbers.gym) {
         valuePassesFilters = valuePassesFilters && value.gym === true;
       }
-      if (checkedUtilities.pool === true) {
+      if (numbers.pool) {
         valuePassesFilters = valuePassesFilters && value.pool === true;
       }
-      if (checkedUtilities.hotTub === true) {
+      if (numbers.hotTub) {
         valuePassesFilters = valuePassesFilters && value.hotTub === true;
       }
-      if (checkedUtilities.elevator === true) {
+      if (numbers.elevator) {
         valuePassesFilters = valuePassesFilters && value.elevator === true;
       }
 
@@ -298,7 +324,7 @@ const ModalFilter = ({ handleClose, open }) => {
                     <Grid item lg={6}>
                       <div className={classes.modal__style__checkbox}>
                         <Checkbox
-                          checked={checkedConvenient.kitchen}
+                          checked={numbers.kitchen}
                           onChange={handleChangeCheckBox}
                           name="kitchen"
                           inputProps={{
@@ -318,7 +344,7 @@ const ModalFilter = ({ handleClose, open }) => {
                     <Grid item lg={6}>
                       <div className={classes.modal__style__checkbox}>
                         <Checkbox
-                          checked={checkedConvenient.wifi}
+                          checked={numbers.wifi}
                           onChange={handleChangeCheckBox}
                           name="wifi"
                           inputProps={{ "aria-label": "primary checkbox" }}
@@ -332,7 +358,7 @@ const ModalFilter = ({ handleClose, open }) => {
                     <Grid item lg={6}>
                       <div className={classes.modal__style__checkbox}>
                         <Checkbox
-                          checked={checkedConvenient.heating}
+                          checked={numbers.heating}
                           onChange={handleChangeCheckBox}
                           name="heating"
                           inputProps={{ "aria-label": "primary checkbox" }}
@@ -346,7 +372,7 @@ const ModalFilter = ({ handleClose, open }) => {
                     <Grid item lg={6}>
                       <div className={classes.modal__style__checkbox}>
                         <Checkbox
-                          checked={checkedConvenient.indoorFireplace}
+                          checked={numbers.indoorFireplace}
                           onChange={handleChangeCheckBox}
                           name="indoorFireplace"
                           inputProps={{ "aria-label": "primary checkbox" }}
@@ -367,7 +393,7 @@ const ModalFilter = ({ handleClose, open }) => {
                       <Grid item lg={6}>
                         <div className={classes.modal__style__checkbox}>
                           <Checkbox
-                            checked={checkedConvenient.cableTV}
+                            checked={numbers.cableTV}
                             onChange={handleChangeCheckBox}
                             name="cableTV"
                             inputProps={{
@@ -387,7 +413,7 @@ const ModalFilter = ({ handleClose, open }) => {
                       <Grid item lg={6}>
                         <div className={classes.modal__style__checkbox}>
                           <Checkbox
-                            checked={checkedConvenient.dryer}
+                            checked={numbers.dryer}
                             onChange={handleChangeCheckBox}
                             name="dryer"
                             inputProps={{ "aria-label": "primary checkbox" }}
@@ -432,7 +458,7 @@ const ModalFilter = ({ handleClose, open }) => {
                     <Grid item lg={6}>
                       <div className={classes.modal__style__checkbox}>
                         <Checkbox
-                          checked={checkedUtilities.elevator}
+                          checked={numbers.elevator}
                           onChange={handleChangeCheckBoxUtilities}
                           name="elevator"
                           inputProps={{ "aria-label": "primary checkbox" }}
@@ -446,7 +472,7 @@ const ModalFilter = ({ handleClose, open }) => {
                     <Grid item lg={6}>
                       <div className={classes.modal__style__checkbox}>
                         <Checkbox
-                          checked={checkedUtilities.gym}
+                          checked={numbers.gym}
                           onChange={handleChangeCheckBoxUtilities}
                           name="gym"
                           inputProps={{ "aria-label": "primary checkbox" }}
@@ -460,7 +486,7 @@ const ModalFilter = ({ handleClose, open }) => {
                     <Grid item lg={6}>
                       <div className={classes.modal__style__checkbox}>
                         <Checkbox
-                          checked={checkedUtilities.hotTub}
+                          checked={numbers.hotTub}
                           onChange={handleChangeCheckBoxUtilities}
                           name="hotTub"
                           inputProps={{ "aria-label": "primary checkbox" }}
@@ -474,7 +500,7 @@ const ModalFilter = ({ handleClose, open }) => {
                     <Grid item lg={6}>
                       <div className={classes.modal__style__checkbox}>
                         <Checkbox
-                          checked={checkedUtilities.pool}
+                          checked={numbers.pool}
                           onChange={handleChangeCheckBoxUtilities}
                           name="pool"
                           inputProps={{ "aria-label": "primary checkbox" }}

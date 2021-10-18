@@ -66,9 +66,6 @@ function AirbnbThumbComponent(props) {
     </span>
   );
 }
-function valuetext(value) {
-  return `${value}°C`;
-}
 
 const FilterRoom = () => {
   const classes = useStyles();
@@ -151,17 +148,20 @@ const FilterRoom = () => {
       newValue.priceEnd = 1000000;
     }
   };
+
   const arrListRoom = useSelector((state) => state.ListRoomReducer.arrListRoom);
   const filter = useSelector((state) => state.ListRoomReducer.filter);
+  const filtered = useSelector((state) => state.ListRoomReducer.filtered);
 
-  const filterPrice = arrListRoom.filter((value) => {
+  useEffect(() => {}, []);
+  const filterPrice = filter.filter((value) => {
     if (value.price <= valuePrice[1] && value.price >= valuePrice[0]) {
       return true;
     } else {
       return false;
     }
   });
-  console.log("filterPrice", filterPrice);
+  console.log("filterPrice", filtered);
   const filteredPrice = () => {
     dispatch(createAction(FILTER_PRICE, filterPrice));
     setAnchorElPrice(null);
@@ -289,36 +289,6 @@ const FilterRoom = () => {
       >
         <div>
           <div className={classes.list__menu__accommodation__top}>
-            {/* {fakeCheckBox.map((item, index) => {
-              return (
-                <div
-                  key={index}
-                  className={classes.list__menu__accommodation__item}
-                >
-                  <Checkbox
-                    checked={item.name}
-                    onChange={handleChangeCheckBox}
-                    inputProps={{ "aria-label": "primary checkbox" }}
-                    classes={{
-                      root: classes.checkbox,
-                    }}
-                    name={item.name}
-                  />
-                  <div>
-                    <Typography
-                      className={classes.list__menu__accommodation__text}
-                    >
-                      {item.title}
-                    </Typography>
-                    <Typography
-                      className={classes.list__menu__accommodation__text2}
-                    >
-                      {item.desc}
-                    </Typography>
-                  </div>
-                </div>
-              );
-            })} */}
             <div
               style={{
                 display: "flex",
@@ -443,7 +413,6 @@ const FilterRoom = () => {
             max={1000000}
             valueLabelDisplay="auto"
             aria-labelledby="range-slider"
-            getAriaValueText={valuetext}
             value={valuePrice}
             ThumbComponent={AirbnbThumbComponent}
             getAriaLabel={(index) =>

@@ -21,6 +21,8 @@ const ListRoom = () => {
   const [display, setDisplay] = useState(false);
   const classes = useStyles({ display, isDesktop });
   const arrListRoom = useSelector((state) => state.ListRoomReducer.arrListRoom);
+  const filterPrice = useSelector((state) => state.ListRoomReducer.filterPrice);
+  const filterRoom = useSelector((state) => state.ListRoomReducer.filterRoom);
   console.log(arrListRoom);
   console.log(param.locationId);
   useEffect(() => {
