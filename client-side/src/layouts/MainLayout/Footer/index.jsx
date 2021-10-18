@@ -10,7 +10,7 @@ const Footer = () => {
   const classes = useStyles();
   return (
     <Container maxWidth={false} className={classes.footer}>
-      <div style={{ paddingTop: "50px", paddingBottom: "50px" }}>
+      <div className={classes.footer__style}>
         <Grid container>
           <Grid className={classes.footer__content} item xl={3} md={12}>
             <Typography variant="h7" className={classes.footer__title}>
