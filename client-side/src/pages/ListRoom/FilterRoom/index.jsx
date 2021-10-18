@@ -16,6 +16,7 @@ import { createAction } from "../../../store/action/createAction/createAction";
 import {
   CLOSE_MODAL_FILTER,
   FILTER_PRICE,
+  FILTER_ROOM,
   OPEN_MODAL_FILTER,
 } from "../../../store/types/ListRoomType";
 import ModalFilter from "../Modal/index";
@@ -73,7 +74,6 @@ const FilterRoom = () => {
 
   let beforeChange = null;
   const handleChange = (event, newValue) => {
-    console.log(newValue);
     if (!beforeChange) {
       beforeChange = [...valuePrice];
     }
@@ -132,7 +132,6 @@ const FilterRoom = () => {
     priceEnd: valuePrice[1],
   });
   const handleChangeField = (event) => {
-    console.log(event.target.value);
     let { name, value } = event.target;
     let newValue = { ...initialValues, [name]: value };
 
@@ -153,17 +152,16 @@ const FilterRoom = () => {
   const filter = useSelector((state) => state.ListRoomReducer.filter);
   const filtered = useSelector((state) => state.ListRoomReducer.filtered);
 
-  useEffect(() => {}, []);
-  const filterPrice = filter.filter((value) => {
-    if (value.price <= valuePrice[1] && value.price >= valuePrice[0]) {
-      return true;
-    } else {
-      return false;
-    }
-  });
-  console.log("filterPrice", filtered);
+  // useEffect(() => {}, []);
+  // const filterPrice = filter.filter((value) => {
+  //   if (value.price <= valuePrice[1] && value.price >= valuePrice[0]) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // });
   const filteredPrice = () => {
-    dispatch(createAction(FILTER_PRICE, filterPrice));
+    dispatch(createAction(FILTER_PRICE, valuePrice));
     setAnchorElPrice(null);
   };
 

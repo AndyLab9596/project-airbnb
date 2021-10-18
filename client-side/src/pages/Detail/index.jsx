@@ -1,12 +1,12 @@
 import { useMediaQuery, useTheme } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import React from "react";
-import ContentRoom from "../../components/Detail/Content";
-import InfoHost from "../../components/Detail/InfoHost";
-import DetailRoomMap from "../../components/Detail/Map";
-import DetailRating from "../../components/Detail/Rating";
-import RoomImage from "../../components/Detail/RoomImage";
-import DetailRules from "../../components/Detail/Rules";
+import ContentRoom from "./Content";
+import InfoHost from "./InfoHost";
+import DetailRoomMap from "./Map";
+import DetailRating from "./Rating";
+import RoomImage from "./RoomImage";
+import DetailRules from "./Rules";
 
 const Detail = () => {
   const useStyle = makeStyles(() => ({

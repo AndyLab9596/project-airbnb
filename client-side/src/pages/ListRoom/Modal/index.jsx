@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createAction } from "../../../store/action/createAction/createAction";
 import {
   CLOSE_MODAL_FILTER,
+  FILTER_PRICE,
   FILTER_ROOM,
 } from "../../../store/types/ListRoomType";
 import useStyles from "./style";
@@ -35,50 +36,56 @@ const ModalFilter = ({ handleClose, open }) => {
   //MODAL
   // PHÒNG VÀ PHÒNG NGỦ
   const [numbers, setNumbers] = useState({
-    bed: 0,
-    bedroom: 0,
-    bathroom: 0,
-    kitchen: false,
-    dryer: false,
-    indoorFireplace: false,
-    wifi: false,
-    cableTV: false,
-    heating: false,
-    gym: false,
-    pool: false,
-    hotTub: false,
+    guests: 0,
+    bedRoom: 0,
+    bath: 0,
     elevator: false,
+    hotTub: false,
+    pool: false,
+    indoorFireplace: false,
+    dryer: false,
+    gym: false,
+    kitchen: false,
+    wifi: false,
+    heating: false,
+    cableTV: false,
   });
 
-  console.log("numbers", numbers);
+  const filtered = arrListRoom.filter((item) => {
+    if (Object.keys(numbers).every((p) => item[p] >= numbers[p])) {
+      return true;
+    }
+  });
+
+  console.log("filtered", filtered);
   const addBed = () => {
-    if (numbers.bed >= 16) return;
-    setNumbers({ ...numbers, bed: numbers.bed + 1 });
+    if (numbers.guests >= 16) return;
+    setNumbers({ ...numbers, guests: numbers.guests + 1 });
   };
 
   const minusBed = () => {
-    if (numbers.bed < 1) return;
-    setNumbers({ ...numbers, bed: numbers.bed - 1 });
+    if (numbers.guests < 1) return;
+    setNumbers({ ...numbers, guests: numbers.guests - 1 });
   };
 
   const addBedroom = () => {
-    if (numbers.bedroom >= 16) return;
-    setNumbers({ ...numbers, bedroom: numbers.bedroom + 1 });
+    if (numbers.bedRoom >= 16) return;
+    setNumbers({ ...numbers, bedRoom: numbers.bedRoom + 1 });
   };
 
   const minusBedroom = () => {
-    if (numbers.bedroom < 1) return;
-    setNumbers({ ...numbers, bedroom: numbers.bedroom - 1 });
+    if (numbers.bedRoom < 1) return;
+    setNumbers({ ...numbers, bedRoom: numbers.bedRoom - 1 });
   };
 
   const addBathroom = () => {
     if (numbers.bathroom >= 16) return;
-    setNumbers({ ...numbers, bathroom: numbers.bathroom + 1 });
+    setNumbers({ ...numbers, bath: numbers.bath + 1 });
   };
 
   const minusBathroom = () => {
     if (numbers.bathroom < 1) return;
-    setNumbers({ ...numbers, bathroom: numbers.bathroom - 1 });
+    setNumbers({ ...numbers, bath: numbers.bath - 1 });
   };
 
   // Tiện Nghi
@@ -100,7 +107,7 @@ const ModalFilter = ({ handleClose, open }) => {
       [event.target.name]: event.target.checked,
     });
   };
-  const filtered = useSelector((state) => state.ListRoomReducer.filtered);
+  // const filtered = useSelector((state) => state.ListRoomReducer.filtered);
   const filter = useSelector((state) => state.ListRoomReducer.filter);
   // useEffect(() => {
   //   function filterRoomAndBedRoom (value) {
@@ -129,62 +136,63 @@ const ModalFilter = ({ handleClose, open }) => {
   //   },
   //   [filter]
   // );
-  const filterRoomAndBedRoom = filtered.filter((value) => {
-    if (numbers !== undefined && numbers !== undefined) {
-      let valuePassesFilters = true;
+  // const filterRoomAndBedRoom = filtered.filter((value) => {
+  //   if (numbers !== undefined && numbers !== undefined) {
+  //     let valuePassesFilters = true;
 
-      if (numbers.kitchen) {
-        valuePassesFilters = valuePassesFilters && value.kitchen === true;
-      }
+  //     if (numbers.kitchen) {
+  //       valuePassesFilters = valuePassesFilters && value.kitchen === true;
+  //     }
 
-      if (numbers.dryer) {
-        valuePassesFilters = valuePassesFilters && value.dryer === true;
-      }
-      if (numbers.indoorFireplace) {
-        valuePassesFilters =
-          valuePassesFilters && value.indoorFireplace === true;
-      }
-      if (numbers.wifi) {
-        valuePassesFilters = valuePassesFilters && value.wifi === true;
-      }
-      if (numbers.cableTV) {
-        valuePassesFilters = valuePassesFilters && value.cableTV === true;
-      }
-      if (numbers.heating) {
-        valuePassesFilters = valuePassesFilters && value.heating === true;
-      }
-      if (value.bedRoom < numbers.bedroom) {
-        valuePassesFilters = valuePassesFilters && value.bedRoom === true;
-      }
-      if (value.guests < numbers.bed) {
-        valuePassesFilters = valuePassesFilters && value.guests === true;
-      }
-      if (value.bath < numbers.bathroom) {
-        valuePassesFilters = valuePassesFilters && value.bath === true;
-      }
-      if (numbers.gym) {
-        valuePassesFilters = valuePassesFilters && value.gym === true;
-      }
-      if (numbers.pool) {
-        valuePassesFilters = valuePassesFilters && value.pool === true;
-      }
-      if (numbers.hotTub) {
-        valuePassesFilters = valuePassesFilters && value.hotTub === true;
-      }
-      if (numbers.elevator) {
-        valuePassesFilters = valuePassesFilters && value.elevator === true;
-      }
+  //     if (numbers.dryer) {
+  //       valuePassesFilters = valuePassesFilters && value.dryer === true;
+  //     }
+  //     if (numbers.indoorFireplace) {
+  //       valuePassesFilters =
+  //         valuePassesFilters && value.indoorFireplace === true;
+  //     }
+  //     if (numbers.wifi) {
+  //       valuePassesFilters = valuePassesFilters && value.wifi === true;
+  //     }
+  //     if (numbers.cableTV) {
+  //       valuePassesFilters = valuePassesFilters && value.cableTV === true;
+  //     }
+  //     if (numbers.heating) {
+  //       valuePassesFilters = valuePassesFilters && value.heating === true;
+  //     }
+  //     if (value.bedRoom < numbers.bedroom) {
+  //       valuePassesFilters = valuePassesFilters && value.bedRoom === true;
+  //     }
+  //     if (value.guests < numbers.bed) {
+  //       valuePassesFilters = valuePassesFilters && value.guests === true;
+  //     }
+  //     if (value.bath < numbers.bathroom) {
+  //       valuePassesFilters = valuePassesFilters && value.bath === true;
+  //     }
+  //     if (numbers.gym) {
+  //       valuePassesFilters = valuePassesFilters && value.gym === true;
+  //     }
+  //     if (numbers.pool) {
+  //       valuePassesFilters = valuePassesFilters && value.pool === true;
+  //     }
+  //     if (numbers.hotTub) {
+  //       valuePassesFilters = valuePassesFilters && value.hotTub === true;
+  //     }
+  //     if (numbers.elevator) {
+  //       valuePassesFilters = valuePassesFilters && value.elevator === true;
+  //     }
 
-      console.log("valuePassesFilters", valuePassesFilters);
-      return valuePassesFilters;
-    } else {
-      return value;
-    }
-  });
+  //     console.log("valuePassesFilters", valuePassesFilters);
+  //     return valuePassesFilters;
+  //   } else {
+  //     return value;
+  //   }
+  // });
 
-  console.log("filterRoomAndBedRoom", filterRoomAndBedRoom);
+  // console.log("filterRoomAndBedRoom", filterRoomAndBedRoom);
+
   const filteredData = () => {
-    dispatch(createAction(FILTER_ROOM, filterRoomAndBedRoom));
+    dispatch(createAction(FILTER_ROOM, filtered));
     dispatch(createAction(CLOSE_MODAL_FILTER));
   };
 
@@ -222,7 +230,7 @@ const ModalFilter = ({ handleClose, open }) => {
                       <RemoveIcon />
                     </button>
                     <Typography className={classes.modal__bedroom__text}>
-                      {numbers.bed}
+                      {numbers.guests}
                     </Typography>
                     <button onClick={addBed} className={classes.button}>
                       <AddIcon />
@@ -237,7 +245,7 @@ const ModalFilter = ({ handleClose, open }) => {
                     </button>
 
                     <Typography className={classes.modal__bedroom__text}>
-                      {numbers.bedroom}
+                      {numbers.bedRoom}
                     </Typography>
                     <button onClick={addBedroom} className={classes.button}>
                       <AddIcon />
@@ -254,7 +262,7 @@ const ModalFilter = ({ handleClose, open }) => {
                       <RemoveIcon />
                     </button>
                     <Typography className={classes.modal__bedroom__text}>
-                      {numbers.bathroom}
+                      {numbers.bath}
                     </Typography>
                     <button
                       onClick={() => addBathroom()}
@@ -633,12 +641,12 @@ const ModalFilter = ({ handleClose, open }) => {
                 onClick={() => filteredData()}
                 className={classes.button__modal__button}
               >
-                Hiển thị hơn{" "}
-                {filterRoomAndBedRoom.length > 0 || numbers.bedroom > 0
-                  ? numbers.bedroom > filterRoomAndBedRoom.bedRoom
+                Hiển thị hơn
+                {filtered.length > 0 || numbers.bedroom > 0
+                  ? numbers.bedroom > filtered.bedRoom
                     ? 0
-                    : filterRoomAndBedRoom.length
-                  : 300}{" "}
+                    : filtered.length
+                  : 300}
                 chỗ ở
               </button>
             </div>
