@@ -15,4 +15,3 @@ export const findCenterCoordinate = (locationName) => {
     return coordinateArray.find((location) => location.name === locationName)
 };
 
-
