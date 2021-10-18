@@ -19,10 +19,8 @@ import { getInfoUserAction } from "./store/action/Auth";
 
 import ListRoom from "./pages/ListRoom";
 
-
 const App = () => {
   const idUser = localStorage.getItem(USERID);
-  console.log(idUser)
   const dispatch = useDispatch();
   useEffect(() => {
     if (idUser) {
@@ -36,7 +34,11 @@ const App = () => {
         <ModalSignIn />
         <Switch>
           <MainLayout path="/" exact Component={Home} />
-          <Route path="/locationListPage/:locationId" exact component={Testing} />
+          <Route
+            path="/locationListPage/:locationId"
+            exact
+            component={Testing}
+          />
           <MainLayout path="/profile/:personId" exact Component={Profile} />
           <MainLayout path="/list/:locationId" exact Component={ListRoom} />
           <MainLayout path="/detail/:roomId" exact Component={Detail} />

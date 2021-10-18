@@ -1,6 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { underLine } from '../Profile/underline';
 export default makeStyles(theme => ({
+    root: {
+        paddingTop: '80px',
+    },
     button__display: {
         display: props => props.isDesktop ? "none" : "block"
     },
