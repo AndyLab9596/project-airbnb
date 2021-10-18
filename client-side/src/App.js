@@ -18,6 +18,7 @@ import { getInfoUserAction } from "./store/action/Auth";
 //Components
 
 import ListRoom from "./pages/ListRoom";
+import ListRoomVer2 from "./pages/ListRoomVer2";
 
 const App = () => {
   const idUser = localStorage.getItem(USERID);
@@ -40,7 +41,7 @@ const App = () => {
             component={Testing}
           />
           <MainLayout path="/profile/:personId" exact Component={Profile} />
-          <MainLayout path="/list/:locationId" exact Component={ListRoom} />
+          <MainLayout path="/list/:locationId" exact Component={ListRoomVer2} />
           <MainLayout path="/detail/:roomId" exact Component={Detail} />
         </Switch>
       </ThemeProvider>

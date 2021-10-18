@@ -17,7 +17,6 @@ const ExploreNearby = () => {
 
 
   const handleCityClick = async (locationId, location) => {
-    console.log(location)
     const checkInDate = moment(new Date()).format('Do MMM');
     const checkOutDate = moment(new Date()).add(1, 'days').format('Do MMM')
     // console.log('checkOutDate', checkOutDate)
