@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import ReactMapGL, { NavigationControl } from 'react-map-gl';
 import { useParams } from "react-router";
 import manageLocationApi from "../../../api/manageLocationApi";
-import manageRentApi from "../../../api/manageRentApi";
 import { MAPBOX_TOKEN } from "../../../constants/config";
 import Pin from "./Pin";
 import useStyles from "./style";
@@ -234,7 +233,7 @@ const fakeRentRooms = [
   }
 ]
 
-const Map = () => {
+const Map = ({ arrListRoom }) => {
   const classes = useStyles();
   const [locationInfo, setLocationInfo] = useState({});
   const [locationCoordinate, setLocationCoordinate] = useState({});
@@ -288,7 +287,7 @@ const Map = () => {
 
   useEffect(() => {
     let newMarkerLocation = []
-    fakeRentRooms.map(room => {
+    arrListRoom.map(room => {
       axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${room.name}.json?country=vn&limit=${fakeRentRooms.length}&proximity=-73.990593%2C40.740121&types=poi&access_token=${MAPBOX_TOKEN}`)
         .then(function (response) {
           // handle success

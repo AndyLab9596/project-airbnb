@@ -66,7 +66,7 @@ const ListRoom = () => {
           <ListRoomItem arrListRoom={arrListRoom} />
         </Grid>
         <Grid className={classes.grid__map} item xl={5} lg={12} md={12}>
-          <Map />
+          <Map arrListRoom={arrListRoom} />
         </Grid>
       </Grid>
     </div>
