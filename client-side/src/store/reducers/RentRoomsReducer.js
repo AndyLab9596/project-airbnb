@@ -9,7 +9,7 @@ const initialState = {
     modal: false
 };
 
-const ListRoomReducer = (state = initialState, { type, payload }) => {
+const RentRoomsReducer = (state = initialState, { type, payload }) => {
     switch (type) {
         case GET_LISTROOM: {
             return { ...state, arrListRoom: payload }
@@ -28,4 +28,4 @@ const ListRoomReducer = (state = initialState, { type, payload }) => {
     }
 };
 
-export default ListRoomReducer;
+export default RentRoomsReducer;

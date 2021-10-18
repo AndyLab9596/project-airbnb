@@ -1,10 +1,8 @@
+import manageRentApi from "../../api/manageRentApi";
+import { createAction } from "./createAction/createAction";
+import { GET_LISTROOM } from "../types/ListRoomType";
 
-import manageRentApi from "../../../api/manageRentApi";
-import { GET_LISTROOM } from "../../types/ListRoomType";
-import { createAction } from "../createAction/createAction";
-
-
-export const getListRoomAction = (id) => {
+export const getRentRoomsAction = (id) => {
     return async (dispatch) => {
         try {
             const res = await manageRentApi.getRentRooms(id);
