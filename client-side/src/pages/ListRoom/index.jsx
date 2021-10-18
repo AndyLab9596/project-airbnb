@@ -5,26 +5,34 @@ import ListIcon from "@material-ui/icons/List";
 import MapIcon from "@material-ui/icons/Map";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router";
+import { useParams } from "react-router";
 import { getListRoomAction } from "../../store/action/ListRoomAction";
-
 import FilterRoom from "./FilterRoom";
 import ListRoomItem from "./ListIRoomItem";
 import Map from "./Map";
 import useStyles from "./style";
+
 const ListRoom = () => {
   const dispatch = useDispatch();
+
   const param = useParams();
+  const locationId = param.locationId
+
   const theme = useTheme();
+
   const isDesktop = useMediaQuery(theme.breakpoints.up("xl"));
+
   const [display, setDisplay] = useState(false);
+
   const classes = useStyles({ display, isDesktop });
+
   const arrListRoom = useSelector((state) => state.ListRoomReducer.arrListRoom);
-  console.log(arrListRoom);
-  console.log(param.locationId);
+
   useEffect(() => {
-    dispatch(getListRoomAction(param.locationId));
-  }, []);
+    dispatch(getListRoomAction(locationId));
+
+  }, [locationId]);
+
   const handleOpenDisplay = () => {
     setDisplay(true);
   };
