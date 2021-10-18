@@ -1,13 +1,11 @@
 import axios from "axios";
-import React, { Fragment, useEffect, useState } from "react";
-import ReactMapGL, { Marker, Popup } from 'react-map-gl';
+import React, { useEffect, useState } from "react";
+import ReactMapGL, { FullscreenControl, GeolocateControl, NavigationControl } from 'react-map-gl';
 import { useParams } from "react-router";
 import manageLocationApi from "../../../api/manageLocationApi";
 import { MAPBOX_TOKEN } from "../../../constants/config";
-import useStyles from "./style";
-import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
-import _ from "lodash"
 import Pin from "./Pin";
+import useStyles from "./style";
 
 const fakeRentRooms = [
   {
@@ -288,7 +286,7 @@ const Map = () => {
   useEffect(() => {
     let newMarkerLocation = []
     fakeRentRooms.map(room => {
-      axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${room.name}.json?country=vn&limit=${fakeRentRooms.length}&proximity=-73.990593%2C40.740121&access_token=${MAPBOX_TOKEN}`)
+      axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${room.name}.json?country=vn&limit=${fakeRentRooms.length}&proximity=-73.990593%2C40.740121&types=poi&access_token=${MAPBOX_TOKEN}`)
         .then(function (response) {
           // handle success
           console.log('rent room', response);
@@ -312,6 +310,10 @@ const Map = () => {
   }, [])
 
 
+  const navControlStyle = {
+    right: 10,
+    top: 10
+  };
 
   console.log(markerLocation)
 
@@ -327,12 +329,14 @@ const Map = () => {
         onViewportChange={(viewport) => setViewport(viewport)}
       >
 
+        <NavigationControl style={navControlStyle} />
+
+
         {markerLocation.map((location, index) => (
           <div key={location._id}>
             <Pin location={location} />
           </div>
         ))}
-
       </ReactMapGL>
     </div>
   );
