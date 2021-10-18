@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import ReactMapGL, { FullscreenControl, GeolocateControl, NavigationControl } from 'react-map-gl';
 import { useParams } from "react-router";
 import manageLocationApi from "../../../api/manageLocationApi";
+import manageRentApi from "../../../api/manageRentApi";
 import { MAPBOX_TOKEN } from "../../../constants/config";
 import Pin from "./Pin";
 import useStyles from "./style";
@@ -235,6 +236,7 @@ const fakeRentRooms = [
 
 const Map = () => {
   const classes = useStyles();
+  const [rentRooms, setRentRooms] = useState([])
   const [locationInfo, setLocationInfo] = useState({});
   const [locationCoordinate, setLocationCoordinate] = useState({});
   const [markerLocation, setMarkerLocation] = useState([]);
@@ -251,6 +253,9 @@ const Map = () => {
 
   console.log('searchTerm', searchTerm)
   // This is used to get the current location
+
+
+
   useEffect(() => {
     (async () => {
       try {
@@ -262,6 +267,18 @@ const Map = () => {
       }
     })()
 
+  }, [])
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await manageRentApi.getRentRooms(locationId)
+        setRentRooms(res)
+
+      } catch (error) {
+        console.log(error)
+      }
+    })()
   }, [])
 
 
