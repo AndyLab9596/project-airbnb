@@ -35,8 +35,10 @@ export default makeStyles(theme => ({
         display: 'flex',
         flexFlow: 'column nowrap',
         height: '200px',
+        minWidth: '420px',
         marginLeft: '16px',
-        flex: '1 1 auto'
+        flex: '1 1 auto',
+        width: '100%',
     },
 
     card__header: {
@@ -84,7 +86,6 @@ export default makeStyles(theme => ({
         fontWeight: 400,
         minHeight: '18px',
         fontSize: '14px',
-        // textOverflow: 'ellipsis',
         marginTop: '9px',
         '& > span': {
             marginRight: '5px'
@@ -133,6 +134,8 @@ export default makeStyles(theme => ({
     card__footer__price: {
         display: 'flex',
         alignItems: 'flex-end',
+        justifyContent: 'flex-end',
+        flex: '1 1 auto',
         '& > p': {
             margin: 0,
             fontSize: '18px',

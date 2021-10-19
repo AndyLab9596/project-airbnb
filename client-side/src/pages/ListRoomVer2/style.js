@@ -7,9 +7,8 @@ export default makeStyles(theme => ({
     },
 
     content: {
-        // height: '100vh',
-        // backgroundColor: 'blue',
-        flex: '1 1 60%',
+        flex: '1 1 auto',
+        width: '60%',
         marginTop: '50px',
         padding: '0 24px',
     },
@@ -38,7 +37,6 @@ export default makeStyles(theme => ({
         marginTop: '16px',
         marginLeft: 'auto',
         marginRight: 'auto',
-
     },
 
     filter__wrapper: {
@@ -78,8 +76,8 @@ export default makeStyles(theme => ({
     },
 
     map: {
-        backgroundColor: 'red',
-        flex: '1 1 40%',
+        flex: '1 1 auto',
+        width: '40%',
         position: 'absolute',
         right: 0,
         top: 0,
@@ -87,7 +85,7 @@ export default makeStyles(theme => ({
     },
 
     mapBox: {
-        // width: '100%',
+        width: '100%',
         height: '100vh',
         display: 'flex',
         alignItems: 'center',
@@ -95,7 +93,4 @@ export default makeStyles(theme => ({
         position: 'sticky',
         top: 0,
     }
-
-
-
 }))
