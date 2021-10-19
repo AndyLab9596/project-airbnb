@@ -1,8 +1,30 @@
 import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles(theme => ({
     pay: {
-        paddingLeft: 80,
-        paddingRight: 80
+        paddingLeft: 160,
+        paddingRight: 160,
+        [theme.breakpoints.down(376)]: {
+
+            paddingLeft: 20,
+            paddingRight: 20,
+
+
+        },
+        [theme.breakpoints.down(769)]: {
+
+            paddingLeft: 30,
+            paddingRight: 30,
+
+
+        },
+        [theme.breakpoints.down(1025)]: {
+
+            paddingLeft: 40,
+            paddingRight: 40,
+
+
+        },
+
     },
     pay__title: {
         display: "flex",
@@ -10,7 +32,12 @@ export default makeStyles(theme => ({
         alignItems: "center",
         paddingTop: 64,
         paddingBottom: 48,
+        [theme.breakpoints.down(376)]: {
 
+
+            paddingTop: 0,
+
+        },
     },
     pay__title__icon: {
         fontSize: 15,
@@ -26,7 +53,13 @@ export default makeStyles(theme => ({
         lineHeight: "20px",
         fontWeight: 600,
         color: "#222222",
-        marginLeft: 20
+        marginLeft: 20,
+        [theme.breakpoints.down(376)]: {
+
+
+            fontSize: 16,
+
+        },
     },
 
 
@@ -73,11 +106,17 @@ export default makeStyles(theme => ({
     pay__item__style: {
         display: "flex",
         justifyContent: "space-between",
-        width: "100%"
+
     },
     pay__item__style__title: {
         padding: "24px 0",
-        borderTop: "1px solid rgb(221, 221, 221)"
+        borderTop: "1px solid rgb(221, 221, 221)",
+        [theme.breakpoints.down(376)]: {
+
+            borderTop: "8px solid rgb(221, 221, 221)",
+            width: "100%"
+
+        },
     },
     pay__text__style: {
         fontWeight: 600,
@@ -152,6 +191,95 @@ export default makeStyles(theme => ({
         "&:hover": {
             opacity: 0.8
         }
+    },
+
+
+    pay__right: {
+        position: "sticky",
+        top: 200,
+        marginLeft: 60,
+        marginBottom: 100,
+        [theme.breakpoints.down(376)]: {
+
+            marginLeft: 0,
+
+        },
+    },
+    pay__right__img: {
+        width: 115,
+        height: 100,
+        borderRadius: 8,
+        [theme.breakpoints.down(376)]: {
+
+            width: 100,
+            height: 100,
+
+        },
+        [theme.breakpoints.down(769)]: {
+
+            width: 90,
+            height: 100,
+
+
+        },
+    },
+    pay__right__style: {
+        flex: "0 0 65%",
+        display: "flex",
+        justifyContent: "space-between",
+        flexDirection: "column",
+        paddingBottom: 5,
+
+        [theme.breakpoints.down(769)]: {
+
+            paddingLeft: 15
+
+
+        },
+    },
+    pay__right__text1: {
+        [theme.breakpoints.down(376)]: {
+
+            fontSize: 10
+
+        },
+        [theme.breakpoints.down(769)]: {
+
+            fontSize: 9
+
+
+        },
+    },
+    pay__right__text: {
+        fontSize: 14,
+
+        [theme.breakpoints.down(1025)]: {
+
+            fontSize: 12
+
+
+        },
+    },
+    pay__right__item: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontWeight: 400,
+        fontSize: 12,
+    },
+    pay__right__item__icon: {
+        fontWeight: 400,
+        fontSize: 15,
+        color: "red",
+        paddingRight: 2,
+    },
+
+    pay__right__table: {
+        display: "table", marginBottom: 15
+    },
+    pay__right__table__item: {
+        display: "table-cell", width: "100%"
     }
+
 
 }))

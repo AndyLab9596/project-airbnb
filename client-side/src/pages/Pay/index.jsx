@@ -18,7 +18,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 const Pay = () => {
   const classes = useStyles();
   return (
-    <Container className={classes.pay} maxWidth="xl">
+    <Container className={classes.pay} maxWidth={false}>
       <Box paddingTop={20}>
         <div className={classes.pay__title}>
           <IconButton className={classes.icon}>
@@ -33,7 +33,7 @@ const Pay = () => {
         </div>
         <div>
           <Grid container>
-            <Grid item lg={6} style={{ marginBottom: 100 }}>
+            <Grid item lg={6} md={6} style={{ marginBottom: 100 }}>
               <div className={classes.pay__left__noti}>
                 <div className={classes.pay__left__noti__content}>
                   <div className={classes.pay__left__noti__content__left}>
@@ -101,7 +101,7 @@ const Pay = () => {
               </div>
               <Box paddingBottom={3}>
                 <div className={classes.pay__radio__top}>
-                  <div>
+                  <div style={{ flex: "0 0 92%" }}>
                     <div className={classes.pay__item__style}>
                       <Typography
                         className={classes.pay__text__style}
@@ -109,14 +109,19 @@ const Pay = () => {
                       >
                         Trả toàn bộ
                       </Typography>
-                      <Typography>$82,71</Typography>
+                      <Typography style={{ paddingLight: 60 }}>
+                        $82,71
+                      </Typography>
                     </div>
                     <Typography className={classes.pay__radio__style}>
                       Thanh toán toàn bộ số tiền ngay bây giờ và bạn đã sẵn
                       sàng.
                     </Typography>
                   </div>
-                  <div className={classes.pay__radio__right}>
+                  <div
+                    style={{ flex: "0 0 4%" }}
+                    className={classes.pay__radio__right}
+                  >
                     <input
                       type="radio"
                       className={classes.pay__radio__right__item}
@@ -124,7 +129,7 @@ const Pay = () => {
                   </div>
                 </div>
                 <div className={classes.pay__radio__bot}>
-                  <div>
+                  <div style={{ flex: "0 0 92%" }}>
                     <div className={classes.pay__item__style}>
                       <Typography
                         className={classes.pay__text__style}
@@ -132,9 +137,7 @@ const Pay = () => {
                       >
                         Trả ngay một phần, phần còn lại trả sau
                       </Typography>
-                      <Typography style={{ paddingRight: 15 }}>
-                        $41,36
-                      </Typography>
+                      <Typography>$41,36</Typography>
                     </div>
                     <Typography className={classes.pay__radio__style}>
                       Thanh toán ngay $41,36 và phần còn lại ($41,35) sẽ tự động
@@ -147,7 +150,10 @@ const Pay = () => {
                       </Typography>
                     </div>
                   </div>
-                  <div className={classes.pay__radio__right}>
+                  <div
+                    style={{ flex: "0 0 4%" }}
+                    className={classes.pay__radio__right}
+                  >
                     <input
                       type="radio"
                       className={classes.pay__radio__right__item}
@@ -321,35 +327,30 @@ const Pay = () => {
                 </Button>
               </div>
             </Grid>
-            <Grid item lg={6}>
-              <Box position="sticky" top={200} marginBottom={12} marginLeft={8}>
+            <Grid item lg={6} md={6}>
+              <Box className={classes.pay__right}>
                 <div>
                   <div className={classes.pay__left__noti}>
-                    <div style={{ paddingBottom: 24 }}>
-                      <div style={{ display: "flex" }}>
-                        <div style={{ flex: "0 0 35%" }}>
+                    <Box paddingBottom={3}>
+                      <Box display="flex">
+                        <Box flex="0 0 35%">
                           <img
                             src="https://a0.muscache.com/im/pictures/896c6768-8c48-4a39-b24f-e63b58ee3de6.jpg?aki_policy=large"
                             alt="img"
-                            style={{ width: 115, height: 100, borderRadius: 8 }}
+                            className={classes.pay__right__img}
                           />
-                        </div>
-                        <div
-                          style={{
-                            flex: "0 0 65%",
-                            display: "flex",
-                            justifyContent: "space-between",
-                            flexDirection: "column",
-                            paddingBottom: 5,
-                          }}
-                        >
-                          <Typography variant="caption">
+                        </Box>
+                        <div className={classes.pay__right__style}>
+                          <Typography
+                            className={classes.pay__right__text1}
+                            variant="caption"
+                          >
                             Toàn bộ căn hộ cho thuê tại Quận 4
                           </Typography>
                           <div>
                             <Typography
                               variant="body1"
-                              style={{ fontSize: 14 }}
+                              className={classes.pay__right__text}
                             >
                               Masteri Millennium Studio with Amazing City View
                             </Typography>
@@ -357,63 +358,35 @@ const Pay = () => {
                               1 giường · 1 phòng tắm
                             </Typography>
                           </div>
-                          <div style={{ display: "flex", flexWrap: "wrap" }}>
-                            <div style={{ paddingRight: 14 }}>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                  fontWeight: 400,
-                                  fontSize: 12,
-                                }}
-                              >
+                          <Box display="flex" flexWrap="wrap">
+                            <Box paddingRight={3}>
+                              <div className={classes.pay__right__item}>
                                 <StarIcon
-                                  style={{
-                                    fontWeight: 400,
-                                    fontSize: 15,
-                                    color: "red",
-                                    paddingRight: 2,
-                                  }}
+                                  className={classes.pay__right__item__icon}
                                 />
-
                                 <span>4.87 (172 đánh giá)</span>
                               </div>
-                            </div>
+                            </Box>
                             <div>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                  fontWeight: 400,
-                                  fontSize: 12,
-                                }}
-                              >
+                              <div className={classes.pay__right__item}>
                                 <FavoriteIcon
-                                  style={{
-                                    fontWeight: 400,
-                                    fontSize: 15,
-                                    paddingRight: 2,
-                                    color: "red",
-                                  }}
+                                  className={classes.pay__right__item__icon}
                                 />
-
                                 <span>Chủ nhà siêu cấp</span>
                               </div>
                             </div>
-                          </div>
+                          </Box>
                         </div>
-                      </div>
-                    </div>
+                      </Box>
+                    </Box>
                     <div className={classes.pay__item__style__title}>
                       <Typography className={classes.pay__item__title}>
                         Chi tiết giá
                       </Typography>
                     </div>
                     <div>
-                      <div style={{ display: "table", marginBottom: 15 }}>
-                        <div style={{ display: "table-cell", width: "100%" }}>
+                      <div className={classes.pay__right__table}>
+                        <div className={classes.pay__right__table__item}>
                           <Typography variant="body1">
                             $24,16 x 3 đêm
                           </Typography>
@@ -422,8 +395,8 @@ const Pay = () => {
                           <Typography variant="body1">$72,48</Typography>
                         </div>
                       </div>
-                      <div style={{ display: "table", marginBottom: 15 }}>
-                        <div style={{ display: "table-cell", width: "100%" }}>
+                      <div className={classes.pay__right__table}>
+                        <div className={classes.pay__right__table__item}>
                           <Typography
                             variant="body1"
                             style={{ textDecoration: "underline" }}
@@ -435,8 +408,8 @@ const Pay = () => {
                           <Typography variant="body1">$10,23</Typography>
                         </div>
                       </div>
-                      <div style={{ display: "table", marginBottom: 15 }}>
-                        <div style={{ display: "table-cell", width: "100%" }}>
+                      <div className={classes.pay__right__table}>
+                        <div className={classes.pay__right__table__item}>
                           <Typography variant="body1">Tổng (USD)</Typography>
                         </div>
                         <div>
