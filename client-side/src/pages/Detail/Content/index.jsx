@@ -36,7 +36,7 @@ import BookingMobile from "./Booking/Mobile";
 import BookingTabLet from "./Booking/Tablet";
 import useStyles from "./style";
 
-const ContentRoom = () => {
+const ContentRoom = ({ detailRoom, userBooking, detailRating }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.up("sm"));
   const isTablet = useMediaQuery(theme.breakpoints.up("md"));
@@ -80,61 +80,59 @@ const ContentRoom = () => {
   const arrReviewsRoom = [
     {
       name: "Thang máy",
-      status: true,
+      status: detailRoom?.elevator,
       icon: <MdElevator />,
     },
     {
       name: "Bồn nước nóng",
-      status: false,
+      status: detailRoom?.hotTub,
       icon: <MdHotTub />,
     },
     {
       name: "Hồ bơi",
-      status: true,
+      status: detailRoom?.pool,
       icon: <MdPool />,
     },
     {
       name: "Bình chữa cháy",
-      status: false,
+      status: detailRoom?.indoorFireplace,
       icon: <MdFireplace />,
     },
     {
       name: "Máy sấy tóc",
-      status: false,
+      status: detailRoom?.dryer,
       icon: <MdDryCleaning />,
     },
     {
       name: "Phòng Gym",
-      status: true,
+      status: detailRoom?.gym,
       icon: <CgGym />,
     },
     {
       name: "Nhà bếp",
-      status: true,
+      status: detailRoom?.kitchen,
       icon: <MdKitchen />,
     },
     {
       name: "Wifi",
-      status: true,
+      status: detailRoom?.wifi,
       icon: <MdWifi />,
     },
     {
       name: "Lò sửi ấm",
-      status: true,
+      status: detailRoom?.heating,
       icon: <GiFireBowl />,
     },
     {
-      name: "Lò sửi ấm",
-      status: true,
+      name: "Truyền hình cáp",
+      status: detailRoom?.cableTV,
       icon: <MdCable />,
     },
   ];
-  const startDate = "10-14-2021";
-  const endDate = "10-20-2021";
 
   const [bookingTime, setBookingTime] = useState([
-    new Date(startDate),
-    new Date(endDate),
+    new Date(userBooking.checkIn),
+    new Date(userBooking.checkOut),
   ]);
 
   const totalDateTime = bookingTime[1] - bookingTime[0];
@@ -190,8 +188,8 @@ const ContentRoom = () => {
 
             <div>
               <Typography variant="span">
-                14 khách.5 phòng ngủ .7 giường.5 phòng tắm đầy đủ và 1 phòng vệ
-                sinh cơ bản
+                {detailRoom?.guests} khách.{detailRoom?.bedRoom} phòng ngủ .
+                {detailRoom?.bath} phòng tắm và 1 phòng vệ sinh cơ bản
               </Typography>
             </div>
           </div>
@@ -211,17 +209,7 @@ const ContentRoom = () => {
 
           {/* Description */}
           <div className={classes.room_description}>
-            <Typography variant="span">
-              Được thiết kế theo phong cách Pháp của kts Hồ Thiệu Trị cùng đồng
-              nghiệp.
-              <br />
-              Mang phong cách biệt thự ngoại ô với sân vườn nhiều loại cây ăn
-              trái và rau củ.
-              <br />
-              Nằm trong khu biệt thự Thanh Bình, Long Cung. Cách bãi tắm Thủy
-              Tiên từ 5-10p đi bộ, phù hợp với gia đình nghĩ dưỡng với không
-              gian yên tĩnh và riêng tư.
-            </Typography>
+            <Typography variant="span">{detailRoom?.description}</Typography>
           </div>
 
           {/* Bedroom */}
@@ -329,6 +317,9 @@ const ContentRoom = () => {
               locale={locale}
               totalDate={totalDate}
               isBooking={isBooking}
+              userBooking={userBooking}
+              detailRating={detailRating}
+              detailRoom={detailRoom}
             />
           </Grid>
         ) : (
@@ -338,6 +329,7 @@ const ContentRoom = () => {
             locale={locale}
             totalDate={totalDate}
             isBooking={isBooking}
+            userBooking={userBooking}
           />
         )}
       </Grid>

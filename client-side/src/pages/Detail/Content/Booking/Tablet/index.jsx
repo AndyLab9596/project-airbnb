@@ -16,6 +16,7 @@ import { useDispatch } from "react-redux";
 import { createAction } from "../../../../../store/action/createAction/createAction";
 import { SHOW_MODAL_RATED } from "../../../../../store/types/ListRoomType";
 import useStyles from "./style";
+import { formMoney } from "../../../../../utilities/coordinates";
 
 const BookingTablet = ({
   bookingTime,
@@ -23,14 +24,17 @@ const BookingTablet = ({
   locale,
   totalDate,
   isBooking,
+  userBooking,
+  detailRoom,
+  detailRating,
 }) => {
   const classes = useStyles();
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const dispatch = useDispatch();
   const [numbersFilter, setNumbersFilter] = useState({
-    _adult: 1,
-    _baby: 0,
-    _toddler: 0,
+    _adult: userBooking?._adult,
+    _baby: userBooking?._baby,
+    _toddler: userBooking?._toddler,
   });
   const handleAddAdult = () => {
     if (numbersFilter._adult > 13) return;
@@ -65,25 +69,34 @@ const BookingTablet = ({
   const handleShowRating = () => {
     dispatch(createAction(SHOW_MODAL_RATED));
   };
+
+  const totalPrice = () => {
+    return totalDate < 7
+      ? formMoney(detailRoom?.price * totalDate + 100000)
+      : totalDate > 30
+      ? formMoney(detailRoom?.price * (totalDate - 5) + 100000)
+      : formMoney(detailRoom?.price * (totalDate - 1) + 100000);
+  };
   return (
     <div className={classes.room__booking__content}>
       <Box display="flex" justifyContent="space-between" alignItems="center">
         {totalDate < 30 && totalDate > 0 ? (
           <Typography variant="body2" className={classes.room__booking__price}>
-            ${totalDate * 50}
+            {formMoney(userBooking?.price)}
             <Typography variant="span">/đêm</Typography>
           </Typography>
         ) : (
           <Typography variant="body2" className={classes.room__booking__price}>
-            $1240<Typography variant="span">/tháng</Typography>
+            {formMoney(userBooking?.price * 25)}
+            <Typography variant="span">/tháng</Typography>
           </Typography>
         )}
 
         <Typography variant="span" className={classes.room__booking__rating}>
           <BsFillStarFill />
-          5.0
+          {detailRoom?.locationId?.valueate}
           <Button disableRipple onClick={handleShowRating}>
-            ( {Math.floor(Math.random() * 9 + 1)} đánh giá)
+            ( {detailRating?.length} đánh giá)
           </Button>
         </Typography>
       </Box>
@@ -322,8 +335,12 @@ const BookingTablet = ({
           </Typography>
           <div className={classes.room__booking__payment}>
             <div className={classes.room__booking__payment__content}>
-              <Typography variant="body2">$140 x {totalDate}đêm</Typography>
-              <Typography variant="span">${140 * { totalDate }}</Typography>
+              <Typography variant="body2">
+                {formMoney(detailRoom?.price)} x {totalDate} đêm
+              </Typography>
+              <Typography variant="span">
+                {formMoney(detailRoom?.price * totalDate)}
+              </Typography>
             </div>
             <div className={classes.room__booking__payment__content}>
               {totalDate < 7 ? null : totalDate < 30 ? (
@@ -334,7 +351,9 @@ const BookingTablet = ({
                   >
                     Giảm giá theo tuần
                   </Typography>
-                  <Typography variant="span">-$533</Typography>
+                  <Typography variant="span">
+                    -{formMoney(detailRoom?.price)}
+                  </Typography>
                 </Fragment>
               ) : (
                 <Fragment>
@@ -343,19 +362,19 @@ const BookingTablet = ({
                     variant="span"
                     className={classes.room__booking__saleFor}
                   >
-                    -$3177
+                    - {formMoney(detailRoom?.price * 5)}
                   </Typography>
                 </Fragment>
               )}
             </div>
             <div className={classes.room__booking__payment__content}>
               <Typography variant="body2">Phí dịch vụ</Typography>
-              <Typography variant="span">$200</Typography>
+              <Typography variant="span"> {formMoney(100000)}</Typography>
             </div>
           </div>
           <div className={classes.room__booking__payment__content}>
             <Typography variant="h4">Tổng</Typography>
-            <Typography variant="h4">$320</Typography>
+            <Typography variant="h4">{totalPrice()}</Typography>
           </div>
         </div>
       )}

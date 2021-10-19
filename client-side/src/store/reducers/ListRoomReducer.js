@@ -8,6 +8,7 @@ import {
   HIDE_MODAL_RATED,
   OPEN_MODAL_FILTER,
   SHOW_MODAL_RATED,
+  DETAIL_RATING_ROOM,
 } from "../types/ListRoomType";
 
 const initialState = {
@@ -21,6 +22,7 @@ const initialState = {
 
   detailRoom: {},
   modalRated: false,
+  detailRating: {},
 };
 
 const ListRoomReducer = (state = initialState, { type, payload }) => {
@@ -51,6 +53,10 @@ const ListRoomReducer = (state = initialState, { type, payload }) => {
     case DETAIL_ROOM: {
       return { ...state, detailRoom: payload };
     }
+    case DETAIL_RATING_ROOM: {
+      return { ...state, detailRating: payload };
+    }
+
     case SHOW_MODAL_RATED: {
       return { ...state, modalRated: true };
     }

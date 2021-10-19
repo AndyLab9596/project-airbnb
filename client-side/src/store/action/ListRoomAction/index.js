@@ -1,6 +1,10 @@
 import managerDetailRoom from "../../../api/managerDetailRoom";
 import manageRentApi from "../../../api/manageRentApi";
-import { DETAIL_ROOM, GET_LISTROOM } from "../../types/ListRoomType";
+import {
+  DETAIL_RATING_ROOM,
+  DETAIL_ROOM,
+  GET_LISTROOM,
+} from "../../types/ListRoomType";
 import { createAction } from "../createAction/createAction";
 
 export const getListRoomAction = (id) => {
@@ -20,6 +24,18 @@ export const DetailRoomAction = (idRoom) => {
     try {
       const res = await managerDetailRoom.getDetailRoom(idRoom);
       dispatch(createAction(DETAIL_ROOM, res));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const DetailRatingAction = (idRoom) => {
+  return async (dispatch) => {
+    try {
+      const res = await managerDetailRoom.getDetailRatingRoom(idRoom);
+      console.log(res);
+      dispatch(createAction(DETAIL_RATING_ROOM, res));
     } catch (error) {
       console.log(error);
     }

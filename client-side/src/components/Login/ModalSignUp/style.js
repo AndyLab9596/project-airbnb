@@ -10,7 +10,6 @@ export default makeStyles((theme) => ({
     width: "100%",
     maxWidth: 560,
     borderRadius: 12,
-    animation: "slide 0.4s linear",
     backgroundColor: "#fff",
     zIndex: 999,
     display: "flex",

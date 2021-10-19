@@ -37,7 +37,6 @@ export default makeStyles((theme) => ({
   },
   room__rule__modal: {
     height: "100%",
-    animation: "slide 0.4s linear",
     backgroundColor: "#fff",
     zIndex: 999,
     display: "flex",
@@ -66,6 +65,7 @@ export default makeStyles((theme) => ({
   room__rule__modal__content: {
     display: "flex",
     paddingBottom: 14,
+
     [theme.breakpoints.up("md")]: {
       justifyContent: "space-between",
       paddingBottom: 5,

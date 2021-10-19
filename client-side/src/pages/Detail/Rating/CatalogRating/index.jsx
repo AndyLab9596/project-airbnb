@@ -7,7 +7,7 @@ const CatalogRating = ({ item }) => {
   const classes = useStyles();
   return (
     <Fragment>
-      <Typography variant="span">{item.name}</Typography>
+      <Typography variant="span">{item?.name}</Typography>
       <Box
         display="flex"
         justifyContent="space-between"
@@ -17,14 +17,14 @@ const CatalogRating = ({ item }) => {
         <div className={classes.room__rating__modal__detailRating_percent}>
           <Typography
             variant="span"
-            style={{ width: `${(item.value * 100) / 5}% ` }}
+            style={{ width: `${(item?.value * 100) / 5}% ` }}
           ></Typography>
         </div>
         <Typography
           variant="body2"
           className={classes.room__rating__modal__detailRating__value}
         >
-          {item.value}
+          {item?.value}
         </Typography>
       </Box>
     </Fragment>

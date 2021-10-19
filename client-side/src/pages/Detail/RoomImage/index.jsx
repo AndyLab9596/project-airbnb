@@ -19,8 +19,9 @@ import { scroller } from "react-scroll";
 import { useDispatch } from "react-redux";
 import { createAction } from "../../../store/action/createAction/createAction";
 import { SHOW_MODAL_RATED } from "../../../store/types/ListRoomType";
+import Slide from "@material-ui/core/Slide";
 
-const RoomImage = ({ detailRoom }) => {
+const RoomImage = ({ detailRoom, detailRating }) => {
   const [currentImg, setCurrentImg] = useState(1);
   const [openModal, setOpenModal] = useState(false);
   const dispatch = useDispatch();
@@ -95,7 +96,7 @@ const RoomImage = ({ detailRoom }) => {
     },
     {
       name: "Vị trí",
-      id: "location",
+      id: "map",
     },
   ];
 
@@ -138,9 +139,9 @@ const RoomImage = ({ detailRoom }) => {
               >
                 <Typography variant="span" className={classes.room__userRating}>
                   <BsFillStarFill />
-                  5.0
+                  {detailRoom?.locationId?.valueate}
                   <Button disableRipple onClick={handleShowRating}>
-                    ( {detailRoom?.locationId?.valueate} đánh giá)
+                    ({detailRating?.length} đánh giá)
                   </Button>
                 </Typography>
                 <Typography variant="span" className={classes.room__medal}>
@@ -214,9 +215,9 @@ const RoomImage = ({ detailRoom }) => {
               <div className={classes.room__content__rating}>
                 <Typography variant="span" className={classes.room__userRating}>
                   <BsFillStarFill />
-                  5.0
-                  <Button disableRipple={true}>
-                    ( {detailRoom?.locationId?.valueate} đánh giá)
+                  {detailRoom?.locationId?.valueate}
+                  <Button disableRipple={true} onClick={handleShowRating}>
+                    ( {detailRating?.length} đánh giá)
                   </Button>
                 </Typography>
                 <Typography variant="span" className={classes.room__medal}>
@@ -239,31 +240,33 @@ const RoomImage = ({ detailRoom }) => {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <div className={classes.modal__show__all}>
-          <div className={classes.btnPrev}>
-            <FcPrevious onClick={() => setOpenModal(false)} />
-          </div>
+        <Slide direction="up" in={openModal} style={{ width: "100vw" }}>
+          <div className={classes.modal__show__all}>
+            <div className={classes.btnPrev}>
+              <FcPrevious onClick={() => setOpenModal(false)} />
+            </div>
 
-          <Grid container spacing={1} className={classes.modal_show_all_img}>
-            {arrImg.map((item, index) => (
-              <Fragment key={index}>
-                {index % 3 === 0 ? (
-                  <Grid item xs={12}>
-                    <div className={classes.image}>
-                      <img src={item.img} alt="img" />
-                    </div>
-                  </Grid>
-                ) : (
-                  <Grid item xs={6}>
-                    <div className={classes.image}>
-                      <img src={item.img} alt="img" />
-                    </div>
-                  </Grid>
-                )}
-              </Fragment>
-            ))}
-          </Grid>
-        </div>
+            <Grid container spacing={1} className={classes.modal_show_all_img}>
+              {arrImg.map((item, index) => (
+                <Fragment key={index}>
+                  {index % 3 === 0 ? (
+                    <Grid item xs={12}>
+                      <div className={classes.image}>
+                        <img src={item.img} alt="img" />
+                      </div>
+                    </Grid>
+                  ) : (
+                    <Grid item xs={6}>
+                      <div className={classes.image}>
+                        <img src={item.img} alt="img" />
+                      </div>
+                    </Grid>
+                  )}
+                </Fragment>
+              ))}
+            </Grid>
+          </div>
+        </Slide>
       </Modal>
     </Fragment>
   );

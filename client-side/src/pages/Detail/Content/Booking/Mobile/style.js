@@ -49,8 +49,6 @@ export default makeStyles((theme) => ({
 
   booking__modal: {
     height: "100%",
-    animation: "slide 0.4s linear",
-    transition: "animation 0.5s ",
     backgroundColor: "#fff",
     zIndex: 999,
     display: "flex",

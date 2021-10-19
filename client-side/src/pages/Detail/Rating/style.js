@@ -91,12 +91,11 @@ export default makeStyles((theme) => ({
   },
   room__rating__modal: {
     height: "100%",
-    animation: "slide 0.4s linear",
     backgroundColor: "#fff",
     zIndex: 999,
     display: "flex",
     flexDirection: "column",
-    overflowX: "hidden",
+    overflow: "hidden",
     padding: "0px 24px",
     margin: "10px 0",
     borderRadius: 12,

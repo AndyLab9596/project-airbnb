@@ -1,4 +1,4 @@
-import { Button, IconButton, Typography } from "@material-ui/core";
+import { Button, IconButton, Slide, Typography } from "@material-ui/core";
 import Modal from "@material-ui/core/Modal";
 import CloseIcon from "@material-ui/icons/Close";
 import { useFormik } from "formik";
@@ -56,62 +56,64 @@ const ModalSignIn = () => {
         aria-describedby="simple-modal-description"
         className={classes.root}
       >
-        <div className={classes.modal__content}>
-          <div className={classes.modal__header}>
-            <IconButton onClick={handleClose}>
-              <CloseIcon />
-            </IconButton>
-            <Typography variant="body2">
-              Chào mừng bạn đến với Airbnb
-            </Typography>
-            <div></div>
-          </div>
-          <div className={classes.modal__detail}>
-            <Typography variant="h3">Đăng Nhập</Typography>
-            <form onSubmit={handleSubmitForm}>
-              <TextFieldComponent
-                {...formik}
-                label="Email"
-                name="email"
-                valueInput={formik.values.email}
-                errorInput={formik.errors.email}
-                touchedInput={formik.touched.email}
-              />
-              <TextFieldComponent
-                {...formik}
-                type="password"
-                label="Password"
-                name="password"
-                valueInput={formik.values.password}
-                errorInput={formik.errors.password}
-                touchedInput={formik.touched.password}
-              />
-              <Button type="submit" className={classes.form__btnSubmit}>
-                Tiếp tục
-              </Button>
-            </form>
-            <div className={classes.modal__line}>
-              <Typography variant="span">hoặc</Typography>
-            </div>
-            <div className={classes.form__continue__login}>
-              <LoginWithFacebook
-                className={classes.form__continue__login__with}
-              />
-              <LoginWithGoogle
-                className={classes.form__continue__login__with}
-              />
-            </div>
-
-            <div className={classes.linkToSignUp}>
+        <Slide direction="up" in={modalSignIn}>
+          <div className={classes.modal__content}>
+            <div className={classes.modal__header}>
+              <IconButton onClick={handleClose}>
+                <CloseIcon />
+              </IconButton>
               <Typography variant="body2">
-                Don't have an account?
-                <Typography variant="span" onClick={handleClickToSignUp}>
-                  Sign Up
-                </Typography>
+                Chào mừng bạn đến với Airbnb
               </Typography>
+              <div></div>
+            </div>
+            <div className={classes.modal__detail}>
+              <Typography variant="h3">Đăng Nhập</Typography>
+              <form onSubmit={handleSubmitForm}>
+                <TextFieldComponent
+                  {...formik}
+                  label="Email"
+                  name="email"
+                  valueInput={formik.values.email}
+                  errorInput={formik.errors.email}
+                  touchedInput={formik.touched.email}
+                />
+                <TextFieldComponent
+                  {...formik}
+                  type="password"
+                  label="Password"
+                  name="password"
+                  valueInput={formik.values.password}
+                  errorInput={formik.errors.password}
+                  touchedInput={formik.touched.password}
+                />
+                <Button type="submit" className={classes.form__btnSubmit}>
+                  Tiếp tục
+                </Button>
+              </form>
+              <div className={classes.modal__line}>
+                <Typography variant="span">hoặc</Typography>
+              </div>
+              <div className={classes.form__continue__login}>
+                <LoginWithFacebook
+                  className={classes.form__continue__login__with}
+                />
+                <LoginWithGoogle
+                  className={classes.form__continue__login__with}
+                />
+              </div>
+
+              <div className={classes.linkToSignUp}>
+                <Typography variant="body2">
+                  Don't have an account?
+                  <Typography variant="span" onClick={handleClickToSignUp}>
+                    Sign Up
+                  </Typography>
+                </Typography>
+              </div>
             </div>
           </div>
-        </div>
+        </Slide>
       </Modal>
     </Fragment>
   );

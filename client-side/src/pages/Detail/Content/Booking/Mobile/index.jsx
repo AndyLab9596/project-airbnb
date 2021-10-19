@@ -2,6 +2,7 @@ import {
   Button,
   IconButton,
   Modal,
+  Slide,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -13,12 +14,14 @@ import { AiOutlineClose } from "react-icons/ai";
 import clsx from "clsx";
 import { LocalizationProvider, StaticDateRangePicker } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import { formMoney } from "../../../../../utilities/coordinates";
 
 const BookingMobile = ({
   bookingTime,
   setBookingTime,
   totalDate,
   isBooking,
+  userBooking,
 }) => {
   const [openModal, setOpenModal] = useState(false);
   const classes = useStyles({ isBooking, openModal });
@@ -32,7 +35,7 @@ const BookingMobile = ({
               variant="h5"
               className={classes.booking__content__price}
             >
-              $340
+              {formMoney(userBooking?.price)}
               <Typography variant="span">/đêm</Typography>
             </Typography>
           </div>
@@ -85,53 +88,55 @@ const BookingMobile = ({
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <div className={classes.booking__modal}>
-          <div className={classes.booking__modal__header}>
-            <IconButton>
-              <AiOutlineClose onClick={() => setOpenModal(false)} />
-            </IconButton>
-            <Typography
-              variant="span"
-              onClick={() => setBookingTime([null, null])}
-            >
-              Xóa ngày
-            </Typography>
+        <Slide direction="up" in={openModal}>
+          <div className={classes.booking__modal}>
+            <div className={classes.booking__modal__header}>
+              <IconButton>
+                <AiOutlineClose onClick={() => setOpenModal(false)} />
+              </IconButton>
+              <Typography
+                variant="span"
+                onClick={() => setBookingTime([null, null])}
+              >
+                Xóa ngày
+              </Typography>
+            </div>
+            <div>
+              <Typography variant="h5">
+                {isBooking ? "Chọn ngày nhận phòng" : `${totalDate} đêm`}
+              </Typography>
+              <Typography variant="body1">
+                {isBooking ? (
+                  "Thêm ngày đi để biết giá chính xác"
+                ) : (
+                  <Fragment>
+                    {moment(bookingTime[0]).format("Do MMM")} -
+                    <Typography variant="span">
+                      {moment(bookingTime[1]).format("Do MMM")}
+                    </Typography>
+                  </Fragment>
+                )}
+              </Typography>
+            </div>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <StaticDateRangePicker
+                className={classes.booking__datepicker}
+                displayStaticWrapperAs="desktop"
+                value={bookingTime}
+                onChange={(newValue) => {
+                  setBookingTime(newValue);
+                }}
+                renderInput={(startProps, endProps) => (
+                  <React.Fragment>
+                    <TextField {...startProps} />
+                    <Box sx={{ mx: 2 }}> to </Box>
+                    <TextField {...endProps} />
+                  </React.Fragment>
+                )}
+              />
+            </LocalizationProvider>
           </div>
-          <div>
-            <Typography variant="h5">
-              {isBooking ? "Chọn ngày nhận phòng" : `${totalDate} đêm`}
-            </Typography>
-            <Typography variant="body1">
-              {isBooking ? (
-                "Thêm ngày đi để biết giá chính xác"
-              ) : (
-                <Fragment>
-                  {moment(bookingTime[0]).format("Do MMM")} -
-                  <Typography variant="span">
-                    {moment(bookingTime[1]).format("Do MMM")}
-                  </Typography>
-                </Fragment>
-              )}
-            </Typography>
-          </div>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <StaticDateRangePicker
-              className={classes.booking__datepicker}
-              displayStaticWrapperAs="desktop"
-              value={bookingTime}
-              onChange={(newValue) => {
-                setBookingTime(newValue);
-              }}
-              renderInput={(startProps, endProps) => (
-                <React.Fragment>
-                  <TextField {...startProps} />
-                  <Box sx={{ mx: 2 }}> to </Box>
-                  <TextField {...endProps} />
-                </React.Fragment>
-              )}
-            />
-          </LocalizationProvider>
-        </div>
+        </Slide>
       </Modal>
     </div>
   );

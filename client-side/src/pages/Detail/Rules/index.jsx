@@ -3,10 +3,12 @@ import {
   Grid,
   IconButton,
   Modal,
+  Slide,
   Typography,
   useMediaQuery,
   useTheme,
 } from "@material-ui/core";
+import { Box } from "@mui/system";
 import React, { Fragment, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { Gi3DStairs } from "react-icons/gi";
@@ -213,27 +215,29 @@ const DetailRules = () => {
         aria-describedby="simple-modal-description"
         className={classes.modal}
       >
-        <div className={classes.room__rule__modal}>
-          <div className={classes.room__rule__modal__btnClose}>
-            <IconButton>
-              <AiOutlineClose onClick={() => setOpenModalRule(false)} />
-            </IconButton>
+        <Slide direction="up" in={openModalRule}>
+          <div className={classes.room__rule__modal}>
+            <div className={classes.room__rule__modal__btnClose}>
+              <IconButton>
+                <AiOutlineClose onClick={() => setOpenModalRule(false)} />
+              </IconButton>
+            </div>
+            <Box pb={10}>
+              <Typography
+                variant="h5"
+                className={classes.room__rule__modal__title}
+              >
+                Nội quy nhà
+              </Typography>
+              {arrRule.map((rule, index) => (
+                <div key={index} className={classes.room__rule__modal__content}>
+                  {rule.icon}
+                  <Typography variant="body2">{rule.content}</Typography>
+                </div>
+              ))}
+            </Box>
           </div>
-          <div>
-            <Typography
-              variant="h5"
-              className={classes.room__rule__modal__title}
-            >
-              Nội quy nhà
-            </Typography>
-            {arrRule.map((rule, index) => (
-              <div key={index} className={classes.room__rule__modal__content}>
-                {rule.icon}
-                <Typography variant="body2">{rule.content}</Typography>
-              </div>
-            ))}
-          </div>
-        </div>
+        </Slide>
       </Modal>
 
       {/* Modal Healthy and Safe */}
@@ -244,37 +248,39 @@ const DetailRules = () => {
         aria-describedby="simple-modal-description"
         className={classes.modal}
       >
-        <div className={classes.room__rule__modal}>
-          <div className={classes.room__rule__modal__btnClose}>
-            <IconButton>
-              <AiOutlineClose onClick={() => setOpenModalHealth(false)} />
-            </IconButton>
-          </div>
-          <div>
-            <Typography
-              variant="h5"
-              className={classes.room__rule__modal__title}
-            >
-              Y tế và an toàn
-            </Typography>
-            {arrHealth.map((rule, index) => (
-              <div key={index} className={classes.room__rule__modal__content}>
-                {rule.icon}
-                <Typography variant="body2">{rule.content}</Typography>
-              </div>
-            ))}
-            <Typography
-              variant="h5"
-              className={classes.room__rule__modal__title}
-            >
-              Bạn cũng chấp nhận
-            </Typography>
-            <div className={classes.room__rule__modal__content}>
-              <Gi3DStairs />
-              <Typography variant="body2">Phải leo cầu thang</Typography>
+        <Slide direction="up" in={openModalHealth}>
+          <div className={classes.room__rule__modal}>
+            <div className={classes.room__rule__modal__btnClose}>
+              <IconButton>
+                <AiOutlineClose onClick={() => setOpenModalHealth(false)} />
+              </IconButton>
             </div>
+            <Box pb={10}>
+              <Typography
+                variant="h5"
+                className={classes.room__rule__modal__title}
+              >
+                Y tế và an toàn
+              </Typography>
+              {arrHealth.map((rule, index) => (
+                <div key={index} className={classes.room__rule__modal__content}>
+                  {rule.icon}
+                  <Typography variant="body2">{rule.content}</Typography>
+                </div>
+              ))}
+              <Typography
+                variant="h5"
+                className={classes.room__rule__modal__title}
+              >
+                Bạn cũng chấp nhận
+              </Typography>
+              <div className={classes.room__rule__modal__content}>
+                <Gi3DStairs />
+                <Typography variant="body2">Phải leo cầu thang</Typography>
+              </div>
+            </Box>
           </div>
-        </div>
+        </Slide>
       </Modal>
 
       {/* Modal Cancle */}
@@ -285,32 +291,34 @@ const DetailRules = () => {
         aria-describedby="simple-modal-description"
         className={classes.modal}
       >
-        <div className={classes.room__rule__modal}>
-          <div className={classes.room__rule__modal__btnClose}>
-            <IconButton>
-              <AiOutlineClose onClick={() => setOpenModalRuleCancle(false)} />
-            </IconButton>
-          </div>
-          <div>
-            <Typography variant="h5">Chính sách hủy</Typography>
-            <Typography
-              variant="h5"
-              className={classes.room__rule__modal__title}
-            >
-              Hủy muộn nhất vào ngày
-            </Typography>
-            {arrRuleCancle.map((rule, index) => (
-              <div key={index} className={classes.room__rule__modal__content}>
-                <div className={classes.room__rule__modal__cancle}>
-                  <Typography variant="h5">{rule.date}</Typography>
-                  <Typography variant="body1">{rule.time}</Typography>
-                  <Typography variant="body1">({rule.status})</Typography>
+        <Slide direction="up" in={openModalRuleCancle}>
+          <div className={classes.room__rule__modal}>
+            <div className={classes.room__rule__modal__btnClose}>
+              <IconButton>
+                <AiOutlineClose onClick={() => setOpenModalRuleCancle(false)} />
+              </IconButton>
+            </div>
+            <Box pb={10}>
+              <Typography variant="h5">Chính sách hủy</Typography>
+              <Typography
+                variant="h5"
+                className={classes.room__rule__modal__title}
+              >
+                Hủy muộn nhất vào ngày
+              </Typography>
+              {arrRuleCancle.map((rule, index) => (
+                <div key={index} className={classes.room__rule__modal__content}>
+                  <div className={classes.room__rule__modal__cancle}>
+                    <Typography variant="h5">{rule.date}</Typography>
+                    <Typography variant="body1">{rule.time}</Typography>
+                    <Typography variant="body1">({rule.status})</Typography>
+                  </div>
+                  <Typography variant="body2">{rule.content}</Typography>
                 </div>
-                <Typography variant="body2">{rule.content}</Typography>
-              </div>
-            ))}
+              ))}
+            </Box>
           </div>
-        </div>
+        </Slide>
       </Modal>
     </Fragment>
   );

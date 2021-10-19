@@ -158,7 +158,6 @@ export default makeStyles((theme) => ({
   modal__show__all: {
     width: "100%",
     height: "100%",
-    animation: "slide 0.4s linear",
     backgroundColor: "#fff",
     zIndex: 999,
     display: "flex",

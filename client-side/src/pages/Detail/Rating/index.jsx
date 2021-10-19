@@ -5,6 +5,7 @@ import {
   Input,
   InputAdornment,
   Modal,
+  Slide,
   Typography,
   useMediaQuery,
 } from "@material-ui/core";
@@ -16,17 +17,16 @@ import { BsFillStarFill } from "react-icons/bs";
 import { MdSearch } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
-import { FAKE_AVATAR } from "../../../constants/config";
+import { createAction } from "../../../store/action/createAction/createAction";
+import {
+  HIDE_MODAL_RATED,
+  SHOW_MODAL_RATED,
+} from "../../../store/types/ListRoomType";
 import CatalogRating from "./CatalogRating";
 import ContentUserRating from "./ContentUserRating";
 import useStyles from "./style";
-import { createAction } from "../../../store/action/createAction/createAction";
-import {
-  SHOW_MODAL_RATED,
-  HIDE_MODAL_RATED,
-} from "../../../store/types/ListRoomType";
 
-const DetailRating = () => {
+const DetailRating = ({ detailRating }) => {
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.up("md"));
   const isDeskTop = useMediaQuery(theme.breakpoints.up("xl"));
@@ -39,7 +39,7 @@ const DetailRating = () => {
   const handleHideModal = () => {
     dispatch(createAction(HIDE_MODAL_RATED));
   };
-  const arrDetailRating = [
+  const arrCatalogRating = [
     {
       name: "Mức độ sạch sẽ",
       value: 5,
@@ -66,150 +66,6 @@ const DetailRating = () => {
     },
   ];
 
-  const arrRating = [
-    {
-      _id: "6169230defe193001c0a5a74",
-      content:
-        "Villa hợp đi nhóm bạn/gia đình. Đầy đủ tiện nghi, ở ngoài đẹp hơn hình. Rất thích hồ bơi, nước trong không mùi. Chủ nhà thân thiện vui vẻ. Highly recommended!",
-      roomId: {},
-      userId: {
-        tickets: [],
-        _id: "6166deb1dc423b001dd9c145",
-        name: "Nguyễn Phong Kha",
-        email: "huyquang111@gmail.com",
-        password:
-          "$2a$10$sBAETyVKBNKIl1ynhgKnmOZmlQ4ZFlu5rYDJjrf19KpaVElfmnZvq",
-        phone: "0909876987",
-        birthday: "1998-05-11T00:00:00.000Z",
-        gender: true,
-        address: "191A Chường Trinh Quận 12",
-        type: "CLIENT",
-        img: FAKE_AVATAR,
-        __v: 0,
-      },
-      created_at: "2021-10-15T06:43:25.782Z",
-      updatedAt: "2021-10-15T06:43:25.782Z",
-      __v: 0,
-    },
-    {
-      _id: "6169230defe193001c0a5a74",
-      content:
-        "Villa hợp đi nhóm bạn/gia đình. Đầy đủ tiện nghi, ở ngoài đẹp hơn hình. Rất thích hồ bơi, nước trong không mùi. Chủ nhà thân thiện vui vẻ. Highly recommended!",
-      roomId: {},
-      userId: {
-        tickets: [],
-        _id: "6166deb1dc423b001dd9c145",
-        name: "Nguyễn Phong Kha",
-        email: "huyquang111@gmail.com",
-        password:
-          "$2a$10$sBAETyVKBNKIl1ynhgKnmOZmlQ4ZFlu5rYDJjrf19KpaVElfmnZvq",
-        phone: "0909876987",
-        birthday: "1998-05-11T00:00:00.000Z",
-        gender: true,
-        address: "191A Chường Trinh Quận 12",
-        type: "CLIENT",
-        img: FAKE_AVATAR,
-        __v: 0,
-      },
-      created_at: "2021-10-15T06:43:25.782Z",
-      updatedAt: "2021-10-15T06:43:25.782Z",
-      __v: 0,
-    },
-    {
-      _id: "6169230defe193001c0a5a74",
-      content:
-        "Host is professional, welcomed us though we checked in quite late. She gave us a house tour with detailed guidance before leaving, gifted us cupcakes on checkout. Her team also gave best effort in supporting anything we need. Totally worths the price!",
-      roomId: {},
-      userId: {
-        tickets: [],
-        _id: "6166deb1dc423b001dd9c145",
-        name: "Nguyễn Phong Kha",
-        email: "huyquang111@gmail.com",
-        password:
-          "$2a$10$sBAETyVKBNKIl1ynhgKnmOZmlQ4ZFlu5rYDJjrf19KpaVElfmnZvq",
-        phone: "0909876987",
-        birthday: "1998-05-11T00:00:00.000Z",
-        gender: true,
-        address: "191A Chường Trinh Quận 12",
-        type: "CLIENT",
-        img: FAKE_AVATAR,
-        __v: 0,
-      },
-      created_at: "2021-10-15T06:43:25.782Z",
-      updatedAt: "2021-10-15T06:43:25.782Z",
-      __v: 0,
-    },
-    {
-      _id: "6169230defe193001c0a5a74",
-      content: "dsadsa",
-      roomId: {},
-      userId: {
-        tickets: [],
-        _id: "6166deb1dc423b001dd9c145",
-        name: "Nguyễn Phong Kha",
-        email: "huyquang111@gmail.com",
-        password:
-          "$2a$10$sBAETyVKBNKIl1ynhgKnmOZmlQ4ZFlu5rYDJjrf19KpaVElfmnZvq",
-        phone: "0909876987",
-        birthday: "1998-05-11T00:00:00.000Z",
-        gender: true,
-        address: "191A Chường Trinh Quận 12",
-        type: "CLIENT",
-        img: FAKE_AVATAR,
-        __v: 0,
-      },
-      created_at: "2021-10-15T06:43:25.782Z",
-      updatedAt: "2021-10-15T06:43:25.782Z",
-      __v: 0,
-    },
-    {
-      _id: "6169230defe193001c0a5a74",
-      content: "dsadsa",
-      roomId: {},
-      userId: {
-        tickets: [],
-        _id: "6166deb1dc423b001dd9c145",
-        name: "Nguyễn Phong Kha",
-        email: "huyquang111@gmail.com",
-        password:
-          "$2a$10$sBAETyVKBNKIl1ynhgKnmOZmlQ4ZFlu5rYDJjrf19KpaVElfmnZvq",
-        phone: "0909876987",
-        birthday: "1998-05-11T00:00:00.000Z",
-        gender: true,
-        address: "191A Chường Trinh Quận 12",
-        type: "CLIENT",
-        img: FAKE_AVATAR,
-        __v: 0,
-      },
-      created_at: "2021-10-15T06:43:25.782Z",
-      updatedAt: "2021-10-15T06:43:25.782Z",
-      __v: 0,
-    },
-    {
-      _id: "6169230defe193001c0a5a74",
-      content: "dsadsa",
-      roomId: {},
-      userId: {
-        tickets: [],
-        _id: "6166deb1dc423b001dd9c145",
-        name: "Nguyễn Phong Kha",
-        email: "huyquang111@gmail.com",
-        password:
-          "$2a$10$sBAETyVKBNKIl1ynhgKnmOZmlQ4ZFlu5rYDJjrf19KpaVElfmnZvq",
-        phone: "0909876987",
-        birthday: "1998-05-11T00:00:00.000Z",
-        gender: true,
-        address: "191A Chường Trinh Quận 12",
-        type: "CLIENT",
-        img: FAKE_AVATAR,
-        __v: 0,
-      },
-      created_at: "2021-10-15T06:43:25.782Z",
-      updatedAt: "2021-10-15T06:43:25.782Z",
-      __v: 0,
-    },
-  ];
-  // const arrRating = [];
   const classes = useStyles();
   const settings = {
     dots: false,
@@ -220,24 +76,25 @@ const DetailRating = () => {
     swipeToSlide: true,
     className: `${classes.slider}`,
   };
-  const arrFilterContent = arrRating.filter((item) =>
-    item.content.toLowerCase().includes(valueInput)
+  const arrFilterContent = detailRating?.filter?.((item) =>
+    item?.content?.toLowerCase()?.includes(valueInput)
   );
+
   return (
     <div className={classes.room__rating} id="rated">
-      {arrRating.length > 0 ? (
+      {detailRating?.length > 0 ? (
         <Fragment>
           <div className={classes.room__rating__totalRated}>
             <Typography variant="span">
               <BsFillStarFill />
             </Typography>
             <Typography variant="span">
-              5,0 - {arrRating.length} đánh giá
+              5,0 - {detailRating?.length} đánh giá
             </Typography>
           </div>
           {isTablet ? (
             <Grid container>
-              {arrDetailRating.map((item, index) => (
+              {arrCatalogRating.map((item, index) => (
                 <Grid
                   item
                   xs={12}
@@ -249,7 +106,7 @@ const DetailRating = () => {
                   <CatalogRating item={item} />
                 </Grid>
               ))}
-              {arrRating.slice(0, 6).map((item, index) => (
+              {detailRating?.slice(0, 6).map((item, index) => (
                 <Grid item md={12} xl={6} key={index}>
                   <Box py={2} pr={isDeskTop && 10}>
                     <ContentUserRating
@@ -262,7 +119,7 @@ const DetailRating = () => {
             </Grid>
           ) : (
             <Slider {...settings}>
-              {arrRating.slice(0, 4).map((item, index) => (
+              {detailRating?.slice(0, 4).map((item, index) => (
                 <Box key={index} className={classes.room__rating__container}>
                   <ContentUserRating
                     item={item}
@@ -270,14 +127,14 @@ const DetailRating = () => {
                   />
                 </Box>
               ))}
-              {arrRating.length > 4 && (
+              {detailRating?.length > 4 && (
                 <Box className={classes.room__rating__container}>
                   <Typography
                     variant="body2"
                     className={classes.room__rating__textShowAll}
                     onClick={handleShowModal}
                   >
-                    Hiển thị tất cả {arrRating.length} đánh giá
+                    Hiển thị tất cả {detailRating?.length} đánh giá
                   </Typography>
                 </Box>
               )}
@@ -285,13 +142,15 @@ const DetailRating = () => {
           )}
 
           <div>
-            <Button
-              disableRipple
-              className={classes.room__rating__btnShowAll}
-              onClick={handleShowModal}
-            >
-              Hiển thị tất cả {arrRating.length} đánh giá
-            </Button>
+            {detailRating?.length > 6 && (
+              <Button
+                disableRipple
+                className={classes.room__rating__btnShowAll}
+                onClick={handleShowModal}
+              >
+                Hiển thị tất cả {detailRating?.length} đánh giá
+              </Button>
+            )}
           </div>
           <Modal
             open={modalRated}
@@ -300,84 +159,88 @@ const DetailRating = () => {
             aria-describedby="simple-modal-description"
             className={classes.modal}
           >
-            <div className={classes.room__rating__modal}>
-              <div className={classes.room__rating__modal__header}>
-                <IconButton>
-                  <AiOutlineClose onClick={handleHideModal} />
-                </IconButton>
-                <div>
-                  <div className={classes.room__rating__totalRated}>
-                    <Typography variant="span">
-                      <BsFillStarFill />
-                    </Typography>
-                    <Typography variant="span">
-                      5,0 - {arrRating.length} đánh giá
-                    </Typography>
-                  </div>
+            <Slide direction="up" in={modalRated}>
+              <div className={classes.room__rating__modal}>
+                <div className={classes.room__rating__modal__header}>
+                  <IconButton>
+                    <AiOutlineClose onClick={handleHideModal} />
+                  </IconButton>
+                  <div>
+                    <div className={classes.room__rating__totalRated}>
+                      <Typography variant="span">
+                        <BsFillStarFill />
+                      </Typography>
+                      <Typography variant="span">
+                        5,0 - {detailRating?.length} đánh giá
+                      </Typography>
+                    </div>
 
-                  <div className={classes.room__rating__modal__inputSearch}>
-                    <Input
-                      startAdornment={
-                        <InputAdornment position="start">
-                          <MdSearch />
-                        </InputAdornment>
-                      }
-                      placeholder="Tìm kiếm đánh giá"
-                      value={valueInput}
-                      onChange={(e) => setValueInput(e.target.value)}
-                    >
-                      Tìm kiếm theo đánh giá
-                    </Input>
+                    <div className={classes.room__rating__modal__inputSearch}>
+                      <Input
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <MdSearch />
+                          </InputAdornment>
+                        }
+                        placeholder="Tìm kiếm đánh giá"
+                        value={valueInput}
+                        onChange={(e) => setValueInput(e.target.value)}
+                      >
+                        Tìm kiếm theo đánh giá
+                      </Input>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Detail Rating */}
+                {/* Detail Rating */}
 
-              <Grid container spacing={3}>
-                <Grid item xs={12} xl={4}>
-                  <Grid item container>
-                    {arrDetailRating.map((item, index) => (
-                      <Grid
-                        item
-                        xs={12}
-                        md={6}
-                        xl={12}
-                        key={index}
-                        className={classes.room__rating__modal__detailRating}
-                      >
-                        <CatalogRating item={item} />
-                      </Grid>
-                    ))}
+                <Grid container spacing={3} style={{ overflowY: "auto" }}>
+                  <Grid item xs={12} xl={4}>
+                    <Grid item container>
+                      {arrCatalogRating.map((item, index) => (
+                        <Grid
+                          item
+                          xs={12}
+                          md={6}
+                          xl={12}
+                          key={index}
+                          className={classes.room__rating__modal__detailRating}
+                        >
+                          <CatalogRating item={item} />
+                        </Grid>
+                      ))}
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={12} xl={8}>
+                    <div
+                      className={
+                        classes.room__rating__modal__content__userRated
+                      }
+                    >
+                      {arrFilterContent?.length > 0
+                        ? arrFilterContent?.map((item) => (
+                            <div>
+                              <ContentUserRating
+                                item={item}
+                                handleShowModal={handleShowModal}
+                                openModal={modalRated}
+                              />
+                            </div>
+                          ))
+                        : detailRating.map((item) => (
+                            <div>
+                              <ContentUserRating
+                                item={item}
+                                handleShowModal={handleShowModal}
+                                openModal={modalRated}
+                              />
+                            </div>
+                          ))}
+                    </div>
                   </Grid>
                 </Grid>
-                <Grid item xs={12} xl={8}>
-                  <div
-                    className={classes.room__rating__modal__content__userRated}
-                  >
-                    {arrFilterContent.length > 0
-                      ? arrFilterContent.map((item) => (
-                          <div>
-                            <ContentUserRating
-                              item={item}
-                              handleShowModal={handleShowModal}
-                              openModal={modalRated}
-                            />
-                          </div>
-                        ))
-                      : arrRating.map((item) => (
-                          <div>
-                            <ContentUserRating
-                              item={item}
-                              handleShowModal={handleShowModal}
-                              openModal={modalRated}
-                            />
-                          </div>
-                        ))}
-                  </div>
-                </Grid>
-              </Grid>
-            </div>
+              </div>
+            </Slide>
           </Modal>
         </Fragment>
       ) : (
