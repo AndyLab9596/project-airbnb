@@ -250,7 +250,6 @@ export default function OptionsDialog() {
                                                         />
                                                     </div>
                                                 ))}
-
                                             </div>
                                         </section>
                                     </div>
@@ -259,13 +258,16 @@ export default function OptionsDialog() {
                         </div>
                     </DialogContentText>
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Cancel
-                    </Button>
-                    <Button onClick={handleClose} color="primary">
-                        Subscribe
-                    </Button>
+                <DialogActions >
+                    <div className={classes.footer__wrapper}>
+                        <button className={classes.footer__deleteAll}>
+                            Xóa tất cả
+                        </button>
+
+                        <button className={classes.footer__display}>
+                            Hiển thị hơn 300 chỗ ở
+                        </button>
+                    </div>
                 </DialogActions>
             </Dialog>
         </Fragment>

@@ -169,4 +169,51 @@ export default makeStyles(theme => ({
         },
     },
 
+    footer: {
+        padding: '16px 24px',
+        width: '100%'
+    },
+
+    footer__wrapper: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flex: '1 1 auto',
+        padding: '16px 24px',
+        width: '100%'
+    },
+
+    footer__deleteAll: {
+        cursor: 'pointer',
+        opacity: 1,
+        border: 'none',
+        outline: 'none',
+        backgroundColor: 'transparent',
+        color: 'rgb(34, 34, 34)',
+        width: 'auto',
+        fontSize: '16px',
+        lineHeight: '20px',
+        fontWeight: 600,
+        borderRadius: '8px',
+        padding: '10px',
+        textDecoration: 'underline',
+    },
+
+    footer__display: {
+        textAlign: 'center',
+        width: 'auto',
+        fontSize: '14px',
+        lineHeight: '18px',
+        fontWeight: 600,
+        borderRadius: '8px',
+        outline: 'none',
+        padding: '8px 16px',
+        border: 'none',
+        backgroundColor: 'rgb(34, 34, 34)',
+        color: 'rgb(255, 255, 255)',
+        cursor: 'pointer',
+    }
+
+
+
 }))
