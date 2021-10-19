@@ -110,6 +110,7 @@ const RoomImage = ({ detailRoom, detailRating }) => {
   const handleShowRating = () => {
     dispatch(createAction(SHOW_MODAL_RATED));
   };
+
   const classes = useStyles({ isTablet, isDeskTop, isScroll: scrolled });
   return (
     <Fragment>
