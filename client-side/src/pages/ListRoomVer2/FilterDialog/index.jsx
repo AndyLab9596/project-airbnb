@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useStyles from "./style";
 import CloseIcon from '@material-ui/icons/Close';
-import { Checkbox, FormControlLabel, Typography } from '@material-ui/core';
+import { Checkbox, FormControlLabel, Typography, DialogTitle, DialogContent, DialogActions, Button, DialogContentText } from '@material-ui/core';
 
 const FilterDialog = ({ handleCloseFilter }) => {
     const classes = useStyles();
@@ -77,6 +77,7 @@ const FilterDialog = ({ handleCloseFilter }) => {
     return (
         <div className={classes.root}>
             {/* Header */}
+
             <header className={classes.header}>
                 <div className={classes.header__closeBtn}>
                     <button className={classes.closeBtn__item} onClick={handleCloseFilter}>
@@ -85,7 +86,7 @@ const FilterDialog = ({ handleCloseFilter }) => {
                 </div>
                 <h6 className={classes.header__title}>Bộ lọc khác</h6>
             </header>
-            {/* Content */}
+
             <div className={classes.content}>
                 <header className={classes.content__header}></header>
                 <div className={classes.content__container}>
@@ -208,7 +209,12 @@ const FilterDialog = ({ handleCloseFilter }) => {
                     </main>
                 </div>
             </div>
+
+
+            {/* Content */}
+
         </div>
+
     );
 };
 

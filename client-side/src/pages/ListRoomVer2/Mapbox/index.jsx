@@ -12,19 +12,17 @@ const Mapbox = () => {
     });
 
     return (
-        <div className={classes.root}>
-            <ReactMapGL
-                {...viewport}
-                className={classes.ReactMapGL}
-                width="100%"
-                height="100%"
-                mapStyle="mapbox://styles/thienvy95/ckuvywfwtntgx17pr1vnuxbj8"
-                mapboxApiAccessToken="pk.eyJ1IjoidGhpZW52eTk1IiwiYSI6ImNrdXFkcTlycjByem8yeHBnbXVmNmwwMzQifQ.rLTXpQcU4iZjpeNw8DblUQ"
-                onViewportChange={(viewport) => setViewport(viewport)}
-            >
+        <ReactMapGL
+            {...viewport}
+            className={classes.ReactMapGL}
+            width="100%"
+            height="100%"
+            mapStyle="mapbox://styles/thienvy95/ckuvywfwtntgx17pr1vnuxbj8"
+            mapboxApiAccessToken="pk.eyJ1IjoidGhpZW52eTk1IiwiYSI6ImNrdXFkcTlycjByem8yeHBnbXVmNmwwMzQifQ.rLTXpQcU4iZjpeNw8DblUQ"
+            onViewportChange={(viewport) => setViewport(viewport)}
+        >
+        </ReactMapGL>
 
-            </ReactMapGL>
-        </div>
     );
 };
 

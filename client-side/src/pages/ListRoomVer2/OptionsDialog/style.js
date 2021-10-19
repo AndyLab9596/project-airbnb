@@ -145,4 +145,28 @@ export default makeStyles(theme => ({
 
     },
 
+    filter__item: {
+        display: 'inline-block',
+        whiteSpace: 'nowrap',
+        padding: '4px 8px 4px 0',
+    },
+
+    filter__item__button: {
+        cursor: 'pointer',
+        textAlign: 'center',
+        border: '1px solid rgb(176, 176, 176)',
+        backgroundColor: 'rgb(255, 255, 255)',
+        outline: 'none',
+        margin: 0,
+        borderRadius: '30px',
+        color: 'rgb(34, 34, 34)',
+        position: 'relative',
+        padding: '8px 16px',
+        fontSize: '12px',
+        lineHeight: '16px',
+        '&:hover': {
+            borderColor: 'rgb(34, 34, 34)',
+        },
+    },
+
 }))

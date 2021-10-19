@@ -9,7 +9,10 @@ import { useParams } from 'react-router';
 import manageRentApi from '../../api/manageRentApi';
 import Card from './Card';
 import FilterDialog from './FilterDialog';
+import Mapbox from './Mapbox';
+import OptionsDialog from './OptionsDialog';
 import PriceMenu from './PriceMenu';
+import PriceMenuFilter from './PriceMenuFilter';
 import useStyles from "./style";
 
 const fakeRooms = [
@@ -436,10 +439,6 @@ const fakeRooms = [
 
 ]
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-});
-
 const ListRoomVer2 = () => {
 
     const classes = useStyles();
@@ -449,36 +448,6 @@ const ListRoomVer2 = () => {
 
     const [rentRooms, setRentRooms] = useState([]);
     const province = rentRooms?.[0]?.locationId.province;
-
-    // Handle Menu Price:
-    const [anchorElPrice, setAnchorElPrice] = useState(null);
-
-    const handleOpenPrice = (event) => {
-        setAnchorElPrice(event.currentTarget);
-    };
-
-    const handleClosePrice = () => {
-        setAnchorElPrice(null);
-    };
-
-    // Handle Filter Dialog
-    const [openFilter, setOpenFilter] = useState(false);
-
-    const handleOpenFilter = () => {
-        setOpenFilter(true)
-    }
-
-    const handleCloseFilter = () => {
-        setOpenFilter(false)
-    }
-
-    // Mapbox setting viewport
-
-    const [viewport, setViewport] = useState({
-        latitude: 12.233032276052878,
-        longitude: 109.19698601839609,
-        zoom: 12,
-    });
 
     useEffect(() => {
         (async () => {
@@ -506,69 +475,8 @@ const ListRoomVer2 = () => {
                 {/* Filter */}
                 <div className={classes.filter}>
                     <div className={classes.filter__wrapper}>
-                        <div className={classes.filter__item}>
-                            <button className={classes.filter__item__button} onClick={(event) => handleOpenPrice(event)}>
-                                <span>Giá</span>
-                            </button>
-                        </div>
-
-                        {/* Modal Price */}
-                        <Menu
-                            id="price-menu"
-                            anchorReference="anchorPosition"
-                            anchorPosition={{ top: 250, left: 10 }}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'center',
-                            }}
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'center',
-                            }}
-                            anchorEl={anchorElPrice}
-                            keepMounted
-                            open={Boolean(anchorElPrice)}
-                            onClose={handleClosePrice}
-                            className={classes.rootPriceMenu}
-                        >
-
-                            {/* Price Menu Item */}
-                            <PriceMenu />
-                        </Menu>
-
-                        <div className={classes.filter__item}>
-                            <button className={classes.filter__item__button} onClick={handleOpenFilter}>
-                                <span>Bộ lọc khác</span>
-                            </button>
-                        </div>
-
-                        <Dialog
-                            fullWidth="true"
-                            maxWidth="lg"
-                            open={openFilter}
-                            TransitionComponent={Transition}
-                            keepMounted
-                            onClose={handleCloseFilter}
-                        >
-                            {/* <DialogTitle id="alert-dialog-slide-title">{"Use Google's location service?"}</DialogTitle>
-                            <DialogContent>
-                                <DialogContentText id="alert-dialog-slide-description">
-                                    Let Google help apps determine location. This means sending anonymous location data to
-                                    Google, even when no apps are running.
-                                </DialogContentText>
-                            </DialogContent>
-                            <DialogActions>
-                                <Button onClick={handleCloseFilter} color="primary">
-                                    Disagree
-                                </Button>
-                                <Button onClick={handleCloseFilter} color="primary">
-                                    Agree
-                                </Button>
-                            </DialogActions> */}
-                            <FilterDialog handleCloseFilter={handleCloseFilter} />
-
-                        </Dialog>
-
+                        <PriceMenuFilter />
+                        <OptionsDialog />
                     </div>
 
                 </div>
@@ -586,17 +494,7 @@ const ListRoomVer2 = () => {
             {/* Map */}
             <div className={classes.map}>
                 <div className={classes.mapBox}>
-                    <ReactMapGL
-                        {...viewport}
-                        className={classes.ReactMapGL}
-                        width="100%"
-                        height="100%"
-                        mapStyle="mapbox://styles/thienvy95/ckuvywfwtntgx17pr1vnuxbj8"
-                        mapboxApiAccessToken="pk.eyJ1IjoidGhpZW52eTk1IiwiYSI6ImNrdXFkcTlycjByem8yeHBnbXVmNmwwMzQifQ.rLTXpQcU4iZjpeNw8DblUQ"
-                        onViewportChange={(viewport) => setViewport(viewport)}
-                    >
-                    </ReactMapGL>
-
+                    <Mapbox />
                 </div>
             </div>
 
