@@ -1,17 +1,10 @@
-import {
-    Dialog, Menu,
-    Slide
-} from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import ReactMapGL from 'react-map-gl';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
 import manageRentApi from '../../api/manageRentApi';
 import Card from './Card';
-import FilterDialog from './FilterDialog';
 import Mapbox from './Mapbox';
 import OptionsDialog from './OptionsDialog';
-import PriceMenu from './PriceMenu';
 import PriceMenuFilter from './PriceMenuFilter';
 import useStyles from "./style";
 
