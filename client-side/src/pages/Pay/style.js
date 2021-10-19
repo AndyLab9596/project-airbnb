@@ -1,5 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles(theme => ({
+
+    //ROOT
     pay: {
         paddingLeft: 160,
         paddingRight: 160,
@@ -41,11 +43,7 @@ export default makeStyles(theme => ({
     },
     pay__title__icon: {
         fontSize: 15,
-        // position: "absolute",
 
-        // top: "50%",
-        // left: "50%",
-        // transform: "translate(-50%, -50%) !important"
 
     },
     pay__title__text: {
@@ -63,6 +61,7 @@ export default makeStyles(theme => ({
     },
 
 
+    //NOTI
     pay__left__noti: {
         border: "1px solid rgb(221, 221, 221)",
         borderRadius: 12,
@@ -92,20 +91,20 @@ export default makeStyles(theme => ({
     pay__left__noti__content__right: {
         marginLeft: 20
     },
+
+
+
+
+
+
+
+
+
+
+    // CHUYẾN ĐI CỦA BẠN
     pay__item: {
         paddingBottom: 24
     },
-    pay__left__list: {
-        display: "flex",
-        "& >li": {
-            padding: "0 5px",
-            "& >img": {
-                height: 10
-            }
-        }
-    },
-
-
     pay__item__title: {
         fontSize: 22,
         lineHeight: "26px",
@@ -116,6 +115,9 @@ export default makeStyles(theme => ({
         justifyContent: "space-between",
 
     },
+
+
+    // CHỌN CÁCH THANH TOÁN
     pay__item__style__title: {
         padding: "24px 0",
         borderTop: "1px solid rgb(221, 221, 221)",
@@ -203,6 +205,9 @@ export default makeStyles(theme => ({
     pay__radio__style: {
         fontSize: 15
     },
+
+
+    // CHÍNH SÁCH HỦY
     pay__button__confirm: {
         fontSize: 16,
         lineHeight: "20px",
@@ -219,6 +224,8 @@ export default makeStyles(theme => ({
     },
 
 
+
+    //RIGHT
     pay__right: {
         position: "sticky",
         top: 200,
@@ -304,7 +311,16 @@ export default makeStyles(theme => ({
     },
     pay__right__table__item: {
         display: "table-cell", width: "100%"
-    }
+    },
+    pay__left__list: {
+        display: "flex",
+        "& >li": {
+            padding: "0 5px",
+            "& >img": {
+                height: 10
+            }
+        }
+    },
 
 
 }))

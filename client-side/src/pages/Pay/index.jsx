@@ -7,6 +7,8 @@ import {
   Container,
   Button,
   IconButton,
+  Dialog,
+  Slide,
 } from "@material-ui/core";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import useStyles from "./style";
@@ -15,6 +17,7 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import StarIcon from "@material-ui/icons/Star";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import transitions from "@material-ui/core/styles/transitions";
 const Pay = () => {
   const classes = useStyles();
   const [valueGroup, setValueGroup] = React.useState("Visa");
@@ -27,6 +30,15 @@ const Pay = () => {
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
   };
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Container className={classes.pay} maxWidth={false}>
@@ -35,9 +47,6 @@ const Pay = () => {
           <IconButton className={classes.icon}>
             <ArrowBackIosIcon className={classes.pay__title__icon} />
           </IconButton>
-          {/* <button>
-            <ArrowBackIosIcon className={classes.pay__title__icon} />
-          </button> */}
           <Typography className={classes.pay__title__text} variant="subtitle1">
             Xác nhận và thanh toán
           </Typography>
@@ -45,6 +54,7 @@ const Pay = () => {
         <div>
           <Grid container>
             <Grid item lg={6} md={6} style={{ marginBottom: 100 }}>
+              {/* NOTI */}
               <div className={classes.pay__left__noti}>
                 <div className={classes.pay__left__noti__content}>
                   <div className={classes.pay__left__noti__content__left}>
@@ -64,6 +74,8 @@ const Pay = () => {
                   </div>
                 </div>
               </div>
+
+              {/* CHUYẾN ĐI CỦA BẠN  */}
               <div className={classes.pay__item}>
                 <Typography className={classes.pay__item__title}>
                   Chuyến đi của bạn
@@ -95,6 +107,8 @@ const Pay = () => {
                   </div>
                 </div>
               </div>
+
+              {/* CHỌN CÁCH THANH TOÁN  */}
               <div className={classes.pay__item__style__title}>
                 <Typography className={classes.pay__item__title}>
                   Chọn cách thanh toán
@@ -168,6 +182,8 @@ const Pay = () => {
                   </div>
                 </div>
               </Box>
+
+              {/* THANH TOÁN BẰNG  */}
               <div
                 style={{
                   display: "flex",
@@ -245,6 +261,8 @@ const Pay = () => {
                   </Typography>
                 </div>
               </div>
+
+              {/* BẮT BUỘC CHUYẾN ĐI CỦA BẠN  */}
               <div>
                 <div className={classes.pay__item__style__title}>
                   <Typography className={classes.pay__item__title}>
@@ -279,6 +297,8 @@ const Pay = () => {
                   </Typography>
                 </div>
               </div>
+
+              {/* CHÍNH SÁCH HỦY  */}
               <div>
                 <div className={classes.pay__item__style__title}>
                   <Typography className={classes.pay__item__title}>
@@ -315,6 +335,8 @@ const Pay = () => {
                   </div>
                 </div>
               </div>
+
+              {/* XÁC NHẬN VÀ THANH TOÁN  */}
               <div className={classes.pay__item__style__title}>
                 <span>Bằng việc chọn nút bên dưới, tôi đồng ý với</span>
                 <span>
@@ -324,11 +346,16 @@ const Pay = () => {
                 </span>
               </div>
               <div>
-                <Button className={classes.pay__button__confirm}>
+                <Button
+                  onClick={handleOpen}
+                  className={classes.pay__button__confirm}
+                >
                   Xác nhận và thanh toán
                 </Button>
               </div>
             </Grid>
+
+            {/* RIGHT  */}
             <Grid item lg={6} md={6}>
               <Box className={classes.pay__right}>
                 <div>
@@ -426,6 +453,16 @@ const Pay = () => {
           </Grid>
         </div>
       </Box>
+
+      <Dialog
+        onClose={handleClose}
+        open={open}
+        maxWidth="md"
+        classes={{ paper: classes.paper }}
+        keepMounted
+      >
+        <h1>123123</h1>
+      </Dialog>
     </Container>
   );
 };
