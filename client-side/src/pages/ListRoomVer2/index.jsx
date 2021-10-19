@@ -1,10 +1,14 @@
-import { Menu, MenuItem } from '@material-ui/core';
+import {
+    Dialog, Menu,
+    Slide
+} from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import ReactMapGL from 'react-map-gl';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
 import manageRentApi from '../../api/manageRentApi';
 import Card from './Card';
+import FilterDialog from './FilterDialog';
 import PriceMenu from './PriceMenu';
 import useStyles from "./style";
 
@@ -432,6 +436,10 @@ const fakeRooms = [
 
 ]
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
+
 const ListRoomVer2 = () => {
 
     const classes = useStyles();
@@ -453,6 +461,19 @@ const ListRoomVer2 = () => {
         setAnchorElPrice(null);
     };
 
+    // Handle Filter Dialog
+    const [openFilter, setOpenFilter] = useState(false);
+
+    const handleOpenFilter = () => {
+        setOpenFilter(true)
+    }
+
+    const handleCloseFilter = () => {
+        setOpenFilter(false)
+    }
+
+    // Mapbox setting viewport
+
     const [viewport, setViewport] = useState({
         latitude: 12.233032276052878,
         longitude: 109.19698601839609,
@@ -471,7 +492,6 @@ const ListRoomVer2 = () => {
         })()
 
     }, [locationId])
-    // props drilling
 
     return (
         <div className={classes.root}>
@@ -513,17 +533,42 @@ const ListRoomVer2 = () => {
                         >
 
                             {/* Price Menu Item */}
-
                             <PriceMenu />
-
-
                         </Menu>
 
                         <div className={classes.filter__item}>
-                            <button className={classes.filter__item__button}>
+                            <button className={classes.filter__item__button} onClick={handleOpenFilter}>
                                 <span>Bộ lọc khác</span>
                             </button>
                         </div>
+
+                        <Dialog
+                            fullWidth="true"
+                            maxWidth="lg"
+                            open={openFilter}
+                            TransitionComponent={Transition}
+                            keepMounted
+                            onClose={handleCloseFilter}
+                        >
+                            {/* <DialogTitle id="alert-dialog-slide-title">{"Use Google's location service?"}</DialogTitle>
+                            <DialogContent>
+                                <DialogContentText id="alert-dialog-slide-description">
+                                    Let Google help apps determine location. This means sending anonymous location data to
+                                    Google, even when no apps are running.
+                                </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={handleCloseFilter} color="primary">
+                                    Disagree
+                                </Button>
+                                <Button onClick={handleCloseFilter} color="primary">
+                                    Agree
+                                </Button>
+                            </DialogActions> */}
+                            <FilterDialog handleCloseFilter={handleCloseFilter} />
+
+                        </Dialog>
+
                     </div>
 
                 </div>

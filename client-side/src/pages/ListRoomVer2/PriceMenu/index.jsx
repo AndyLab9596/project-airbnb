@@ -1,6 +1,6 @@
-import { InputAdornment, MenuItem, TextField } from '@material-ui/core';
+import { MenuItem } from '@material-ui/core';
 import React, { useState } from 'react';
-import { AirbnbSlider, AirbnbThumbComponent, useStyles, PriceInputField } from "./style";
+import { AirbnbSlider, AirbnbThumbComponent, PriceInputField, useStyles } from "./style";
 
 const PriceMenu = () => {
     const classes = useStyles();
@@ -43,7 +43,6 @@ const PriceMenu = () => {
                     <div className={classes.priceMenu__inputField}>
                         <PriceInputField
                             label="giá tối thiểu"
-                            // className={classes.margin}
                             defaultValue={priceValue[0]}
                             value={priceValue[0]}
                             variant="filled"
