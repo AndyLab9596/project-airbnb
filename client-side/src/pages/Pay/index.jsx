@@ -13,6 +13,8 @@ import useStyles from "./style";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import StarIcon from "@material-ui/icons/Star";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 const Pay = () => {
   const classes = useStyles();
   return (
@@ -319,7 +321,133 @@ const Pay = () => {
                 </Button>
               </div>
             </Grid>
-            <Grid item lg={6}></Grid>
+            <Grid item lg={6}>
+              <Box position="sticky" top={200} marginBottom={12} marginLeft={8}>
+                <div>
+                  <div className={classes.pay__left__noti}>
+                    <div style={{ paddingBottom: 24 }}>
+                      <div style={{ display: "flex" }}>
+                        <div style={{ flex: "0 0 35%" }}>
+                          <img
+                            src="https://a0.muscache.com/im/pictures/896c6768-8c48-4a39-b24f-e63b58ee3de6.jpg?aki_policy=large"
+                            alt="img"
+                            style={{ width: 115, height: 100, borderRadius: 8 }}
+                          />
+                        </div>
+                        <div
+                          style={{
+                            flex: "0 0 65%",
+                            display: "flex",
+                            justifyContent: "space-between",
+                            flexDirection: "column",
+                            paddingBottom: 5,
+                          }}
+                        >
+                          <Typography variant="caption">
+                            Toàn bộ căn hộ cho thuê tại Quận 4
+                          </Typography>
+                          <div>
+                            <Typography
+                              variant="body1"
+                              style={{ fontSize: 14 }}
+                            >
+                              Masteri Millennium Studio with Amazing City View
+                            </Typography>
+                            <Typography variant="caption">
+                              1 giường · 1 phòng tắm
+                            </Typography>
+                          </div>
+                          <div style={{ display: "flex", flexWrap: "wrap" }}>
+                            <div style={{ paddingRight: 14 }}>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  fontWeight: 400,
+                                  fontSize: 12,
+                                }}
+                              >
+                                <StarIcon
+                                  style={{
+                                    fontWeight: 400,
+                                    fontSize: 15,
+                                    color: "red",
+                                    paddingRight: 2,
+                                  }}
+                                />
+
+                                <span>4.87 (172 đánh giá)</span>
+                              </div>
+                            </div>
+                            <div>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  fontWeight: 400,
+                                  fontSize: 12,
+                                }}
+                              >
+                                <FavoriteIcon
+                                  style={{
+                                    fontWeight: 400,
+                                    fontSize: 15,
+                                    paddingRight: 2,
+                                    color: "red",
+                                  }}
+                                />
+
+                                <span>Chủ nhà siêu cấp</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className={classes.pay__item__style__title}>
+                      <Typography className={classes.pay__item__title}>
+                        Chi tiết giá
+                      </Typography>
+                    </div>
+                    <div>
+                      <div style={{ display: "table", marginBottom: 15 }}>
+                        <div style={{ display: "table-cell", width: "100%" }}>
+                          <Typography variant="body1">
+                            $24,16 x 3 đêm
+                          </Typography>
+                        </div>
+                        <div>
+                          <Typography variant="body1">$72,48</Typography>
+                        </div>
+                      </div>
+                      <div style={{ display: "table", marginBottom: 15 }}>
+                        <div style={{ display: "table-cell", width: "100%" }}>
+                          <Typography
+                            variant="body1"
+                            style={{ textDecoration: "underline" }}
+                          >
+                            Phí dịch vụ
+                          </Typography>
+                        </div>
+                        <div>
+                          <Typography variant="body1">$10,23</Typography>
+                        </div>
+                      </div>
+                      <div style={{ display: "table", marginBottom: 15 }}>
+                        <div style={{ display: "table-cell", width: "100%" }}>
+                          <Typography variant="body1">Tổng (USD)</Typography>
+                        </div>
+                        <div>
+                          <Typography variant="body1">$82,71</Typography>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Box>
+            </Grid>
           </Grid>
         </div>
       </Box>
