@@ -17,6 +17,17 @@ import StarIcon from "@material-ui/icons/Star";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 const Pay = () => {
   const classes = useStyles();
+  const [valueGroup, setValueGroup] = React.useState("Visa");
+
+  const handleChangeRadioGroup = (event) => {
+    setValueGroup(event.target.value);
+  };
+  const [selectedValue, setSelectedValue] = React.useState("a");
+
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+
   return (
     <Container className={classes.pay} maxWidth={false}>
       <Box paddingTop={20}>
@@ -69,11 +80,6 @@ const Pay = () => {
                     </Typography>
                     <Typography>3 thg 11 – 6 thg 11</Typography>
                   </div>
-                  <div>
-                    <Typography className={classes.pay__button__style}>
-                      Chỉnh sửa
-                    </Typography>
-                  </div>
                 </div>
               </div>
               <div className={classes.pay__item}>
@@ -86,11 +92,6 @@ const Pay = () => {
                       Khách
                     </Typography>
                     <Typography>1 khách</Typography>
-                  </div>
-                  <div>
-                    <Typography className={classes.pay__button__style}>
-                      Chỉnh sửa
-                    </Typography>
                   </div>
                 </div>
               </div>
@@ -122,9 +123,12 @@ const Pay = () => {
                     style={{ flex: "0 0 4%" }}
                     className={classes.pay__radio__right}
                   >
-                    <input
-                      type="radio"
-                      className={classes.pay__radio__right__item}
+                    <Radio
+                      checked={selectedValue === "a"}
+                      onChange={handleChange}
+                      value="a"
+                      name="radio-button-demo"
+                      inputProps={{ "aria-label": "A" }}
                     />
                   </div>
                 </div>
@@ -152,11 +156,14 @@ const Pay = () => {
                   </div>
                   <div
                     style={{ flex: "0 0 4%" }}
-                    className={classes.pay__radio__right}
+                    className={classes.pay__radio__right1}
                   >
-                    <input
-                      type="radio"
-                      className={classes.pay__radio__right__item}
+                    <Radio
+                      checked={selectedValue === "b"}
+                      onChange={handleChange}
+                      value="b"
+                      name="radio-button-demo"
+                      inputProps={{ "aria-label": "B" }}
                     />
                   </div>
                 </div>
@@ -176,39 +183,28 @@ const Pay = () => {
                   </Typography>
                 </div>
                 <div>
-                  <ul style={{ display: "flex" }}>
+                  <ul className={classes.pay__left__list}>
                     <li>
                       <img
-                        style={{ height: 10 }}
                         src="https://a0.muscache.com/airbnb/static/packages/assets/frontend/legacy-shared/svgs/payments/logo_visa.0adea522bb26bd90821a8fade4911913.svg"
                         alt=""
                       />
                     </li>
                     <li>
                       <img
-                        style={{ height: 10 }}
-                        src="https://a0.muscache.com/airbnb/static/packages/assets/frontend/legacy-shared/svgs/payments/logo_visa.0adea522bb26bd90821a8fade4911913.svg"
+                        src="https://a0.muscache.com/airbnb/static/packages/assets/frontend/legacy-shared/svgs/payments/logo_mastercard.f18379cf1f27d22abd9e9cf44085d149.svg"
                         alt=""
                       />
                     </li>
                     <li>
                       <img
-                        style={{ height: 10 }}
-                        src="https://a0.muscache.com/airbnb/static/packages/assets/frontend/legacy-shared/svgs/payments/logo_visa.0adea522bb26bd90821a8fade4911913.svg"
+                        src="https://a0.muscache.com/airbnb/static/packages/assets/frontend/legacy-shared/svgs/payments/logo_googlepay.3f786bc031b59575d24f504dfb859da0.svg"
                         alt=""
                       />
                     </li>
                     <li>
                       <img
-                        style={{ height: 10 }}
-                        src="https://a0.muscache.com/airbnb/static/packages/assets/frontend/legacy-shared/svgs/payments/logo_visa.0adea522bb26bd90821a8fade4911913.svg"
-                        alt=""
-                      />
-                    </li>
-                    <li>
-                      <img
-                        style={{ height: 10 }}
-                        src="https://a0.muscache.com/airbnb/static/packages/assets/frontend/legacy-shared/svgs/payments/logo_visa.0adea522bb26bd90821a8fade4911913.svg"
+                        src="https://a0.muscache.com/airbnb/static/packages/assets/frontend/legacy-shared/svgs/payments/logo_paypal.faa3042fa2daf6b4a9822cc4b43e8609.svg"
                         alt=""
                       />
                     </li>
@@ -219,26 +215,26 @@ const Pay = () => {
                 <RadioGroup
                   aria-label="gender"
                   name="gender1"
-                  // value={value}
-                  // onChange={handleChange}
+                  value={valueGroup}
+                  onChange={handleChangeRadioGroup}
                 >
                   <FormControlLabel
-                    value="visa"
+                    value="Visa"
                     control={<Radio />}
                     label="Visa"
                   />
                   <FormControlLabel
-                    value="masterCard"
+                    value="MasterCard"
                     control={<Radio />}
                     label="Master Card"
                   />
                   <FormControlLabel
-                    value="googlePay"
+                    value="GooglePay"
                     control={<Radio />}
                     label="Google Pay"
                   />
                   <FormControlLabel
-                    value="paypal"
+                    value="Paypal"
                     control={<Radio />}
                     label="Paypal"
                   />
@@ -296,9 +292,12 @@ const Pay = () => {
                     50%, trừ chi phí đêm đầu tiên và phí dịch vụ.
                   </span>
                   <div>
-                    <Typography className={classes.pay__button__style}>
-                      Chỉnh sửa
-                    </Typography>
+                    <a
+                      href="https://www.airbnb.com.vn/help/article/149/t%C3%ACm-ch%C3%ADnh-s%C3%A1ch-h%E1%BB%A7y-%C3%A1p-d%E1%BB%A5ng-cho-%C4%91%E1%BA%B7t-ph%C3%B2ng-c%E1%BB%A7a-b%E1%BA%A1n"
+                      className={classes.pay__button__style}
+                    >
+                      Tìm hiểu thêm
+                    </a>
                   </div>
                 </div>
                 <div style={{ paddingBottom: 24 }}>
@@ -307,9 +306,12 @@ const Pay = () => {
                     dụng cho các trường hợp gián đoạn đi lại do COVID-19 gây ra.{" "}
                   </span>
                   <div>
-                    <Typography className={classes.pay__button__style}>
-                      Chỉnh sửa
-                    </Typography>
+                    <a
+                      href="https://www.airbnb.com.vn/help/article/2701/ch%C3%ADnh-s%C3%A1ch-tr%C6%B0%E1%BB%9Dng-h%E1%BB%A3p-b%E1%BA%A5t-kh%E1%BA%A3-kh%C3%A1ng-v%C3%A0-%C4%91%E1%BA%A1i-d%E1%BB%8Bch-vir%C3%BAt-corona-covid19"
+                      className={classes.pay__button__style}
+                    >
+                      Tìm hiểu thêm
+                    </a>
                   </div>
                 </div>
               </div>

@@ -95,7 +95,15 @@ export default makeStyles(theme => ({
     pay__item: {
         paddingBottom: 24
     },
-
+    pay__left__list: {
+        display: "flex",
+        "& >li": {
+            padding: "0 5px",
+            "& >img": {
+                height: 10
+            }
+        }
+    },
 
 
     pay__item__title: {
@@ -124,8 +132,9 @@ export default makeStyles(theme => ({
     },
     pay__button__style: {
         textDecoration: "underline",
-        fontWeight: 600,
+        fontWeight: 700,
         cursor: "pointer",
+        color: "#222222",
         "&:active": {
             color: " rgb(113, 113, 113)",
         }
@@ -168,13 +177,29 @@ export default makeStyles(theme => ({
         flex: "0 0 auto",
         margin: 0
     },
-    // pay__radio__right: {
+    pay__radio__right: {
 
 
 
-    //     transform: "translate(60%, -12%) !important",
-    //     flexGrow: "1 1 auto"
-    // },
+        transform: "translate(35%, -20%) !important",
+        [theme.breakpoints.down(769)]: {
+
+            transform: "translate(0, -10%) !important",
+
+
+        },
+
+    },
+    pay__radio__right1: {
+        transform: "translate(35%, -10%) !important",
+        [theme.breakpoints.down(769)]: {
+
+            transform: "translate(0, -5%) !important",
+
+
+        },
+
+    },
     pay__radio__style: {
         fontSize: 15
     },
