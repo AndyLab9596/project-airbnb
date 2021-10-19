@@ -2,7 +2,7 @@ import { IconButton, Tooltip, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import { AiFillHome } from "react-icons/ai";
 import ReactMapGL, { Marker } from "react-map-gl";
-import useStyles from "./index";
+import useStyles from "./style";
 
 const DetailMap = () => {
   const [viewport, setViewport] = useState({

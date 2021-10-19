@@ -47,8 +47,7 @@ const ListRoomReducer = (state = initialState, { type, payload }) => {
       return { ...state, modal: false };
     }
 
-    // Detail Room
-
+    //Detail
     case DETAIL_ROOM: {
       return { ...state, detailRoom: payload };
     }

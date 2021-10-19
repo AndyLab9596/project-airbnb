@@ -29,7 +29,7 @@ const Detail = () => {
   const { detailRoom } = useSelector((state) => state.ListRoomReducer);
   useEffect(() => {
     dispatch(DetailRoomAction(fakeRoom));
-  }, []);
+  }, [dispatch]);
   return (
     <div className={classes.content}>
       <RoomImage detailRoom={detailRoom} />
