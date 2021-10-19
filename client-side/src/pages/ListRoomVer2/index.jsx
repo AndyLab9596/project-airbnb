@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
 import manageRentApi from '../../api/manageRentApi';
 import Card from './Card';
+import PriceMenu from './PriceMenu';
 import useStyles from "./style";
 
 const fakeRooms = [
@@ -508,9 +509,12 @@ const ListRoomVer2 = () => {
                             keepMounted
                             open={Boolean(anchorElPrice)}
                             onClose={handleClosePrice}
+                            className={classes.rootPriceMenu}
                         >
-                            {/* Price Modal */}
-                            <MenuItem onClick={handleClosePrice}>Profile</MenuItem>
+
+                            {/* Price Menu Item */}
+
+                            <PriceMenu />
 
 
                         </Menu>

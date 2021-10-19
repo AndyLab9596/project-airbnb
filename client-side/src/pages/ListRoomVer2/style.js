@@ -92,5 +92,23 @@ export default makeStyles(theme => ({
         justifyContent: 'center',
         position: 'sticky',
         top: 0,
-    }
+    },
+
+    // Root Price Menu
+    rootPriceMenu: {
+        "& .MuiPaper-root": {
+            backgroundColor: 'rgb(255, 255, 255)',
+            border: '0.5px solid rgba(118, 118, 118, 0.28)',
+            borderRadius: '12px',
+            boxShadow: 'rgb(0 0 0 / 15%) 0px 10px 37px',
+            overflow: 'hidden',
+        },
+
+        '& .MuiListItem-button:hover': {
+            backgroundColor: 'transparent'
+        }
+
+    },
+
+
 }))
