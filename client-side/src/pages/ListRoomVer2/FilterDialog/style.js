@@ -61,7 +61,7 @@ export default makeStyles(theme => ({
     },
 
     content__element: {
-        padding: '28 24px',
+        padding: '28px 24px',
         margin: '0 24px',
         borderBottom: '1px solid rgb(235, 235, 235)',
     },
@@ -129,5 +129,15 @@ export default makeStyles(theme => ({
         borderRadius: '50%'
     },
 
+
+    content__element__checkbox: {
+        padding: '12px 0',
+        flexBasis: '50%',
+    },
+
+    formControl: {
+        color: 'rgb(34, 34, 34)',
+
+    },
 
 }))
