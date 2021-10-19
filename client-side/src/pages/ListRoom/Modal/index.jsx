@@ -36,6 +36,7 @@ const ModalFilter = ({ handleClose, open }) => {
   //MODAL
   // PHÒNG VÀ PHÒNG NGỦ
   const [numbers, setNumbers] = useState({
+    
     guests: 0,
     bedRoom: 0,
     bath: 0,
@@ -51,7 +52,7 @@ const ModalFilter = ({ handleClose, open }) => {
     cableTV: false,
   });
 
-  const filtered = arrListRoom.filter((item) => {
+  const filtered = arrListRoom?.filter((item) => {
     if (Object.keys(numbers).every((p) => item[p] >= numbers[p])) {
       return true;
     }
