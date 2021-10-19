@@ -12,6 +12,8 @@ const FilterDialog = ({ handleCloseFilter }) => {
         bath: 0,
     })
 
+    console.log(numberServices)
+
     const addBed = () => {
         if (numberServices.bed > 15) return;
         setNumberServices({ ...numberServices, bed: numberServices.bed + 1 })
@@ -20,6 +22,26 @@ const FilterDialog = ({ handleCloseFilter }) => {
     const minusBed = () => {
         if (numberServices.bed < 1) return;
         setNumberServices({ ...numberServices, bed: numberServices.bed - 1 })
+    }
+
+    const addbedRoom = () => {
+        if (numberServices.bedRoom > 15) return;
+        setNumberServices({ ...numberServices, bedRoom: numberServices.bedRoom + 1 })
+    }
+
+    const minusbedRoom = () => {
+        if (numberServices.bedRoom < 1) return;
+        setNumberServices({ ...numberServices, bedRoom: numberServices.bedRoom - 1 })
+    }
+
+    const addBath = () => {
+        if (numberServices.bath > 15) return;
+        setNumberServices({ ...numberServices, bath: numberServices.bath + 1 })
+    }
+
+    const minusBath = () => {
+        if (numberServices.bath < 1) return;
+        setNumberServices({ ...numberServices, bath: numberServices.bath - 1 })
     }
 
     return (
@@ -77,13 +99,17 @@ const FilterDialog = ({ handleCloseFilter }) => {
                                                 <p>Phòng ngủ</p>
                                             </div>
                                             <div className={classes.item__action}>
-                                                <button className={classes.item__action__btn}>
+                                                <button className={classes.item__action__btn}
+                                                    onClick={() => minusbedRoom()}
+                                                >
                                                     <span>-</span>
                                                 </button>
                                                 <span className={classes.item__action__number}>
                                                     {numberServices.bedRoom}
                                                 </span>
-                                                <button className={classes.item__action__btn}>
+                                                <button className={classes.item__action__btn}
+                                                    onClick={() => addbedRoom()}
+                                                >
                                                     <span>+</span>
                                                 </button>
                                             </div>
@@ -96,13 +122,17 @@ const FilterDialog = ({ handleCloseFilter }) => {
                                                 <p>Phòng tắm</p>
                                             </div>
                                             <div className={classes.item__action}>
-                                                <button className={classes.item__action__btn}>
+                                                <button className={classes.item__action__btn}
+                                                    onClick={() => minusBath()}
+                                                >
                                                     <span>-</span>
                                                 </button>
                                                 <span className={classes.item__action__number}>
                                                     {numberServices.bath}
                                                 </span>
-                                                <button className={classes.item__action__btn}>
+                                                <button className={classes.item__action__btn}
+                                                    onClick={() => addBath()}
+                                                >
                                                     <span>+</span>
                                                 </button>
                                             </div>
