@@ -1,4 +1,4 @@
-import { Avatar, Container, Grid } from "@material-ui/core";
+import { Avatar, Container, Grid, TextField } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -11,11 +11,22 @@ import React from "react";
 import useStyles from "./style";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useFormik } from "formik";
 const Profile = () => {
   const classes = useStyles();
 
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("xl"));
+  const handleChangeFile = (event) => {
+    formik.setFieldValue(event.target.name, event.target.files[0]);
+    // file là array mỗi lần chọn đúng 1 hình nên chọn index [0]
+  };
+  
+  const formik = useFormik({
+    initialValues: {
+      hinhAnh: "",
+    },
+  });
   return (
     <Container maxWidth="lg" className={classes.profile}>
       {isDesktop ? (
@@ -31,6 +42,12 @@ const Profile = () => {
                       className={classes.large}
                     />
                   </div>
+
+                  <input
+                    name="hinhAnh"
+                    onChange={handleChangeFile}
+                    type="file"
+                  />
                   <Typography
                     className={classes.profile__text}
                     style={{ textAlign: "center" }}
