@@ -15,6 +15,7 @@ import useStyles from "./style";
 import { useDispatch, useSelector } from "react-redux";
 import { createAction } from "../../../../store/action/createAction/createAction";
 import { SEARCH_RESULT } from "../../../../store/types/SearchType";
+import GuestCount from "../../../../components/GuestCount";
 
 // Data from API 9
 // {
@@ -58,58 +59,10 @@ const SearchBar = ({ isDesktop, setSearchBarValue }) => {
   };
 
   const [numbers, setNumbers] = useState({
-    adult: 0,
-    baby: 0,
-    toddler: 0,
+    _adult: 0,
+    _children: 0,
+    _toddler: 0,
   });
-
-  const addAdult = () => {
-    if (numbers.adult > 15) return;
-    setNumbers({ ...numbers, adult: numbers.adult + 1 });
-  };
-
-  const minusAdult = () => {
-    if (numbers.adult < 1) return;
-    setNumbers({ ...numbers, adult: numbers.adult - 1 });
-  };
-
-  const addBaby = () => {
-    if (numbers.baby > 4) return;
-
-    if (numbers.adult === 0) {
-      setNumbers({
-        ...numbers,
-        baby: numbers.baby + 1,
-        adult: numbers.adult + 1,
-      });
-    } else {
-      setNumbers({ ...numbers, baby: numbers.baby + 1 });
-    }
-  };
-
-  const minusBaby = () => {
-    if (numbers.baby < 1) return;
-    setNumbers({ ...numbers, baby: numbers.baby - 1 });
-  };
-
-  const addToddler = () => {
-    if (numbers.toddler > 4) return;
-
-    if (numbers.adult === 0) {
-      setNumbers({
-        ...numbers,
-        toddler: numbers.toddler + 1,
-        adult: numbers.adult + 1,
-      });
-    } else {
-      setNumbers({ ...numbers, toddler: numbers.toddler + 1 });
-    }
-  };
-
-  const minusToddler = () => {
-    if (numbers.toddler < 1) return;
-    setNumbers({ ...numbers, toddler: numbers.toddler - 1 });
-  };
 
   useEffect(() => {
     (async () => {
@@ -145,15 +98,15 @@ const SearchBar = ({ isDesktop, setSearchBarValue }) => {
     location: locationInputValue,
     checkIn: checkInFormatted,
     checkOut: checkOutFormatted,
-    guest: numbers.adult + numbers.baby,
+    guest: numbers._adult + numbers._childrend,
   };
 
   const queryParams = {
-    _checkIn: bookingTime[0],
-    _checkOut: bookingTime[1],
-    _adult: numbers.adult,
-    _baby: numbers.baby,
-    _toddler: numbers.toddler,
+    _checkIn: moment(bookingTime[0]).format("YYYY-MM-DD"),
+    _checkOut: moment(bookingTime[0]).format("YYYY-MM-DD"),
+    _adult: numbers._adult,
+    _children: numbers._children,
+    _toddler: numbers._toddler,
   };
 
   const handleSearchSubmit = async (e) => {
@@ -265,11 +218,16 @@ const SearchBar = ({ isDesktop, setSearchBarValue }) => {
             >
               <p className={classes.customer__title}>Khách</p>
               <p className={classes.customer__text}>
-                {numbers.adult === 0
-                  ? "Thêm khách"
-                  : `${numbers.adult + numbers.baby} khách, ${
-                      numbers.toddler
-                    } em bé`}
+                {numbers._adult === 0 ? (
+                  "Thêm khách"
+                ) : (
+                  <>
+                    {numbers._adult + numbers._children} khách
+                    {numbers._toddler !== 0
+                      ? `, ${numbers._toddler} em bé`
+                      : null}
+                  </>
+                )}
               </p>
             </div>
             <button className={classes.formControl__button}>
@@ -305,83 +263,7 @@ const SearchBar = ({ isDesktop, setSearchBarValue }) => {
               },
             }}
           >
-            <MenuItem className={classes.menu__items}>
-              <div className={classes.count}>
-                <div className={classes.count__content}>
-                  <h6>Nguời lớn</h6>
-                  <p>Từ 13 tuổi trở lên</p>
-                </div>
-                <div className={classes.count__action}>
-                  <button
-                    className={classes.count__action__button}
-                    onClick={() => minusAdult()}
-                  >
-                    <span>-</span>
-                  </button>
-                  <span className={classes.count__action__display}>
-                    {numbers.adult}
-                  </span>
-                  <button
-                    className={classes.count__action__button}
-                    onClick={() => addAdult()}
-                  >
-                    <span>+</span>
-                  </button>
-                </div>
-              </div>
-            </MenuItem>
-
-            <MenuItem className={classes.menu__items}>
-              <div className={classes.count}>
-                <div className={classes.count__content}>
-                  <h6>Trẻ em</h6>
-                  <p>Độ tuổi 2-12</p>
-                </div>
-                <div className={classes.count__action}>
-                  <button
-                    className={classes.count__action__button}
-                    onClick={() => minusBaby()}
-                  >
-                    <span>-</span>
-                  </button>
-                  <span className={classes.count__action__display}>
-                    {numbers.baby}
-                  </span>
-                  <button
-                    className={classes.count__action__button}
-                    onClick={() => addBaby()}
-                  >
-                    <span>+</span>
-                  </button>
-                </div>
-              </div>
-            </MenuItem>
-
-            <MenuItem className={classes.menu__items}>
-              <div className={classes.count}>
-                <div className={classes.count__content}>
-                  <h6>Em bé</h6>
-                  <p>Dưới 2 tuổi</p>
-                </div>
-                <div className={classes.count__action}>
-                  <button
-                    className={classes.count__action__button}
-                    onClick={() => minusToddler()}
-                  >
-                    <span>-</span>
-                  </button>
-                  <span className={classes.count__action__display}>
-                    {numbers.toddler}
-                  </span>
-                  <button
-                    className={classes.count__action__button}
-                    onClick={() => addToddler()}
-                  >
-                    <span>+</span>
-                  </button>
-                </div>
-              </div>
-            </MenuItem>
+            <GuestCount numbersFilter={numbers} setNumbersFilter={setNumbers} />
           </Menu>
         </div>
       </form>

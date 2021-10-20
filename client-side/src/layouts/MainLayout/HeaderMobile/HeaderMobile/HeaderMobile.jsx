@@ -62,7 +62,7 @@ const HeaderMobileHuy = () => {
         }}
       >
         <Slide direction="up" in={modalSearch}>
-          <div className={classes.modal__header}>
+          <div className={classes.modal__content}>
             <div className={classes.modal__search}>
               <FcPrevious onClick={handleHideModalSearch} />
               <TextField

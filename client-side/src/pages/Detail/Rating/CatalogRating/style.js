@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles((theme) => ({
-  room__rating__modal__detailRating_percent: {
+  rating__modal__detailRating_percent: {
     position: "relative",
     height: 4,
     width: "80%",
@@ -13,7 +13,7 @@ export default makeStyles((theme) => ({
       backgroundColor: "#222222",
     },
   },
-  room__rating__modal__detailRating__value: {
+  rating__modal__detailRating__value: {
     fontSize: 12,
     lineHeight: "16px",
     fontWeight: 600,

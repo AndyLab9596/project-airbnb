@@ -25,21 +25,17 @@ export default makeStyles((theme) => ({
       fontWeight: 400,
     },
   },
-
-  booking__content__btn: {
-    width: (props) => (props.isBooking ? "70%" : "40%"),
-    backgroundImage:
-      "radial-gradient(circle at center center, rgb(255, 56, 92) 0%, rgb(230, 30, 77) 27.5%, rgb(227, 28, 95) 40%, rgb(215, 4, 102) 57.5%, rgb(189, 30, 89) 75%, rgb(189, 30, 89) 100%)",
-    borderRadius: 8,
-    padding: 10,
-    color: "#fff !important",
-    fontSize: 13,
-  },
   booking__content__btn__save: {
     width: "40%",
-    backgroundColor: (props) =>
-      props.isBooking ? "rgb(221, 221, 221)" : "rgb(34, 34, 34)",
-    backgroundImage: "initial",
+    backgroundColor: "rgb(34, 34, 34)",
+    color: "#fff",
+    pointerEvents: "initial",
+  },
+  booking__content__btn__save__isBooking: {
+    width: "70%",
+    backgroundColor: "rgb(221, 221, 221)",
+    color: "#999",
+    pointerEvents: "none",
   },
   booking__dateTime: {
     textDecoration: "underline",

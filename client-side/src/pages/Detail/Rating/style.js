@@ -15,20 +15,11 @@ export default makeStyles((theme) => ({
       padding: "40px 120px",
     },
   },
-  room__rating: {
-    borderTop: "1px solid rgb(221, 221, 221,1) ",
-    padding: "24px",
-    [theme.breakpoints.up("md")]: {
-      padding: "24px 0",
-    },
-    [theme.breakpoints.up("md")]: {
-      padding: "48px 0",
-    },
-  },
-  room__rating__totalRated: {
-    paddingBottom: "24px",
+  rating__totalRated: {
+    padding: "24px 0",
     [theme.breakpoints.up("md")]: {
       paddingBottom: "48px",
+      paddingTop: 0,
     },
     "& >span": {
       fontSize: 20,
@@ -40,14 +31,14 @@ export default makeStyles((theme) => ({
       },
     },
   },
-  room__rating__container: {
+  rating__container: {
     border: "1px solid #d0c7c7",
     borderRadius: 12,
     padding: 15,
     marginTop: 10,
     height: 200,
   },
-  room__rating__textShowAll: {
+  rating__textShowAll: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -58,38 +49,7 @@ export default makeStyles((theme) => ({
     textDecoration: "underline",
     cursor: "pointer",
   },
-  room__rating_avatar: {
-    width: 40,
-    height: 40,
-    borderRadius: "50%",
-    objectFit: "cover",
-  },
-  room__rating__infoUser: {
-    display: "flex",
-    alignItems: "center",
-    marginBottom: 10,
-  },
-  room__rating__createAt: {
-    marginLeft: 10,
-    "& >p": {
-      fontWeight: 600,
-      fontSize: 16,
-      lineHeight: "20px",
-    },
-    "& >span": {
-      fontSize: 14,
-      color: "#999",
-    },
-  },
-  room__rating__content: {
-    "& >p": {
-      fontWeight: 600,
-      fontSize: 14,
-      lineHeight: "20px",
-      marginTop: 5,
-    },
-  },
-  room__rating__modal: {
+  rating__modal: {
     height: "100%",
     backgroundColor: "#fff",
     zIndex: 999,
@@ -100,7 +60,7 @@ export default makeStyles((theme) => ({
     margin: "10px 0",
     borderRadius: 12,
   },
-  room__rating__modal__header: {
+  rating__modal__header: {
     backgroundColor: "#fff",
     position: "sticky",
     top: 0,
@@ -118,12 +78,12 @@ export default makeStyles((theme) => ({
         justifyContent: "space-between",
         alignItems: "center",
       },
-      "& $room__rating__modal__inputSearch": {
+      "& $rating__modal__inputSearch": {
         width: "57%",
       },
     },
   },
-  room__rating__btnShowAll: {
+  rating__btnShowAll: {
     width: "100%",
     border: "2px solid #999",
     borderRadius: 8,
@@ -137,7 +97,7 @@ export default makeStyles((theme) => ({
       padding: "13px 23px",
     },
   },
-  room__rating__modal__inputSearch: {
+  rating__modal__inputSearch: {
     boxShadow: "rgb(176 176 176) 0px 0px 0px 1px inset",
     backgroundColor: "rgb(247, 247, 247)",
     borderRadius: 20,
@@ -160,7 +120,7 @@ export default makeStyles((theme) => ({
       },
     },
   },
-  room__rating__modal__detailRating: {
+  rating__modal__detailRating: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
@@ -178,8 +138,9 @@ export default makeStyles((theme) => ({
       },
     },
   },
-  room__rating__modal__content__userRated: {
+  rating__modal__content__userRated: {
     paddingBottom: 80,
+
     [theme.breakpoints.up("md")]: {
       paddingBottom: 0,
     },
@@ -190,7 +151,7 @@ export default makeStyles((theme) => ({
       marginBottom: 20,
     },
   },
-  room__rating__title__notRating: {
+  rating__title__notRating: {
     [theme.breakpoints.up("md")]: {
       width: "50%",
     },

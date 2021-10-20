@@ -35,7 +35,7 @@ export default makeStyles((theme) => ({
       zIndex: -1,
     },
   },
-  modal__header: {
+  modal__content: {
     width: "100%",
     height: "100%",
     backgroundColor: "#fff",
