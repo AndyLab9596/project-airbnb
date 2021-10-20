@@ -2,7 +2,7 @@ import React from 'react';
 import useStyles from "./style"
 import StarIcon from '@material-ui/icons/Star';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
-
+import { formMoney } from '../../../utilities/coordinates'
 
 const Card = ({ fakeRoom }) => {
     const classes = useStyles();
@@ -65,7 +65,7 @@ const Card = ({ fakeRoom }) => {
                         </div>
                         <div className={classes.card__footer__price}>
                             <p>
-                                {`$${Number.parseInt(fakeRoom.price / 23000)}`} / <span>đêm</span>
+                                {formMoney(fakeRoom.price)} / <span>đêm</span>
                             </p>
 
                         </div>

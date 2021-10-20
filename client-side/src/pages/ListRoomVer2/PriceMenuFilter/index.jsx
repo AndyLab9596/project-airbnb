@@ -14,18 +14,6 @@ const PriceMenuFilter = ({ filter, setFilter, priceValue, setPriceValue, handleC
         setAnchorElPrice(null);
     };
 
-    // const [priceValue, setPriceValue] = useState([0, 1000000]);
-
-    // const handleChangePriceValue = (event, newValue) => {
-    //     setPriceValue(newValue);
-
-
-    // };
-
-    // const handleChangeInputField = (event) => {
-    //     setPriceValue(event.target.value === '' ? '' : Number(event.target.value))
-    // };
-
     console.log(priceValue)
 
     return (
