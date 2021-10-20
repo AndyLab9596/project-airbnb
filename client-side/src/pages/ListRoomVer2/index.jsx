@@ -30,8 +30,7 @@ const ListRoomVer2 = () => {
         setPriceValue(event.target.value === '' ? '' : Number(event.target.value))
     };
 
-
-    const [filter, setFilter] = useState({
+    const initialFilter = {
         guests: 0,
         bedRoom: 0,
         bath: 0,
@@ -45,7 +44,11 @@ const ListRoomVer2 = () => {
         wifi: false,
         heating: false,
         cableTV: false,
-    });
+    }
+
+
+
+    const [filter, setFilter] = useState(initialFilter);
 
     const filtered = rentRooms.filter((item) => {
 
@@ -59,6 +62,11 @@ const ListRoomVer2 = () => {
             return true
         }
     })
+
+    // reset all not completed
+    const resetFilter = () => {
+        setFilter(initialFilter)
+    }
 
     useEffect(() => {
         (async () => {
@@ -96,6 +104,7 @@ const ListRoomVer2 = () => {
                             handleChangeInputField={handleChangeInputField}
                         />
                         <OptionsDialog
+                            resetFilter={resetFilter}
                             filter={filter}
                             setFilter={setFilter}
                         />

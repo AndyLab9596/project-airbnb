@@ -13,7 +13,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function OptionsDialog({ filter, setFilter }) {
+export default function OptionsDialog({ filter, setFilter, resetFilter }) {
     const classes = useStyles();
 
     const utilities = [
@@ -28,13 +28,6 @@ export default function OptionsDialog({ filter, setFilter }) {
         { id: 9, name: 'heating', label: 'Máy sửu' },
         { id: 10, name: 'cableTV', label: 'TV Cáp' },
     ];
-
-    // Rooms and beds
-    const [numberServices, setNumberServices] = useState({
-        bed: 0,
-        bedRoom: 0,
-        bath: 0,
-    });
 
     const addBed = () => {
         if (filter.guests > 15) return;
@@ -66,20 +59,6 @@ export default function OptionsDialog({ filter, setFilter }) {
         setFilter({ ...filter, bath: filter.bath - 1 })
     }
 
-    //  Checkbox state
-
-    const [check, setCheck] = useState({
-        elevator: false,
-        hotTub: false,
-        pool: false,
-        indoorFireplace: false,
-        dryer: false,
-        gym: false,
-        kitchen: false,
-        wifi: false,
-    });
-
-    // console.log(check)
 
     const handleChange = (event) => {
         setFilter({ ...filter, [event.target.name]: event.target.checked });
@@ -245,7 +224,7 @@ export default function OptionsDialog({ filter, setFilter }) {
                                                                 color="textSecondary"
                                                                 className={classes.checkbox}
                                                                 name={uti.name}
-                                                                checked={check.name}
+                                                                checked={filter[uti.name]}
                                                                 onChange={handleChange}
                                                             // onChange={}
 
@@ -268,12 +247,12 @@ export default function OptionsDialog({ filter, setFilter }) {
                 </DialogContent>
                 <DialogActions >
                     <div className={classes.footer__wrapper}>
-                        <button className={classes.footer__deleteAll}>
+                        <button className={classes.footer__deleteAll} onClick={resetFilter}>
                             Xóa tất cả
                         </button>
 
-                        <button className={classes.footer__display}>
-                            Hiển thị hơn 300 chỗ ở
+                        <button className={classes.footer__display} onClick={handleClose}>
+                            Hiển thị hơn chỗ ở
                         </button>
                     </div>
                 </DialogActions>
