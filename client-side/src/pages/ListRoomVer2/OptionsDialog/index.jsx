@@ -13,7 +13,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function OptionsDialog() {
+export default function OptionsDialog({ onCheckboxFilter, onFilterElevator }) {
     const classes = useStyles();
 
     const utilities = [
@@ -25,7 +25,6 @@ export default function OptionsDialog() {
         { id: 6, name: 'gym', label: 'Phòng gym' },
         { id: 7, name: 'kitchen', label: 'Phòng bếp' },
         { id: 8, name: 'wifi', label: 'Wifi' },
-
     ];
 
     // Rooms and beds
@@ -78,9 +77,24 @@ export default function OptionsDialog() {
         wifi: false,
     });
 
+    // console.log(check)
 
     const handleChange = (event) => {
         setCheck({ ...check, [event.target.name]: event.target.checked });
+    };
+
+    const handleInput = (field) => (event) => {
+        const { checked } = event.target;
+        setCheck({ ...check, [event.target.name]: checked });
+        console.log(event.target.name)
+        const checkName = event.target.name;
+        switch (field) {
+            case checkName:
+                onFilterElevator(checkName, checked)
+                break;
+
+            default:
+        }
     };
 
     const [open, setOpen] = useState(false);
@@ -104,6 +118,8 @@ export default function OptionsDialog() {
             }
         }
     }, [open]);
+
+
 
     return (
         <Fragment>
@@ -239,9 +255,11 @@ export default function OptionsDialog() {
                                                             control={<Checkbox
                                                                 color="textSecondary"
                                                                 className={classes.checkbox}
-                                                                checked={check.checkedA}
-                                                                onChange={handleChange}
                                                                 name={uti.name}
+                                                                checked={check.name}
+                                                                // onChange={handleChange}
+                                                                onChange={handleInput(uti.name)}
+
                                                             />}
                                                             label={<Typography variant="body1" color="textPrimary">
                                                                 {uti.label}

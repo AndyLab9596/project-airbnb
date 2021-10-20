@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
 import manageRentApi from '../../api/manageRentApi';
@@ -442,11 +442,53 @@ const ListRoomVer2 = () => {
     const [rentRooms, setRentRooms] = useState([]);
     const province = rentRooms?.[0]?.locationId.province;
 
-    // const initFilter = {
-    //     utilities: [],
-    // };
+    const check = {
+        elevator: false,
+        hotTub: false,
+        pool: false,
+        indoorFireplace: false,
+        dryer: false,
+        gym: false,
+        kitchen: false,
+        wifi: false,
+    }
 
-    // const filterSelect = {type, checked, item} 
+    const filter = rentRooms.filter(room => room.elevator === check.elevator);
+    // console.log('filter', filter)
+
+    const handleFilterCheckbox = (event) => {
+        console.log('check', [event.target.name])
+        // const tempRentRooms = rentRooms;
+        // const filterRentRooms = tempRentRooms.filter(room => room[event.target.name] === event.target.checked);
+        // console.log('filterRentRooms', filterRentRooms)
+    }
+
+    const onFilterElevator = (checkName, checked) => {
+        // const initialData = [...rentRooms];
+        // if (elevator) {
+        //     const filteredData = rentRooms.filter(item => {
+        //         if (item.elevator === elevator) {
+        //             return item
+        //         }
+        //     });
+        //     setRentRooms(filteredData)
+        // }
+        // const initialData = [...rentRooms];
+        // if (checkName) {
+
+        //     const filteredData = initialData.filter(item => {
+        //         console.log(checkName)
+        //         if (item[checkName] === checked) {
+        //             return item
+        //         }
+        //     })
+        //     setRentRooms(filteredData)
+        // }
+
+
+    }
+
+
 
 
     useEffect(() => {
@@ -477,7 +519,10 @@ const ListRoomVer2 = () => {
                 <div className={classes.filter}>
                     <div className={classes.filter__wrapper}>
                         <PriceMenuFilter />
-                        <OptionsDialog />
+                        <OptionsDialog
+                            onFilterElevator={onFilterElevator}
+                            onCheckboxFilter={handleFilterCheckbox}
+                        />
                     </div>
 
                 </div>
