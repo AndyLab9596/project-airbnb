@@ -442,6 +442,13 @@ const ListRoomVer2 = () => {
     const [rentRooms, setRentRooms] = useState([]);
     const province = rentRooms?.[0]?.locationId.province;
 
+    // const initFilter = {
+    //     utilities: [],
+    // };
+
+    // const filterSelect = {type, checked, item} 
+
+
     useEffect(() => {
         (async () => {
             try {
@@ -454,6 +461,7 @@ const ListRoomVer2 = () => {
         })()
 
     }, [locationId])
+
 
     return (
         <div className={classes.root}>

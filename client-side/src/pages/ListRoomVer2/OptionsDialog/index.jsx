@@ -78,6 +78,7 @@ export default function OptionsDialog() {
         wifi: false,
     });
 
+
     const handleChange = (event) => {
         setCheck({ ...check, [event.target.name]: event.target.checked });
     };
