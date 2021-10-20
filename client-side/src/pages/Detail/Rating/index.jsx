@@ -158,6 +158,7 @@ const DetailRating = ({ detailRating }) => {
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
             className={classes.modal}
+            closeAfterTransition
           >
             <Slide direction="up" in={modalRated}>
               <div className={classes.room__rating__modal}>
