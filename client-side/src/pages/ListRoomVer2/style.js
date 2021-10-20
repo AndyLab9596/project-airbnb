@@ -7,7 +7,7 @@ export default makeStyles(theme => ({
     },
 
     content: {
-        flex: '1 1 auto',
+        // flex: '1 1 auto',
         width: '60%',
         marginTop: '50px',
         padding: '0 24px',
@@ -71,12 +71,12 @@ export default makeStyles(theme => ({
     // },
 
     cards: {
-        display: 'grid',
-        gridTemplateColumns: 'auto',
+        width: '90%',
+        display: 'flex',
+        flexFlow: 'column wrap'
     },
 
     map: {
-        flex: '1 1 auto',
         width: '40%',
         position: 'absolute',
         right: 0,

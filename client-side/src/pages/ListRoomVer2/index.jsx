@@ -54,17 +54,11 @@ const ListRoomVer2 = () => {
         }
     })
 
-
-
     const finalFiltered = filtered.filter((item) => {
         if (item.price > priceValue[0] && item.price < priceValue[1]) {
             return true
         }
     })
-
-    // console.log(filtered)
-    console.log('finalFiltered', finalFiltered);
-
 
     useEffect(() => {
         (async () => {
