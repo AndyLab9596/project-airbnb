@@ -7,8 +7,8 @@ export default makeStyles(theme => ({
         paddingRight: 160,
         [theme.breakpoints.down(376)]: {
 
-            paddingLeft: 20,
-            paddingRight: 20,
+            paddingLeft: 0,
+            paddingRight: 0,
 
 
         },
@@ -36,8 +36,20 @@ export default makeStyles(theme => ({
         paddingBottom: 48,
         [theme.breakpoints.down(376)]: {
 
+            padding: "15px 0",
+            position: "fixed",
+            backgroundColor: "#fff",
+            zIndex: 999,
+            minWidth: 375,
 
-            paddingTop: 0,
+
+        },
+    },
+    pay__content: {
+        [theme.breakpoints.down(376)]: {
+
+            padding: "75px 0px",
+
 
         },
     },
@@ -61,7 +73,6 @@ export default makeStyles(theme => ({
     },
 
 
-    //NOTI
     pay__left__noti: {
         border: "1px solid rgb(221, 221, 221)",
         borderRadius: 12,
@@ -206,6 +217,22 @@ export default makeStyles(theme => ({
         fontSize: 15
     },
 
+    //THANH TOÁN BẰNG
+
+    pay__left__payment: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: "24px 0",
+        borderTop: "1px solid rgb(221, 221, 221)",
+        [theme.breakpoints.down(376)]: {
+
+            borderTop: "8px solid rgb(221, 221, 221)",
+            width: "100%"
+
+        },
+    },
+
 
     // CHÍNH SÁCH HỦY
     pay__button__confirm: {
@@ -228,7 +255,7 @@ export default makeStyles(theme => ({
     //RIGHT
     pay__right: {
         position: "sticky",
-        top: 200,
+        top: 150,
         marginLeft: 60,
         marginBottom: 100,
         [theme.breakpoints.down(376)]: {
@@ -314,6 +341,11 @@ export default makeStyles(theme => ({
     },
     pay__left__list: {
         display: "flex",
+        [theme.breakpoints.down(376)]: {
+
+            display: "none"
+
+        },
         "& >li": {
             padding: "0 5px",
             "& >img": {
@@ -321,6 +353,159 @@ export default makeStyles(theme => ({
             }
         }
     },
+
+    footer__bot: {
+        display: "flex",
+        padding: "24px 160px",
+        borderTop: "1px solid #DDDDDD",
+        justifyContent: "space-between",
+        alignItems: "center",
+        backgroundColor: "rgb(247, 247, 247)",
+        [theme.breakpoints.down(1025)]: {
+
+            display: "block",
+
+        },
+        [theme.breakpoints.down(744)]: {
+
+            display: "block"
+
+
+        },
+        [theme.breakpoints.down(376)]: {
+            display: "block",
+            padding: "24px 30px",
+
+        },
+    },
+    footer__item__list__first: {
+        [theme.breakpoints.down(376)]: {
+            display: "none"
+        },
+    },
+    footer__item__list__end: {
+        [theme.breakpoints.down(376)]: {
+            flex: "0 0 30%"
+        },
+    },
+    footer__item__bot: {
+        // width: "45%",
+        display: "flex",
+        listStyle: "none",
+        paddingRight: 10,
+        textDecoration: "none",
+        alignItems: "center",
+        [theme.breakpoints.down(1025)]: {
+
+            justifyContent: "center",
+            alignItems: "center",
+            paddingBottom: "10px"
+
+        },
+        [theme.breakpoints.down(744)]: {
+
+            display: "block"
+
+
+        },
+        [theme.breakpoints.down(376)]: {
+            display: "flex",
+            padding: "24px 30px",
+
+        },
+
+        "& li": {
+
+            paddingLeft: 0,
+            paddingRight: 0,
+
+            "& a": {
+                textDecoration: "none",
+                color: "#222222",
+                fontSize: 15,
+                display: "block",
+                paddingRight: "10px",
+                whiteSpace: "nowrap",
+                transition: "all .2s",
+                lineHeight: "18px ",
+                "&:hover": {
+                    color: "inherit",
+                    cursor: "pointer",
+                    textDecoration: "underline"
+                }
+            },
+            "& span": {
+                textDecoration: "none",
+                color: "#222222",
+                fontSize: 15,
+                display: "block",
+                paddingRight: "10px",
+                whiteSpace: "nowrap",
+                transition: "all .2s",
+                lineHeight: "18px ",
+
+            }
+
+
+        }
+    },
+    footer__bot__content: {
+        [theme.breakpoints.down(1025)]: {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+
+        },
+        [theme.breakpoints.down(744)]: {
+
+            fontSize: "15px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+
+
+
+        },
+    },
+
+
+    footer__bot__content1: {
+        display: "flex",
+        marginLeft: "32px",
+        [theme.breakpoints.down(744)]: {
+
+            display: "none"
+
+
+        },
+        "& ul": {
+            listStyle: "none",
+            padding: 0,
+            textDecoration: "none",
+            display: "flex",
+            margin: 0,
+            "& li": {
+                marginRight: "24px",
+                paddingLeft: 0,
+                paddingRight: 0,
+                "& a": {
+                    textDecoration: "none",
+                    color: "#222222",
+                    fontSize: 15,
+                    display: "block",
+
+                    whiteSpace: "nowrap",
+                    transition: "all .2s",
+                    lineHeight: "18px ",
+                    "&:hover": {
+                        color: "inherit",
+                        cursor: "pointer",
+                        textDecoration: "underline"
+                    }
+                }
+            }
+        }
+    }
 
 
 }))
