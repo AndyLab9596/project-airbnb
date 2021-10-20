@@ -90,6 +90,7 @@ const ModalSignUp = () => {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
         className={classes.root}
+        closeAfterTransition
       >
         <Slide direction="up" in={modalSignUp}>
           <div className={classes.modal__content}>

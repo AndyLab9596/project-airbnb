@@ -1,5 +1,5 @@
 import { Button, Modal, Slide, TextField, Typography } from "@material-ui/core";
-import { Autocomplete } from "@material-ui/lab";
+import Backdrop from "@material-ui/core/Backdrop";
 import React, { Fragment, useEffect, useState } from "react";
 import { FcPrevious } from "react-icons/fc";
 import { MdMyLocation, MdSearch } from "react-icons/md";
@@ -55,42 +55,22 @@ const HeaderMobileHuy = () => {
         open={modalSearch}
         onClose={handleHideModalSearch}
         className={classes.modal}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 100,
+        }}
       >
         <Slide direction="up" in={modalSearch}>
           <div className={classes.modal__header}>
             <div className={classes.modal__search}>
               <FcPrevious onClick={handleHideModalSearch} />
-              <Autocomplete
-                options={locations}
-                getOptionLabel={(option) => option.name}
-                className={classes.modal__autocomplete}
-                renderInput={(params) => (
-                  <div>
-                    <TextField
-                      inputProps={params.inputProps}
-                      placeholder="Bạn sẽ đi đâu?"
-                      type="search"
-                      fullWidth
-                      value={valueSearch}
-                      onChange={(e) => setValueSearch(e.target.value)}
-                    />
-                  </div>
-                )}
-                renderOption={(option) => (
-                  <div className={classes.modal__locations_searched}>
-                    <div className={classes.modal__locations__searched__icons}>
-                      <MdMyLocation />
-                    </div>
-                    <div>
-                      <Typography
-                        variant="body1"
-                        className={classes.modal__locations__searched__name}
-                      >
-                        {option?.name}
-                      </Typography>
-                    </div>
-                  </div>
-                )}
+              <TextField
+                placeholder="Bạn sẽ đi đâu?"
+                type="search"
+                fullWidth
+                value={valueSearch}
+                onChange={(e) => setValueSearch(e.target.value)}
               />
             </div>
             {arrListSearch.length > 0 ? (
@@ -119,8 +99,13 @@ const HeaderMobileHuy = () => {
                 ))}
               </Fragment>
             ) : (
-              <div className={classes.modal__list__search}>
-                <Typography variant="body2">TÌM KIẾM GẦN ĐÂY</Typography>
+              <div>
+                <Typography
+                  variant="body2"
+                  className={classes.modal__text__search}
+                >
+                  TÌM KIẾM GẦN ĐÂY
+                </Typography>
                 {locations?.slice(0, 5)?.map((item) => (
                   <div
                     key={item._id}
