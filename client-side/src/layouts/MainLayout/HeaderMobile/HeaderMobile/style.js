@@ -31,7 +31,7 @@ export default makeStyles((theme) => ({
     paddingTop: "48px",
     "& >div:first-child": {
       backgroundImage:
-        "radial-gradient(circle at center center, rgb(255, 56, 92) 0%, rgb(230, 30, 77) 27.5%, rgb(136 1 147) 40%, rgb(215, 4, 102) 57.5%, rgb(136 1 147) 75%, rgb(189, 30, 89) 100%)",
+        "linear-gradient(to right,#BD1E59 0%,#92174D 50%,#861453 100%)",
       zIndex: -1,
     },
   },
@@ -56,20 +56,15 @@ export default makeStyles((theme) => ({
       fontSize: 20,
       marginRight: 15,
     },
-  },
-  modal__autocomplete: {
-    width: "100%",
     "& .MuiInput-underline:after, .MuiInput-underline:before,.MuiButtonBase-root":
       {
         display: "none",
       },
   },
 
-  modal__list__search: {
-    "& >p": {
-      padding: "12px 24px 0 24px",
-      fontWeight: 600,
-    },
+  modal__text__search: {
+    padding: "12px 24px 0 24px",
+    fontWeight: 600,
   },
   modal__locations_searched: {
     display: "flex",

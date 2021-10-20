@@ -87,6 +87,7 @@ const BookingMobile = ({
         onClose={() => setOpenModal(false)}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
+        closeAfterTransition
       >
         <Slide direction="up" in={openModal}>
           <div className={classes.booking__modal}>

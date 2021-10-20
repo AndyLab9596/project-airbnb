@@ -240,8 +240,9 @@ const RoomImage = ({ detailRoom, detailRating }) => {
         onClose={() => setOpenModal(false)}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
+        closeAfterTransition
       >
-        <Slide direction="up" in={openModal} style={{ width: "100vw" }}>
+        <Slide direction="up" in={openModal}>
           <div className={classes.modal__show__all}>
             <div className={classes.btnPrev}>
               <FcPrevious onClick={() => setOpenModal(false)} />

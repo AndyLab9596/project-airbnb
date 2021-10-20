@@ -55,6 +55,7 @@ const ModalSignIn = () => {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
         className={classes.root}
+        closeAfterTransition
       >
         <Slide direction="up" in={modalSignIn}>
           <div className={classes.modal__content}>
