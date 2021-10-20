@@ -6,14 +6,17 @@ export default makeStyles((theme) => ({
       padding: 0,
     },
   },
-  room__info: {
+  wrapper: {
     borderTop: "1px solid rgb(221, 221, 221,1) ",
     padding: "24px 0",
     [theme.breakpoints.up("md")]: {
       paddingTop: 48,
     },
+    "& .PrivatePickersSlideTransition-root": {
+      minHeight: 230,
+    },
   },
-  room__info__host: {
+  info__host: {
     display: "flex",
     justifyContent: "space-between",
     marginBottom: 10,
@@ -33,16 +36,13 @@ export default makeStyles((theme) => ({
   },
   medal__host: {
     position: "absolute",
-    bottom: 15,
-    right: -5,
-    fontSize: 25,
-    color: "orange",
+    bottom: 0,
+    right: -15,
+    fontSize: 35,
+    color: "#fc8460",
   },
-  room__utilities: {
-    borderTop: "1px solid rgb(221, 221, 221,1) ",
-    padding: "24px 0",
-  },
-  room__utilities_content: {
+
+  utilities_content: {
     display: "flex",
     width: "100%",
     padding: "15px 0",
@@ -61,27 +61,14 @@ export default makeStyles((theme) => ({
       color: "rgb(113, 113, 113)",
     },
   },
-  room_description: {
-    borderTop: "1px solid rgb(221, 221, 221,1) ",
-    padding: "24px 0",
-    [theme.breakpoints.up("md")]: {
-      padding: "48px 0",
-    },
+
+  bedroom__title: {
+    fontSize: 20,
+    fontWeight: 600,
+    lineHeight: "20px",
+    paddingBottom: 24,
   },
-  room__bedroom: {
-    borderTop: "1px solid rgb(221, 221, 221,1) ",
-    padding: "24px 0",
-    [theme.breakpoints.up("md")]: {
-      padding: "48px 0",
-    },
-    "& >h5": {
-      fontSize: 20,
-      fontWeight: 600,
-      lineHeight: "20px",
-      paddingBottom: 24,
-    },
-  },
-  room__bedroom__content: {
+  bedroom__content: {
     border: "1px solid rgb(221, 221, 221)",
     borderRadius: 12,
     padding: "10px 16px",
@@ -91,9 +78,8 @@ export default makeStyles((theme) => ({
       color: "#6e6c6c",
     },
   },
-  room__bedroom__detail: {
+  bedroom__detail: {
     padding: "15px 0",
-
     "&>p": {
       fontSize: 16,
       fontWeight: 600,
@@ -104,20 +90,14 @@ export default makeStyles((theme) => ({
       color: "#6e6c6c",
     },
   },
-  room__reviews: {
-    borderTop: "1px solid rgb(221, 221, 221,1) ",
-    padding: "24px 0",
-    [theme.breakpoints.up("md")]: {
-      padding: "48px 0",
-    },
-    "& >h1": {
-      fontWeight: 600,
-      fontSize: 20,
-      lineHeight: "20px",
-      paddingBottom: 10,
-    },
+
+  reviews__title: {
+    fontWeight: 600,
+    fontSize: 20,
+    lineHeight: "20px",
+    paddingBottom: 10,
   },
-  room__reviews__content: {
+  reviews__content: {
     display: "flex",
     alignItems: "center",
     marginTop: 10,
@@ -128,19 +108,14 @@ export default makeStyles((theme) => ({
       marginRight: 15,
     },
   },
-  room__reviews__title: {
+  reviews__name: {
     fontSize: 15,
   },
-  room_reviews__title__linethrough: {
+  room_reviews__name__linethrough: {
     textDecoration: "line-through",
   },
 
   room_datepicker: {
-    borderTop: "1px solid rgb(221, 221, 221,1) ",
-    padding: "24px 0",
-    [theme.breakpoints.up("md")]: {
-      padding: "48px 0",
-    },
     "& >h1": {
       fontWeight: 600,
       fontSize: 20,
@@ -152,11 +127,8 @@ export default makeStyles((theme) => ({
       fontSize: 15,
       marginRight: 10,
     },
-    "& .PrivatePickersSlideTransition-root": {
-      minHeight: 230,
-    },
   },
-  rooom__datepicker__btnDelete: {
+  datepicker__btnDelete: {
     textAlign: "left",
     [theme.breakpoints.up("sm")]: {
       textAlign: "right",

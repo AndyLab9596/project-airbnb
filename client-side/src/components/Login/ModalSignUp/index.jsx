@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   FormControlLabel,
   FormLabel,
   IconButton,
@@ -23,6 +22,7 @@ import {
   HIDE_MODAL_SIGNUP,
   SHOW_MODAL_SIGNIN,
 } from "../../../store/types/AuthType";
+import ButtonSubmit from "../../ButtonSubmit";
 import TextFieldComponent from "../TextField";
 import useStyles from "./style";
 
@@ -193,9 +193,8 @@ const ModalSignUp = () => {
                   touchedInput={formik.touched.address}
                 />
 
-                <Button type="submit" className={classes.form__btnSubmit}>
-                  Tiếp tục
-                </Button>
+                <ButtonSubmit text="Tiếp tục" />
+
                 <Box textAlign="center">
                   <Typography variant="span">
                     Already have an account?

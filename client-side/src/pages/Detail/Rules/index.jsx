@@ -22,6 +22,7 @@ import {
   MdPets,
 } from "react-icons/md";
 import useStyles from "./style";
+import moment from "moment";
 
 const DetailRules = () => {
   const classes = useStyles();
@@ -75,7 +76,7 @@ const DetailRules = () => {
 
   const arrRuleCancle = [
     {
-      date: "17 thg 10",
+      date: `${moment(new Date()).format("Do MMM")}`,
       time: "14:00",
       status: "nhận phòng",
       content: "Hoàn tiền đầy đủ, trừ phí dịch vụ và 30 ngày đầu tiên",
@@ -199,8 +200,8 @@ const DetailRules = () => {
             >
               <Typography variant="h5">Chính sách hủy</Typography>
               <Typography variant="body1">
-                Nếu hủy trước 17 thg 10, bạn sẽ được hoàn tiền đầy đủ trừ đi chi
-                phí 30 ngày đầu tiên và phí dịch vụ.
+                Nếu hủy trước {moment(new Date()).format("Do MMM")}, bạn sẽ được
+                hoàn tiền đầy đủ trừ đi chi phí 30 ngày đầu tiên và phí dịch vụ.
               </Typography>
             </div>
             <GrFormNext />

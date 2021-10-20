@@ -1,12 +1,8 @@
 import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles((theme) => ({
   map__container: {
-    borderTop: "1px solid rgb(221, 221, 221,1) ",
-    padding: "24px",
-
-    height: "300px",
+    height: "250px",
     [theme.breakpoints.up("md")]: {
-      padding: "48px 0",
       height: "450px",
     },
     "& >h5": {

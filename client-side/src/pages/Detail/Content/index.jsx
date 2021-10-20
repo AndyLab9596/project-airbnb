@@ -36,7 +36,7 @@ import BookingMobile from "./Booking/Mobile";
 import BookingTabLet from "./Booking/Tablet";
 import useStyles from "./style";
 
-const ContentRoom = ({ detailRoom, userBooking, detailRating }) => {
+const ContentRoom = ({ detailRoom, queryParams, detailRating }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.up("sm"));
   const isTablet = useMediaQuery(theme.breakpoints.up("md"));
@@ -131,8 +131,8 @@ const ContentRoom = ({ detailRoom, userBooking, detailRating }) => {
   ];
 
   const [bookingTime, setBookingTime] = useState([
-    new Date(userBooking.checkIn),
-    new Date(userBooking.checkOut),
+    new Date(queryParams._checkIn),
+    new Date(queryParams._checkOut),
   ]);
 
   const totalDateTime = bookingTime[1] - bookingTime[0];
@@ -169,9 +169,9 @@ const ContentRoom = ({ detailRoom, userBooking, detailRating }) => {
     <div className={classes.container}>
       <Grid container wrap="nowrap">
         <Grid item xs={12} md={7}>
-          <div className={classes.room__info}>
+          <div className={classes.wrapper}>
             {/* Info Host */}
-            <div className={classes.room__info__host}>
+            <div className={classes.info__host}>
               <div>
                 <Typography variant="body2">Toàn bộ biệt thự</Typography>
                 <Typography variant="body2">Chủ nhà Quang Huy</Typography>
@@ -195,9 +195,9 @@ const ContentRoom = ({ detailRoom, userBooking, detailRating }) => {
           </div>
 
           {/*  Utilities Room */}
-          <div className={classes.room__utilities}>
+          <div className={classes.wrapper}>
             {arrUtilitiesRoom.map((item) => (
-              <Box className={classes.room__utilities_content}>
+              <Box className={classes.utilities_content}>
                 <div>{item.icon}</div>
                 <div>
                   <Typography variant="body2">{item.name}</Typography>
@@ -208,18 +208,20 @@ const ContentRoom = ({ detailRoom, userBooking, detailRating }) => {
           </div>
 
           {/* Description */}
-          <div className={classes.room_description}>
+          <div className={classes.wrapper}>
             <Typography variant="span">{detailRoom?.description}</Typography>
           </div>
 
           {/* Bedroom */}
-          <div className={classes.room__bedroom}>
-            <Typography variant="h5">Nơi bạn sẽ ngủ nghỉ</Typography>
+          <div className={classes.wrapper}>
+            <Typography variant="h5" className={classes.bedroom__title}>
+              Nơi bạn sẽ ngủ nghỉ
+            </Typography>
             <Grid container wrap="nowrap">
               {arrBedroom.slice(0, `${numberBedroom}`).map((item) => (
-                <Grid item xs={6} className={classes.room__bedroom__content}>
+                <Grid item xs={6} className={classes.bedroom__content}>
                   <div>{item.icon}</div>
-                  <div className={classes.room__bedroom__detail}>
+                  <div className={classes.bedroom__detail}>
                     <Typography variant="body2">{item.name}</Typography>
                     <Typography variant="span">{item.desc}</Typography>
                   </div>
@@ -230,20 +232,22 @@ const ContentRoom = ({ detailRoom, userBooking, detailRating }) => {
 
           {/* Review */}
 
-          <div className={classes.room__reviews} id="review">
-            <Typography variant="h1">Nơi này có những gì cho bạn</Typography>
+          <div className={classes.wrapper} id="review">
+            <Typography variant="h1" className={classes.reviews__title}>
+              Nơi này có những gì cho bạn
+            </Typography>
             <Grid container>
               {arrReviewsRoom.map((item, index) => (
                 <Grid item key={index} xs={12} xl={6}>
-                  <di className={classes.room__reviews__content}>
+                  <di className={classes.reviews__content}>
                     {item.icon}
                     <Typography
                       variant="body1"
                       className={clsx(
-                        classes.room__reviews__title,
+                        classes.reviews__name,
                         item.status
                           ? null
-                          : classes.room_reviews__title__linethrough
+                          : classes.room_reviews__name__linethrough
                       )}
                     >
                       {item.name}
@@ -256,16 +260,16 @@ const ContentRoom = ({ detailRoom, userBooking, detailRating }) => {
 
           {/* Date pickter */}
 
-          <div className={classes.room_datepicker}>
+          <div className={classes.wrapper}>
             {isBooking ? (
-              <Fragment>
+              <div className={classes.room_datepicker}>
                 <Typography variant="h1">Chọn ngày nhận phòng</Typography>
                 <Typography variant="span">
                   Thêm ngày đi để biết giá chính xác
                 </Typography>
-              </Fragment>
+              </div>
             ) : (
-              <Fragment>
+              <div className={classes.room_datepicker}>
                 <Typography variant="h1">
                   {totalDate} đêm tại thành phố vũng tàu
                 </Typography>
@@ -275,7 +279,7 @@ const ContentRoom = ({ detailRoom, userBooking, detailRating }) => {
                     {moment(bookingTime[1]).format("Do MMM  YYYY")}
                   </Typography>
                 </Typography>
-              </Fragment>
+              </div>
             )}
 
             <LocalizationProvider dateAdapter={AdapterDateFns} locale={locale}>
@@ -317,7 +321,7 @@ const ContentRoom = ({ detailRoom, userBooking, detailRating }) => {
               locale={locale}
               totalDate={totalDate}
               isBooking={isBooking}
-              userBooking={userBooking}
+              queryParams={queryParams}
               detailRating={detailRating}
               detailRoom={detailRoom}
             />
@@ -329,7 +333,8 @@ const ContentRoom = ({ detailRoom, userBooking, detailRating }) => {
             locale={locale}
             totalDate={totalDate}
             isBooking={isBooking}
-            userBooking={userBooking}
+            detailRoom={detailRoom}
+            queryParams={queryParams}
           />
         )}
       </Grid>

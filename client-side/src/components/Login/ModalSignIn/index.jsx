@@ -1,4 +1,4 @@
-import { Button, IconButton, Slide, Typography } from "@material-ui/core";
+import { IconButton, Slide, Typography } from "@material-ui/core";
 import Modal from "@material-ui/core/Modal";
 import CloseIcon from "@material-ui/icons/Close";
 import { useFormik } from "formik";
@@ -11,6 +11,7 @@ import {
   HIDE_MODAL_SIGNIN,
   SHOW_MODAL_SIGNUP,
 } from "../../../store/types/AuthType";
+import ButtonSubmit from "../../ButtonSubmit";
 import LoginWithFacebook from "../FacebookLogin";
 import LoginWithGoogle from "../GoogleLogin";
 import TextFieldComponent from "../TextField";
@@ -88,9 +89,7 @@ const ModalSignIn = () => {
                   errorInput={formik.errors.password}
                   touchedInput={formik.touched.password}
                 />
-                <Button type="submit" className={classes.form__btnSubmit}>
-                  Tiếp tục
-                </Button>
+                <ButtonSubmit text="Tiếp tục" />
               </form>
               <div className={classes.modal__line}>
                 <Typography variant="span">hoặc</Typography>

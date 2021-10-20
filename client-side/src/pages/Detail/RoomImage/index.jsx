@@ -79,7 +79,6 @@ const RoomImage = ({ detailRoom, detailRating }) => {
     { img: detailRoom?.locationId?.image },
     { img: detailRoom?.locationId?.image },
     { img: detailRoom?.locationId?.image },
-    { img: detailRoom?.locationId?.image },
   ];
   const menuScroll = [
     {

@@ -4,7 +4,7 @@ import { AiFillHome } from "react-icons/ai";
 import ReactMapGL, { Marker } from "react-map-gl";
 import useStyles from "./style";
 
-const DetailMap = () => {
+const DetailRoomMap = () => {
   const [viewport, setViewport] = useState({
     width: "100%",
     height: "100%",
@@ -42,4 +42,4 @@ const DetailMap = () => {
   );
 };
 
-export default DetailMap;
+export default DetailRoomMap;
