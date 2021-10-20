@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
 import manageRentApi from '../../api/manageRentApi';
@@ -8,429 +8,6 @@ import OptionsDialog from './OptionsDialog';
 import PriceMenuFilter from './PriceMenuFilter';
 import useStyles from "./style";
 
-const fakeRooms = [
-    {
-        "_id": "61698b62efe193001c0a5ba3",
-        "name": "Nha Trang Panorama",
-        "guests": 3,
-        "bedRoom": 2,
-        "bath": 2,
-        "description": "Trên cả tuyệt vời",
-        "price": 500000,
-        "elevator": true,
-        "hotTub": true,
-        "pool": true,
-        "indoorFireplace": false,
-        "dryer": true,
-        "gym": true,
-        "kitchen": false,
-        "wifi": true,
-        "heating": false,
-        "cableTV": true,
-        "locationId": {
-            "name": "Khu phố tây Trần Phú",
-            "province": "Nha Trang",
-            "country": "viet nam",
-            "valueate": 8,
-            "image": "https://airbnb.cybersoft.edu.vn/public/temp/1634304173728_nhatrang.jpg"
-        },
-        "__v": 0,
-        "image": "https://airbnb.cybersoft.edu.vn/public/images/room/1634308330102_panoramanhatrang.jpg"
-    },
-    {
-        "_id": "61698b62efe193001c0a5ba3",
-        "name": "Nha Trang Panorama",
-        "guests": 3,
-        "bedRoom": 2,
-        "bath": 2,
-        "description": "Trên cả tuyệt vời",
-        "price": 500000,
-        "elevator": true,
-        "hotTub": true,
-        "pool": true,
-        "indoorFireplace": false,
-        "dryer": true,
-        "gym": true,
-        "kitchen": false,
-        "wifi": true,
-        "heating": false,
-        "cableTV": true,
-        "locationId": {
-            "name": "Khu phố tây Trần Phú",
-            "province": "Nha Trang",
-            "country": "viet nam",
-            "valueate": 8,
-            "image": "https://airbnb.cybersoft.edu.vn/public/temp/1634304173728_nhatrang.jpg"
-        },
-        "__v": 0,
-        "image": "https://airbnb.cybersoft.edu.vn/public/images/room/1634308330102_panoramanhatrang.jpg"
-    },
-    {
-        "_id": "61698b62efe193001c0a5ba3",
-        "name": "Nha Trang Panorama",
-        "guests": 3,
-        "bedRoom": 2,
-        "bath": 2,
-        "description": "Trên cả tuyệt vời",
-        "price": 500000,
-        "elevator": true,
-        "hotTub": true,
-        "pool": true,
-        "indoorFireplace": false,
-        "dryer": true,
-        "gym": true,
-        "kitchen": false,
-        "wifi": true,
-        "heating": false,
-        "cableTV": true,
-        "locationId": {
-            "name": "Khu phố tây Trần Phú",
-            "province": "Nha Trang",
-            "country": "viet nam",
-            "valueate": 8,
-            "image": "https://airbnb.cybersoft.edu.vn/public/temp/1634304173728_nhatrang.jpg"
-        },
-        "__v": 0,
-        "image": "https://airbnb.cybersoft.edu.vn/public/images/room/1634308330102_panoramanhatrang.jpg"
-    },
-    {
-        "_id": "61698b62efe193001c0a5ba3",
-        "name": "Nha Trang Panorama",
-        "guests": 3,
-        "bedRoom": 2,
-        "bath": 2,
-        "description": "Trên cả tuyệt vời",
-        "price": 500000,
-        "elevator": true,
-        "hotTub": true,
-        "pool": true,
-        "indoorFireplace": false,
-        "dryer": true,
-        "gym": true,
-        "kitchen": false,
-        "wifi": true,
-        "heating": false,
-        "cableTV": true,
-        "locationId": {
-            "name": "Khu phố tây Trần Phú",
-            "province": "Nha Trang",
-            "country": "viet nam",
-            "valueate": 8,
-            "image": "https://airbnb.cybersoft.edu.vn/public/temp/1634304173728_nhatrang.jpg"
-        },
-        "__v": 0,
-        "image": "https://airbnb.cybersoft.edu.vn/public/images/room/1634308330102_panoramanhatrang.jpg"
-    },
-    {
-        "_id": "61698b62efe193001c0a5ba3",
-        "name": "Nha Trang Panorama",
-        "guests": 3,
-        "bedRoom": 2,
-        "bath": 2,
-        "description": "Trên cả tuyệt vời",
-        "price": 500000,
-        "elevator": true,
-        "hotTub": true,
-        "pool": true,
-        "indoorFireplace": false,
-        "dryer": true,
-        "gym": true,
-        "kitchen": false,
-        "wifi": true,
-        "heating": false,
-        "cableTV": true,
-        "locationId": {
-            "name": "Khu phố tây Trần Phú",
-            "province": "Nha Trang",
-            "country": "viet nam",
-            "valueate": 8,
-            "image": "https://airbnb.cybersoft.edu.vn/public/temp/1634304173728_nhatrang.jpg"
-        },
-        "__v": 0,
-        "image": "https://airbnb.cybersoft.edu.vn/public/images/room/1634308330102_panoramanhatrang.jpg"
-    },
-    {
-        "_id": "61698b62efe193001c0a5ba3",
-        "name": "Nha Trang Panorama",
-        "guests": 3,
-        "bedRoom": 2,
-        "bath": 2,
-        "description": "Trên cả tuyệt vời",
-        "price": 500000,
-        "elevator": true,
-        "hotTub": true,
-        "pool": true,
-        "indoorFireplace": false,
-        "dryer": true,
-        "gym": true,
-        "kitchen": false,
-        "wifi": true,
-        "heating": false,
-        "cableTV": true,
-        "locationId": {
-            "name": "Khu phố tây Trần Phú",
-            "province": "Nha Trang",
-            "country": "viet nam",
-            "valueate": 8,
-            "image": "https://airbnb.cybersoft.edu.vn/public/temp/1634304173728_nhatrang.jpg"
-        },
-        "__v": 0,
-        "image": "https://airbnb.cybersoft.edu.vn/public/images/room/1634308330102_panoramanhatrang.jpg"
-    },
-    {
-        "_id": "61698b62efe193001c0a5ba3",
-        "name": "Nha Trang Panorama",
-        "guests": 3,
-        "bedRoom": 2,
-        "bath": 2,
-        "description": "Trên cả tuyệt vời",
-        "price": 500000,
-        "elevator": true,
-        "hotTub": true,
-        "pool": true,
-        "indoorFireplace": false,
-        "dryer": true,
-        "gym": true,
-        "kitchen": false,
-        "wifi": true,
-        "heating": false,
-        "cableTV": true,
-        "locationId": {
-            "name": "Khu phố tây Trần Phú",
-            "province": "Nha Trang",
-            "country": "viet nam",
-            "valueate": 8,
-            "image": "https://airbnb.cybersoft.edu.vn/public/temp/1634304173728_nhatrang.jpg"
-        },
-        "__v": 0,
-        "image": "https://airbnb.cybersoft.edu.vn/public/images/room/1634308330102_panoramanhatrang.jpg"
-    },
-    {
-        "_id": "61698b62efe193001c0a5ba3",
-        "name": "Nha Trang Panorama",
-        "guests": 3,
-        "bedRoom": 2,
-        "bath": 2,
-        "description": "Trên cả tuyệt vời",
-        "price": 500000,
-        "elevator": true,
-        "hotTub": true,
-        "pool": true,
-        "indoorFireplace": false,
-        "dryer": true,
-        "gym": true,
-        "kitchen": false,
-        "wifi": true,
-        "heating": false,
-        "cableTV": true,
-        "locationId": {
-            "name": "Khu phố tây Trần Phú",
-            "province": "Nha Trang",
-            "country": "viet nam",
-            "valueate": 8,
-            "image": "https://airbnb.cybersoft.edu.vn/public/temp/1634304173728_nhatrang.jpg"
-        },
-        "__v": 0,
-        "image": "https://airbnb.cybersoft.edu.vn/public/images/room/1634308330102_panoramanhatrang.jpg"
-    },
-    {
-        "_id": "61698b62efe193001c0a5ba3",
-        "name": "Nha Trang Panorama",
-        "guests": 3,
-        "bedRoom": 2,
-        "bath": 2,
-        "description": "Trên cả tuyệt vời",
-        "price": 500000,
-        "elevator": true,
-        "hotTub": true,
-        "pool": true,
-        "indoorFireplace": false,
-        "dryer": true,
-        "gym": true,
-        "kitchen": false,
-        "wifi": true,
-        "heating": false,
-        "cableTV": true,
-        "locationId": {
-            "name": "Khu phố tây Trần Phú",
-            "province": "Nha Trang",
-            "country": "viet nam",
-            "valueate": 8,
-            "image": "https://airbnb.cybersoft.edu.vn/public/temp/1634304173728_nhatrang.jpg"
-        },
-        "__v": 0,
-        "image": "https://airbnb.cybersoft.edu.vn/public/images/room/1634308330102_panoramanhatrang.jpg"
-    },
-    {
-        "_id": "61698b62efe193001c0a5ba3",
-        "name": "Nha Trang Panorama",
-        "guests": 3,
-        "bedRoom": 2,
-        "bath": 2,
-        "description": "Trên cả tuyệt vời",
-        "price": 500000,
-        "elevator": true,
-        "hotTub": true,
-        "pool": true,
-        "indoorFireplace": false,
-        "dryer": true,
-        "gym": true,
-        "kitchen": false,
-        "wifi": true,
-        "heating": false,
-        "cableTV": true,
-        "locationId": {
-            "name": "Khu phố tây Trần Phú",
-            "province": "Nha Trang",
-            "country": "viet nam",
-            "valueate": 8,
-            "image": "https://airbnb.cybersoft.edu.vn/public/temp/1634304173728_nhatrang.jpg"
-        },
-        "__v": 0,
-        "image": "https://airbnb.cybersoft.edu.vn/public/images/room/1634308330102_panoramanhatrang.jpg"
-    },
-    {
-        "_id": "61698b62efe193001c0a5ba3",
-        "name": "Nha Trang Panorama",
-        "guests": 3,
-        "bedRoom": 2,
-        "bath": 2,
-        "description": "Trên cả tuyệt vời",
-        "price": 500000,
-        "elevator": true,
-        "hotTub": true,
-        "pool": true,
-        "indoorFireplace": false,
-        "dryer": true,
-        "gym": true,
-        "kitchen": false,
-        "wifi": true,
-        "heating": false,
-        "cableTV": true,
-        "locationId": {
-            "name": "Khu phố tây Trần Phú",
-            "province": "Nha Trang",
-            "country": "viet nam",
-            "valueate": 8,
-            "image": "https://airbnb.cybersoft.edu.vn/public/temp/1634304173728_nhatrang.jpg"
-        },
-        "__v": 0,
-        "image": "https://airbnb.cybersoft.edu.vn/public/images/room/1634308330102_panoramanhatrang.jpg"
-    },
-    {
-        "_id": "61698b62efe193001c0a5ba3",
-        "name": "Nha Trang Panorama",
-        "guests": 3,
-        "bedRoom": 2,
-        "bath": 2,
-        "description": "Trên cả tuyệt vời",
-        "price": 500000,
-        "elevator": true,
-        "hotTub": true,
-        "pool": true,
-        "indoorFireplace": false,
-        "dryer": true,
-        "gym": true,
-        "kitchen": false,
-        "wifi": true,
-        "heating": false,
-        "cableTV": true,
-        "locationId": {
-            "name": "Khu phố tây Trần Phú",
-            "province": "Nha Trang",
-            "country": "viet nam",
-            "valueate": 8,
-            "image": "https://airbnb.cybersoft.edu.vn/public/temp/1634304173728_nhatrang.jpg"
-        },
-        "__v": 0,
-        "image": "https://airbnb.cybersoft.edu.vn/public/images/room/1634308330102_panoramanhatrang.jpg"
-    },
-    {
-        "_id": "61698b62efe193001c0a5ba3",
-        "name": "Nha Trang Panorama",
-        "guests": 3,
-        "bedRoom": 2,
-        "bath": 2,
-        "description": "Trên cả tuyệt vời",
-        "price": 500000,
-        "elevator": true,
-        "hotTub": true,
-        "pool": true,
-        "indoorFireplace": false,
-        "dryer": true,
-        "gym": true,
-        "kitchen": false,
-        "wifi": true,
-        "heating": false,
-        "cableTV": true,
-        "locationId": {
-            "name": "Khu phố tây Trần Phú",
-            "province": "Nha Trang",
-            "country": "viet nam",
-            "valueate": 8,
-            "image": "https://airbnb.cybersoft.edu.vn/public/temp/1634304173728_nhatrang.jpg"
-        },
-        "__v": 0,
-        "image": "https://airbnb.cybersoft.edu.vn/public/images/room/1634308330102_panoramanhatrang.jpg"
-    },
-    {
-        "_id": "61698b62efe193001c0a5ba3",
-        "name": "Nha Trang Panorama",
-        "guests": 3,
-        "bedRoom": 2,
-        "bath": 2,
-        "description": "Trên cả tuyệt vời",
-        "price": 500000,
-        "elevator": true,
-        "hotTub": true,
-        "pool": true,
-        "indoorFireplace": false,
-        "dryer": true,
-        "gym": true,
-        "kitchen": false,
-        "wifi": true,
-        "heating": false,
-        "cableTV": true,
-        "locationId": {
-            "name": "Khu phố tây Trần Phú",
-            "province": "Nha Trang",
-            "country": "viet nam",
-            "valueate": 8,
-            "image": "https://airbnb.cybersoft.edu.vn/public/temp/1634304173728_nhatrang.jpg"
-        },
-        "__v": 0,
-        "image": "https://airbnb.cybersoft.edu.vn/public/images/room/1634308330102_panoramanhatrang.jpg"
-    },
-    {
-        "_id": "61698b62efe193001c0a5ba3",
-        "name": "Nha Trang Panorama",
-        "guests": 3,
-        "bedRoom": 2,
-        "bath": 2,
-        "description": "Trên cả tuyệt vời",
-        "price": 500000,
-        "elevator": true,
-        "hotTub": true,
-        "pool": true,
-        "indoorFireplace": false,
-        "dryer": true,
-        "gym": true,
-        "kitchen": false,
-        "wifi": true,
-        "heating": false,
-        "cableTV": true,
-        "locationId": {
-            "name": "Khu phố tây Trần Phú",
-            "province": "Nha Trang",
-            "country": "viet nam",
-            "valueate": 8,
-            "image": "https://airbnb.cybersoft.edu.vn/public/temp/1634304173728_nhatrang.jpg"
-        },
-        "__v": 0,
-        "image": "https://airbnb.cybersoft.edu.vn/public/images/room/1634308330102_panoramanhatrang.jpg"
-    },
-
-]
 
 const ListRoomVer2 = () => {
 
@@ -442,7 +19,22 @@ const ListRoomVer2 = () => {
     const [rentRooms, setRentRooms] = useState([]);
     const province = rentRooms?.[0]?.locationId.province;
 
-    const check = {
+    const [priceValue, setPriceValue] = useState([0, 1000000]);
+
+    const handleChangePriceValue = (event, newValue) => {
+        setPriceValue(newValue);
+
+    };
+
+    const handleChangeInputField = (event) => {
+        setPriceValue(event.target.value === '' ? '' : Number(event.target.value))
+    };
+
+
+    const [filter, setFilter] = useState({
+        guests: 0,
+        bedRoom: 0,
+        bath: 0,
         elevator: false,
         hotTub: false,
         pool: false,
@@ -451,44 +43,27 @@ const ListRoomVer2 = () => {
         gym: false,
         kitchen: false,
         wifi: false,
-    }
+        heating: false,
+        cableTV: false,
+    });
 
-    const filter = rentRooms.filter(room => room.elevator === check.elevator);
-    // console.log('filter', filter)
+    const filtered = rentRooms.filter((item) => {
 
-    const handleFilterCheckbox = (event) => {
-        console.log('check', [event.target.name])
-        // const tempRentRooms = rentRooms;
-        // const filterRentRooms = tempRentRooms.filter(room => room[event.target.name] === event.target.checked);
-        // console.log('filterRentRooms', filterRentRooms)
-    }
-
-    const onFilterElevator = (checkName, checked) => {
-        // const initialData = [...rentRooms];
-        // if (elevator) {
-        //     const filteredData = rentRooms.filter(item => {
-        //         if (item.elevator === elevator) {
-        //             return item
-        //         }
-        //     });
-        //     setRentRooms(filteredData)
-        // }
-        // const initialData = [...rentRooms];
-        // if (checkName) {
-
-        //     const filteredData = initialData.filter(item => {
-        //         console.log(checkName)
-        //         if (item[checkName] === checked) {
-        //             return item
-        //         }
-        //     })
-        //     setRentRooms(filteredData)
-        // }
+        if (Object.keys(filter).every((p) => item[p] >= filter[p])) {
+            return true;
+        }
+    })
 
 
-    }
 
+    const finalFiltered = filtered.filter((item) => {
+        if (item.price > priceValue[0] && item.price < priceValue[1]) {
+            return true
+        }
+    })
 
+    // console.log(filtered)
+    console.log('finalFiltered', finalFiltered);
 
 
     useEffect(() => {
@@ -518,10 +93,17 @@ const ListRoomVer2 = () => {
                 {/* Filter */}
                 <div className={classes.filter}>
                     <div className={classes.filter__wrapper}>
-                        <PriceMenuFilter />
+                        <PriceMenuFilter
+                            filter={filter}
+                            setFilter={setFilter}
+                            priceValue={priceValue}
+                            setPriceValue={setPriceValue}
+                            handleChangePriceValue={handleChangePriceValue}
+                            handleChangeInputField={handleChangeInputField}
+                        />
                         <OptionsDialog
-                            onFilterElevator={onFilterElevator}
-                            onCheckboxFilter={handleFilterCheckbox}
+                            filter={filter}
+                            setFilter={setFilter}
                         />
                     </div>
 
@@ -530,7 +112,7 @@ const ListRoomVer2 = () => {
                 {/* List Rooms */}
 
                 <div className={classes.cards}>
-                    {rentRooms?.map((fakeRoom => (
+                    {finalFiltered?.map((fakeRoom => (
                         <Card key={fakeRoom._id} fakeRoom={fakeRoom} />
                     )))}
                 </div>

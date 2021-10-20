@@ -13,7 +13,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function OptionsDialog({ onCheckboxFilter, onFilterElevator }) {
+export default function OptionsDialog({ filter, setFilter }) {
     const classes = useStyles();
 
     const utilities = [
@@ -25,6 +25,8 @@ export default function OptionsDialog({ onCheckboxFilter, onFilterElevator }) {
         { id: 6, name: 'gym', label: 'Phòng gym' },
         { id: 7, name: 'kitchen', label: 'Phòng bếp' },
         { id: 8, name: 'wifi', label: 'Wifi' },
+        { id: 9, name: 'heating', label: 'Máy sửu' },
+        { id: 10, name: 'cableTV', label: 'TV Cáp' },
     ];
 
     // Rooms and beds
@@ -35,33 +37,33 @@ export default function OptionsDialog({ onCheckboxFilter, onFilterElevator }) {
     });
 
     const addBed = () => {
-        if (numberServices.bed > 15) return;
-        setNumberServices({ ...numberServices, bed: numberServices.bed + 1 })
+        if (filter.guests > 15) return;
+        setFilter({ ...filter, guests: filter.guests + 1 })
     }
 
     const minusBed = () => {
-        if (numberServices.bed < 1) return;
-        setNumberServices({ ...numberServices, bed: numberServices.bed - 1 })
+        if (filter.guests < 1) return;
+        setFilter({ ...filter, guests: filter.guests - 1 })
     }
 
     const addbedRoom = () => {
-        if (numberServices.bedRoom > 15) return;
-        setNumberServices({ ...numberServices, bedRoom: numberServices.bedRoom + 1 })
+        if (filter.bedRoom > 15) return;
+        setFilter({ ...filter, bedRoom: filter.bedRoom + 1 })
     }
 
     const minusbedRoom = () => {
-        if (numberServices.bedRoom < 1) return;
-        setNumberServices({ ...numberServices, bedRoom: numberServices.bedRoom - 1 })
+        if (filter.bedRoom < 1) return;
+        setFilter({ ...filter, bedRoom: filter.bedRoom - 1 })
     }
 
     const addBath = () => {
-        if (numberServices.bath > 15) return;
-        setNumberServices({ ...numberServices, bath: numberServices.bath + 1 })
+        if (filter.bath > 15) return;
+        setFilter({ ...filter, bath: filter.bath + 1 })
     }
 
     const minusBath = () => {
-        if (numberServices.bath < 1) return;
-        setNumberServices({ ...numberServices, bath: numberServices.bath - 1 })
+        if (filter.bath < 1) return;
+        setFilter({ ...filter, bath: filter.bath - 1 })
     }
 
     //  Checkbox state
@@ -80,22 +82,9 @@ export default function OptionsDialog({ onCheckboxFilter, onFilterElevator }) {
     // console.log(check)
 
     const handleChange = (event) => {
-        setCheck({ ...check, [event.target.name]: event.target.checked });
+        setFilter({ ...filter, [event.target.name]: event.target.checked });
     };
 
-    const handleInput = (field) => (event) => {
-        const { checked } = event.target;
-        setCheck({ ...check, [event.target.name]: checked });
-        console.log(event.target.name)
-        const checkName = event.target.name;
-        switch (field) {
-            case checkName:
-                onFilterElevator(checkName, checked)
-                break;
-
-            default:
-        }
-    };
 
     const [open, setOpen] = useState(false);
     const [scroll, setScroll] = useState('paper');
@@ -171,7 +160,7 @@ export default function OptionsDialog({ onCheckboxFilter, onFilterElevator }) {
                                                 <div className={classes.content__element__item}>
                                                     <div className={classes.itemWrapper}>
                                                         <div className={classes.item__text}>
-                                                            <p>Giường</p>
+                                                            <p>Khách</p>
                                                         </div>
                                                         <div className={classes.item__action}>
                                                             <button className={classes.item__action__btn}
@@ -180,7 +169,7 @@ export default function OptionsDialog({ onCheckboxFilter, onFilterElevator }) {
                                                                 <span>-</span>
                                                             </button>
                                                             <span className={classes.item__action__number}>
-                                                                {numberServices.bed}
+                                                                {filter.guests}
                                                             </span>
                                                             <button className={classes.item__action__btn}
                                                                 onClick={() => addBed()}
@@ -203,7 +192,7 @@ export default function OptionsDialog({ onCheckboxFilter, onFilterElevator }) {
                                                                 <span>-</span>
                                                             </button>
                                                             <span className={classes.item__action__number}>
-                                                                {numberServices.bedRoom}
+                                                                {filter.bedRoom}
                                                             </span>
                                                             <button className={classes.item__action__btn}
                                                                 onClick={() => addbedRoom()}
@@ -226,7 +215,7 @@ export default function OptionsDialog({ onCheckboxFilter, onFilterElevator }) {
                                                                 <span>-</span>
                                                             </button>
                                                             <span className={classes.item__action__number}>
-                                                                {numberServices.bath}
+                                                                {filter.bath}
                                                             </span>
                                                             <button className={classes.item__action__btn}
                                                                 onClick={() => addBath()}
@@ -257,8 +246,8 @@ export default function OptionsDialog({ onCheckboxFilter, onFilterElevator }) {
                                                                 className={classes.checkbox}
                                                                 name={uti.name}
                                                                 checked={check.name}
-                                                                // onChange={handleChange}
-                                                                onChange={handleInput(uti.name)}
+                                                                onChange={handleChange}
+                                                            // onChange={}
 
                                                             />}
                                                             label={<Typography variant="body1" color="textPrimary">
