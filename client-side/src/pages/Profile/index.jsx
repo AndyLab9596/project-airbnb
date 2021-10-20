@@ -98,13 +98,13 @@ const Profile = () => {
           </Grid>
         </div>
       ) : (
-        <div
-          className={classes.profile__mobile}
-         
-        >
+        <div className={classes.profile__mobile}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div>
-              <Typography variant="h5" className={classes.profile__mobile__title}>
+              <Typography
+                variant="h5"
+                className={classes.profile__mobile__title}
+              >
                 Xin chào, tôi là Phat
               </Typography>
               <Typography className={classes.profile__text3}>
