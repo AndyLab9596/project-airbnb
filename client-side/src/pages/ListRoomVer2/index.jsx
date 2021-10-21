@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
 import manageRentApi from '../../api/manageRentApi';
@@ -6,6 +6,7 @@ import Card from './Card';
 import Mapbox from './Mapbox';
 import OptionsDialog from './OptionsDialog';
 import PriceMenuFilter from './PriceMenuFilter';
+import Pagination from '@material-ui/lab/Pagination';
 import useStyles from "./style";
 
 
@@ -19,6 +20,7 @@ const ListRoomVer2 = () => {
     const [rentRooms, setRentRooms] = useState([]);
     const province = rentRooms?.[0]?.locationId.province;
 
+    // Filter
     const [priceValue, setPriceValue] = useState([0, 1000000]);
 
     const handleChangePriceValue = (event, newValue) => {
@@ -63,10 +65,15 @@ const ListRoomVer2 = () => {
         }
     })
 
-    // reset all not completed
     const resetFilter = () => {
         setFilter(initialFilter)
     }
+
+    // Pagination
+    const [pagination, setPagination] = useState(1);
+
+
+
 
     useEffect(() => {
         (async () => {
@@ -118,6 +125,10 @@ const ListRoomVer2 = () => {
                     {finalFiltered?.map((fakeRoom => (
                         <Card key={fakeRoom._id} fakeRoom={fakeRoom} />
                     )))}
+
+                    {/* Pagination */}
+                    <Pagination count={10} color="primary" />
+
                 </div>
 
             </div>
