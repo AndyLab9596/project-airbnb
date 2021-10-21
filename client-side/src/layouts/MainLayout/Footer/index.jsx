@@ -19,6 +19,7 @@ const Footer = () => {
   const listpageRoute = matchUrl.path === "/list/:locationId";
   const detailpageRoute = matchUrl.path === "/detail/:roomId";
   const profilepageRoute = matchUrl.path === "/profile/:personId";
+  const paymentpageRoute = matchUrl.path === "/pay/:roomId";
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.up("md"));
   const classes = useStyles({
@@ -30,7 +31,7 @@ const Footer = () => {
   return (
     <Container maxWidth={false} className={classes.footer} id="footer">
       <Fragment>
-        {isTablet || homepageRoute || detailpageRoute ? (
+        {isTablet || homepageRoute || detailpageRoute || !paymentpageRoute ? (
           <div className={classes.footer__style}>
             <Grid container>
               <Grid className={classes.footer__content} item xl={3} md={12}>
