@@ -15,6 +15,8 @@ import { SHOW_MODAL_RATED } from "../../../../../store/types/ListRoomType";
 import { formMoney } from "../../../../../utilities/coordinates";
 import useStyles from "./style";
 import moment from "moment";
+import { USERID } from "../../../../../constants/config";
+import { SHOW_MODAL_SIGNIN } from "../../../../../store/types/AuthType";
 
 const BookingTablet = ({
   bookingTime,
@@ -29,6 +31,7 @@ const BookingTablet = ({
   const classes = useStyles();
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const dispatch = useDispatch();
+  const isUserId = localStorage.getItem(USERID);
   const handleShowRating = () => {
     dispatch(createAction(SHOW_MODAL_RATED));
   };
@@ -60,20 +63,24 @@ const BookingTablet = ({
     });
   };
   const handleClickBooking = () => {
-    const params = {
-      ...queryParams,
-      _checkIn: moment(bookingTime[0]).format("YYYY-MM-DD"),
-      _checkOut: moment(bookingTime[1]).format("YYYY-MM-DD"),
-    };
-    history.push({
-      pathname: `/pay/${detailRoom._id}`,
-      search: queryString.stringify(params),
-    });
+    if (!isUserId) {
+      dispatch(createAction(SHOW_MODAL_SIGNIN));
+    } else {
+      const params = {
+        ...queryParams,
+        _checkIn: moment(bookingTime[0]).format("YYYY-MM-DD"),
+        _checkOut: moment(bookingTime[1]).format("YYYY-MM-DD"),
+      };
+      history.push({
+        pathname: `/pay/${detailRoom._id}`,
+        search: queryString.stringify(params),
+      });
+    }
   };
 
   return (
     <div className={classes.room__booking__content}>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
+      <div>
         {totalDate < 30 && totalDate > 0 ? (
           <Typography variant="body2" className={classes.room__booking__price}>
             {formMoney(detailRoom?.price)}
@@ -93,7 +100,7 @@ const BookingTablet = ({
             ( {detailRating?.length} đánh giá)
           </Button>
         </Typography>
-      </Box>
+      </div>
 
       {/* date picker */}
       <div className={classes.room__booking__datepicker}>

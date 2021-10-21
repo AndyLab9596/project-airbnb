@@ -10,6 +10,7 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.up("xl")]: {
       padding: 24,
     },
+
     "& .MuiAccordionDetails-root": {
       borderTop: "1px solid #999",
       padding: "20px 14px",
