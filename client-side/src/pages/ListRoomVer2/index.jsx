@@ -8,7 +8,7 @@ import Mapbox from './Mapbox';
 import OptionsDialog from './OptionsDialog';
 import PriceMenuFilter from './PriceMenuFilter';
 import useStyles from "./style";
-
+import useFetch from './useFetch';
 
 const ListRoomVer2 = () => {
 
@@ -17,30 +17,23 @@ const ListRoomVer2 = () => {
     const param = useParams();
     const locationId = param.locationId;
 
-    const [data, setData] = useState([]);
-    const province = data?.[0]?.locationId.province;
+    const { loading, data } = useFetch(locationId);
 
 
-    // input : tổng trang, phần tử mỗi trang, khi handleChange ở pagination thì sẽ tự động cập nhập page
-    // output: phần tử mỗi page
-    // filter trên 1 page
+    const [rentRooms, setRentRooms] = useState([]);
+    const [page, setPage] = useState(1);
 
-    // Pagination:
-    // const itemsPerPage = 3;
-    // const [paginationPage, setPaginationPage] = useState(1);
-    // const handlePageChange = (event, value) => {
-    //     setPaginationPage(value)
-    // };
+    const handlePageChange = (event, page) => {
+        console.log('page', page)
+        setPage(page)
+    }
+    console.log('page', page)
+    console.log('rentRooms', rentRooms)
+    console.log('loading', loading)
+    console.log('data', data)
 
-    // const paginate = (rentRooms) => {
-    //     const newRentRooms = Array.from({ length: rentRooms.length }, (_, index) => {
-    //         const start = index * itemsPerPage
-    //         return rentRooms.slice(start, start + itemsPerPage)
-    //     })
-    //     return newRentRooms;
-    // }
+    // const province = rentRooms?.[0]?.locationId.province;
 
-    // const [rentRooms, setRentRooms] = useState([]);
 
     // Filter
     const [priceValue, setPriceValue] = useState([0, 1000000]);
@@ -74,7 +67,7 @@ const ListRoomVer2 = () => {
 
     const [filter, setFilter] = useState(initialFilter);
 
-    const filtered = data.filter((item) => {
+    const filtered = rentRooms.filter((item) => {
 
         if (Object.keys(filter).every((p) => item[p] >= filter[p])) {
             return true;
@@ -93,17 +86,27 @@ const ListRoomVer2 = () => {
 
 
 
-    useEffect(() => {
-        (async () => {
-            try {
-                const res = await manageRentApi.getRentRooms(locationId)
-                setData(res)
+    // useEffect(() => {
+    //     (async () => {
+    //         try {
+    //             // const res = await manageRentApi.getRentRooms(locationId)
+    //             if (loading) return
+    //             setRentRooms(data[page])
 
-            } catch (error) {
-                console.log(error)
-            }
-        })()
-    }, [locationId])
+
+    //         } catch (error) {
+    //             console.log(error)
+    //         }
+    //     })()
+    // }, [loading, page])
+
+
+    //  [{} 4cai[ [{} 4 cai]] ]
+
+    useEffect(() => {
+        if (loading) return
+        setRentRooms(data[page - 1])
+    }, [loading, page])
 
 
     return (
@@ -114,7 +117,7 @@ const ListRoomVer2 = () => {
                 <div className={classes.content__header}>
                     <p>Hơn 300 chỗ ở</p>
                     <h3>Chỗ ở tại Thành Phố
-                        {province}
+                        {/* {province} */}
                     </h3>
                 </div>
 
@@ -151,11 +154,13 @@ const ListRoomVer2 = () => {
 
                     {/* Pagination */}
                     <div className={classes.pagination}>
-                        {/* <Pagination
-                            count={Math.ceil(data.length / itemsPerPage)}
-                            page={paginationPage}
+                        <Pagination
+                            boundaryCount={1}
+                            defaultPage={1}
+                            count={data?.length}
+                            page={page}
                             onChange={handlePageChange}
-                            color="primary" /> */}
+                            color="primary" />
                     </div>
 
                 </div>
