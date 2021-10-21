@@ -1,12 +1,10 @@
 import { Typography, useMediaQuery, useTheme } from "@material-ui/core";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import StarIcon from "@material-ui/icons/Star";
 import { Box } from "@mui/system";
 import React from "react";
 import { useSelector } from "react-redux";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import StarIcon from "@material-ui/icons/Star";
 import useStyles from "./style";
-import { formMoney } from "../../../utilities/coordinates";
-import BookingPrice from "../../../components/BookingPrice";
 
 function ResultTicket({ totalDate, detailRoom, valueGroup, totalPrice }) {
   const theme = useTheme();
