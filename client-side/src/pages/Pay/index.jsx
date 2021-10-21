@@ -18,20 +18,47 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 import LanguageIcon from "@material-ui/icons/Language";
 import StarIcon from "@material-ui/icons/Star";
 import TwitterIcon from "@material-ui/icons/Twitter";
-import React from "react";
+import React, { useMemo, useState } from "react";
+import { useLocation } from "react-router";
 import useStyles from "./style";
+import queryString from "query-string";
+import moment from "moment";
+import { useSelector } from "react-redux";
+import BookingPrice from "../../components/BookingPrice";
+import { formMoney } from "../../utilities/coordinates";
 const Pay = () => {
+  const location = useLocation();
+  const queryParams = useMemo(() => {
+    const params = queryString.parse(location.search);
+    return {
+      ...params,
+    };
+  }, [location.search]);
+  console.log(queryParams);
+  const { detailRoom } = useSelector((state) => state.ListRoomReducer);
+  console.log(detailRoom);
+  const [bookingTime, setBookingTime] = useState([
+    new Date(queryParams._checkIn),
+    new Date(queryParams._checkOut),
+  ]);
+  const totalDateTime = bookingTime[1] - bookingTime[0];
+  const totalDate = totalDateTime / (1000 * 3600 * 24);
+  // const today = new Date(queryParams._checkIn);
+
+  const date = new Date().setDate(bookingTime[0].getDate() - 4);
+  const daysAgo = new Date(date);
+
   const classes = useStyles();
   const [valueGroup, setValueGroup] = React.useState("Visa");
 
   const handleChangeRadioGroup = (event) => {
     setValueGroup(event.target.value);
   };
-  const [selectedValue, setSelectedValue] = React.useState("a");
+  // const [selectedValue, setSelectedValue] = React.useState("a");
 
-  const handleChange = (event) => {
-    setSelectedValue(event.target.value);
-  };
+  // const handleChange = (event) => {
+  //   setSelectedValue(event.target.value);
+  // };
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
@@ -77,7 +104,17 @@ const Pay = () => {
                       >
                         Ngày
                       </Typography>
-                      <Typography>3 thg 11 – 6 thg 11</Typography>
+                      <Typography variant="span">
+                        {moment(queryParams._checkIn).format("Do MMM  YYYY")} -
+                        <Typography variant="span">
+                          {moment(queryParams._checkOut).format("Do MMM  YYYY")}
+                        </Typography>
+                      </Typography>
+                    </div>
+                    <div>
+                      <Typography className={classes.pay__button__style}>
+                        Chỉnh sửa
+                      </Typography>
                     </div>
                   </div>
                 </div>
@@ -92,10 +129,15 @@ const Pay = () => {
                       </Typography>
                       <Typography>1 khách</Typography>
                     </div>
+                    <div>
+                      <Typography className={classes.pay__button__style}>
+                        Chỉnh sửa
+                      </Typography>
+                    </div>
                   </div>
                 </div>
 
-                {/* CHỌN CÁCH THANH TOÁN  */}
+                {/* CHỌN CÁCH THANH TOÁN 
                 <div className={classes.pay__item__style__title}>
                   <Typography className={classes.pay__item__title}>
                     Chọn cách thanh toán
@@ -112,7 +154,7 @@ const Pay = () => {
                           Trả toàn bộ
                         </Typography>
                         <Typography style={{ paddingLight: 60 }}>
-                          $82,71
+                          {formMoney(detailRoom?.price * totalDate)}
                         </Typography>
                       </div>
                       <Typography className={classes.pay__radio__style}>
@@ -142,12 +184,16 @@ const Pay = () => {
                         >
                           Trả ngay một phần, phần còn lại trả sau
                         </Typography>
-                        <Typography>$41,36</Typography>
+                        <Typography>
+                          {formMoney((detailRoom?.price * totalDate) / 2)}
+                        </Typography>
                       </div>
                       <Typography className={classes.pay__radio__style}>
-                        Thanh toán ngay $41,36 và phần còn lại ($41,35) sẽ tự
-                        động được trừ vào cùng phương thức thanh toán này vào 21
-                        thg 10, 2021. Không phát sinh phụ phí.
+                        Thanh toán ngay{" "}
+                        {formMoney((detailRoom?.price * totalDate) / 2)} và phần
+                        còn lại {formMoney((detailRoom?.price * totalDate) / 2)}{" "}
+                        sẽ tự động được trừ vào cùng phương thức thanh toán này
+                        vào 21 thg 10, 2021. Không phát sinh phụ phí.
                       </Typography>
                       <div>
                         <Typography className={classes.pay__button__style}>
@@ -168,7 +214,7 @@ const Pay = () => {
                       />
                     </div>
                   </div>
-                </Box>
+                </Box> */}
 
                 {/* THANH TOÁN BẰNG  */}
                 <div className={classes.pay__left__payment}>
@@ -285,10 +331,15 @@ const Pay = () => {
                     </Typography>
                   </div>
                   <div style={{ paddingBottom: 24 }}>
-                    <span>Hủy miễn phí trước 14:00, ngày 29 thg 10. </span>
+                    <span className={classes.pay__item__content__text}>
+                      Hủy miễn phí trước 14:00, ngày{" "}
+                      {moment(daysAgo).format("Do MMM YYYY")}.
+                    </span>
                     <span>
-                      Sau đó, hãy hủy trước 14:00 ngày 3 thg 11 để được hoàn lại
-                      50%, trừ chi phí đêm đầu tiên và phí dịch vụ.
+                      {" "}
+                      Sau đó, hãy hủy trước 14:00 ngày{" "}
+                      {moment(bookingTime[0]).format("Do MMM YYYY")}. để được
+                      hoàn lại 50%, trừ chi phí đêm đầu tiên và phí dịch vụ.
                     </span>
                     <div>
                       <a
@@ -393,7 +444,11 @@ const Pay = () => {
                           Chi tiết giá
                         </Typography>
                       </div>
-                      <div>
+                      <BookingPrice
+                        totalDate={totalDate}
+                        detailRoom={detailRoom}
+                      />
+                      {/* <div>
                         <div className={classes.pay__right__table}>
                           <div className={classes.pay__right__table__item}>
                             <Typography variant="body1">
@@ -425,7 +480,7 @@ const Pay = () => {
                             <Typography variant="body1">$82,71</Typography>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </Box>

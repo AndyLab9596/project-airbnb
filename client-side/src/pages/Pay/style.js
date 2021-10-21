@@ -249,6 +249,9 @@ export default makeStyles(theme => ({
             opacity: 0.8
         }
     },
+    pay__item__content__text: {
+        fontWeight: 700
+    },
 
 
 
