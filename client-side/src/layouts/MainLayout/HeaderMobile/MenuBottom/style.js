@@ -18,6 +18,7 @@ export default makeStyles((theme) => ({
     border: "1px solid rgb(255, 255, 255)",
     transition: "all 0.4s",
     opacity: (props) => (props.isScrolled ? 0 : 1),
+    visibility: (props) => (props.isScrolled ? "hidden" : "visible"),
   },
   content: {
     display: "flex",

@@ -12,7 +12,7 @@ export default makeStyles((theme) => ({
     minHeight: 80,
   },
   booking__content: {
-    padding: "16px 24px",
+    padding: "0px 24px",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",

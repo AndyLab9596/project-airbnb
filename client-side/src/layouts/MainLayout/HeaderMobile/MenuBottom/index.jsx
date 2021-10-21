@@ -36,7 +36,13 @@ const MenuBottom = () => {
   };
   return (
     <div className={classes.rootBottom}>
-      <div className={classes.content} onClick={() => history.push("/")}>
+      <div
+        className={classes.content}
+        onClick={() => {
+          history.push("/");
+          handleShowSearchBar();
+        }}
+      >
         <Button disableRipple>
           <MdSearch />
         </Button>
@@ -50,7 +56,7 @@ const MenuBottom = () => {
       </div>
       {isUserId ? (
         <Fragment>
-          <div className={classes.content} onClick={handleShowSearchBar}>
+          <div className={classes.content}>
             <Button disableRipple>
               <FaAirbnb />
             </Button>

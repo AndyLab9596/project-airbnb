@@ -20,7 +20,6 @@ const HeaderMobile = () => {
   const homepageRoute = matchUrl.path === "/";
   const listpageRoute = matchUrl.path === "/list/:locationId";
 
-  console.log(listpageRoute);
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
