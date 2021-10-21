@@ -12,6 +12,7 @@ import LanguageIcon from "@material-ui/icons/Language";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import React, { Fragment } from "react";
 import { useRouteMatch } from "react-router";
+import ButtonSubmit from "../../../components/ButtonSubmit";
 import useStyles from "./style";
 const Footer = () => {
   const matchUrl = useRouteMatch();
@@ -28,213 +29,217 @@ const Footer = () => {
     detailpageRoute,
     profilepageRoute,
   });
+
   return (
     <Container maxWidth={false} className={classes.footer} id="footer">
       <Fragment>
-        {isTablet || homepageRoute || detailpageRoute || !paymentpageRoute ? (
-          <div className={classes.footer__style}>
-            <Grid container>
-              <Grid className={classes.footer__content} item xl={3} md={12}>
-                <Typography variant="h7" className={classes.footer__title}>
-                  GIỚI THIỆU
-                </Typography>
-                <div>
-                  <div className={classes.footer__item}>
-                    <ul>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Phương thức hoạt động của Airbnb
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Trang tin tức
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Airbnb 2021
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Nhà đầu tư
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Airbnb Plus
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Airbnb Luxe
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          HotelTonight
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Airbnb for Work
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Nhờ có Host, mọi điều đều có thể
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Cơ hội nghề nghiệp
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Thư của nhà sáng lập
-                        </a>
-                      </li>
-                    </ul>
+        {isTablet || homepageRoute || detailpageRoute ? (
+          paymentpageRoute ? null : (
+            <div className={classes.footer__style}>
+              <Grid container>
+                <Grid className={classes.footer__content} item xl={3} md={12}>
+                  <Typography variant="h7" className={classes.footer__title}>
+                    GIỚI THIỆU
+                  </Typography>
+                  <div>
+                    <div className={classes.footer__item}>
+                      <ul>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Phương thức hoạt động của Airbnb
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Trang tin tức
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Airbnb 2021
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Nhà đầu tư
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Airbnb Plus
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Airbnb Luxe
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            HotelTonight
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Airbnb for Work
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Nhờ có Host, mọi điều đều có thể
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Cơ hội nghề nghiệp
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Thư của nhà sáng lập
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
-                </div>
-              </Grid>
-              <Grid className={classes.footer__content} item xl={3} md={12}>
-                <Typography variant="h7" className={classes.footer__title}>
-                  CỘNG ĐỒNG
-                </Typography>
-                <div style={{ display: "flex" }}>
-                  <div className={classes.footer__item}>
-                    <ul>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Sự đa dạng và Cảm giác thân thuộc
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Tiện nghi phù hợp với người có <br /> nhu cầu đặc biệt
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Đối tác liên kết Airbnb
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Đón tiếp người tị nạn Afghanistan
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Lượt giới thiệu của khách
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Airbnb.org
-                        </a>
-                      </li>
-                    </ul>
+                </Grid>
+                <Grid className={classes.footer__content} item xl={3} md={12}>
+                  <Typography variant="h7" className={classes.footer__title}>
+                    CỘNG ĐỒNG
+                  </Typography>
+                  <div style={{ display: "flex" }}>
+                    <div className={classes.footer__item}>
+                      <ul>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Sự đa dạng và Cảm giác thân thuộc
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Tiện nghi phù hợp với người có <br /> nhu cầu đặc
+                            biệt
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Đối tác liên kết Airbnb
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Đón tiếp người tị nạn Afghanistan
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Lượt giới thiệu của khách
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Airbnb.org
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
-                </div>
-              </Grid>
-              <Grid className={classes.footer__content} item xl={3} md={12}>
-                <Typography variant="h7" className={classes.footer__title}>
-                  ĐÓN TIẾP KHÁCH
-                </Typography>
-                <div style={{ display: "flex" }}>
-                  <div className={classes.footer__item}>
-                    <ul>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Cho thuê nhà
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Tổ chức Trải nghiệm trực tuyến
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Tổ chức trải nghiệm
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Giới thiệu chủ nhà/người tổ chức
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Đón tiếp khách có trách nhiệm
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Trung tâm tài nguyên
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Trung tâm cộng đồng
-                        </a>
-                      </li>
-                    </ul>
+                </Grid>
+                <Grid className={classes.footer__content} item xl={3} md={12}>
+                  <Typography variant="h7" className={classes.footer__title}>
+                    ĐÓN TIẾP KHÁCH
+                  </Typography>
+                  <div style={{ display: "flex" }}>
+                    <div className={classes.footer__item}>
+                      <ul>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Cho thuê nhà
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Tổ chức Trải nghiệm trực tuyến
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Tổ chức trải nghiệm
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Giới thiệu chủ nhà/người tổ chức
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Đón tiếp khách có trách nhiệm
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Trung tâm tài nguyên
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Trung tâm cộng đồng
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
-                </div>
-              </Grid>
-              <Grid className={classes.footer__content} item xl={3} md={12}>
-                <Typography variant="h7" className={classes.footer__title}>
-                  HỖ TRỢ
-                </Typography>
-                <div style={{ display: "flex" }}>
-                  <div className={classes.footer__item}>
-                    <ul>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Biện pháp ứng phó với đại dịch <br /> COVID-19
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Trung tâm trợ giúp
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Các tùy chọn hủy
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Hỗ trợ khu dân cư
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Trung tâm tài nguyên
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Tin cậy và an toàn
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://www.airbnb.com.vn/d/howairbnbworks">
-                          Trung tâm cộng đồng
-                        </a>
-                      </li>
-                    </ul>
+                </Grid>
+                <Grid className={classes.footer__content} item xl={3} md={12}>
+                  <Typography variant="h7" className={classes.footer__title}>
+                    HỖ TRỢ
+                  </Typography>
+                  <div style={{ display: "flex" }}>
+                    <div className={classes.footer__item}>
+                      <ul>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Biện pháp ứng phó với đại dịch <br /> COVID-19
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Trung tâm trợ giúp
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Các tùy chọn hủy
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Hỗ trợ khu dân cư
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Trung tâm tài nguyên
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Tin cậy và an toàn
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.airbnb.com.vn/d/howairbnbworks">
+                            Trung tâm cộng đồng
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
-                </div>
+                </Grid>
               </Grid>
-            </Grid>
-          </div>
+            </div>
+          )
         ) : null}
         {/* Copy Right  */}
         {isTablet || !listpageRoute ? (
@@ -279,6 +284,7 @@ const Footer = () => {
                   <span>USD</span>
                 </div>
               </div>
+
               <div className={classes.footer__bot__content1}>
                 <ul>
                   <li>
