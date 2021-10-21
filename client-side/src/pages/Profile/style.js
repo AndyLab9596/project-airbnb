@@ -41,7 +41,8 @@ export default makeStyles(theme => ({
         borderRadius: "4px",
         fontWeight: 600,
         outline: "none",
-        fontSize: 13
+        fontSize: 13,
+        cursor: "pointer"
     },
     profile__text1: {
         fontSize: 16,
@@ -93,14 +94,14 @@ export default makeStyles(theme => ({
         margin: "auto",
         [theme.breakpoints.down(769)]: {
 
-            minHeight:"85vh",
-            marginTop:"20%"
+            minHeight: "85vh",
+            marginTop: "20%"
 
         },
         [theme.breakpoints.down(1025)]: {
 
-            minHeight:"85vh",
-            marginTop:"20%"
+            minHeight: "85vh",
+            marginTop: "20%"
 
         },
         [theme.breakpoints.down(376)]: {
@@ -126,6 +127,24 @@ export default makeStyles(theme => ({
         display: "block",
         paddingTop: 20,
         ...underLine
+    },
+    roott: {
+        width: "100%",
+        height: "50%",
+        display: "flex",
+        justifyContent: "center",
+       
+    },
+    modal__content: {
+        width: "100%",
+        maxWidth: 764,
+        borderRadius: 12,
+        animation: "slide 0.4s linear",
+        backgroundColor: "#fff",
+        zIndex: 999,
+        display: "flex",
+        flexDirection: "column",
+        margin: "30px 0",
     },
 
 
