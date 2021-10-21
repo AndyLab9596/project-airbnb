@@ -1,4 +1,3 @@
-import { MAPBOX_TOKEN } from '../constants/config';
 import axiosMapbox from './axiosMapbox';
 
 const manageMapboxApi = {
