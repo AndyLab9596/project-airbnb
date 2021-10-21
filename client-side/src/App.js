@@ -42,7 +42,7 @@ const App = () => {
           <MainLayout path="/profile/:personId" exact Component={Profile} />
           <MainLayout path="/list/:locationId" exact Component={ListRoom} />
           <MainLayout path="/detail/:roomId" exact Component={Detail} />
-          <Route path="/pay/:roomId" exact component={Pay} />
+          <MainLayout path="/pay/:roomId" exact Component={Pay} />
         </Switch>
       </ThemeProvider>
     </BrowserRouter>

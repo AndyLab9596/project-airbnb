@@ -46,12 +46,13 @@ const Pay = () => {
   const { detailRoom } = useSelector((state) => state.ListRoomReducer);
   console.log(detailRoom);
   const [bookingTime, setBookingTime] = useState([
-    new Date(queryParams._checkIn),
-    new Date(queryParams._checkOut),
+    queryParams._checkIn ? new Date(queryParams._checkIn) : null,
+    queryParams._checkOut ? new Date(queryParams._checkOut) : null,
   ]);
   console.log(bookingTime);
   const totalDateTime = bookingTime[1] - bookingTime[0];
   const totalDate = totalDateTime / (1000 * 3600 * 24);
+  const isBooking = bookingTime.some((item) => item === null);
   // const today = new Date(queryParams._checkIn);
 
   const date = new Date().setDate(bookingTime[0].getDate() - 4);
@@ -126,6 +127,7 @@ const Pay = () => {
   const handleClickBackHome = () => {
     history.push("/");
   };
+
   return (
     <div>
       <Container className={classes.pay} maxWidth={false}>
@@ -161,6 +163,7 @@ const Pay = () => {
                       >
                         Ngày
                       </Typography>
+
                       <Typography variant="span">
                         {moment(bookingTime[0]).format("Do MMM  YYYY")} -
                         <Typography variant="span">
@@ -199,85 +202,6 @@ const Pay = () => {
                     </div>
                   </div>
                 </div>
-
-                {/* CHỌN CÁCH THANH TOÁN 
-                <div className={classes.pay__item__style__title}>
-                  <Typography className={classes.pay__item__title}>
-                    Chọn cách thanh toán
-                  </Typography>
-                </div>
-                <Box paddingBottom={3}>
-                  <div className={classes.pay__radio__top}>
-                    <div style={{ flex: "0 0 92%" }}>
-                      <div className={classes.pay__item__style}>
-                        <Typography
-                          className={classes.pay__text__style}
-                          variant="subtitle2"
-                        >
-                          Trả toàn bộ
-                        </Typography>
-                        <Typography style={{ paddingLight: 60 }}>
-                          {formMoney(detailRoom?.price * totalDate)}
-                        </Typography>
-                      </div>
-                      <Typography className={classes.pay__radio__style}>
-                        Thanh toán toàn bộ số tiền ngay bây giờ và bạn đã sẵn
-                        sàng.
-                      </Typography>
-                    </div>
-                    <div
-                      style={{ flex: "0 0 4%" }}
-                      className={classes.pay__radio__right}
-                    >
-                      <Radio
-                        checked={selectedValue === "a"}
-                        onChange={handleChange}
-                        value="a"
-                        name="radio-button-demo"
-                        inputProps={{ "aria-label": "A" }}
-                      />
-                    </div>
-                  </div>
-                  <div className={classes.pay__radio__bot}>
-                    <div style={{ flex: "0 0 92%" }}>
-                      <div className={classes.pay__item__style}>
-                        <Typography
-                          className={classes.pay__text__style}
-                          variant="subtitle2"
-                        >
-                          Trả ngay một phần, phần còn lại trả sau
-                        </Typography>
-                        <Typography>
-                          {formMoney((detailRoom?.price * totalDate) / 2)}
-                        </Typography>
-                      </div>
-                      <Typography className={classes.pay__radio__style}>
-                        Thanh toán ngay{" "}
-                        {formMoney((detailRoom?.price * totalDate) / 2)} và phần
-                        còn lại {formMoney((detailRoom?.price * totalDate) / 2)}{" "}
-                        sẽ tự động được trừ vào cùng phương thức thanh toán này
-                        vào 21 thg 10, 2021. Không phát sinh phụ phí.
-                      </Typography>
-                      <div>
-                        <Typography className={classes.pay__button__style}>
-                          Thông tin thêm
-                        </Typography>
-                      </div>
-                    </div>
-                    <div
-                      style={{ flex: "0 0 4%" }}
-                      className={classes.pay__radio__right1}
-                    >
-                      <Radio
-                        checked={selectedValue === "b"}
-                        onChange={handleChange}
-                        value="b"
-                        name="radio-button-demo"
-                        inputProps={{ "aria-label": "B" }}
-                      />
-                    </div>
-                  </div>
-                </Box> */}
 
                 {/* THANH TOÁN BẰNG  */}
                 <div className={classes.pay__left__payment}>
@@ -439,7 +363,7 @@ const Pay = () => {
                     dịch COVID-19 của Airbnb và Chính sách hoàn tiền cho khách.
                   </span>
                 </div>
-                <div >
+                <div>
                   <ButtonSubmit
                     handleSubmit={handleOpen1}
                     text={text}
@@ -520,39 +444,6 @@ const Pay = () => {
                         totalDate={totalDate}
                         detailRoom={detailRoom}
                       />
-                      {/* <div>
-                        <div className={classes.pay__right__table}>
-                          <div className={classes.pay__right__table__item}>
-                            <Typography variant="body1">
-                              $24,16 x 3 đêm
-                            </Typography>
-                          </div>
-                          <div>
-                            <Typography variant="body1">$72,48</Typography>
-                          </div>
-                        </div>
-                        <div className={classes.pay__right__table}>
-                          <div className={classes.pay__right__table__item}>
-                            <Typography
-                              variant="body1"
-                              style={{ textDecoration: "underline" }}
-                            >
-                              Phí dịch vụ
-                            </Typography>
-                          </div>
-                          <div>
-                            <Typography variant="body1">$10,23</Typography>
-                          </div>
-                        </div>
-                        <div className={classes.pay__right__table}>
-                          <div className={classes.pay__right__table__item}>
-                            <Typography variant="body1">Tổng (USD)</Typography>
-                          </div>
-                          <div>
-                            <Typography variant="body1">$82,71</Typography>
-                          </div>
-                        </div>
-                      </div> */}
                     </div>
                   </div>
                 </Box>
@@ -616,64 +507,6 @@ const Pay = () => {
           )}
         </Dialog>
       </Container>
-      <div className={classes.footer__bot}>
-        <div className={classes.footer__item__bot}>
-          <li className={classes.footer__item__list__first}>
-            <span>© 2021 Airbnb, Inc.</span>
-          </li>
-          <li className={classes.footer__item__list__end}>
-            <a href="https://www.airbnb.com.vn/help/article/2855/ch%C3%ADnh-s%C3%A1ch-quy%E1%BB%81n-ri%C3%AAng-t%C6%B0">
-              Quyền riêng tư
-            </a>
-          </li>
-          <li className={classes.footer__item__list__end}>
-            <a href="https://www.airbnb.com.vn/help/article/2855/ch%C3%ADnh-s%C3%A1ch-quy%E1%BB%81n-ri%C3%AAng-t%C6%B0">
-              Điều khoản
-            </a>
-          </li>
-          <li className={classes.footer__item__list__end}>
-            <a href="https://www.airbnb.com.vn/sitemaps/v2">Sơ đồ trang web</a>
-          </li>
-        </div>
-        <div
-          className={classes.footer__bot__content}
-          style={{ display: "flex" }}
-        >
-          <div style={{ display: "flex" }}>
-            <div style={{ display: "flex", marginRight: "24px" }}>
-              <span>
-                <LanguageIcon />
-              </span>
-              <span>Tiếng Việt (VN)</span>
-            </div>
-            <div style={{ display: "flex", marginRight: "24px" }}>
-              <span>
-                <AttachMoneyIcon />
-              </span>
-              <span>USD</span>
-            </div>
-          </div>
-          <div className={classes.footer__bot__content1}>
-            <ul>
-              <li>
-                <a href="">
-                  <FacebookIcon />
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  <TwitterIcon />
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  <InstagramIcon />
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
