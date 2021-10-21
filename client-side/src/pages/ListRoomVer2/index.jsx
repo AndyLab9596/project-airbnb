@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import { Pagination } from '@material-ui/lab';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
 import manageRentApi from '../../api/manageRentApi';
@@ -6,7 +7,6 @@ import Card from './Card';
 import Mapbox from './Mapbox';
 import OptionsDialog from './OptionsDialog';
 import PriceMenuFilter from './PriceMenuFilter';
-import Pagination from '@material-ui/lab/Pagination';
 import useStyles from "./style";
 
 
@@ -17,8 +17,30 @@ const ListRoomVer2 = () => {
     const param = useParams();
     const locationId = param.locationId;
 
-    const [rentRooms, setRentRooms] = useState([]);
-    const province = rentRooms?.[0]?.locationId.province;
+    const [data, setData] = useState([]);
+    const province = data?.[0]?.locationId.province;
+
+
+    // input : tổng trang, phần tử mỗi trang, khi handleChange ở pagination thì sẽ tự động cập nhập page
+    // output: phần tử mỗi page
+    // filter trên 1 page
+
+    // Pagination:
+    // const itemsPerPage = 3;
+    // const [paginationPage, setPaginationPage] = useState(1);
+    // const handlePageChange = (event, value) => {
+    //     setPaginationPage(value)
+    // };
+
+    // const paginate = (rentRooms) => {
+    //     const newRentRooms = Array.from({ length: rentRooms.length }, (_, index) => {
+    //         const start = index * itemsPerPage
+    //         return rentRooms.slice(start, start + itemsPerPage)
+    //     })
+    //     return newRentRooms;
+    // }
+
+    // const [rentRooms, setRentRooms] = useState([]);
 
     // Filter
     const [priceValue, setPriceValue] = useState([0, 1000000]);
@@ -52,7 +74,7 @@ const ListRoomVer2 = () => {
 
     const [filter, setFilter] = useState(initialFilter);
 
-    const filtered = rentRooms.filter((item) => {
+    const filtered = data.filter((item) => {
 
         if (Object.keys(filter).every((p) => item[p] >= filter[p])) {
             return true;
@@ -69,23 +91,18 @@ const ListRoomVer2 = () => {
         setFilter(initialFilter)
     }
 
-    // Pagination
-    const [pagination, setPagination] = useState(1);
-
-
 
 
     useEffect(() => {
         (async () => {
             try {
                 const res = await manageRentApi.getRentRooms(locationId)
-                setRentRooms(res)
+                setData(res)
 
             } catch (error) {
                 console.log(error)
             }
         })()
-
     }, [locationId])
 
 
@@ -96,7 +113,9 @@ const ListRoomVer2 = () => {
             <div className={classes.content}>
                 <div className={classes.content__header}>
                     <p>Hơn 300 chỗ ở</p>
-                    <h3>Chỗ ở tại Thành Phố {province}</h3>
+                    <h3>Chỗ ở tại Thành Phố
+                        {province}
+                    </h3>
                 </div>
 
                 {/* Filter */}
@@ -126,8 +145,18 @@ const ListRoomVer2 = () => {
                         <Card key={fakeRoom._id} fakeRoom={fakeRoom} />
                     )))}
 
+                    {/* {rentRooms?.map((fakeRoom => (
+                        <Card key={fakeRoom._id} fakeRoom={fakeRoom} />
+                    )))} */}
+
                     {/* Pagination */}
-                    <Pagination count={10} color="primary" />
+                    <div className={classes.pagination}>
+                        {/* <Pagination
+                            count={Math.ceil(data.length / itemsPerPage)}
+                            page={paginationPage}
+                            onChange={handlePageChange}
+                            color="primary" /> */}
+                    </div>
 
                 </div>
 

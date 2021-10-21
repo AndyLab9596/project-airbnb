@@ -14,7 +14,6 @@ const PriceMenuFilter = ({ filter, setFilter, priceValue, setPriceValue, handleC
         setAnchorElPrice(null);
     };
 
-    console.log(priceValue)
 
     return (
         <Fragment>
