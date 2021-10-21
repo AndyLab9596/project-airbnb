@@ -5,6 +5,7 @@ import {
   Dialog,
   Grid,
   IconButton,
+  TextField,
   Typography,
 } from "@material-ui/core";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -18,16 +19,23 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 import LanguageIcon from "@material-ui/icons/Language";
 import StarIcon from "@material-ui/icons/Star";
 import TwitterIcon from "@material-ui/icons/Twitter";
-import React, { useMemo, useState } from "react";
-import { useLocation } from "react-router";
+import React, { Fragment, useMemo, useState } from "react";
+import { useHistory, useLocation } from "react-router";
 import useStyles from "./style";
 import queryString from "query-string";
 import moment from "moment";
 import { useSelector } from "react-redux";
 import BookingPrice from "../../components/BookingPrice";
 import { formMoney } from "../../utilities/coordinates";
+import { LocalizationProvider, StaticDateRangePicker } from "@mui/lab";
+import { vi } from "date-fns/locale";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import GuestCount from "../../components/GuestCount";
+import ButtonSubmit from "../../components/ButtonSubmit";
+import ResultTicket from "./ResultTicket";
 const Pay = () => {
   const location = useLocation();
+  const history = useHistory();
   const queryParams = useMemo(() => {
     const params = queryString.parse(location.search);
     return {
@@ -41,6 +49,7 @@ const Pay = () => {
     new Date(queryParams._checkIn),
     new Date(queryParams._checkOut),
   ]);
+  console.log(bookingTime);
   const totalDateTime = bookingTime[1] - bookingTime[0];
   const totalDate = totalDateTime / (1000 * 3600 * 24);
   // const today = new Date(queryParams._checkIn);
@@ -54,21 +63,69 @@ const Pay = () => {
   const handleChangeRadioGroup = (event) => {
     setValueGroup(event.target.value);
   };
+  const totalPrice = () => {
+    return totalDate < 7
+      ? formMoney(detailRoom?.price * totalDate + 100000)
+      : totalDate > 30
+      ? formMoney(detailRoom?.price * (totalDate - 5) + 100000)
+      : formMoney(detailRoom?.price * (totalDate - 1) + 100000);
+  };
   // const [selectedValue, setSelectedValue] = React.useState("a");
 
   // const handleChange = (event) => {
   //   setSelectedValue(event.target.value);
   // };
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState({
+    modalDate: false,
+    modalPay: false,
+    modalGuest: false,
+  });
 
   const handleOpen = () => {
-    setOpen(true);
+    setOpen({ ...open, modalDate: true });
   };
-
+  const handleOpen1 = () => {
+    setOpen({ ...open, modalPay: true });
+  };
+  const handleOpen2 = () => {
+    setOpen({ ...open, modalGuest: true });
+  };
   const handleClose = () => {
-    setOpen(false);
+    setOpen({ ...open, modalDate: false, modalPay: false, modalGuest: false });
   };
+  const text = "Xác nhận và thanh toán";
+  const text2 = "Quay về trang chủ";
+  const days = ["C", "2", "3", "4", "5", "6", "7"];
+  const months = [
+    "Tháng 1",
+    "Tháng 2",
+    "Tháng 3",
+    "Tháng 4",
+    "Tháng 5",
+    "Tháng 6",
+    "Tháng 7",
+    "Tháng 8",
+    "Tháng 9",
+    "Tháng 10",
+    "Tháng 11",
+    "Tháng 12",
+  ];
 
+  const locale = {
+    ...vi,
+    localize: {
+      day: (n) => days[n],
+      month: (n) => months[n],
+    },
+  };
+  const [numbersFilter, setNumbersFilter] = useState({
+    _adult: Number(queryParams._adult),
+    _children: Number(queryParams._children),
+    _toddler: Number(queryParams._toddler),
+  });
+  const handleClickBackHome = () => {
+    history.push("/");
+  };
   return (
     <div>
       <Container className={classes.pay} maxWidth={false}>
@@ -105,14 +162,17 @@ const Pay = () => {
                         Ngày
                       </Typography>
                       <Typography variant="span">
-                        {moment(queryParams._checkIn).format("Do MMM  YYYY")} -
+                        {moment(bookingTime[0]).format("Do MMM  YYYY")} -
                         <Typography variant="span">
-                          {moment(queryParams._checkOut).format("Do MMM  YYYY")}
+                          {moment(bookingTime[1]).format("Do MMM  YYYY")}
                         </Typography>
                       </Typography>
                     </div>
                     <div>
-                      <Typography className={classes.pay__button__style}>
+                      <Typography
+                        onClick={handleOpen}
+                        className={classes.pay__button__style}
+                      >
                         Chỉnh sửa
                       </Typography>
                     </div>
@@ -130,7 +190,10 @@ const Pay = () => {
                       <Typography>1 khách</Typography>
                     </div>
                     <div>
-                      <Typography className={classes.pay__button__style}>
+                      <Typography
+                        onClick={handleOpen2}
+                        className={classes.pay__button__style}
+                      >
                         Chỉnh sửa
                       </Typography>
                     </div>
@@ -376,13 +439,12 @@ const Pay = () => {
                     dịch COVID-19 của Airbnb và Chính sách hoàn tiền cho khách.
                   </span>
                 </div>
-                <div>
-                  <Button
-                    onClick={handleOpen}
-                    className={classes.pay__button__confirm}
-                  >
-                    Xác nhận và thanh toán
-                  </Button>
+                <div >
+                  <ButtonSubmit
+                    handleSubmit={handleOpen1}
+                    text={text}
+                    // className={classes.pay__button__confirm}
+                  />
                 </div>
               </Grid>
 
@@ -395,7 +457,7 @@ const Pay = () => {
                         <Box display="flex">
                           <Box flex="0 0 35%">
                             <img
-                              src="https://a0.muscache.com/im/pictures/896c6768-8c48-4a39-b24f-e63b58ee3de6.jpg?aki_policy=large"
+                              src={detailRoom.image}
                               alt="img"
                               className={classes.pay__right__img}
                             />
@@ -405,17 +467,24 @@ const Pay = () => {
                               className={classes.pay__right__text1}
                               variant="caption"
                             >
-                              Toàn bộ căn hộ cho thuê tại Quận 4
+                              Toàn bộ căn hộ cho thuê tại{" "}
+                              {detailRoom?.locationId?.name}
                             </Typography>
                             <div>
                               <Typography
                                 variant="body1"
                                 className={classes.pay__right__text}
                               >
-                                Masteri Millennium Studio with Amazing City View
+                                {detailRoom.name}
                               </Typography>
                               <Typography variant="caption">
-                                1 giường · 1 phòng tắm
+                                {detailRoom.guests} khách
+                              </Typography>
+                              <Typography variant="caption">
+                                · {detailRoom.bath} phòng tắm
+                              </Typography>{" "}
+                              <Typography variant="caption">
+                                · {detailRoom.bedRoom} phòng ngủ
                               </Typography>
                             </div>
                             <Box display="flex" flexWrap="wrap">
@@ -424,7 +493,10 @@ const Pay = () => {
                                   <StarIcon
                                     className={classes.pay__right__item__icon}
                                   />
-                                  <span>4.87 (172 đánh giá)</span>
+                                  <span>
+                                    {detailRoom?.locationId?.valueate} (172 đánh
+                                    giá)
+                                  </span>
                                 </div>
                               </Box>
                               <div>
@@ -491,12 +563,57 @@ const Pay = () => {
 
         <Dialog
           onClose={handleClose}
-          open={open}
+          open={open.modalDate || open.modalPay || open.modalGuest}
           maxWidth="md"
-          classes={{ paper: classes.paper }}
+          className={classes.root}
           keepMounted
         >
-          <h1>123123</h1>
+          {open.modalPay && (
+            <div style={{ padding: 30 }}>
+              {/* <ResultTicket /> */}
+              <div className={classes.ButtonResult}>
+                <ResultTicket
+                  valueGroup={valueGroup}
+                  totalDate={totalDate}
+                  detailRoom={detailRoom}
+                  totalPrice={totalPrice}
+                />
+                <ButtonSubmit
+                  handleSubmit={handleClickBackHome}
+                  // className={classes.ButtonResultItem}.
+                  text={text2}
+                />
+              </div>
+            </div>
+          )}
+          {open.modalDate && (
+            <LocalizationProvider dateAdapter={AdapterDateFns} locale={locale}>
+              <StaticDateRangePicker
+                disablePast
+                displayStaticWrapperAs="desktop"
+                value={bookingTime}
+                // calendars={isDesktop ? 2 : 1}
+                onChange={(newValue) => {
+                  setBookingTime(newValue);
+                }}
+                renderInput={(startProps, endProps) => (
+                  <Fragment>
+                    <TextField {...startProps} />
+                    <Box sx={{ mx: 2 }}> to </Box>
+                    <TextField {...endProps} />
+                  </Fragment>
+                )}
+              />
+            </LocalizationProvider>
+          )}
+          {open.modalGuest && (
+            <div style={{ padding: 20 }}>
+              <GuestCount
+                numbersFilter={numbersFilter}
+                setNumbersFilter={setNumbersFilter}
+              />
+            </div>
+          )}
         </Dialog>
       </Container>
       <div className={classes.footer__bot}>
