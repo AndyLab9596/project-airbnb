@@ -444,39 +444,6 @@ const Pay = () => {
                         totalDate={totalDate}
                         detailRoom={detailRoom}
                       />
-                      {/* <div>
-                        <div className={classes.pay__right__table}>
-                          <div className={classes.pay__right__table__item}>
-                            <Typography variant="body1">
-                              $24,16 x 3 đêm
-                            </Typography>
-                          </div>
-                          <div>
-                            <Typography variant="body1">$72,48</Typography>
-                          </div>
-                        </div>
-                        <div className={classes.pay__right__table}>
-                          <div className={classes.pay__right__table__item}>
-                            <Typography
-                              variant="body1"
-                              style={{ textDecoration: "underline" }}
-                            >
-                              Phí dịch vụ
-                            </Typography>
-                          </div>
-                          <div>
-                            <Typography variant="body1">$10,23</Typography>
-                          </div>
-                        </div>
-                        <div className={classes.pay__right__table}>
-                          <div className={classes.pay__right__table__item}>
-                            <Typography variant="body1">Tổng (USD)</Typography>
-                          </div>
-                          <div>
-                            <Typography variant="body1">$82,71</Typography>
-                          </div>
-                        </div>
-                      </div> */}
                     </div>
                   </div>
                 </Box>
@@ -540,64 +507,6 @@ const Pay = () => {
           )}
         </Dialog>
       </Container>
-      <div className={classes.footer__bot}>
-        <div className={classes.footer__item__bot}>
-          <li className={classes.footer__item__list__first}>
-            <span>© 2021 Airbnb, Inc.</span>
-          </li>
-          <li className={classes.footer__item__list__end}>
-            <a href="https://www.airbnb.com.vn/help/article/2855/ch%C3%ADnh-s%C3%A1ch-quy%E1%BB%81n-ri%C3%AAng-t%C6%B0">
-              Quyền riêng tư
-            </a>
-          </li>
-          <li className={classes.footer__item__list__end}>
-            <a href="https://www.airbnb.com.vn/help/article/2855/ch%C3%ADnh-s%C3%A1ch-quy%E1%BB%81n-ri%C3%AAng-t%C6%B0">
-              Điều khoản
-            </a>
-          </li>
-          <li className={classes.footer__item__list__end}>
-            <a href="https://www.airbnb.com.vn/sitemaps/v2">Sơ đồ trang web</a>
-          </li>
-        </div>
-        <div
-          className={classes.footer__bot__content}
-          style={{ display: "flex" }}
-        >
-          <div style={{ display: "flex" }}>
-            <div style={{ display: "flex", marginRight: "24px" }}>
-              <span>
-                <LanguageIcon />
-              </span>
-              <span>Tiếng Việt (VN)</span>
-            </div>
-            <div style={{ display: "flex", marginRight: "24px" }}>
-              <span>
-                <AttachMoneyIcon />
-              </span>
-              <span>USD</span>
-            </div>
-          </div>
-          <div className={classes.footer__bot__content1}>
-            <ul>
-              <li>
-                <a href="">
-                  <FacebookIcon />
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  <TwitterIcon />
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  <InstagramIcon />
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
