@@ -4,7 +4,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
-import HeaderMobileHuy from "./HeaderMobile/HeaderMobile/HeaderMobile";
+import HeaderMobile from "./HeaderMobile";
 
 const MainLayout = (props) => {
   const { Component, redirectPath, ...restProps } = props;
@@ -20,7 +20,7 @@ const MainLayout = (props) => {
             {isDesktop ? (
               <Header {...propsRoute} />
             ) : (
-              <HeaderMobileHuy {...propsRoute} />
+              <HeaderMobile {...propsRoute} />
             )}
 
             <Component {...propsRoute} />

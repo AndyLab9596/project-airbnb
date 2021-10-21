@@ -17,6 +17,10 @@ import { formMoney } from "../../../../../utilities/coordinates";
 import useStyles from "./style";
 import queryString from "query-string";
 import { useHistory } from "react-router";
+import { createAction } from "../../../../../store/action/createAction/createAction";
+import { SHOW_MODAL_SIGNIN } from "../../../../../store/types/AuthType";
+import { USERID } from "../../../../../constants/config";
+import { useDispatch } from "react-redux";
 
 const BookingMobile = ({
   bookingTime,
@@ -26,19 +30,25 @@ const BookingMobile = ({
   detailRoom,
   queryParams,
 }) => {
+  const isUserId = localStorage.getItem(USERID);
+  const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const classes = useStyles({ isBooking, openModal });
   const history = useHistory();
   const handleClickBooking = () => {
-    const params = {
-      ...queryParams,
-      _checkIn: moment(bookingTime[0]).format("YYYY-MM-DD"),
-      _checkOut: moment(bookingTime[1]).format("YYYY-MM-DD"),
-    };
-    history.push({
-      pathname: `/pay/${detailRoom._id}`,
-      search: queryString.stringify(params),
-    });
+    if (!isUserId) {
+      dispatch(createAction(SHOW_MODAL_SIGNIN));
+    } else {
+      const params = {
+        ...queryParams,
+        _checkIn: moment(bookingTime[0]).format("YYYY-MM-DD"),
+        _checkOut: moment(bookingTime[1]).format("YYYY-MM-DD"),
+      };
+      history.push({
+        pathname: `/pay/${detailRoom._id}`,
+        search: queryString.stringify(params),
+      });
+    }
   };
   return (
     <div className={classes.booking__container}>

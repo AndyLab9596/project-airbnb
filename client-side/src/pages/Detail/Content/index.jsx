@@ -131,8 +131,8 @@ const ContentRoom = ({ detailRoom, queryParams, detailRating }) => {
   ];
 
   const [bookingTime, setBookingTime] = useState([
-    new Date(queryParams._checkIn),
-    new Date(queryParams._checkOut),
+    queryParams._checkIn ? new Date(queryParams._checkIn) : null,
+    queryParams._checkOut ? new Date(queryParams._checkOut) : null,
   ]);
 
   const totalDateTime = bookingTime[1] - bookingTime[0];
