@@ -2,7 +2,7 @@ import StarIcon from '@material-ui/icons/Star';
 import React, { useState } from 'react';
 import { Marker, Popup } from 'react-map-gl';
 import useStyles from "./style";
-
+import { formMoney } from '../../../utilities/coordinates'
 const Pin = ({ location }) => {
     const classes = useStyles()
     const [showPopup, togglePopup] = useState(false);
@@ -34,7 +34,7 @@ const Pin = ({ location }) => {
                             </div>
                             <p>
                                 <span className={classes.popup__content__price}>
-                                    {Number.parseInt(location.price / 23000)}$
+                                    {formMoney(location.price)}
                                 </span>
                                 / đêm
                             </p>
@@ -53,7 +53,7 @@ const Pin = ({ location }) => {
             >
                 <div className={classes.pin}>
                     <div className={classes.pin__content}>
-                        <span>{Number.parseInt(location.price / 23000)}$</span>
+                        <span>{formMoney(location.price)}</span>
                     </div>
                 </div>
             </Marker>

@@ -1,7 +1,7 @@
 import { Pagination } from '@material-ui/lab';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import manageRentApi from '../../api/manageRentApi';
 import Card from './Card';
 import Mapbox from './Mapbox';
@@ -9,6 +9,8 @@ import OptionsDialog from './OptionsDialog';
 import PriceMenuFilter from './PriceMenuFilter';
 import useStyles from "./style";
 import useFetch from './useFetch';
+import queryString from 'query-string';
+
 
 const ListRoomVer2 = () => {
 
@@ -27,13 +29,13 @@ const ListRoomVer2 = () => {
         console.log('page', page)
         setPage(page)
     }
-    // console.log('page', page)
-    // console.log('rentRooms', rentRooms)
-    // console.log('loading', loading)
-    // console.log('data', data)
 
-    const province = rentRooms?.[0]?.locationId.province;
+    const location = useLocation();
+    const params = queryString.parse(location.search);
+    console.log('params', params._location)
 
+    const province = params._location;
+    console.log('province', province)
 
     // Filter
     const [priceValue, setPriceValue] = useState([0, 1000000]);
@@ -149,7 +151,7 @@ const ListRoomVer2 = () => {
             {/* Map */}
             <div className={classes.map}>
                 <div className={classes.mapBox}>
-                    <Mapbox rentRooms={rentRooms} />
+                    <Mapbox province={province} rentRooms={rentRooms} />
                 </div>
             </div>
 
