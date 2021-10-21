@@ -1,11 +1,17 @@
+import { MAPBOX_TOKEN } from '../constants/config';
 import axiosMapbox from './axiosMapbox';
 
 const manageMapboxApi = {
 
-    get(params) {
-        const url = '/locations';
+    getLocation(searchTerm, params) {
+        const url = `/geocoding/v5/mapbox.places/${searchTerm}.json`;
         return axiosMapbox.get(url, { params })
     },
+
+    getMarker(searchTerm, params) {
+        const url = `/geocoding/v5/mapbox.places/${searchTerm}.json`;
+        return axiosMapbox.get(url, { params })
+    }
 
 
 
