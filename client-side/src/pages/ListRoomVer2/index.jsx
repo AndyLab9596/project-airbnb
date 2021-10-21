@@ -27,12 +27,12 @@ const ListRoomVer2 = () => {
         console.log('page', page)
         setPage(page)
     }
-    console.log('page', page)
-    console.log('rentRooms', rentRooms)
-    console.log('loading', loading)
-    console.log('data', data)
+    // console.log('page', page)
+    // console.log('rentRooms', rentRooms)
+    // console.log('loading', loading)
+    // console.log('data', data)
 
-    // const province = rentRooms?.[0]?.locationId.province;
+    const province = rentRooms?.[0]?.locationId.province;
 
 
     // Filter
@@ -64,7 +64,6 @@ const ListRoomVer2 = () => {
     }
 
 
-
     const [filter, setFilter] = useState(initialFilter);
 
     const filtered = rentRooms.filter((item) => {
@@ -84,25 +83,6 @@ const ListRoomVer2 = () => {
         setFilter(initialFilter)
     }
 
-
-
-    // useEffect(() => {
-    //     (async () => {
-    //         try {
-    //             // const res = await manageRentApi.getRentRooms(locationId)
-    //             if (loading) return
-    //             setRentRooms(data[page])
-
-
-    //         } catch (error) {
-    //             console.log(error)
-    //         }
-    //     })()
-    // }, [loading, page])
-
-
-    //  [{} 4cai[ [{} 4 cai]] ]
-
     useEffect(() => {
         if (loading) return
         setRentRooms(data[page - 1])
@@ -116,8 +96,8 @@ const ListRoomVer2 = () => {
             <div className={classes.content}>
                 <div className={classes.content__header}>
                     <p>Hơn 300 chỗ ở</p>
-                    <h3>Chỗ ở tại Thành Phố
-                        {/* {province} */}
+                    <h3>
+                        Chỗ ở tại thành phố {province}
                     </h3>
                 </div>
 
@@ -148,21 +128,20 @@ const ListRoomVer2 = () => {
                         <Card key={fakeRoom._id} fakeRoom={fakeRoom} />
                     )))}
 
-                    {/* {rentRooms?.map((fakeRoom => (
-                        <Card key={fakeRoom._id} fakeRoom={fakeRoom} />
-                    )))} */}
-
                     {/* Pagination */}
-                    <div className={classes.pagination}>
+                    <div className={classes.pagination__wrapper}>
+                        <div className={classes.pagination__topLine}>
+                            <div></div>
+                        </div>
                         <Pagination
+                            className={classes.pagination}
                             boundaryCount={1}
                             defaultPage={1}
                             count={data?.length}
                             page={page}
                             onChange={handlePageChange}
-                            color="primary" />
+                            color="standard" />
                     </div>
-
                 </div>
 
             </div>
@@ -170,7 +149,7 @@ const ListRoomVer2 = () => {
             {/* Map */}
             <div className={classes.map}>
                 <div className={classes.mapBox}>
-                    <Mapbox />
+                    <Mapbox rentRooms={rentRooms} />
                 </div>
             </div>
 
