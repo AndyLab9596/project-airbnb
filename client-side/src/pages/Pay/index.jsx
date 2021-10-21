@@ -163,13 +163,16 @@ const Pay = () => {
                       >
                         Ngày
                       </Typography>
-
-                      <Typography variant="span">
-                        {moment(bookingTime[0]).format("Do MMM  YYYY")} -
+                      {isBooking ? (
+                        "chọn ngày"
+                      ) : (
                         <Typography variant="span">
-                          {moment(bookingTime[1]).format("Do MMM  YYYY")}
+                          {moment(bookingTime[0]).format("Do MMM  YYYY")} -
+                          <Typography variant="span">
+                            {moment(bookingTime[1]).format("Do MMM  YYYY")}
+                          </Typography>
                         </Typography>
-                      </Typography>
+                      )}
                     </div>
                     <div>
                       <Typography
@@ -440,10 +443,12 @@ const Pay = () => {
                           Chi tiết giá
                         </Typography>
                       </div>
-                      <BookingPrice
-                        totalDate={totalDate}
-                        detailRoom={detailRoom}
-                      />
+                      {isBooking ? null : (
+                        <BookingPrice
+                          totalDate={totalDate}
+                          detailRoom={detailRoom}
+                        />
+                      )}
                     </div>
                   </div>
                 </Box>
