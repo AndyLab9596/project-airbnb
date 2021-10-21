@@ -10,7 +10,7 @@ import {
 const initialState = {
   modalSignIn: false,
   modalSignUp: false,
-  infoUser: [],
+  infoUser: {},
 };
 
 const AuthReducer = (state = initialState, { type, payload }) => {
