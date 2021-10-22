@@ -43,7 +43,7 @@ const Pay = () => {
     };
   }, [location.search]);
   console.log(queryParams);
-  const { detailRoom } = useSelector((state) => state.ListRoomReducer);
+  const { detailRoom } = useSelector((state) => state.RentRoomReducer);
   console.log(detailRoom);
   const [bookingTime, setBookingTime] = useState([
     queryParams._checkIn ? new Date(queryParams._checkIn) : null,

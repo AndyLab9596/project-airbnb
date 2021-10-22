@@ -148,9 +148,9 @@ const FilterRoom = () => {
     }
   };
 
-  const arrListRoom = useSelector((state) => state.ListRoomReducer.arrListRoom);
-  const filter = useSelector((state) => state.ListRoomReducer.filter);
-  const filtered = useSelector((state) => state.ListRoomReducer.filtered);
+  const arrListRoom = useSelector((state) => state.RentRoomReducer.arrListRoom);
+  const filter = useSelector((state) => state.RentRoomReducer.filter);
+  const filtered = useSelector((state) => state.RentRoomReducer.filtered);
 
   // useEffect(() => {}, []);
   // const filterPrice = filter.filter((value) => {

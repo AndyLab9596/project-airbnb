@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { formMoney } from "../../../utilities/coordinates";
 const ListRoomItem = ({ arrListRoom }) => {
   const classes = useStyles();
-  const { filter, price } = useSelector((state) => state.ListRoomReducer);
+  const { filter, price } = useSelector((state) => state.RentRoomReducer);
 
   const newArr = filter.filter((item) => {
     if (item.price < price[1] && item.price > price[0]) {

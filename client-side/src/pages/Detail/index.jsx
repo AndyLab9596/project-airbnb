@@ -7,7 +7,7 @@ import { useLocation } from "react-router";
 import {
   DetailRatingAction,
   DetailRoomAction,
-} from "../../store/action/ListRoomAction";
+} from "../../store/action/RentRoomsAction";
 import ContentRoom from "./Content";
 import InfoHost from "./InfoHost";
 import DetailRoomMap from "./Map";
@@ -39,7 +39,7 @@ const Detail = () => {
   const fakeRoomId = "61699651efe193001c0a5bda";
   const dispatch = useDispatch();
   const { detailRoom, detailRating } = useSelector(
-    (state) => state.ListRoomReducer
+    (state) => state.RentRoomReducer
   );
   useEffect(() => {
     dispatch(DetailRoomAction(fakeRoomId));

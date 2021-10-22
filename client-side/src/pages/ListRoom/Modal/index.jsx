@@ -23,9 +23,9 @@ const ModalFilter = ({ handleClose, open }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [dropdown, setDropdown] = useState(false);
-  const arrListRoom = useSelector((state) => state.ListRoomReducer.arrListRoom);
+  const arrListRoom = useSelector((state) => state.RentRoomReducer.arrListRoom);
 
-  const modal = useSelector((state) => state.ListRoomReducer.modal);
+  const modal = useSelector((state) => state.RentRoomReducer.modal);
   const handleOpenDropdown = () => {
     setDropdown(true);
   };
@@ -118,8 +118,8 @@ const ModalFilter = ({ handleClose, open }) => {
       [event.target.name]: event.target.checked,
     });
   };
-  // const filtered = useSelector((state) => state.ListRoomReducer.filtered);
-  const filter = useSelector((state) => state.ListRoomReducer.filter);
+  // const filtered = useSelector((state) => state.RentRoomReducer.filtered);
+  const filter = useSelector((state) => state.RentRoomReducer.filter);
   // useEffect(() => {
   //   function filterRoomAndBedRoom (value) {
 
@@ -129,7 +129,7 @@ const ModalFilter = ({ handleClose, open }) => {
   //       myHotel.filter(filterbyName)
   //   )
   //  }, [handleCheck, myHotel])
-  const filterPrice = useSelector((state) => state.ListRoomReducer.filterPrice);
+  const filterPrice = useSelector((state) => state.RentRoomReducer.filterPrice);
   // useEffect(() => {
   //   const newListSeatSelected = filter?.reduce(
   //     (newListSeatSelected, seat) => {
