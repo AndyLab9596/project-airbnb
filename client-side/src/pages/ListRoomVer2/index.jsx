@@ -11,7 +11,7 @@ import SkeletonCard from './SkeletonCard';
 import useStyles from "./style";
 import useFetch from './useFetch';
 import DehazeIcon from '@material-ui/icons/Dehaze';
-
+import MapIcon from '@material-ui/icons/Map';
 
 const ListRoomVer2 = () => {
 
@@ -168,10 +168,22 @@ const ListRoomVer2 = () => {
             </div>
             <div className={classes.button__tablet__wrapper} >
                 <button className={classes.button__tablet__item} onClick={() => setTransform(state => !state)}>
-                    <span>
-                        Hiện bản đồ
-                    </span>
-                    <DehazeIcon />
+                    {transform ? (
+                        <>
+                            <span>
+                                Hiện danh sách
+                            </span>
+                            <DehazeIcon />
+                        </>
+                    ) : (
+
+                        <>
+                            <span>
+                                Hiện bản đồ
+                            </span>
+                            <MapIcon />
+                        </>
+                    )}
                 </button>
             </div>
         </Fragment>

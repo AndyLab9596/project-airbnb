@@ -138,6 +138,9 @@ export default makeStyles(theme => ({
         background: '#222222',
         transition: 'all .25 ease',
 
+        '& > span': {
+            marginRight: '8px'
+        }
 
     }
 
