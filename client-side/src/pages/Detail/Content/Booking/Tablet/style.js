@@ -10,6 +10,7 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.up("xl")]: {
       padding: 24,
     },
+
     "& .MuiAccordionDetails-root": {
       borderTop: "1px solid #999",
       padding: "20px 14px",
@@ -97,6 +98,8 @@ export default makeStyles((theme) => ({
     textOverflow: "ellipsis",
   },
   room__booking__filter: {
+    cursor: "pointer",
+    padding: "15px 10px",
     "& >p": {
       fontSize: 10,
       fontWeight: 600,
@@ -105,65 +108,24 @@ export default makeStyles((theme) => ({
       fontSize: 13,
     },
   },
-  room__booking__filter__content: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
-    "& >div": {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-around",
-      gap: "5px",
+  room__booking__filter__menu: {
+    "& .MuiPaper-root": {
+      borderRadius: "12px",
+      backgroundColor: "#fff",
+      boxShadow: "0px 6px 20px rgb(0 0 0 / 20%)",
+      overflowX: "hidden",
+      overflowY: "auto",
+      padding: 34,
+      width: 200,
+      [theme.breakpoints.up("xl")]: {
+        width: 300,
+      },
+    },
+    "& .MuiList-root ": {
+      width: "100%",
     },
   },
-  room__booking__filter__name: {
-    fontSize: 12,
-    fontWeight: 600,
-    [theme.breakpoints.up("xl")]: {
-      fontSize: 15,
-    },
-    "& >p": {
-      fontSize: 10,
-    },
-  },
-  room__booking__filter__btn: {
-    minWidth: 20,
-    height: 20,
-    borderRadius: "50%",
-    border: "1px solid #999",
-    backgroundColor: "transparent",
-    cursor: "pointer",
-    fontSize: 13,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    "&:hover": {
-      border: "1px solid #000",
-    },
-    [theme.breakpoints.up("xl")]: {
-      width: 30,
-      height: 30,
-      fontSize: 20,
-    },
-  },
-  room__booking__filter__btn__disabled: {
-    cursor: "not-allowed",
-    borderColor: "rgb(235, 235, 235)",
-    backgroundColor: "rgb(255, 255, 255)",
-    color: "rgb(235, 235, 235)",
-  },
-  room__booking__btnSubmit: {
-    width: "100%",
-    backgroundImage:
-      "radial-gradient(circle at center center, rgb(255, 56, 92) 0%, rgb(230, 30, 77) 27.5%, rgb(227, 28, 95) 40%, rgb(215, 4, 102) 57.5%, rgb(189, 30, 89) 75%, rgb(189, 30, 89) 100%)",
-    marginTop: 15,
-    marginBottom: 5,
-    borderRadius: 8,
-    padding: 10,
-    color: "#fff",
-    fontSize: 13,
-  },
+
   room__booking__payment_note: {
     textAlign: "center",
     fontSize: 12,

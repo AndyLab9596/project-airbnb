@@ -9,6 +9,7 @@ import {
 import { useTheme } from "@material-ui/styles";
 import clsx from "clsx";
 import React, { Fragment, useEffect, useRef, useState } from "react";
+import { useHistory } from "react-router";
 import { BsFillStarFill } from "react-icons/bs";
 import { FaMedal } from "react-icons/fa";
 import { FcPrevious } from "react-icons/fc";
@@ -20,11 +21,13 @@ import { useDispatch } from "react-redux";
 import { createAction } from "../../../store/action/createAction/createAction";
 import { SHOW_MODAL_RATED } from "../../../store/types/ListRoomType";
 import Slide from "@material-ui/core/Slide";
+import { GrFormPrevious } from "react-icons/gr";
 
 const RoomImage = ({ detailRoom, detailRating }) => {
   const [currentImg, setCurrentImg] = useState(1);
   const [openModal, setOpenModal] = useState(false);
   const dispatch = useDispatch();
+  const history = useHistory();
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.up("md"));
   const isDeskTop = useMediaQuery(theme.breakpoints.up("xl"));
@@ -57,7 +60,6 @@ const RoomImage = ({ detailRoom, detailRating }) => {
 
   //  Vì api chỉ có thể thêm 1 hình nên phải xét cứng
   const arrImg = [
-    { img: detailRoom?.locationId?.image },
     { img: detailRoom?.locationId?.image },
     { img: detailRoom?.locationId?.image },
     { img: detailRoom?.locationId?.image },
@@ -195,6 +197,12 @@ const RoomImage = ({ detailRoom, detailRating }) => {
         </Fragment>
       ) : (
         <Fragment>
+          <div
+            className={classes.btnPrevMobile}
+            onClick={() => history.goBack()}
+          >
+            <GrFormPrevious />
+          </div>
           <div>
             <Slider {...settings}>
               {arrImg.map((item, index) => (
@@ -240,8 +248,9 @@ const RoomImage = ({ detailRoom, detailRating }) => {
         onClose={() => setOpenModal(false)}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
+        closeAfterTransition
       >
-        <Slide direction="up" in={openModal} style={{ width: "100vw" }}>
+        <Slide direction="up" in={openModal}>
           <div className={classes.modal__show__all}>
             <div className={classes.btnPrev}>
               <FcPrevious onClick={() => setOpenModal(false)} />

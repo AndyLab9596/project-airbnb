@@ -1,12 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles((theme) => ({
-  room__container: {
-    borderTop: "1px solid rgb(221, 221, 221,1) ",
-    padding: "24px",
-    [theme.breakpoints.up("md")]: {
-      padding: "48px 0",
-    },
-  },
   room__infoHost: {
     display: "flex",
     justifyContent: "space-between",

@@ -1,12 +1,8 @@
 import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles((theme) => ({
   map__container: {
-    borderTop: "1px solid rgb(221, 221, 221,1) ",
-    padding: "24px",
-
-    height: "300px",
+    height: "250px",
     [theme.breakpoints.up("md")]: {
-      padding: "48px 0",
       height: "450px",
     },
     "& >h5": {
@@ -16,6 +12,7 @@ export default makeStyles((theme) => ({
       paddingBottom: 24,
     },
   },
+
   map__location: {
     width: 30,
     height: 30,
@@ -36,6 +33,20 @@ export default makeStyles((theme) => ({
         padding: 8,
         color: "#fff",
       },
+    },
+  },
+  navigateControl: {
+    right: 20,
+    top: 15,
+    width: 40,
+    height: 40,
+    "& .mapboxgl-ctrl-group": {
+      width: "100%",
+      borderRadius: 8,
+    },
+    "& .mapboxgl-ctrl-group button": {
+      width: "100%",
+      height: 40,
     },
   },
 }));

@@ -81,10 +81,10 @@ const DetailRating = ({ detailRating }) => {
   );
 
   return (
-    <div className={classes.room__rating} id="rated">
+    <Fragment>
       {detailRating?.length > 0 ? (
         <Fragment>
-          <div className={classes.room__rating__totalRated}>
+          <div className={classes.rating__totalRated}>
             <Typography variant="span">
               <BsFillStarFill />
             </Typography>
@@ -101,7 +101,7 @@ const DetailRating = ({ detailRating }) => {
                   md={6}
                   xl={modalRated && 12}
                   key={index}
-                  className={classes.room__rating__modal__detailRating}
+                  className={classes.rating__modal__detailRating}
                 >
                   <CatalogRating item={item} />
                 </Grid>
@@ -120,7 +120,7 @@ const DetailRating = ({ detailRating }) => {
           ) : (
             <Slider {...settings}>
               {detailRating?.slice(0, 4).map((item, index) => (
-                <Box key={index} className={classes.room__rating__container}>
+                <Box key={index} className={classes.rating__container}>
                   <ContentUserRating
                     item={item}
                     handleShowModal={handleShowModal}
@@ -128,10 +128,10 @@ const DetailRating = ({ detailRating }) => {
                 </Box>
               ))}
               {detailRating?.length > 4 && (
-                <Box className={classes.room__rating__container}>
+                <Box className={classes.rating__container}>
                   <Typography
                     variant="body2"
-                    className={classes.room__rating__textShowAll}
+                    className={classes.rating__textShowAll}
                     onClick={handleShowModal}
                   >
                     Hiển thị tất cả {detailRating?.length} đánh giá
@@ -145,7 +145,7 @@ const DetailRating = ({ detailRating }) => {
             {detailRating?.length > 6 && (
               <Button
                 disableRipple
-                className={classes.room__rating__btnShowAll}
+                className={classes.rating__btnShowAll}
                 onClick={handleShowModal}
               >
                 Hiển thị tất cả {detailRating?.length} đánh giá
@@ -158,15 +158,16 @@ const DetailRating = ({ detailRating }) => {
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
             className={classes.modal}
+            closeAfterTransition
           >
             <Slide direction="up" in={modalRated}>
-              <div className={classes.room__rating__modal}>
-                <div className={classes.room__rating__modal__header}>
+              <div className={classes.rating__modal}>
+                <div className={classes.rating__modal__header}>
                   <IconButton>
                     <AiOutlineClose onClick={handleHideModal} />
                   </IconButton>
                   <div>
-                    <div className={classes.room__rating__totalRated}>
+                    <div className={classes.rating__totalRated}>
                       <Typography variant="span">
                         <BsFillStarFill />
                       </Typography>
@@ -175,7 +176,7 @@ const DetailRating = ({ detailRating }) => {
                       </Typography>
                     </div>
 
-                    <div className={classes.room__rating__modal__inputSearch}>
+                    <div className={classes.rating__modal__inputSearch}>
                       <Input
                         startAdornment={
                           <InputAdornment position="start">
@@ -204,7 +205,7 @@ const DetailRating = ({ detailRating }) => {
                           md={6}
                           xl={12}
                           key={index}
-                          className={classes.room__rating__modal__detailRating}
+                          className={classes.rating__modal__detailRating}
                         >
                           <CatalogRating item={item} />
                         </Grid>
@@ -212,29 +213,25 @@ const DetailRating = ({ detailRating }) => {
                     </Grid>
                   </Grid>
                   <Grid item xs={12} xl={8}>
-                    <div
-                      className={
-                        classes.room__rating__modal__content__userRated
-                      }
-                    >
+                    <div className={classes.rating__modal__content__userRated}>
                       {arrFilterContent?.length > 0
                         ? arrFilterContent?.map((item) => (
-                            <div>
+                            <Box>
                               <ContentUserRating
                                 item={item}
                                 handleShowModal={handleShowModal}
                                 openModal={modalRated}
                               />
-                            </div>
+                            </Box>
                           ))
                         : detailRating.map((item) => (
-                            <div>
+                            <Box>
                               <ContentUserRating
                                 item={item}
                                 handleShowModal={handleShowModal}
                                 openModal={modalRated}
                               />
-                            </div>
+                            </Box>
                           ))}
                     </div>
                   </Grid>
@@ -244,7 +241,7 @@ const DetailRating = ({ detailRating }) => {
           </Modal>
         </Fragment>
       ) : (
-        <div className={classes.room__rating__title__notRating}>
+        <div className={classes.rating__title__notRating}>
           <Typography variant="h5">Chưa có đánh giá</Typography>
           <Typography variant="span">
             Chúng tôi luôn sẵn sàng hỗ trợ để chuyến đi của bạn được suôn sẻ.
@@ -255,7 +252,7 @@ const DetailRating = ({ detailRating }) => {
           </a>
         </div>
       )}
-    </div>
+    </Fragment>
   );
 };
 

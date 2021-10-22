@@ -249,6 +249,9 @@ export default makeStyles(theme => ({
             opacity: 0.8
         }
     },
+    pay__item__content__text: {
+        fontWeight: 700
+    },
 
 
 
@@ -505,7 +508,13 @@ export default makeStyles(theme => ({
                 }
             }
         }
-    }
+    },
+    root: {
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        justifyContent: "center",
+    },
 
 
 }))

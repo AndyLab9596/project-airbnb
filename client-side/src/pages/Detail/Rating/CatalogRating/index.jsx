@@ -14,7 +14,7 @@ const CatalogRating = ({ item }) => {
         alignItems="center"
         width="75%"
       >
-        <div className={classes.room__rating__modal__detailRating_percent}>
+        <div className={classes.rating__modal__detailRating_percent}>
           <Typography
             variant="span"
             style={{ width: `${(item?.value * 100) / 5}% ` }}
@@ -22,7 +22,7 @@ const CatalogRating = ({ item }) => {
         </div>
         <Typography
           variant="body2"
-          className={classes.room__rating__modal__detailRating__value}
+          className={classes.rating__modal__detailRating__value}
         >
           {item?.value}
         </Typography>

@@ -6,26 +6,50 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { Box } from "@mui/system";
-import React, { Fragment, useState } from "react";
-import useStyles from "./style";
-import moment from "moment";
-import { AiOutlineClose } from "react-icons/ai";
-import clsx from "clsx";
 import { LocalizationProvider, StaticDateRangePicker } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import { Box } from "@mui/system";
+import moment from "moment";
+import React, { Fragment, useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
+import ButtonSubmit from "../../../../../components/ButtonSubmit";
 import { formMoney } from "../../../../../utilities/coordinates";
+import useStyles from "./style";
+import queryString from "query-string";
+import { useHistory } from "react-router";
+import { createAction } from "../../../../../store/action/createAction/createAction";
+import { SHOW_MODAL_SIGNIN } from "../../../../../store/types/AuthType";
+import { USERID } from "../../../../../constants/config";
+import { useDispatch } from "react-redux";
 
 const BookingMobile = ({
   bookingTime,
   setBookingTime,
   totalDate,
   isBooking,
-  userBooking,
+  detailRoom,
+  queryParams,
 }) => {
+  const isUserId = localStorage.getItem(USERID);
+  const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const classes = useStyles({ isBooking, openModal });
-
+  const history = useHistory();
+  const handleClickBooking = () => {
+    if (!isUserId) {
+      dispatch(createAction(SHOW_MODAL_SIGNIN));
+    } else {
+      const params = {
+        ...queryParams,
+        _checkIn: moment(bookingTime[0]).format("YYYY-MM-DD"),
+        _checkOut: moment(bookingTime[1]).format("YYYY-MM-DD"),
+      };
+      history.push({
+        pathname: `/pay/${detailRoom._id}`,
+        search: queryString.stringify(params),
+      });
+    }
+  };
   return (
     <div className={classes.booking__container}>
       <div className={classes.booking__content}>
@@ -35,7 +59,7 @@ const BookingMobile = ({
               variant="h5"
               className={classes.booking__content__price}
             >
-              {formMoney(userBooking?.price)}
+              {formMoney(detailRoom?.price)}
               <Typography variant="span">/đêm</Typography>
             </Typography>
           </div>
@@ -61,22 +85,28 @@ const BookingMobile = ({
 
         {!openModal ? (
           !isBooking ? (
-            <Button className={classes.booking__content__btn}>Đặt phòng</Button>
+            <Box width={isBooking ? "70%" : "40%"}>
+              <ButtonSubmit
+                text="Đặt phòng"
+                handleSubmit={handleClickBooking}
+              />
+            </Box>
           ) : (
-            <Button
-              className={classes.booking__content__btn}
-              onClick={() => setOpenModal(true)}
-            >
-              Kiểm tra tình trạng còn phòng
-            </Button>
+            <Box width={isBooking ? "70%" : "40%"}>
+              <ButtonSubmit
+                text="Kiểm tra tình trạng còn phòng"
+                handleSubmit={() => setOpenModal(true)}
+              />
+            </Box>
           )
         ) : (
           <Button
             onClick={() => setOpenModal(false)}
-            className={clsx(
-              classes.booking__content__btn,
-              classes.booking__content__btn__save
-            )}
+            className={
+              isBooking
+                ? classes.booking__content__btn__save__isBooking
+                : classes.booking__content__btn__save
+            }
           >
             Lưu
           </Button>
@@ -87,6 +117,7 @@ const BookingMobile = ({
         onClose={() => setOpenModal(false)}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
+        closeAfterTransition
       >
         <Slide direction="up" in={openModal}>
           <div className={classes.booking__modal}>

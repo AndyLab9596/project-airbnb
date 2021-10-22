@@ -54,17 +54,7 @@ export default makeStyles((theme) => ({
       marginLeft: 14,
     },
   },
-  form__btnSubmit: {
-    width: "100%",
-    minWidth: 200,
-    backgroundImage:
-      "radial-gradient(circle at center center, rgb(255, 56, 92) 0%, rgb(230, 30, 77) 27.5%, rgb(227, 28, 95) 40%, rgb(215, 4, 102) 57.5%, rgb(189, 30, 89) 75%, rgb(189, 30, 89) 100%)",
-    marginTop: 25,
-    marginBottom: 5,
-    borderRadius: 8,
-    padding: 10,
-    color: "#fff",
-  },
+
   form__textLogin: {
     color: "#6363e8",
     marginLeft: 10,

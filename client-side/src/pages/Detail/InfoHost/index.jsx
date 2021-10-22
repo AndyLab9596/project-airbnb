@@ -6,7 +6,7 @@ import {
   Button,
 } from "@material-ui/core";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { Fragment } from "react";
 import { GiTrophyCup } from "react-icons/gi";
 import { FAKE_AVATAR } from "../../../constants/config";
 import useStyles from "./style";
@@ -19,7 +19,7 @@ const InfoHost = () => {
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.up("md"));
   return (
-    <div className={classes.room__container}>
+    <Fragment>
       {isTablet ? (
         <div className={classes.room__infoHost}>
           <Box position="relative">
@@ -109,7 +109,7 @@ const InfoHost = () => {
           </div>
         </Grid>
       </Grid>
-    </div>
+    </Fragment>
   );
 };
 

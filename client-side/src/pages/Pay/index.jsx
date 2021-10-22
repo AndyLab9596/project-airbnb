@@ -5,6 +5,7 @@ import {
   Dialog,
   Grid,
   IconButton,
+  TextField,
   Typography,
 } from "@material-ui/core";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -18,28 +19,113 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 import LanguageIcon from "@material-ui/icons/Language";
 import StarIcon from "@material-ui/icons/Star";
 import TwitterIcon from "@material-ui/icons/Twitter";
-import React from "react";
+import React, { Fragment, useMemo, useState } from "react";
+import { useHistory, useLocation } from "react-router";
 import useStyles from "./style";
+import queryString from "query-string";
+import moment from "moment";
+import { useSelector } from "react-redux";
+import BookingPrice from "../../components/BookingPrice";
+import { formMoney } from "../../utilities/coordinates";
+import { LocalizationProvider, StaticDateRangePicker } from "@mui/lab";
+import { vi } from "date-fns/locale";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import GuestCount from "../../components/GuestCount";
+import ButtonSubmit from "../../components/ButtonSubmit";
+import ResultTicket from "./ResultTicket";
 const Pay = () => {
+  const location = useLocation();
+  const history = useHistory();
+  const queryParams = useMemo(() => {
+    const params = queryString.parse(location.search);
+    return {
+      ...params,
+    };
+  }, [location.search]);
+  console.log(queryParams);
+  const { detailRoom } = useSelector((state) => state.ListRoomReducer);
+  console.log(detailRoom);
+  const [bookingTime, setBookingTime] = useState([
+    queryParams._checkIn ? new Date(queryParams._checkIn) : null,
+    queryParams._checkOut ? new Date(queryParams._checkOut) : null,
+  ]);
+  console.log(bookingTime);
+  const totalDateTime = bookingTime[1] - bookingTime[0];
+  const totalDate = totalDateTime / (1000 * 3600 * 24);
+  const isBooking = bookingTime.some((item) => item === null);
+  // const today = new Date(queryParams._checkIn);
+
+  const date = new Date().setDate(bookingTime[0].getDate() - 4);
+  const daysAgo = new Date(date);
+
   const classes = useStyles();
   const [valueGroup, setValueGroup] = React.useState("Visa");
 
   const handleChangeRadioGroup = (event) => {
     setValueGroup(event.target.value);
   };
-  const [selectedValue, setSelectedValue] = React.useState("a");
-
-  const handleChange = (event) => {
-    setSelectedValue(event.target.value);
+  const totalPrice = () => {
+    return totalDate < 7
+      ? formMoney(detailRoom?.price * totalDate + 100000)
+      : totalDate > 30
+      ? formMoney(detailRoom?.price * (totalDate - 5) + 100000)
+      : formMoney(detailRoom?.price * (totalDate - 1) + 100000);
   };
-  const [open, setOpen] = React.useState(false);
+  // const [selectedValue, setSelectedValue] = React.useState("a");
+
+  // const handleChange = (event) => {
+  //   setSelectedValue(event.target.value);
+  // };
+  const [open, setOpen] = React.useState({
+    modalDate: false,
+    modalPay: false,
+    modalGuest: false,
+  });
 
   const handleOpen = () => {
-    setOpen(true);
+    setOpen({ ...open, modalDate: true });
   };
-
+  const handleOpen1 = () => {
+    setOpen({ ...open, modalPay: true });
+  };
+  const handleOpen2 = () => {
+    setOpen({ ...open, modalGuest: true });
+  };
   const handleClose = () => {
-    setOpen(false);
+    setOpen({ ...open, modalDate: false, modalPay: false, modalGuest: false });
+  };
+  const text = "Xác nhận và thanh toán";
+  const text2 = "Quay về trang chủ";
+  const days = ["C", "2", "3", "4", "5", "6", "7"];
+  const months = [
+    "Tháng 1",
+    "Tháng 2",
+    "Tháng 3",
+    "Tháng 4",
+    "Tháng 5",
+    "Tháng 6",
+    "Tháng 7",
+    "Tháng 8",
+    "Tháng 9",
+    "Tháng 10",
+    "Tháng 11",
+    "Tháng 12",
+  ];
+
+  const locale = {
+    ...vi,
+    localize: {
+      day: (n) => days[n],
+      month: (n) => months[n],
+    },
+  };
+  const [numbersFilter, setNumbersFilter] = useState({
+    _adult: Number(queryParams._adult),
+    _children: Number(queryParams._children),
+    _toddler: Number(queryParams._toddler),
+  });
+  const handleClickBackHome = () => {
+    history.push("/");
   };
 
   return (
@@ -77,7 +163,21 @@ const Pay = () => {
                       >
                         Ngày
                       </Typography>
-                      <Typography>3 thg 11 – 6 thg 11</Typography>
+
+                      <Typography variant="span">
+                        {moment(bookingTime[0]).format("Do MMM  YYYY")} -
+                        <Typography variant="span">
+                          {moment(bookingTime[1]).format("Do MMM  YYYY")}
+                        </Typography>
+                      </Typography>
+                    </div>
+                    <div>
+                      <Typography
+                        onClick={handleOpen}
+                        className={classes.pay__button__style}
+                      >
+                        Chỉnh sửa
+                      </Typography>
                     </div>
                   </div>
                 </div>
@@ -92,83 +192,16 @@ const Pay = () => {
                       </Typography>
                       <Typography>1 khách</Typography>
                     </div>
-                  </div>
-                </div>
-
-                {/* CHỌN CÁCH THANH TOÁN  */}
-                <div className={classes.pay__item__style__title}>
-                  <Typography className={classes.pay__item__title}>
-                    Chọn cách thanh toán
-                  </Typography>
-                </div>
-                <Box paddingBottom={3}>
-                  <div className={classes.pay__radio__top}>
-                    <div style={{ flex: "0 0 92%" }}>
-                      <div className={classes.pay__item__style}>
-                        <Typography
-                          className={classes.pay__text__style}
-                          variant="subtitle2"
-                        >
-                          Trả toàn bộ
-                        </Typography>
-                        <Typography style={{ paddingLight: 60 }}>
-                          $82,71
-                        </Typography>
-                      </div>
-                      <Typography className={classes.pay__radio__style}>
-                        Thanh toán toàn bộ số tiền ngay bây giờ và bạn đã sẵn
-                        sàng.
+                    <div>
+                      <Typography
+                        onClick={handleOpen2}
+                        className={classes.pay__button__style}
+                      >
+                        Chỉnh sửa
                       </Typography>
                     </div>
-                    <div
-                      style={{ flex: "0 0 4%" }}
-                      className={classes.pay__radio__right}
-                    >
-                      <Radio
-                        checked={selectedValue === "a"}
-                        onChange={handleChange}
-                        value="a"
-                        name="radio-button-demo"
-                        inputProps={{ "aria-label": "A" }}
-                      />
-                    </div>
                   </div>
-                  <div className={classes.pay__radio__bot}>
-                    <div style={{ flex: "0 0 92%" }}>
-                      <div className={classes.pay__item__style}>
-                        <Typography
-                          className={classes.pay__text__style}
-                          variant="subtitle2"
-                        >
-                          Trả ngay một phần, phần còn lại trả sau
-                        </Typography>
-                        <Typography>$41,36</Typography>
-                      </div>
-                      <Typography className={classes.pay__radio__style}>
-                        Thanh toán ngay $41,36 và phần còn lại ($41,35) sẽ tự
-                        động được trừ vào cùng phương thức thanh toán này vào 21
-                        thg 10, 2021. Không phát sinh phụ phí.
-                      </Typography>
-                      <div>
-                        <Typography className={classes.pay__button__style}>
-                          Thông tin thêm
-                        </Typography>
-                      </div>
-                    </div>
-                    <div
-                      style={{ flex: "0 0 4%" }}
-                      className={classes.pay__radio__right1}
-                    >
-                      <Radio
-                        checked={selectedValue === "b"}
-                        onChange={handleChange}
-                        value="b"
-                        name="radio-button-demo"
-                        inputProps={{ "aria-label": "B" }}
-                      />
-                    </div>
-                  </div>
-                </Box>
+                </div>
 
                 {/* THANH TOÁN BẰNG  */}
                 <div className={classes.pay__left__payment}>
@@ -285,10 +318,15 @@ const Pay = () => {
                     </Typography>
                   </div>
                   <div style={{ paddingBottom: 24 }}>
-                    <span>Hủy miễn phí trước 14:00, ngày 29 thg 10. </span>
+                    <span className={classes.pay__item__content__text}>
+                      Hủy miễn phí trước 14:00, ngày{" "}
+                      {moment(daysAgo).format("Do MMM YYYY")}.
+                    </span>
                     <span>
-                      Sau đó, hãy hủy trước 14:00 ngày 3 thg 11 để được hoàn lại
-                      50%, trừ chi phí đêm đầu tiên và phí dịch vụ.
+                      {" "}
+                      Sau đó, hãy hủy trước 14:00 ngày{" "}
+                      {moment(bookingTime[0]).format("Do MMM YYYY")}. để được
+                      hoàn lại 50%, trừ chi phí đêm đầu tiên và phí dịch vụ.
                     </span>
                     <div>
                       <a
@@ -326,12 +364,11 @@ const Pay = () => {
                   </span>
                 </div>
                 <div>
-                  <Button
-                    onClick={handleOpen}
-                    className={classes.pay__button__confirm}
-                  >
-                    Xác nhận và thanh toán
-                  </Button>
+                  <ButtonSubmit
+                    handleSubmit={handleOpen1}
+                    text={text}
+                    // className={classes.pay__button__confirm}
+                  />
                 </div>
               </Grid>
 
@@ -344,7 +381,7 @@ const Pay = () => {
                         <Box display="flex">
                           <Box flex="0 0 35%">
                             <img
-                              src="https://a0.muscache.com/im/pictures/896c6768-8c48-4a39-b24f-e63b58ee3de6.jpg?aki_policy=large"
+                              src={detailRoom.image}
                               alt="img"
                               className={classes.pay__right__img}
                             />
@@ -354,17 +391,24 @@ const Pay = () => {
                               className={classes.pay__right__text1}
                               variant="caption"
                             >
-                              Toàn bộ căn hộ cho thuê tại Quận 4
+                              Toàn bộ căn hộ cho thuê tại{" "}
+                              {detailRoom?.locationId?.name}
                             </Typography>
                             <div>
                               <Typography
                                 variant="body1"
                                 className={classes.pay__right__text}
                               >
-                                Masteri Millennium Studio with Amazing City View
+                                {detailRoom.name}
                               </Typography>
                               <Typography variant="caption">
-                                1 giường · 1 phòng tắm
+                                {detailRoom.guests} khách
+                              </Typography>
+                              <Typography variant="caption">
+                                · {detailRoom.bath} phòng tắm
+                              </Typography>{" "}
+                              <Typography variant="caption">
+                                · {detailRoom.bedRoom} phòng ngủ
                               </Typography>
                             </div>
                             <Box display="flex" flexWrap="wrap">
@@ -373,7 +417,10 @@ const Pay = () => {
                                   <StarIcon
                                     className={classes.pay__right__item__icon}
                                   />
-                                  <span>4.87 (172 đánh giá)</span>
+                                  <span>
+                                    {detailRoom?.locationId?.valueate} (172 đánh
+                                    giá)
+                                  </span>
                                 </div>
                               </Box>
                               <div>
@@ -393,39 +440,10 @@ const Pay = () => {
                           Chi tiết giá
                         </Typography>
                       </div>
-                      <div>
-                        <div className={classes.pay__right__table}>
-                          <div className={classes.pay__right__table__item}>
-                            <Typography variant="body1">
-                              $24,16 x 3 đêm
-                            </Typography>
-                          </div>
-                          <div>
-                            <Typography variant="body1">$72,48</Typography>
-                          </div>
-                        </div>
-                        <div className={classes.pay__right__table}>
-                          <div className={classes.pay__right__table__item}>
-                            <Typography
-                              variant="body1"
-                              style={{ textDecoration: "underline" }}
-                            >
-                              Phí dịch vụ
-                            </Typography>
-                          </div>
-                          <div>
-                            <Typography variant="body1">$10,23</Typography>
-                          </div>
-                        </div>
-                        <div className={classes.pay__right__table}>
-                          <div className={classes.pay__right__table__item}>
-                            <Typography variant="body1">Tổng (USD)</Typography>
-                          </div>
-                          <div>
-                            <Typography variant="body1">$82,71</Typography>
-                          </div>
-                        </div>
-                      </div>
+                      <BookingPrice
+                        totalDate={totalDate}
+                        detailRoom={detailRoom}
+                      />
                     </div>
                   </div>
                 </Box>
@@ -436,72 +454,59 @@ const Pay = () => {
 
         <Dialog
           onClose={handleClose}
-          open={open}
+          open={open.modalDate || open.modalPay || open.modalGuest}
           maxWidth="md"
-          classes={{ paper: classes.paper }}
+          className={classes.root}
           keepMounted
         >
-          <h1>123123</h1>
+          {open.modalPay && (
+            <div style={{ padding: 30 }}>
+              {/* <ResultTicket /> */}
+              <div className={classes.ButtonResult}>
+                <ResultTicket
+                  valueGroup={valueGroup}
+                  totalDate={totalDate}
+                  detailRoom={detailRoom}
+                  totalPrice={totalPrice}
+                />
+                <ButtonSubmit
+                  handleSubmit={handleClickBackHome}
+                  // className={classes.ButtonResultItem}.
+                  text={text2}
+                />
+              </div>
+            </div>
+          )}
+          {open.modalDate && (
+            <LocalizationProvider dateAdapter={AdapterDateFns} locale={locale}>
+              <StaticDateRangePicker
+                disablePast
+                displayStaticWrapperAs="desktop"
+                value={bookingTime}
+                // calendars={isDesktop ? 2 : 1}
+                onChange={(newValue) => {
+                  setBookingTime(newValue);
+                }}
+                renderInput={(startProps, endProps) => (
+                  <Fragment>
+                    <TextField {...startProps} />
+                    <Box sx={{ mx: 2 }}> to </Box>
+                    <TextField {...endProps} />
+                  </Fragment>
+                )}
+              />
+            </LocalizationProvider>
+          )}
+          {open.modalGuest && (
+            <div style={{ padding: 20 }}>
+              <GuestCount
+                numbersFilter={numbersFilter}
+                setNumbersFilter={setNumbersFilter}
+              />
+            </div>
+          )}
         </Dialog>
       </Container>
-      <div className={classes.footer__bot}>
-        <div className={classes.footer__item__bot}>
-          <li className={classes.footer__item__list__first}>
-            <span>© 2021 Airbnb, Inc.</span>
-          </li>
-          <li className={classes.footer__item__list__end}>
-            <a href="https://www.airbnb.com.vn/help/article/2855/ch%C3%ADnh-s%C3%A1ch-quy%E1%BB%81n-ri%C3%AAng-t%C6%B0">
-              Quyền riêng tư
-            </a>
-          </li>
-          <li className={classes.footer__item__list__end}>
-            <a href="https://www.airbnb.com.vn/help/article/2855/ch%C3%ADnh-s%C3%A1ch-quy%E1%BB%81n-ri%C3%AAng-t%C6%B0">
-              Điều khoản
-            </a>
-          </li>
-          <li className={classes.footer__item__list__end}>
-            <a href="https://www.airbnb.com.vn/sitemaps/v2">Sơ đồ trang web</a>
-          </li>
-        </div>
-        <div
-          className={classes.footer__bot__content}
-          style={{ display: "flex" }}
-        >
-          <div style={{ display: "flex" }}>
-            <div style={{ display: "flex", marginRight: "24px" }}>
-              <span>
-                <LanguageIcon />
-              </span>
-              <span>Tiếng Việt (VN)</span>
-            </div>
-            <div style={{ display: "flex", marginRight: "24px" }}>
-              <span>
-                <AttachMoneyIcon />
-              </span>
-              <span>USD</span>
-            </div>
-          </div>
-          <div className={classes.footer__bot__content1}>
-            <ul>
-              <li>
-                <a href="">
-                  <FacebookIcon />
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  <TwitterIcon />
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  <InstagramIcon />
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

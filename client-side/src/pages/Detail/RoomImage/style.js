@@ -98,6 +98,23 @@ export default makeStyles((theme) => ({
     overflow: "hidden",
   },
 
+  btnPrevMobile: {
+    position: "absolute",
+    top: 20,
+    left: 20,
+    backgroundColor: "rgb(255,255,255)",
+    width: 30,
+    height: 30,
+    borderRadius: "50%",
+    zIndex: 999,
+    "& >svg": {
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%,-50%)",
+      fontSize: 20,
+    },
+  },
   image: {
     height: "100%",
     cursor: "pointer",
