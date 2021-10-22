@@ -17,6 +17,7 @@ import useStyles from "./style";
 import moment from "moment";
 import { USERID } from "../../../../../constants/config";
 import { SHOW_MODAL_SIGNIN } from "../../../../../store/types/AuthType";
+import { ExpandLess, ExpandMore } from "@material-ui/icons";
 
 const BookingTablet = ({
   bookingTime,
@@ -37,9 +38,9 @@ const BookingTablet = ({
   };
 
   const [numbersFilter, setNumbersFilter] = useState({
-    _adult: Number(queryParams._adult),
-    _children: Number(queryParams._children),
-    _toddler: Number(queryParams._toddler),
+    _adult: Number(queryParams._adult) || 1,
+    _children: Number(queryParams._children) || 0,
+    _toddler: Number(queryParams._toddler) || 0,
   });
   const [anchorEl, setAnchorEl] = useState(null);
   const history = useHistory();
@@ -165,13 +166,16 @@ const BookingTablet = ({
               className={classes.room__booking__filter}
               onClick={handleOpenMenu}
             >
-              <Typography variant="body2">KHÁCH</Typography>
-              <Typography variant="span">
-                {numbersFilter._adult + numbersFilter._children} khách
-                {numbersFilter._toddler !== 0
-                  ? `, ${numbersFilter._toddler} em bé`
-                  : null}
-              </Typography>
+              <div>
+                <Typography variant="body2">KHÁCH</Typography>
+                <Typography variant="span">
+                  {numbersFilter._adult + numbersFilter._children} khách
+                  {numbersFilter._toddler !== 0
+                    ? `, ${numbersFilter._toddler} em bé`
+                    : null}
+                </Typography>
+              </div>
+              {anchorEl ? <ExpandLess /> : <ExpandMore />}
             </div>
 
             <Menu

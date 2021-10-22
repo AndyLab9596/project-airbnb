@@ -129,6 +129,7 @@ const Header = () => {
   });
   const handleProfile = (userId) => {
     history.push(`/profile/${userId}`);
+    setAnchorEl(null);
   };
   return (
     <Fragment>
@@ -367,6 +368,14 @@ const Header = () => {
             >
               Danh sách yêu thích
             </MenuItem>
+            {infoUser.type === "ADMIN" && (
+              <MenuItem
+                className={`${classes.menu__items} ${classes.menu__itemsBold}`}
+                onClick={() => history.push("/admin")}
+              >
+                Quản trị trang
+              </MenuItem>
+            )}
             <MenuItem className={classes.menu__items}>Cho thuê nhà</MenuItem>
             <MenuItem className={classes.menu__items}>
               Tổ chức trải nghiệm

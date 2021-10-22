@@ -11,11 +11,17 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 import LanguageIcon from "@material-ui/icons/Language";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import React, { Fragment } from "react";
-import { useRouteMatch } from "react-router";
+import { useDispatch } from "react-redux";
+import { useHistory, useRouteMatch } from "react-router";
 import ButtonSubmit from "../../../components/ButtonSubmit";
+import { USERID } from "../../../constants/config";
+import { createAction } from "../../../store/action/createAction/createAction";
+import { LOG_OUT } from "../../../store/types/AuthType";
 import useStyles from "./style";
 const Footer = () => {
   const matchUrl = useRouteMatch();
+  const history = useHistory();
+  const dispatch = useDispatch();
   const homepageRoute = matchUrl.path === "/";
   const listpageRoute = matchUrl.path === "/list/:locationId";
   const detailpageRoute = matchUrl.path === "/detail/:roomId";
@@ -30,6 +36,11 @@ const Footer = () => {
     profilepageRoute,
   });
 
+  const handleSubmit = () => {
+    localStorage.removeItem(USERID);
+    history.push("/");
+    dispatch(createAction(LOG_OUT));
+  };
   return (
     <Container maxWidth={false} className={classes.footer} id="footer">
       <Fragment>
@@ -248,6 +259,9 @@ const Footer = () => {
               <li>
                 <span>© 2021 Airbnb, Inc.</span>
               </li>
+              {profilepageRoute && !isTablet ? (
+                <ButtonSubmit text="Đăng xuất" handleSubmit={handleSubmit} />
+              ) : null}
               <div className={classes.footer__item__bot__item}>
                 <li>
                   <a href="https://www.airbnb.com.vn/help/article/2855/ch%C3%ADnh-s%C3%A1ch-quy%E1%BB%81n-ri%C3%AAng-t%C6%B0">
