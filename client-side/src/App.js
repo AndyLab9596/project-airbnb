@@ -18,7 +18,16 @@ import Pay from "./pages/Pay";
 //Components
 
 import ListRoom from "./pages/ListRoom";
+
+import AdminLayout from "./layouts/AdminLayout";
+import Admin from "./pages/AdminUser";
+import AdminLocation from "./pages/AdminLocation";
+import AdminRoom from "./pages/AdminRoom";
+import AdminTicket from "./pages/AdminTicket";
+import AdminRating from "./pages/AdminRating";
+
 import ListRoomVer2 from "./pages/ListRoomVer2";
+
 
 const App = () => {
   const idUser = localStorage.getItem(USERID);
@@ -44,6 +53,18 @@ const App = () => {
           <MainLayout path="/list/:locationId" exact Component={ListRoomVer2} />
           <MainLayout path="/detail/:roomId" exact Component={Detail} />
           <MainLayout path="/pay/:roomId" exact Component={Pay} />
+
+          {/* Admin  */}
+
+          <AdminLayout path="/admin" exact Component={Admin} />
+          <AdminLayout
+            path="/admin/locations"
+            exact
+            Component={AdminLocation}
+          />
+          <AdminLayout path="/admin/rooms" exact Component={AdminRoom} />
+          <AdminLayout path="/admin/tickets" exact Component={AdminTicket} />
+          <AdminLayout path="/admin/ratings" exact Component={AdminRating} />
         </Switch>
       </ThemeProvider>
     </BrowserRouter>
