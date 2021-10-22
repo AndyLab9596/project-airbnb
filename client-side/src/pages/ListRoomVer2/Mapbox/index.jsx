@@ -13,7 +13,7 @@ const Mapbox = (props) => {
     const [viewport, setViewport] = useState({
         longitude: 0,
         latitude: 0,
-        zoom: 11.5,
+        zoom: 12,
     });
 
     const getLocationParams = {
