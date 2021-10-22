@@ -100,6 +100,9 @@ export default makeStyles((theme) => ({
   room__booking__filter: {
     cursor: "pointer",
     padding: "15px 10px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
     "& >p": {
       fontSize: 10,
       fontWeight: 600,
