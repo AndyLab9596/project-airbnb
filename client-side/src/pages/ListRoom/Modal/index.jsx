@@ -53,10 +53,6 @@ const ModalFilter = ({ handleClose, open }) => {
   });
 
 
-<<<<<<< HEAD
-  const filtered = arrListRoom?.filter((item) => {
-    // 
-=======
   const filtered = arrListRoom.filter((item) => {
     // Object.keys => trả về 1 mảng mới chứa tất cả key của obj vd ['guests','bedRoom',....]
     // lấy mảng đó every => return true nếu tất cả điều kiện đúng
@@ -65,7 +61,6 @@ const ModalFilter = ({ handleClose, open }) => {
     //   =>return true trả về những item của arrList thỏa mãn điều kiện
     // lọc theo điều kiện đó ta sẽ tìm dc nhũng Obj cần tìm
 
->>>>>>> 47a06514b9964336f8a361c807828ea8498e7f2a
     if (Object.keys(numbers).every((p) => item[p] >= numbers[p])) {
       return true;
     }

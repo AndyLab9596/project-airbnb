@@ -10,11 +10,12 @@ const coordinateArray = [
     { name: 'Hội An', latitude: 15.877359257766841, longitude: 108.326095156342 },
 
 ];
+
 export const formMoney = (money) => {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(money)
 }
+
 export const findCenterCoordinate = (locationName) => {
     return coordinateArray.find((location) => location.name === locationName)
 };
-
 
