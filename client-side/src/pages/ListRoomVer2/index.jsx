@@ -1,4 +1,4 @@
-import { Pagination } from '@material-ui/lab';
+import { Pagination, Skeleton } from '@material-ui/lab';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation, useParams } from 'react-router';
@@ -10,6 +10,7 @@ import PriceMenuFilter from './PriceMenuFilter';
 import useStyles from "./style";
 import useFetch from './useFetch';
 import queryString from 'query-string';
+import SkeletonCard from './SkeletonCard';
 
 
 const ListRoomVer2 = () => {
@@ -26,16 +27,13 @@ const ListRoomVer2 = () => {
     const [page, setPage] = useState(1);
 
     const handlePageChange = (event, page) => {
-        console.log('page', page)
         setPage(page)
     }
 
     const location = useLocation();
     const params = queryString.parse(location.search);
-    console.log('params', params._location)
 
     const province = params._location;
-    console.log('province', province)
 
     // Filter
     const [priceValue, setPriceValue] = useState([0, 1000000]);
@@ -86,8 +84,11 @@ const ListRoomVer2 = () => {
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0)
         if (loading) return
+
         setRentRooms(data[page - 1])
+
     }, [loading, page])
 
 
@@ -126,9 +127,10 @@ const ListRoomVer2 = () => {
                 {/* List Rooms */}
 
                 <div className={classes.cards}>
-                    {finalFiltered?.map((fakeRoom => (
-                        <Card key={fakeRoom._id} fakeRoom={fakeRoom} />
-                    )))}
+                    {loading ? <SkeletonCard length={4} /> : <Card finalFiltered={finalFiltered} />}
+                    {/* {finalFiltered?.map((fakeRoom => (
+                        <Card key={fakeRoom._id} fakeRoom={fakeRoom} finalFiltered={finalFiltered} />
+                    )))} */}
 
                     {/* Pagination */}
                     <div className={classes.pagination__wrapper}>
