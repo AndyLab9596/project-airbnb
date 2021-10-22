@@ -4,6 +4,7 @@ import {
   GET_LISTROOM,
   HIDE_MODAL_RATED,
   OPEN_MODAL_FILTER,
+  PAY_BOOKING_ROOM,
   SHOW_MODAL_RATED
 } from "../types/ListRoomType";
 
@@ -19,6 +20,8 @@ const initialState = {
   detailRoom: {},
   modalRated: false,
   detailRating: {},
+
+  arrPayBooking: []
 };
 
 const RentRoomsReducer = (state = initialState, { type, payload }) => {
@@ -48,6 +51,9 @@ const RentRoomsReducer = (state = initialState, { type, payload }) => {
     }
     case HIDE_MODAL_RATED: {
       return { ...state, modalRated: false };
+    }
+    case PAY_BOOKING_ROOM: {
+      return { ...state, arrPayBooking: payload };
     }
     default:
       return { ...state };
