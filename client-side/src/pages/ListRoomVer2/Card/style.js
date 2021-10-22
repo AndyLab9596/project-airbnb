@@ -35,7 +35,7 @@ export default makeStyles(theme => ({
         display: 'flex',
         flexFlow: 'column nowrap',
         height: '200px',
-        minWidth: '420px',
+        // minWidth: '420px',
         marginLeft: '16px',
         flex: '1 1 auto',
         width: '100%',

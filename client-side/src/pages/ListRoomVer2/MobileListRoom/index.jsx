@@ -22,10 +22,10 @@ const MobileListRoom = () => {
             <div className={classes.content}>
                 <div className={classes.map}>
                     <div className={classes.mapBox}>
-                        <Mapbox
+                        {/* <Mapbox
                             province={province}
                         // rentRooms={rentRooms} 
-                        />
+                        /> */}
                     </div>
                 </div>
 
