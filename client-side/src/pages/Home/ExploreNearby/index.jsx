@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import { createAction } from "../../../store/action/createAction/createAction";
 import { getLocations } from "../../../store/action/LocationAction";
 import { SEARCH_RESULT } from "../../../store/types/SearchType";
+import queryString from 'query-string';
 import useStyles from "./style";
 
 const ExploreNearby = () => {
@@ -17,9 +18,11 @@ const ExploreNearby = () => {
 
 
   const handleCityClick = async (locationId, location) => {
-    console.log(location)
     const checkInDate = moment(new Date()).format('Do MMM');
     const checkOutDate = moment(new Date()).add(1, 'days').format('Do MMM')
+    const queryParams = {
+      _location: location.province,
+    }
     // console.log('checkOutDate', checkOutDate)
     const searchBarValue = {
       location: location,
@@ -29,7 +32,10 @@ const ExploreNearby = () => {
     }
     try {
       await dispatch(createAction(SEARCH_RESULT, searchBarValue))
-      history.push(`/list/${locationId}`)
+      history.push({
+        pathname: `/list/${locationId}`,
+        search: queryString.stringify(queryParams)
+      })
     }
     catch (error) {
       console.log(error)

@@ -7,12 +7,14 @@ import LocationReducer from "./reducers/LocationReducer";
 import SearchReducer from "./reducers/SearchReducer";
 import ListRoomReducer from "./reducers/ListRoomReducer";
 import ModalReducer from "./reducers/ModalReducer";
+import RentRoomsReducer from "./reducers/RentRoomsReducer"
 const rootReducer = combineReducers({
   AuthReducer,
   LocationReducer,
   SearchReducer,
   ListRoomReducer,
   ModalReducer,
+  RentRoomsReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

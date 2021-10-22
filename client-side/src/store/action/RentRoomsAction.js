@@ -1,16 +1,14 @@
-import managerDetailRoom from "../../../api/managerDetailRoom";
-import manageRentApi from "../../../api/manageRentApi";
-import {
-  DETAIL_RATING_ROOM,
-  DETAIL_ROOM,
-  GET_LISTROOM,
-} from "../../types/ListRoomType";
-import { createAction } from "../createAction/createAction";
+import manageRentApi from "../../api/manageRentApi";
+import { createAction } from "./createAction/createAction";
+import { GET_LISTROOM, DETAIL_ROOM, DETAIL_RATING_ROOM } from "../types/ListRoomType";
+import managerDetailRoom from "../../api/managerDetailRoom";
 
-export const getListRoomAction = (id) => {
+export const getRentRoomsAction = (id) => {
   return async (dispatch) => {
     try {
       const res = await manageRentApi.getRentRooms(id);
+
+      dispatch((createAction(GET_LISTROOM, res)))
 
       dispatch(createAction(GET_LISTROOM, res));
     } catch (error) {

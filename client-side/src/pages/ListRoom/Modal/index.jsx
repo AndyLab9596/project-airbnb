@@ -36,7 +36,7 @@ const ModalFilter = ({ handleClose, open }) => {
   //MODAL
   // PHÒNG VÀ PHÒNG NGỦ
   const [numbers, setNumbers] = useState({
-    
+
     guests: 0,
     bedRoom: 0,
     bath: 0,
@@ -66,7 +66,9 @@ const ModalFilter = ({ handleClose, open }) => {
     }
   });
 
+
   console.log("filtered", filtered);
+
   const addBed = () => {
     if (numbers.guests >= 16) return;
     setNumbers({ ...numbers, guests: numbers.guests + 1 });
