@@ -1,8 +1,8 @@
 import StarIcon from '@material-ui/icons/Star';
 import React, { useState } from 'react';
 import { Marker, Popup } from 'react-map-gl';
+import { formMoney } from '../../../utilities/coordinates';
 import useStyles from "./style";
-import { formMoney } from '../../../utilities/coordinates'
 const Pin = ({ location }) => {
     const classes = useStyles()
     const [showPopup, togglePopup] = useState(false);

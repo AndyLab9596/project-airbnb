@@ -1,8 +1,8 @@
-import React, { Fragment } from 'react';
-import useStyles from "./style"
-import StarIcon from '@material-ui/icons/Star';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
-import { formMoney } from '../../../utilities/coordinates'
+import StarIcon from '@material-ui/icons/Star';
+import React, { Fragment } from 'react';
+import { formMoney } from '../../../utilities/coordinates';
+import useStyles from "./style";
 
 const Card = ({ finalFiltered, fakeRoom }) => {
     const classes = useStyles();

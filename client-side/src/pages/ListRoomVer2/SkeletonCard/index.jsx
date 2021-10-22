@@ -1,6 +1,6 @@
 import { Skeleton } from '@material-ui/lab';
-import useStyles from "./style"
 import React from 'react';
+import useStyles from "./style";
 
 const SkeletonCard = ({ length }) => {
     const classes = useStyles();

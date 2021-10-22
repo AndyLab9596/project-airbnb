@@ -1,16 +1,15 @@
-import { Pagination, Skeleton } from '@material-ui/lab';
+import { Pagination } from '@material-ui/lab';
+import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation, useParams } from 'react-router';
-import manageRentApi from '../../api/manageRentApi';
 import Card from './Card';
 import Mapbox from './Mapbox';
 import OptionsDialog from './OptionsDialog';
 import PriceMenuFilter from './PriceMenuFilter';
+import SkeletonCard from './SkeletonCard';
 import useStyles from "./style";
 import useFetch from './useFetch';
-import queryString from 'query-string';
-import SkeletonCard from './SkeletonCard';
 
 
 const ListRoomVer2 = () => {
@@ -128,9 +127,7 @@ const ListRoomVer2 = () => {
 
                 <div className={classes.cards}>
                     {loading ? <SkeletonCard length={4} /> : <Card finalFiltered={finalFiltered} />}
-                    {/* {finalFiltered?.map((fakeRoom => (
-                        <Card key={fakeRoom._id} fakeRoom={fakeRoom} finalFiltered={finalFiltered} />
-                    )))} */}
+
 
                     {/* Pagination */}
                     <div className={classes.pagination__wrapper}>
