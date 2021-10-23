@@ -5,9 +5,10 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router';
 import { formMoney } from '../../../utilities/coordinates';
 import Mapbox from '../Mapbox';
+import OptionsDialog from '../OptionsDialog';
 import useFetch from '../useFetch';
 import useStyles from "./style";
-
+import MobileCard from './MobileCard'
 
 
 const fakeRoom = {
@@ -56,6 +57,53 @@ const MobileListRoom = () => {
         setPage(page)
     }
 
+    const [priceValue, setPriceValue] = useState([0, 1000000]);
+
+    const handleChangePriceValue = (event, newValue) => {
+        setPriceValue(newValue);
+
+    };
+
+    const handleChangeInputField = (event) => {
+        setPriceValue(event.target.value === '' ? '' : Number(event.target.value))
+    };
+
+    const initialFilter = {
+        guests: 0,
+        bedRoom: 0,
+        bath: 0,
+        elevator: false,
+        hotTub: false,
+        pool: false,
+        indoorFireplace: false,
+        dryer: false,
+        gym: false,
+        kitchen: false,
+        wifi: false,
+        heating: false,
+        cableTV: false,
+    }
+
+
+    const [filter, setFilter] = useState(initialFilter);
+
+    const filtered = rentRooms.filter((item) => {
+
+        if (Object.keys(filter).every((p) => item[p] >= filter[p])) {
+            return true;
+        }
+    })
+
+    const finalFiltered = filtered.filter((item) => {
+        if (item.price > priceValue[0] && item.price < priceValue[1]) {
+            return true
+        }
+    })
+
+    const resetFilter = () => {
+        setFilter(initialFilter)
+    }
+
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -79,10 +127,6 @@ const MobileListRoom = () => {
             {/* this div is used to press the main content downward */}
             <div className={classes.content__top__transparent}></div>
 
-            {/* <div className={classes.content}>
-
-            </div> */}
-
             {/* Content */}
             <div className={classes.content}>
                 <div className={classes.wrapper}>
@@ -93,45 +137,24 @@ const MobileListRoom = () => {
                                 Hơn 300 chỗ ở
                             </h6>
                         </div>
+
                     </div>
+
 
                     {/* Cards */}
                     <section className={classes.section}>
+
+
+                        <OptionsDialog
+                            resetFilter={resetFilter}
+                            filter={filter}
+                            setFilter={setFilter}
+                        />
+
                         <Grid container spacing={3}>
-                            <Grid item xs={12}>
-                                <div className={classes.card}>
-                                    <div className={classes.card__media}>
-                                        <img src={fakeRoom.image} alt={fakeRoom.name}
-                                            className={classes.card__media__img} />
-                                    </div>
-                                    <div className={classes.card__content}>
-
-                                        <div className={classes.card__content_evaluate}>
-                                            <span>
-                                                <StarIcon className={classes.evaluate__icon} />
-                                            </span>
-                                            <span className={classes.evaluate__points}>
-                                                {fakeRoom.locationId.valueate}
-                                            </span>
-                                            <span className={classes.evaluate__number}>
-                                                ( 56 đánh giá )
-                                            </span>
-                                        </div>
-
-                                        <div className={classes.card__content__name}>
-                                            <h3>
-                                                {fakeRoom.name}
-                                            </h3>
-                                        </div>
-
-                                        <div className={classes.card__content__price}>
-                                            <p>
-                                                {formMoney(fakeRoom.price)} / <span>đêm</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Grid>
+                            {finalFiltered.map((rentRoom, index) => (
+                                <MobileCard rentRoom={rentRoom} key={index} />
+                            ))}
                         </Grid>
                     </section>
 

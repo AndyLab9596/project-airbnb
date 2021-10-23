@@ -94,18 +94,19 @@ export default makeStyles(theme => ({
 
     header__content__text: {
         fontSize: '16px',
-
+        margin: 0
     },
 
     section: {
         width: '85vw',
         margin: '8px auto',
+        paddingBottom: 80
+
     },
 
     card: {
         position: 'relative',
         marginTop: '8px',
-
     },
     card__media: {
         position: 'relative',
