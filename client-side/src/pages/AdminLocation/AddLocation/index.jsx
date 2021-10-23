@@ -3,13 +3,17 @@ import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import axios from "axios";
 
 import { useFormik } from "formik";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as yup from "yup";
-import { CreateLocationAction } from "../../../store/action/LocationAction";
+import {
+  CreateLocationAction,
+  postUploadImageAction,
+} from "../../../store/action/LocationAction";
 // import {
 //   AddUserAction,
 //   UpdateUserAction,
@@ -78,33 +82,80 @@ export default function AddLocation(props) {
     validationSchema: schema,
     validateOnMount: true,
   });
-  console.log(values);
-  // const addSuccess = () => {
-  //   message.success({
-  //     content: "Thêm người dùng thành công",
-  //     style: { marginTop: "20px", color: "blue" },
-  //     duration: 1.5,
-  //   });
-  // };
+  console.log(values.image);
 
-  // const addError = () => {
-  //   message.error({
-  //     content: "Tài khoản hoặc gmail đã có người sử dụng",
-  //     style: { marginTop: "20px", color: "red" },
-  //     duration: 1.5,
-  //   });
-  // };
-  // const newPage = () => {
-  //   history.push("/admin/users");
-  // };
+  const data = {
+    name: values.name,
+    province: values.province,
+    country: values.country,
+    valueate: values.valueate,
+  };
   const handleChangeFile = (event) => {
     setFieldValue(event.target.name, event.target.files[0]);
     // file là array mỗi lần chọn đúng 1 hình nên chọn index [0]
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!isValid) return;
-    dispatch(CreateLocationAction(values));
+    dispatch(CreateLocationAction(data));
+    // dispatch(postUploadImageAction(values.image));
+  };
+  const handleImage = async (e) => {
+    e.preventDefault();
+    if (!isValid) return;
+
+    const formData = new FormData();
+
+    formData.append("image", values.image);
+    console.log(formData);
+
+    try {
+      const res = await axios({
+        method: "POST",
+        url: "https://airbnb.cybersoft.edu.vn/api/locations/upload-images/6173ff13efe193001c0a85b1",
+        headers: {
+          token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTY0NTEwMjk3ZDUzNjAwMWMyNjhhZWQiLCJlbWFpbCI6InR2eTEyM0BnbWFpbC5jb20iLCJ0eXBlIjoiQURNSU4iLCJpYXQiOjE2MzQxMTg0OTJ9.uIk07gzWzf_-bwKynCpMUca5t842qcyltCWtvmXtXw8",
+          tokenByClass:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCAwOSIsIkhldEhhblN0cmluZyI6IjI3LzAxLzIwMjIiLCJIZXRIYW5UaW1lIjoiMTY0MzI0MTYwMDAwMCIsIm5iZiI6MTYxNjM0NjAwMCwiZXhwIjoxNjQzMzg5MjAwfQ.NEQRF8SKORq7R7kYbYCCO9ZZXYxTWlbaTc2wxXWMfiw",
+        },
+        data: formData,
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error.response);
+    }
+    // data.append('location', fs.createReadStream('/path/to/file'));
+    // dispatch(CreateLocationAction(data));
+    // dispatch(postUploadImageAction(values.image, createLocation._id));
+    // var axios = require("axios");
+    // var FormData = require("form-data");
+    // var fs = require("fs");
+    // const fileStream = fs.createReadStream(`./${values.image}`);
+    // var data = new FormData();
+    // data.append("location", fileStream, `${values.image}`);
+
+    // var config = {
+    //   method: "post",
+    //   url: "https://airbnb.cybersoft.edu.vn/api/locations/upload-images/6173ff13efe193001c0a85b1",
+    //   headers: {
+    //     token:
+    //       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTY0NTEwMjk3ZDUzNjAwMWMyNjhhZWQiLCJlbWFpbCI6InR2eTEyM0BnbWFpbC5jb20iLCJ0eXBlIjoiQURNSU4iLCJpYXQiOjE2MzQxMTg0OTJ9.uIk07gzWzf_-bwKynCpMUca5t842qcyltCWtvmXtXw8",
+    //     tokenByClass:
+    //       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCAwOSIsIkhldEhhblN0cmluZyI6IjI3LzAxLzIwMjIiLCJIZXRIYW5UaW1lIjoiMTY0MzI0MTYwMDAwMCIsIm5iZiI6MTYxNjM0NjAwMCwiZXhwIjoxNjQzMzg5MjAwfQ.NEQRF8SKORq7R7kYbYCCO9ZZXYxTWlbaTc2wxXWMfiw",
+    //     ...data.getHeaders(),
+    //   },
+    //   data: data,
+    // };
+
+    // axios(config)
+    //   .then(function (response) {
+    //     console.log(JSON.stringify(response.data));
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
   };
 
   return (
@@ -204,6 +255,16 @@ export default function AddLocation(props) {
             className={classes.submit}
           >
             Thêm
+          </Button>
+          <Button
+            type="button"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={handleImage}
+          >
+            Thêm hình
           </Button>
         </form>
       </div>

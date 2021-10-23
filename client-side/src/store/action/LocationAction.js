@@ -1,5 +1,5 @@
 import manageLocationApi from "../../api/manageLocationApi";
-import { CREATE_LOCATION, GET_LOCATIONS } from "../types/LocationType";
+import { CREATE_LOCATION, GET_LOCATIONS, UPLOAD_IMAGE } from "../types/LocationType";
 import { createAction } from "./createAction/createAction";
 
 export const getLocations = () => {
@@ -33,6 +33,18 @@ export const CreateLocationAction = (data) => {
         }
     };
 };
+export const postUploadImageAction = (data,id) => {
+    return async (dispatch) => {
+        try {
+            const res = await manageLocationApi.postUploadImageLocation(data,id);
+            console.log(res);
+            dispatch(createAction(UPLOAD_IMAGE, res));
+        } catch (error) {
+            console.log(error.response);
+        }
+    };
+};
+
 
 
 

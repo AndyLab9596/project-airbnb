@@ -18,6 +18,10 @@ const manageLocationApi = {
     postCreateLocation(data) {
         const url = `/locations`
         return axiosClient.post(url, data)
+    },
+    postUploadImageLocation(data, id) {
+        const url = `/locations/upload-images/${id}`
+        return axiosClient.post(url, data)
     }
 
 }
