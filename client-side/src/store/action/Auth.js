@@ -4,7 +4,7 @@ import {
   GET_INFO_USER,
   HIDE_MODAL_SIGNIN,
   HIDE_MODAL_SIGNUP,
-  SHOW_MODAL_SIGNIN
+  SHOW_MODAL_SIGNIN,
 } from "../types/AuthType";
 import { createAction } from "./createAction/createAction";
 
@@ -15,7 +15,7 @@ export const loginAction = (user) => {
       if (res.token) {
         dispatch(createAction(HIDE_MODAL_SIGNIN));
       }
-      dispatch((createAction(GET_INFO_USER, res.user)))
+      dispatch(createAction(GET_INFO_USER, res.user));
       localStorage.setItem(USERID, res.user._id);
       localStorage.setItem(TOKEN, res.token);
     } catch (error) {

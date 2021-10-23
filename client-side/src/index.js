@@ -7,11 +7,14 @@ import store from "./store";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../src/constants/config.css";
+import { ConfirmProvider } from "material-ui-confirm";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ConfirmProvider>
+        <App />
+      </ConfirmProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

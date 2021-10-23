@@ -15,6 +15,7 @@ import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import MenuIcon from "@material-ui/icons/Menu";
 import MenuOutlinedIcon from "@material-ui/icons/MenuOutlined";
+import { TreeItem, TreeView } from "@material-ui/lab";
 import clsx from "clsx";
 import React, { useState } from "react";
 import { FiUsers } from "react-icons/fi";
@@ -210,14 +211,7 @@ const AdminLayout = (props) => {
                         <ListItemIcon>
                           <HiOutlineLocationMarker />
                         </ListItemIcon>
-                        <ListItemText>
-                          Quản lý thông tin vị trí
-                          <Collapse
-                            in={openList}
-                            timeout="auto"
-                            unmountOnExit
-                          ></Collapse>
-                        </ListItemText>
+                        <ListItemText>Quản lý thông tin vị trí</ListItemText>
                       </ListItem>
                     </NavLink>
                   </List>
@@ -227,12 +221,23 @@ const AdminLayout = (props) => {
                       activeClassName={classes.active}
                       className={classes.link}
                     >
-                      <ListItem button className={classes.nested}>
+                      {/* <ListItem button className={classes.nested}>
                         <ListItemIcon>
                           <RiHotelLine />
                         </ListItemIcon>
                         <ListItemText primary="Quản lý thông tin phòng" />
-                      </ListItem>
+                      </ListItem> */}
+                      <TreeView
+                        className={classes.root}
+                        // defaultCollapseIcon={<ExpandMoreIcon />}
+                        // defaultExpandIcon={<ChevronRightIcon />}
+                      >
+                        <TreeItem nodeId="1" label="Applications">
+                          <TreeItem nodeId="2" label="Calendar" />
+                          <TreeItem nodeId="3" label="Chrome" />
+                          <TreeItem nodeId="4" label="Webstorm" />
+                        </TreeItem>
+                      </TreeView>
                     </NavLink>
                   </List>
                   <List component="div" disablePadding>
