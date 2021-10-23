@@ -20,11 +20,11 @@ import LanguageIcon from "@material-ui/icons/Language";
 import StarIcon from "@material-ui/icons/Star";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import React, { Fragment, useMemo, useState } from "react";
-import { useHistory, useLocation } from "react-router";
+import { useHistory, useLocation, useParams } from "react-router";
 import useStyles from "./style";
 import queryString from "query-string";
 import moment from "moment";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import BookingPrice from "../../components/BookingPrice";
 import { formMoney } from "../../utilities/coordinates";
 import { LocalizationProvider, StaticDateRangePicker } from "@mui/lab";
@@ -33,6 +33,8 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import GuestCount from "../../components/GuestCount";
 import ButtonSubmit from "../../components/ButtonSubmit";
 import ResultTicket from "./ResultTicket";
+import CloseIcon from "@material-ui/icons/Close";
+import { PayBookingAction } from "../../store/action/RentRoomsAction";
 const Pay = () => {
   const location = useLocation();
   const history = useHistory();
@@ -42,14 +44,18 @@ const Pay = () => {
       ...params,
     };
   }, [location.search]);
+  const param = useParams();
+  const dispatch = useDispatch();
+
   console.log(queryParams);
-  const { detailRoom } = useSelector((state) => state.RentRoomReducer);
-  console.log(detailRoom);
+  const { detailRoom } = useSelector((state) => state.RentRoomsReducer);
+  const { arrPayBooking } = useSelector((state) => state.RentRoomsReducer);
+  console.log("arrPayBooking", arrPayBooking);
   const [bookingTime, setBookingTime] = useState([
     queryParams._checkIn ? new Date(queryParams._checkIn) : null,
     queryParams._checkOut ? new Date(queryParams._checkOut) : null,
   ]);
-  console.log(bookingTime);
+
   const totalDateTime = bookingTime[1] - bookingTime[0];
   const totalDate = totalDateTime / (1000 * 3600 * 24);
   const isBooking = bookingTime.some((item) => item === null);
@@ -82,11 +88,18 @@ const Pay = () => {
     modalGuest: false,
   });
 
+  const data = {
+    roomId: param.roomId,
+    checkIn: bookingTime[0],
+    checkOut: bookingTime[1],
+  };
+  console.log("data", data);
   const handleOpen = () => {
     setOpen({ ...open, modalDate: true });
   };
   const handleOpen1 = () => {
     setOpen({ ...open, modalPay: true });
+    dispatch(PayBookingAction(data));
   };
   const handleOpen2 = () => {
     setOpen({ ...open, modalGuest: true });
@@ -120,9 +133,9 @@ const Pay = () => {
     },
   };
   const [numbersFilter, setNumbersFilter] = useState({
-    _adult: Number(queryParams._adult),
-    _children: Number(queryParams._children),
-    _toddler: Number(queryParams._toddler),
+    _adult: Number(queryParams._adult) || 1,
+    _children: Number(queryParams._children) || 1,
+    _toddler: Number(queryParams._toddler) || 1,
   });
   const handleClickBackHome = () => {
     history.push("/");
@@ -163,13 +176,16 @@ const Pay = () => {
                       >
                         Ngày
                       </Typography>
-
-                      <Typography variant="span">
-                        {moment(bookingTime[0]).format("Do MMM  YYYY")} -
+                      {isBooking ? (
+                        "Chọn ngày"
+                      ) : (
                         <Typography variant="span">
-                          {moment(bookingTime[1]).format("Do MMM  YYYY")}
+                          {moment(bookingTime[0]).format("Do MMM  YYYY")} -
+                          <Typography variant="span">
+                            {moment(bookingTime[1]).format("Do MMM  YYYY")}
+                          </Typography>
                         </Typography>
-                      </Typography>
+                      )}
                     </div>
                     <div>
                       <Typography
@@ -190,7 +206,7 @@ const Pay = () => {
                       >
                         Khách
                       </Typography>
-                      <Typography>1 khách</Typography>
+                      <Typography>{numbersFilter._adult} khách</Typography>
                     </div>
                     <div>
                       <Typography
@@ -440,10 +456,12 @@ const Pay = () => {
                           Chi tiết giá
                         </Typography>
                       </div>
-                      <BookingPrice
-                        totalDate={totalDate}
-                        detailRoom={detailRoom}
-                      />
+                      {isBooking ? null : (
+                        <BookingPrice
+                          totalDate={totalDate}
+                          detailRoom={detailRoom}
+                        />
+                      )}
                     </div>
                   </div>
                 </Box>
@@ -460,7 +478,14 @@ const Pay = () => {
           keepMounted
         >
           {open.modalPay && (
-            <div style={{ padding: 30 }}>
+            <div>
+              <div className={classes.modal__header}>
+                <IconButton className={classes.icon} onClick={handleClose}>
+                  <CloseIcon />
+                </IconButton>
+                <Typography variant="body2">Đặt vé thành công</Typography>
+                <div></div>
+              </div>
               {/* <ResultTicket /> */}
               <div className={classes.ButtonResult}>
                 <ResultTicket
@@ -478,31 +503,57 @@ const Pay = () => {
             </div>
           )}
           {open.modalDate && (
-            <LocalizationProvider dateAdapter={AdapterDateFns} locale={locale}>
-              <StaticDateRangePicker
-                disablePast
-                displayStaticWrapperAs="desktop"
-                value={bookingTime}
-                // calendars={isDesktop ? 2 : 1}
-                onChange={(newValue) => {
-                  setBookingTime(newValue);
-                }}
-                renderInput={(startProps, endProps) => (
-                  <Fragment>
-                    <TextField {...startProps} />
-                    <Box sx={{ mx: 2 }}> to </Box>
-                    <TextField {...endProps} />
-                  </Fragment>
+            <div>
+              <div className={classes.modal__header}>
+                <IconButton className={classes.icon} onClick={handleClose}>
+                  <CloseIcon />
+                </IconButton>
+                {isBooking ? (
+                  <Typography variant="body2">Vui lòng chọn ngày</Typography>
+                ) : (
+                  <Typography variant="body2">{totalDate} Đêm</Typography>
                 )}
-              />
-            </LocalizationProvider>
+
+                <div></div>
+              </div>
+              <LocalizationProvider
+                dateAdapter={AdapterDateFns}
+                locale={locale}
+              >
+                <StaticDateRangePicker
+                  disablePast
+                  displayStaticWrapperAs="desktop"
+                  value={bookingTime}
+                  // calendars={isDesktop ? 2 : 1}
+                  onChange={(newValue) => {
+                    setBookingTime(newValue);
+                  }}
+                  renderInput={(startProps, endProps) => (
+                    <Fragment>
+                      <TextField {...startProps} />
+                      <Box sx={{ mx: 2 }}> to </Box>
+                      <TextField {...endProps} />
+                    </Fragment>
+                  )}
+                />
+              </LocalizationProvider>
+            </div>
           )}
           {open.modalGuest && (
-            <div style={{ padding: 20 }}>
-              <GuestCount
-                numbersFilter={numbersFilter}
-                setNumbersFilter={setNumbersFilter}
-              />
+            <div>
+              <div className={classes.modal__header}>
+                <IconButton className={classes.icon} onClick={handleClose}>
+                  <CloseIcon />
+                </IconButton>
+                <Typography variant="body2">Khách</Typography>
+                <div></div>
+              </div>
+              <div style={{ padding: 20 }}>
+                <GuestCount
+                  numbersFilter={numbersFilter}
+                  setNumbersFilter={setNumbersFilter}
+                />
+              </div>
             </div>
           )}
         </Dialog>

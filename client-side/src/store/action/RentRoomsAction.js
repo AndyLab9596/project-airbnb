@@ -1,6 +1,6 @@
 import manageRentApi from "../../api/manageRentApi";
 import { createAction } from "./createAction/createAction";
-import { GET_LISTROOM, DETAIL_ROOM, DETAIL_RATING_ROOM } from "../types/ListRoomType";
+import { GET_LISTROOM, DETAIL_ROOM, DETAIL_RATING_ROOM, PAY_BOOKING_ROOM } from "../types/ListRoomType";
 import managerDetailRoom from "../../api/managerDetailRoom";
 
 export const getRentRoomsAction = (id) => {
@@ -36,6 +36,17 @@ export const DetailRatingAction = (idRoom) => {
       dispatch(createAction(DETAIL_RATING_ROOM, res));
     } catch (error) {
       console.log(error);
+    }
+  };
+};
+export const PayBookingAction = (data) => {
+  return async (dispatch) => {
+    try {
+      const res = await manageRentApi.postBookingRentRooms(data);
+      console.log(res);
+      dispatch(createAction(PAY_BOOKING_ROOM, res));
+    } catch (error) {
+      console.log(error.response);
     }
   };
 };

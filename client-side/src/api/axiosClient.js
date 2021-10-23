@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL, TOKEN_BY_CLASS, TOKEN } from "../constants/config";
+import { BASE_URL, TOKEN, TOKEN_BY_CLASS } from "../constants/config";
 const axiosClient = axios.create({
   baseURL: BASE_URL,
   headers: {

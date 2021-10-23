@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { underLine } from '../Profile/underline';
 export default makeStyles(theme => ({
 
     //ROOT
@@ -514,6 +515,30 @@ export default makeStyles(theme => ({
         height: "100%",
         display: "flex",
         justifyContent: "center",
+    },
+    ButtonResult: {
+        padding: 20
+    },
+    modal__header: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "0 24px",
+        minHeight: 65,
+     
+        borderBottom: "1px solid rgb(235, 235, 235)",
+       
+        "& >p": {
+            fontWeight: 800,
+            fontSize: "1em",
+        },
+        "& > button": {
+            padding: 6,
+        },
+    },
+    icon: {
+        position: "absolute",
+        left: "1%",
     },
 
 
