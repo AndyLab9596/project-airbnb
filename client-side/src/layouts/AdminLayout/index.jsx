@@ -11,7 +11,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
+import { ExpandLess, ExpandMore, LocationOn } from "@material-ui/icons";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import EditIcon from "@material-ui/icons/Edit";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -21,7 +21,6 @@ import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import { TreeView } from "@material-ui/lab";
 import clsx from "clsx";
 import React, { useState } from "react";
-import { HiOutlineLocationMarker } from "react-icons/hi";
 import { MdAdminPanelSettings, MdOutlineRateReview } from "react-icons/md";
 import { RiHotelLine } from "react-icons/ri";
 import { TiTicket } from "react-icons/ti";
@@ -32,7 +31,9 @@ import airbnbIcon from "../../assets/img/airbnblogo.png";
 import ContentTreeItem from "../../components/TreeItem";
 import { USERID } from "../../constants/config";
 import useStyles from "./style";
-
+import AddLocationIcon from "@material-ui/icons/AddLocation";
+import EditLocationIcon from "@material-ui/icons/EditLocation";
+import { AddLocation, EditLocation } from "@material-ui/icons";
 const AdminLayout = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -68,11 +69,14 @@ const AdminLayout = (props) => {
   //   };
   //   const currentUser = useSelector((state) => state.UserReducer.registerUser);
   const { Component, ...restRoute } = props;
-  const [expanded, setExpanded] = React.useState([]);
+  const [expanded, setExpanded] = React.useState({ user: [], location: [] });
   const [selected, setSelected] = React.useState([]);
-
-  const handleToggle = (event, nodeIds) => {
-    setExpanded(nodeIds);
+  console.log(expanded);
+  const handleToggleUser = (event, nodeIds) => {
+    setExpanded({ ...expanded, user: nodeIds });
+  };
+  const handleToggleLocation = (event, nodeIds) => {
+    setExpanded({ ...expanded, location: nodeIds });
   };
 
   const handleSelect = (event, nodeIds) => {
@@ -209,9 +213,9 @@ const AdminLayout = (props) => {
                     >
                       <TreeView
                         className={classes.rootTreeview}
-                        expanded={expanded}
+                        expanded={expanded.user}
                         selected={selected}
-                        onNodeToggle={handleToggle}
+                        onNodeToggle={handleToggleUser}
                         onNodeSelect={handleSelect}
                       >
                         <ContentTreeItem
@@ -224,7 +228,7 @@ const AdminLayout = (props) => {
                             >
                               Quản lý thông tin người dùng
                               <Typography>
-                                {expanded.length > 0 ? (
+                                {expanded.user.length > 0 ? (
                                   <ExpandMore />
                                 ) : (
                                   <ExpandLess />
@@ -267,6 +271,70 @@ const AdminLayout = (props) => {
                   <List component="div" disablePadding>
                     <NavLink
                       to="/admin/locations"
+                      className={classes.link}
+                      activeClassName={classes.active}
+                      exact
+                    >
+                      <TreeView
+                        className={classes.rootTreeview}
+                        expanded={expanded.location}
+                        selected={selected}
+                        onNodeToggle={handleToggleLocation}
+                        onNodeSelect={handleSelect}
+                      >
+                        <ContentTreeItem
+                          nodeId="4"
+                          labelText={
+                            <Box
+                              display="flex"
+                              justifyContent="space-between"
+                              alignItems="center"
+                            >
+                              Quản lý vị trí
+                              <Typography>
+                                {expanded.location.length > 0 ? (
+                                  <ExpandMore />
+                                ) : (
+                                  <ExpandLess />
+                                )}
+                              </Typography>
+                            </Box>
+                          }
+                          labelIcon={LocationOn}
+                        >
+                          <NavLink
+                            to={"/admin/location/edit/:"}
+                            activeClassName={classes.active}
+                            className={classes.link}
+                          >
+                            <ContentTreeItem
+                              nodeId="5"
+                              labelText="Cập nhật vị trí"
+                              labelIcon={EditIcon}
+                              color="#1a73e8"
+                              bgColor="#e8f0fe"
+                            />
+                          </NavLink>
+                          <NavLink
+                            to="/admin/location/add"
+                            activeClassName={classes.active}
+                            className={classes.link}
+                          >
+                            <ContentTreeItem
+                              nodeId="6"
+                              labelText="Thêm vị trí "
+                              labelIcon={AddLocationIcon}
+                              color="#1a73e8"
+                              bgColor="#e8f0fe"
+                            />
+                          </NavLink>
+                        </ContentTreeItem>
+                      </TreeView>
+                    </NavLink>
+                  </List>
+                  {/* <List component="div" disablePadding>
+                    <NavLink
+                      to="/admin/locations"
                       activeClassName={classes.active}
                       className={classes.link}
                     >
@@ -277,7 +345,7 @@ const AdminLayout = (props) => {
                         <ListItemText>Quản lý thông tin vị trí</ListItemText>
                       </ListItem>
                     </NavLink>
-                  </List>
+                  </List> */}
                   <List component="div" disablePadding>
                     <NavLink
                       to="/admin/rooms"
