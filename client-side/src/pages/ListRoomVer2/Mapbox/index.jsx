@@ -10,6 +10,8 @@ const Mapbox = (props) => {
 
     const classes = useStyles();
     const [markerLocation, setMarkerLocation] = useState([]);
+
+
     const [viewport, setViewport] = useState({
         longitude: 0,
         latitude: 0,
