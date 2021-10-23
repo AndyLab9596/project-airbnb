@@ -1,4 +1,4 @@
-import { Avatar, Badge, Menu, MenuItem } from "@material-ui/core";
+import { Avatar, Badge, Box, Menu, MenuItem } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import Collapse from "@material-ui/core/Collapse";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -13,19 +13,23 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import EditIcon from "@material-ui/icons/Edit";
 import MenuIcon from "@material-ui/icons/Menu";
 import MenuOutlinedIcon from "@material-ui/icons/MenuOutlined";
-import { TreeItem, TreeView } from "@material-ui/lab";
+import PeopleOutlineIcon from "@material-ui/icons/PeopleOutline";
+import PersonAddIcon from "@material-ui/icons/PersonAdd";
+import { TreeView } from "@material-ui/lab";
 import clsx from "clsx";
 import React, { useState } from "react";
-import { FiUsers } from "react-icons/fi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { MdAdminPanelSettings, MdOutlineRateReview } from "react-icons/md";
 import { RiHotelLine } from "react-icons/ri";
 import { TiTicket } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
+import { useRouteMatch } from "react-router";
 import { NavLink, Redirect, Route, useHistory } from "react-router-dom";
 import airbnbIcon from "../../assets/img/airbnblogo.png";
+import ContentTreeItem from "../../components/TreeItem";
 import { USERID } from "../../constants/config";
 import useStyles from "./style";
 
@@ -36,6 +40,7 @@ const AdminLayout = (props) => {
   const [openList, setOpenList] = useState(true);
   const dispatch = useDispatch();
   const history = useHistory();
+  const matchUrl = useRouteMatch();
   const { infoUser } = useSelector((state) => state.AuthReducer);
   const handleListClick = () => {
     setOpenList((state) => !state);
@@ -63,7 +68,16 @@ const AdminLayout = (props) => {
   //   };
   //   const currentUser = useSelector((state) => state.UserReducer.registerUser);
   const { Component, ...restRoute } = props;
+  const [expanded, setExpanded] = React.useState([]);
+  const [selected, setSelected] = React.useState([]);
 
+  const handleToggle = (event, nodeIds) => {
+    setExpanded(nodeIds);
+  };
+
+  const handleSelect = (event, nodeIds) => {
+    setSelected(nodeIds);
+  };
   return (
     <Route
       {...restRoute}
@@ -193,12 +207,61 @@ const AdminLayout = (props) => {
                       activeClassName={classes.active}
                       exact
                     >
-                      <ListItem button className={classes.nested}>
-                        <ListItemIcon>
-                          <FiUsers />
-                        </ListItemIcon>
-                        <ListItemText primary="Quản lý người dùng" />
-                      </ListItem>
+                      <TreeView
+                        className={classes.rootTreeview}
+                        expanded={expanded}
+                        selected={selected}
+                        onNodeToggle={handleToggle}
+                        onNodeSelect={handleSelect}
+                      >
+                        <ContentTreeItem
+                          nodeId="1"
+                          labelText={
+                            <Box
+                              display="flex"
+                              justifyContent="space-between"
+                              alignItems="center"
+                            >
+                              Quản lý thông tin người dùng
+                              <Typography>
+                                {expanded.length > 0 ? (
+                                  <ExpandMore />
+                                ) : (
+                                  <ExpandLess />
+                                )}
+                              </Typography>
+                            </Box>
+                          }
+                          labelIcon={PeopleOutlineIcon}
+                        >
+                          <NavLink
+                            to={"/admin/user/edit/:"}
+                            activeClassName={classes.active}
+                            className={classes.link}
+                          >
+                            <ContentTreeItem
+                              nodeId="2"
+                              labelText="Cập nhật người dùng"
+                              labelIcon={EditIcon}
+                              color="#1a73e8"
+                              bgColor="#e8f0fe"
+                            />
+                          </NavLink>
+                          <NavLink
+                            to="/admin/user/add"
+                            activeClassName={classes.active}
+                            className={classes.link}
+                          >
+                            <ContentTreeItem
+                              nodeId="3"
+                              labelText="Thêm người dùng "
+                              labelIcon={PersonAddIcon}
+                              color="#1a73e8"
+                              bgColor="#e8f0fe"
+                            />
+                          </NavLink>
+                        </ContentTreeItem>
+                      </TreeView>
                     </NavLink>
                   </List>
                   <List component="div" disablePadding>
@@ -221,23 +284,12 @@ const AdminLayout = (props) => {
                       activeClassName={classes.active}
                       className={classes.link}
                     >
-                      {/* <ListItem button className={classes.nested}>
+                      <ListItem button className={classes.nested}>
                         <ListItemIcon>
                           <RiHotelLine />
                         </ListItemIcon>
                         <ListItemText primary="Quản lý thông tin phòng" />
-                      </ListItem> */}
-                      <TreeView
-                        className={classes.root}
-                        // defaultCollapseIcon={<ExpandMoreIcon />}
-                        // defaultExpandIcon={<ChevronRightIcon />}
-                      >
-                        <TreeItem nodeId="1" label="Applications">
-                          <TreeItem nodeId="2" label="Calendar" />
-                          <TreeItem nodeId="3" label="Chrome" />
-                          <TreeItem nodeId="4" label="Webstorm" />
-                        </TreeItem>
-                      </TreeView>
+                      </ListItem>
                     </NavLink>
                   </List>
                   <List component="div" disablePadding>

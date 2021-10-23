@@ -9,12 +9,16 @@ import { theme, USERID } from "./constants/config";
 // Layout
 import MainLayout from "./layouts/MainLayout";
 import Testing from "./pages/Testing";
-// Pages
+// Page Home
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Detail from "./pages/Detail";
 import { getInfoUserAction } from "./store/action/Auth";
 import Pay from "./pages/Pay";
+
+// PageAdmin
+import EditUser from "./pages/AdminUser/EditUser";
+import AddUser from "./pages/AdminUser/AddUser";
 //Components
 
 import ListRoom from "./pages/ListRoom";
@@ -27,7 +31,6 @@ import AdminTicket from "./pages/AdminTicket";
 import AdminRating from "./pages/AdminRating";
 
 import ListRoomVer2 from "./pages/ListRoomVer2";
-
 
 const App = () => {
   const idUser = localStorage.getItem(USERID);
@@ -54,9 +57,16 @@ const App = () => {
           <MainLayout path="/detail/:roomId" exact Component={Detail} />
           <MainLayout path="/pay/:roomId" exact Component={Pay} />
 
-          {/* Admin  */}
+          {/* Admin User*/}
 
           <AdminLayout path="/admin" exact Component={Admin} />
+          <AdminLayout
+            path="/admin/user/edit/:userId"
+            exact
+            Component={EditUser}
+          />
+          <AdminLayout path="/admin/user/add" exact Component={AddUser} />
+
           <AdminLayout
             path="/admin/locations"
             exact

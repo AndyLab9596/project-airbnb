@@ -2,7 +2,7 @@ import manageUserApi from "../../api/manageUsersApi";
 import { GET_USER_LIST } from "../types/AdminType";
 import { createAction } from "./createAction/createAction";
 
-export const getListUser = () => {
+export const getListUser = (page) => {
   return async (dispatch) => {
     try {
       const res = await manageUserApi.getAll();
@@ -16,7 +16,7 @@ export const getListUser = () => {
       dispatch(
         createAction(GET_USER_LIST, {
           totalPage: numberOfPages,
-          content: newData,
+          content: newData[page - 1],
         })
       );
     } catch (error) {

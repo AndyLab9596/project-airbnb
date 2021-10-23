@@ -93,6 +93,9 @@ export default makeStyles((theme) => ({
 
   link: {
     color: "#000",
+    "& .MuiTreeItem-content": {
+      paddingRight: 10,
+    },
   },
   active: {
     color: "red ",
@@ -114,5 +117,26 @@ export default makeStyles((theme) => ({
   avatar: {
     width: 30,
     height: 30,
+  },
+
+  rootTreeview: {
+    color: theme.palette.text.secondary,
+    "&:hover > $content": {
+      backgroundColor: theme.palette.action.hover,
+    },
+    "&:focus > $content, &$selected > $content": {
+      backgroundColor: `var(--tree-view-bg-color, ${theme.palette.grey[400]})`,
+      color: "var(--tree-view-color)",
+    },
+    "&:focus > $content $label, &:hover > $content $label, &$selected > $content $label":
+      {
+        backgroundColor: "transparent",
+      },
+    "& .MuiTreeItem-iconContainer": {
+      display: "none",
+    },
+    "& .MuiTreeItem-label": {
+      padding: "5px 15px",
+    },
   },
 }));

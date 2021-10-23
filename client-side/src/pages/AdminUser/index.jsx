@@ -52,8 +52,8 @@ const AdminUser = () => {
   const confirm = useConfirm();
 
   useEffect(() => {
-    dispatch(getListUser());
-  }, []);
+    dispatch(getListUser(page));
+  }, [page]);
 
   const tableHeader = [
     "Name",
@@ -95,7 +95,7 @@ const AdminUser = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {userList?.content?.[page - 1]?.map((user) => (
+            {userList?.content?.map((user) => (
               <TableRow key={user._id}>
                 <TableCell align="left">{user?.name}</TableCell>
                 <TableCell align="left">
