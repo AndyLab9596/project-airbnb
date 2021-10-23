@@ -90,15 +90,15 @@ const Pay = () => {
 
   const data = {
     roomId: param.roomId,
-    checkIn: queryParams._checkIn,
-    checkOut: queryParams._checkOut,
+    checkIn: bookingTime[0],
+    checkOut: bookingTime[1],
   };
   console.log("data", data);
   const handleOpen = () => {
     setOpen({ ...open, modalDate: true });
   };
   const handleOpen1 = () => {
-    // setOpen({ ...open, modalPay: true });
+    setOpen({ ...open, modalPay: true });
     dispatch(PayBookingAction(data));
   };
   const handleOpen2 = () => {

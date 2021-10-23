@@ -40,7 +40,7 @@ function ResultTicket({ totalDate, detailRoom, valueGroup, totalPrice }) {
               <Box paddingRight={3}>
                 <div className={classes.pay__right__item}>
                   <StarIcon className={classes.pay__right__item__icon} />
-                  <span>{detailRoom?.locationId.valueate} (172 đánh giá)</span>
+                  <span>{detailRoom?.locationId?.valueate} (172 đánh giá)</span>
                 </div>
               </Box>
               <div>
