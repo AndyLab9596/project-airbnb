@@ -1,10 +1,11 @@
 import axios from "axios";
-import { BASE_URL, TOKEN_BY_CLASS } from "../constants/config";
+import { BASE_URL, TOKEN, TOKEN_BY_CLASS } from "../constants/config";
 const axiosClient = axios.create({
     baseURL: BASE_URL,
     headers: {
         'Content-Type': 'application/json',
-        'tokenByClass': TOKEN_BY_CLASS
+        'tokenByClass': TOKEN_BY_CLASS,
+        "token": localStorage.getItem(TOKEN),
     },
 
 })

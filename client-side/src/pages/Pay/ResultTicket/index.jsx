@@ -8,7 +8,7 @@ import useStyles from "./style";
 
 function ResultTicket({ totalDate, detailRoom, valueGroup, totalPrice }) {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.up(375));
+  const isMobile = useMediaQuery(theme.breakpoints.up(768));
   const { infoUser } = useSelector((state) => state.AuthReducer);
   const classes = useStyles();
   console.log(infoUser);
@@ -40,7 +40,7 @@ function ResultTicket({ totalDate, detailRoom, valueGroup, totalPrice }) {
               <Box paddingRight={3}>
                 <div className={classes.pay__right__item}>
                   <StarIcon className={classes.pay__right__item__icon} />
-                  <span>{detailRoom?.locationId.valueate} (172 đánh giá)</span>
+                  <span>{detailRoom?.locationId?.valueate} (172 đánh giá)</span>
                 </div>
               </Box>
               <div>
@@ -57,31 +57,6 @@ function ResultTicket({ totalDate, detailRoom, valueGroup, totalPrice }) {
         <div>
           <h3 className={classes.infoResult_label}>Thông tin đặt phòng</h3>
           {isMobile ? (
-            <div className={classes.table}>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <span style={{ width: "40%" }} valign="top">
-                  Họ tên:
-                </span>
-                <span style={{ width: "50%" }}>{infoUser?.name}</span>
-              </div>
-
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <span style={{ width: "40%" }} valign="top">
-                  Số điện thoại:
-                </span>
-                <span style={{ width: "50%" }}>{infoUser.phone}</span>
-              </div>
-
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <span style={{ width: "40%" }} valign="top">
-                  Tổng tiền:
-                </span>
-                <span style={{ width: "50%" }} valign="top">
-                  <span>{totalPrice()}</span>
-                </span>
-              </div>
-            </div>
-          ) : (
             <table className={classes.table}>
               <tbody>
                 <tr>
@@ -114,6 +89,31 @@ function ResultTicket({ totalDate, detailRoom, valueGroup, totalPrice }) {
                 </tr>
               </tbody>
             </table>
+          ) : (
+            <div className={classes.table}>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <span style={{ width: "40%" }} valign="top">
+                  Họ tên:
+                </span>
+                <span style={{ width: "50%" }}>{infoUser?.name}</span>
+              </div>
+
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <span style={{ width: "40%" }} valign="top">
+                  Số điện thoại:
+                </span>
+                <span style={{ width: "50%" }}>{infoUser.phone}</span>
+              </div>
+
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <span style={{ width: "40%" }} valign="top">
+                  Tổng tiền:
+                </span>
+                <span style={{ width: "50%" }} valign="top">
+                  <span>{totalPrice()}</span>
+                </span>
+              </div>
+            </div>
           )}
         </div>
       </div>

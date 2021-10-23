@@ -39,7 +39,7 @@ const Detail = () => {
   const fakeRoomId = "61699651efe193001c0a5bda";
   const dispatch = useDispatch();
   const { detailRoom, detailRating } = useSelector(
-    (state) => state.RentRoomReducer
+    (state) => state.RentRoomsReducer
   );
   useEffect(() => {
     dispatch(DetailRoomAction(fakeRoomId));

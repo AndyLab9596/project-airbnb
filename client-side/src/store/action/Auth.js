@@ -1,5 +1,5 @@
 import manageAuthApi from "../../api/manageAuthApi";
-import { USERID } from "../../constants/config";
+import { TOKEN, USERID } from "../../constants/config";
 import {
   GET_INFO_USER,
   HIDE_MODAL_SIGNIN,
@@ -17,6 +17,7 @@ export const loginAction = (user) => {
       }
       dispatch((createAction(GET_INFO_USER, res.user)))
       localStorage.setItem(USERID, res.user._id);
+      localStorage.setItem(TOKEN, res.token);
     } catch (error) {
       console.log(error);
     }
