@@ -1,43 +1,13 @@
-import { Grid } from '@material-ui/core';
-import StarIcon from '@material-ui/icons/Star';
+import { Grid, TablePagination } from '@material-ui/core';
 import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router';
-import { formMoney } from '../../../utilities/coordinates';
 import Mapbox from '../Mapbox';
 import OptionsDialog from '../OptionsDialog';
 import useFetch from '../useFetch';
+import MobileCard from './MobileCard';
 import useStyles from "./style";
-import MobileCard from './MobileCard'
-
-
-const fakeRoom = {
-    "_id": "61699651efe193001c0a5bda",
-    "name": "KHA Hostel & Cafe",
-    "guests": 1,
-    "bedRoom": 1,
-    "bath": 2,
-    "description": "Kiến trúc độc đáo",
-    "price": 200000,
-    "elevator": true,
-    "hotTub": true,
-    "pool": true,
-    "indoorFireplace": true,
-    "dryer": true,
-    "gym": true,
-    "kitchen": false,
-    "wifi": true,
-    "heating": true,
-    "cableTV": true,
-    "image": "https://airbnb.cybersoft.edu.vn/public/images/room/1634310184889_khahostel.jpg",
-    "locationId": {
-        "name": "Hồ Chí Minh",
-        "province": "Hồ Chí Minh",
-        "country": "VN",
-        "valueate": 8,
-        "image": "https://airbnb.cybersoft.edu.vn/public/temp/1634304216447_saigonbuivien.jpg"
-    }
-};
+import { Pagination } from '@material-ui/lab';
 
 const MobileListRoom = () => {
 
@@ -140,11 +110,8 @@ const MobileListRoom = () => {
 
                     </div>
 
-
                     {/* Cards */}
                     <section className={classes.section}>
-
-
                         <OptionsDialog
                             resetFilter={resetFilter}
                             filter={filter}
@@ -152,12 +119,23 @@ const MobileListRoom = () => {
                         />
 
                         <Grid container spacing={3}>
-                            {finalFiltered.map((rentRoom, index) => (
+                            {finalFiltered?.map((rentRoom, index) => (
                                 <MobileCard rentRoom={rentRoom} key={index} />
                             ))}
                         </Grid>
-                    </section>
 
+                        <div className={classes.pagination__wrapper}>
+
+                            <Pagination
+                                className={classes.pagination}
+                                boundaryCount={1}
+                                defaultPage={1}
+                                count={data?.length}
+                                page={page}
+                                onChange={handlePageChange}
+                                color="standard" />
+                        </div>
+                    </section>
                 </div>
             </div>
 

@@ -161,18 +161,18 @@ export default makeStyles(theme => ({
             color: '#717171'
         }
 
-    }
+    },
 
+    pagination__wrapper: {
+        width: '100%',
+        margin: '12px auto',
+    },
 
-
-
-
-
-
-
-
-
-
+    pagination: {
+        "& .MuiPagination-ul": {
+            justifyContent: 'center'
+        }
+    },
 
 
 
