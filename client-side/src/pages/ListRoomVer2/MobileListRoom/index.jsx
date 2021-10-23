@@ -151,10 +151,6 @@ const MobileListRoom = () => {
                     </section>
                 </div>
             </div>
-
-
-
-
         </div>
     );
 };
