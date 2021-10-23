@@ -1,20 +1,20 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import thunk from "redux-thunk";
-
 // import reducer
 import AuthReducer from "./reducers/AuthReducer";
 import LocationReducer from "./reducers/LocationReducer";
-import SearchReducer from "./reducers/SearchReducer";
-import ListRoomReducer from "./reducers/ListRoomReducer";
+import ManageUserReducer from "./reducers/ManageUserReducer";
 import ModalReducer from "./reducers/ModalReducer";
-import RentRoomsReducer from "./reducers/RentRoomsReducer"
+import RentRoomsReducer from "./reducers/RentRoomsReducer";
+import SearchReducer from "./reducers/SearchReducer";
+
 const rootReducer = combineReducers({
   AuthReducer,
   LocationReducer,
   SearchReducer,
-  ListRoomReducer,
   ModalReducer,
-  RentRoomsReducer
+  RentRoomsReducer,
+  ManageUserReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

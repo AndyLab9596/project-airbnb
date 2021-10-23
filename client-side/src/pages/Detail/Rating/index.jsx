@@ -32,7 +32,7 @@ const DetailRating = ({ detailRating }) => {
   const isDeskTop = useMediaQuery(theme.breakpoints.up("xl"));
   const [valueInput, setValueInput] = useState(null);
   const dispatch = useDispatch();
-  const { modalRated } = useSelector((state) => state.ListRoomReducer);
+  const { modalRated } = useSelector((state) => state.RentRoomsReducer);
   const handleShowModal = () => {
     dispatch(createAction(SHOW_MODAL_RATED));
   };
@@ -216,23 +216,23 @@ const DetailRating = ({ detailRating }) => {
                     <div className={classes.rating__modal__content__userRated}>
                       {arrFilterContent?.length > 0
                         ? arrFilterContent?.map((item) => (
-                            <Box>
-                              <ContentUserRating
-                                item={item}
-                                handleShowModal={handleShowModal}
-                                openModal={modalRated}
-                              />
-                            </Box>
-                          ))
+                          <Box>
+                            <ContentUserRating
+                              item={item}
+                              handleShowModal={handleShowModal}
+                              openModal={modalRated}
+                            />
+                          </Box>
+                        ))
                         : detailRating.map((item) => (
-                            <Box>
-                              <ContentUserRating
-                                item={item}
-                                handleShowModal={handleShowModal}
-                                openModal={modalRated}
-                              />
-                            </Box>
-                          ))}
+                          <Box>
+                            <ContentUserRating
+                              item={item}
+                              handleShowModal={handleShowModal}
+                              openModal={modalRated}
+                            />
+                          </Box>
+                        ))}
                     </div>
                   </Grid>
                 </Grid>

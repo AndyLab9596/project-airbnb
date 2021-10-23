@@ -1,7 +1,10 @@
 import { } from "../types/AuthType";
 import {
-  CLOSE_MODAL_FILTER, FILTER_ROOM,
-  GET_LISTROOM, OPEN_MODAL_FILTER
+  CLOSE_MODAL_FILTER, DETAIL_RATING_ROOM, DETAIL_ROOM, FILTER_ROOM,
+  GET_LISTROOM,
+  HIDE_MODAL_RATED,
+  OPEN_MODAL_FILTER,
+  SHOW_MODAL_RATED
 } from "../types/ListRoomType";
 
 const initialState = {
@@ -31,6 +34,20 @@ const RentRoomsReducer = (state = initialState, { type, payload }) => {
     }
     case CLOSE_MODAL_FILTER: {
       return { ...state, modal: false }
+    }
+    //Detail
+    case DETAIL_ROOM: {
+      return { ...state, detailRoom: payload };
+    }
+    case DETAIL_RATING_ROOM: {
+      return { ...state, detailRating: payload };
+    }
+
+    case SHOW_MODAL_RATED: {
+      return { ...state, modalRated: true };
+    }
+    case HIDE_MODAL_RATED: {
+      return { ...state, modalRated: false };
     }
     default:
       return { ...state };
