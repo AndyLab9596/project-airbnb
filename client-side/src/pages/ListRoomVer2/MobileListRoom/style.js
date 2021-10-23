@@ -174,6 +174,11 @@ export default makeStyles(theme => ({
         }
     },
 
+    filter__group: {
+        display: 'flex',
+
+    }
+
 
 
 }))

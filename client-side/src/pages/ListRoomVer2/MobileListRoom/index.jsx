@@ -1,4 +1,5 @@
-import { Grid, TablePagination } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
+import { Pagination } from '@material-ui/lab';
 import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router';
@@ -6,8 +7,8 @@ import Mapbox from '../Mapbox';
 import OptionsDialog from '../OptionsDialog';
 import useFetch from '../useFetch';
 import MobileCard from './MobileCard';
+import PriceFilterDrawer from './PriceFilterDrawer';
 import useStyles from "./style";
-import { Pagination } from '@material-ui/lab';
 
 const MobileListRoom = () => {
 
@@ -112,11 +113,24 @@ const MobileListRoom = () => {
 
                     {/* Cards */}
                     <section className={classes.section}>
-                        <OptionsDialog
-                            resetFilter={resetFilter}
-                            filter={filter}
-                            setFilter={setFilter}
-                        />
+
+                        {/* <PriceFilterDrawer /> */}
+                        <div className={classes.filter__group}>
+                            <PriceFilterDrawer
+                                filter={filter}
+                                setFilter={setFilter}
+                                priceValue={priceValue}
+                                setPriceValue={setPriceValue}
+                                handleChangePriceValue={handleChangePriceValue}
+                                handleChangeInputField={handleChangeInputField}
+                            />
+
+                            <OptionsDialog
+                                resetFilter={resetFilter}
+                                filter={filter}
+                                setFilter={setFilter}
+                            />
+                        </div>
 
                         <Grid container spacing={3}>
                             {finalFiltered?.map((rentRoom, index) => (
@@ -125,7 +139,6 @@ const MobileListRoom = () => {
                         </Grid>
 
                         <div className={classes.pagination__wrapper}>
-
                             <Pagination
                                 className={classes.pagination}
                                 boundaryCount={1}
