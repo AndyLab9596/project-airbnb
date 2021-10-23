@@ -1,7 +1,8 @@
-import { GET_LOCATIONS } from '../types/LocationType'
+import { CREATE_LOCATION, GET_LOCATIONS } from '../types/LocationType'
 
 const initialState = {
     locations: [],
+    createLocation: []
 }
 
 const LocationReducer = (state = initialState, { type, payload }) => {
@@ -10,6 +11,10 @@ const LocationReducer = (state = initialState, { type, payload }) => {
         case GET_LOCATIONS: {
 
             return { ...state, locations: payload }
+        }
+        case CREATE_LOCATION: {
+
+            return { ...state, createLocation: payload }
         }
 
         default:

@@ -16,7 +16,10 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { FAKE_AVATAR } from "../../constants/config";
-import { getLocations } from "../../store/action/LocationAction";
+import {
+  deleteLocationAction,
+  getLocations,
+} from "../../store/action/LocationAction";
 import useStyles from "./style";
 const AdminLocation = () => {
   const classes = useStyles();
@@ -32,7 +35,7 @@ const AdminLocation = () => {
   }, [page]);
 
   const tableHeader = ["Name", "Image", "Province", "Country", "Valueate", ""];
-  const handleDeleteLocation = (idUser) => {
+  const handleDeleteLocation = (id) => {
     confirm({
       description: (
         <Typography variant="body2">
@@ -42,7 +45,7 @@ const AdminLocation = () => {
       confirmationText: <Button color="secondary">DELETE</Button>,
       cancellationText: <Button color="primary">CANCLE</Button>,
     })
-      // .then(() => dispatch(deleteUserAction(idUser)))
+      .then(() => dispatch(deleteLocationAction(id)))
       .catch(() => console.log("deletion canclled"));
   };
   return (
