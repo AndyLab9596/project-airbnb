@@ -15,7 +15,7 @@ import manageLocationApi from "../../../../api/manageLocationApi";
 import GuestCount from "../../../../components/GuestCount";
 import useStyles from "./style";
 
-const SearchBar = ({ isDesktop, listPageDisplaySearchBar }) => {
+const SearchBar = ({ isDesktop, listPageDisplaySearchBar, listpageRoute }) => {
 
   const history = useHistory();
   const location = useLocation();
@@ -85,8 +85,8 @@ const SearchBar = ({ isDesktop, listPageDisplaySearchBar }) => {
   );
   const locationId = locationInputValue?._id;
 
-  const checkInFormatted = moment(bookingTime[0]).format("Do MMM");
-  const checkOutFormatted = moment(bookingTime[1]).format("Do MMM");
+  const checkInFormatted = moment(bookingTime[0]).format("YYYY-MM-DD");
+  const checkOutFormatted = moment(bookingTime[1]).format("YYYY-MM-DD");
 
 
   const queryParams = {
@@ -106,7 +106,10 @@ const SearchBar = ({ isDesktop, listPageDisplaySearchBar }) => {
   }
 
   useEffect(() => {
-    historyPush()
+    if (listpageRoute) {
+      historyPush()
+
+    }
 
   }, [listPageDisplaySearchBar])
 

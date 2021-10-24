@@ -1,6 +1,6 @@
 import { Pagination } from '@material-ui/lab';
 import queryString from 'query-string';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation, useParams } from 'react-router';
 import Card from '../Card'
@@ -32,9 +32,20 @@ const DesktopListRoom = () => {
     // Params
 
     const location = useLocation();
-    const params = queryString.parse(location.search);
+    const queryParams = useMemo(() => {
+        const params = queryString.parse(location.search);
+        return {
+            ...params,
+            _location: params._location,
+            _checkIn: params._checkIn,
+            _checkOut: params._checkOut,
+            _adult: Number.parseInt(params._adult),
+            _children: Number.parseInt(params._baby),
+            _toddler: Number.parseInt(params._toddler),
+        };
+    }, [location.search]);
 
-    const province = params._location;
+    const province = queryParams._location;
 
     // Filter
     const [priceValue, setPriceValue] = useState([0, 1000000]);

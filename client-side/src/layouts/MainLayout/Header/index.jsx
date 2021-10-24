@@ -332,7 +332,7 @@ const Header = () => {
                     ${detailpageRoute && classes.detail__searchBar}
                     `}
           >
-            <SearchBar listPageDisplaySearchBar={listPageDisplaySearchBar} isDesktop={isDesktop} />
+            <SearchBar listPageDisplaySearchBar={listPageDisplaySearchBar} listpageRoute={listpageRoute} isDesktop={isDesktop} />
           </Box>
         </AppBar>
       </ClickAwayListener>

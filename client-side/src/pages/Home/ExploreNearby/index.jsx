@@ -16,8 +16,8 @@ const ExploreNearby = () => {
 
 
   const handleCityClick = (locationId, location) => {
-    const checkInDate = moment(new Date()).format('Do MMM');
-    const checkOutDate = moment(new Date()).add(1, 'days').format('Do MMM')
+    const checkInDate = moment(new Date()).format('YYYY-MM-DD');
+    const checkOutDate = moment(new Date()).add(1, 'days').format('YYYY-MM-DD')
     const queryParams = {
       _location: location.province,
       _checkIn: checkInDate,
