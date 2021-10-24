@@ -1,7 +1,7 @@
 import { Grid } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import queryString from 'query-string';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useParams } from 'react-router';
 import Mapbox from '../Mapbox';
 import OptionsDialog from '../OptionsDialog';
@@ -9,6 +9,8 @@ import useFetch from '../useFetch';
 import MobileCard from './MobileCard';
 import PriceFilterDrawer from './PriceFilterDrawer';
 import useStyles from "./style";
+import DehazeIcon from '@material-ui/icons/Dehaze';
+import MapIcon from '@material-ui/icons/Map';
 
 const MobileListRoom = () => {
 
@@ -75,10 +77,20 @@ const MobileListRoom = () => {
         setFilter(initialFilter)
     }
 
+    const sectionRef = useRef(null);
     const [transform, setTransform] = useState(false);
 
-    const handleOpenMapFullScreen = () => {
-        setTransform(state => !state)
+    const handleToggleMap = () => {
+        if (!transform) {
+            setTransform(true);
+        } else {
+            setTransform(false);
+            sectionRef.current.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" })
+        }
+    }
+
+    const handleSetFullMap = () => {
+        setTransform(true)
     }
 
     useEffect(() => {
@@ -96,7 +108,7 @@ const MobileListRoom = () => {
 
             {/* Mapbox */}
             <div className={classes.map}>
-                <div className={classes.mapBox}>
+                <div className={classes.mapBox} onClick={() => handleSetFullMap()}>
                     <Mapbox province={province} rentRooms={rentRooms} />
                 </div>
             </div>
@@ -106,12 +118,12 @@ const MobileListRoom = () => {
             ></div>
 
             {/* Content */}
-            <div className={classes.content}>
+            <div className={classes.content} ref={sectionRef}>
                 <div className={classes.wrapper}>
                     {/* Header */}
-                    <div className={classes.header} onClick={() => handleOpenMapFullScreen()}>
+                    <div className={classes.header} onClick={() => handleToggleMap()}>
                         <div className={classes.header__content}>
-                            <h6 className={classes.header__content__text}>
+                            <h6 className={classes.header__content__text} >
                                 Hơn 300 chỗ ở
                             </h6>
                         </div>
@@ -119,10 +131,10 @@ const MobileListRoom = () => {
                     </div>
 
                     {/* Cards */}
-                    <section className={classes.section}>
+                    <section className={classes.section}  >
 
                         {/* <PriceFilterDrawer /> */}
-                        <div className={classes.filter__group}>
+                        <div className={classes.filter__group} >
                             <PriceFilterDrawer
                                 filter={filter}
                                 setFilter={setFilter}
@@ -157,6 +169,16 @@ const MobileListRoom = () => {
                         </div>
                     </section>
                 </div>
+            </div>
+            <div className={classes.button__mobile__wrapper} >
+                <button className={classes.button__mobile__item}
+                    onClick={() => handleSetFullMap()}
+                >
+                    <span>
+                        Hiện bản đồ
+                    </span>
+                    <MapIcon />
+                </button>
             </div>
         </div>
     );

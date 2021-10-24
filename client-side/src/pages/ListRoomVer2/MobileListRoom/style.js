@@ -122,6 +122,33 @@ export default makeStyles(theme => ({
     filter__group: {
         display: 'flex',
 
+    },
+
+    button__mobile__wrapper: {
+        position: 'fixed',
+        bottom: '12%',
+        right: '50%',
+        zIndex: 9,
+        transform: 'translateX(50%)',
+    },
+
+    button__mobile__item: {
+        display: props => props.transform ? 'none' : 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: '24px',
+        border: 'none',
+        outline: 'none',
+        margin: 0,
+        padding: '10px 18px',
+        color: 'rgba(255, 255, 255, 0.9)',
+        cursor: 'pointer',
+        boxShadow: 'none',
+        background: '#222222',
+        transition: 'all .25 ease',
+        '& > span': {
+            marginRight: '8px'
+        }
     }
 
 
