@@ -143,6 +143,7 @@ const SearchBar = ({ isDesktop, setSearchBarValue }) => {
                 type="text"
                 placeholder="Bạn sắp đi đâu?"
                 {...getInputProps()}
+
               />
             </div>
           </div>

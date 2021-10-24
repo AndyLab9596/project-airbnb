@@ -8,7 +8,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  Toolbar,
+  Toolbar
 } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -16,9 +16,10 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import LanguageIcon from "@material-ui/icons/Language";
 import MenuOutlinedIcon from "@material-ui/icons/MenuOutlined";
 import SearchIcon from "@material-ui/icons/Search";
-import React, { Fragment, useEffect, useState } from "react";
+import queryString from 'query-string';
+import React, { Fragment, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import { useRouteMatch } from "react-router-dom";
 import airbnbIcon from "../../../assets/img/airbnblogo.png";
 import airbnbRedIcon from "../../../assets/img/airbnbRedIcon.png";
@@ -27,10 +28,11 @@ import { createAction } from "../../../store/action/createAction/createAction";
 import {
   LOG_OUT,
   SHOW_MODAL_SIGNIN,
-  SHOW_MODAL_SIGNUP,
+  SHOW_MODAL_SIGNUP
 } from "../../../store/types/AuthType";
 import SearchBar from "./SearchBar";
 import useStyles from "./style";
+
 
 const Header = () => {
   const isUserId = localStorage.getItem(USERID);
@@ -40,8 +42,22 @@ const Header = () => {
   const history = useHistory();
   const idUser = localStorage.getItem(USERID);
   const { infoUser } = useSelector((state) => state.AuthReducer);
-  const { searchResult } = useSelector((state) => state.SearchReducer);
-  // console.log("searchResult", searchResult)
+
+  const location = useLocation();
+  const queryParams = useMemo(() => {
+    const params = queryString.parse(location.search);
+    return {
+      ...params,
+      _location: params._location,
+      _checkIn: params._checkIn,
+      _checkOut: params._checkOut,
+      _adult: Number.parseInt(params._adult),
+      _children: Number.parseInt(params._baby),
+      _toddler: Number.parseInt(params._toddler),
+    };
+  }, [location.search]);
+
+  // console.log('queryParmas', queryParams)
 
   const handleLogout = () => {
     setAnchorEl(null);
@@ -203,14 +219,13 @@ const Header = () => {
                   >
                     <div className={classes.list__navbar__search__wrapper}>
                       <button className={classes.list__navbar__button}>
-                        <span>{searchResult?.location?.province}</span>
+                        <span>{queryParams._location}</span>
                       </button>
                       <span className={classes.list__navbar__dash}></span>
                       <button className={classes.list__navbar__button}>
-                        {searchResult?.checkIn !== "Invalid date" &&
-                          searchResult?.checkOut !== "Invalid date" ? (
+                        {queryParams._checkIn && queryParams._checkOut ? (
                           <span>
-                            {searchResult?.checkIn} - {searchResult?.checkOut}
+                            {queryParams._checkIn} - {queryParams._checkOut}
                           </span>
                         ) : (
                           <span>Thêm ngày</span>
@@ -218,8 +233,8 @@ const Header = () => {
                       </button>
                       <span className={classes.list__navbar__dash}></span>
                       <button className={classes.list__navbar__button}>
-                        {searchResult?.guest > 0 ? (
-                          <span>{searchResult?.guest} Khách</span>
+                        {queryParams._adult > 0 ? (
+                          <span>{queryParams._adult} Khách</span>
                         ) : (
                           <span>Thêm khách</span>
                         )}
@@ -311,7 +326,6 @@ const Header = () => {
                     ${homepageRoute && classes.searchBar} 
                     ${listpageRoute && classes.list__searchBar}
                     ${detailpageRoute && classes.detail__searchBar}
-                    
                     `}
           >
             <SearchBar isDesktop={isDesktop} />
