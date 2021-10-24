@@ -4,9 +4,10 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
+import { fi } from "date-fns/locale";
 
 import { useFormik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as yup from "yup";
@@ -90,8 +91,22 @@ export default function AddLocation(props) {
     country: values.country,
     valueate: values.valueate,
   };
-  const handleChangeFile = (event) => {
+  const [image, setImage] = useState();
+  const handleChangeFile = async (event) => {
     setFieldValue(event.target.name, event.target.files[0]);
+    const file = event.target.files[0];
+    console.log(file);
+    if (
+      file.type === "image/jpeg" ||
+      file.type === "image/png" ||
+      file.type === "image/jpg"
+    ) {
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        setImage(e.target.result);
+      };
+    }
     // file là array mỗi lần chọn đúng 1 hình nên chọn index [0]
   };
 
@@ -107,14 +122,17 @@ export default function AddLocation(props) {
 
     const formData = new FormData();
 
-    formData.append("image", values.image);
-    console.log(formData);
+    formData.append("location", values.image);
+    //lưu ý key từ backend...
+    console.log(formData.get("location"));
 
     try {
       const res = await axios({
         method: "POST",
+
         url: "https://airbnb.cybersoft.edu.vn/api/locations/upload-images/6173ff13efe193001c0a85b1",
         headers: {
+          "Content-Type": "application/json",
           token:
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTY0NTEwMjk3ZDUzNjAwMWMyNjhhZWQiLCJlbWFpbCI6InR2eTEyM0BnbWFpbC5jb20iLCJ0eXBlIjoiQURNSU4iLCJpYXQiOjE2MzQxMTg0OTJ9.uIk07gzWzf_-bwKynCpMUca5t842qcyltCWtvmXtXw8",
           tokenByClass:
@@ -126,36 +144,6 @@ export default function AddLocation(props) {
     } catch (error) {
       console.log(error.response);
     }
-    // data.append('location', fs.createReadStream('/path/to/file'));
-    // dispatch(CreateLocationAction(data));
-    // dispatch(postUploadImageAction(values.image, createLocation._id));
-    // var axios = require("axios");
-    // var FormData = require("form-data");
-    // var fs = require("fs");
-    // const fileStream = fs.createReadStream(`./${values.image}`);
-    // var data = new FormData();
-    // data.append("location", fileStream, `${values.image}`);
-
-    // var config = {
-    //   method: "post",
-    //   url: "https://airbnb.cybersoft.edu.vn/api/locations/upload-images/6173ff13efe193001c0a85b1",
-    //   headers: {
-    //     token:
-    //       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTY0NTEwMjk3ZDUzNjAwMWMyNjhhZWQiLCJlbWFpbCI6InR2eTEyM0BnbWFpbC5jb20iLCJ0eXBlIjoiQURNSU4iLCJpYXQiOjE2MzQxMTg0OTJ9.uIk07gzWzf_-bwKynCpMUca5t842qcyltCWtvmXtXw8",
-    //     tokenByClass:
-    //       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCAwOSIsIkhldEhhblN0cmluZyI6IjI3LzAxLzIwMjIiLCJIZXRIYW5UaW1lIjoiMTY0MzI0MTYwMDAwMCIsIm5iZiI6MTYxNjM0NjAwMCwiZXhwIjoxNjQzMzg5MjAwfQ.NEQRF8SKORq7R7kYbYCCO9ZZXYxTWlbaTc2wxXWMfiw",
-    //     ...data.getHeaders(),
-    //   },
-    //   data: data,
-    // };
-
-    // axios(config)
-    //   .then(function (response) {
-    //     console.log(JSON.stringify(response.data));
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
   };
 
   return (
