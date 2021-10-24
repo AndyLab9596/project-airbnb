@@ -1,8 +1,9 @@
-import { CREATE_LOCATION, GET_LOCATIONS } from '../types/LocationType'
+import { CREATE_LOCATION, GET_LOCATIONS, RESET_DATA_LOCATION, UPLOAD_IMAGE } from '../types/LocationType'
 
 const initialState = {
     locations: [],
-    createLocation: []
+    createLocation: [],
+    activeStep: 0
 }
 
 const LocationReducer = (state = initialState, { type, payload }) => {
@@ -14,8 +15,17 @@ const LocationReducer = (state = initialState, { type, payload }) => {
         }
         case CREATE_LOCATION: {
 
-            return { ...state, createLocation: payload }
+            return { ...state, createLocation: payload, activeStep: 1 }
         }
+        case UPLOAD_IMAGE: {
+
+            return { ...state, activeStep: 2 }
+        }
+        case RESET_DATA_LOCATION: {
+
+            return { ...state, activeStep: 0, locations: [], createLocation: [] }
+        }
+
 
         default:
             return { ...state }

@@ -33,10 +33,10 @@ export const CreateLocationAction = (data) => {
         }
     };
 };
-export const postUploadImageAction = (data,id) => {
+export const postUploadImageAction = (data, id) => {
     return async (dispatch) => {
         try {
-            const res = await manageLocationApi.postUploadImageLocation(data,id);
+            const res = await manageLocationApi.postUploadImageLocation(data, id);
             console.log(res);
             dispatch(createAction(UPLOAD_IMAGE, res));
         } catch (error) {

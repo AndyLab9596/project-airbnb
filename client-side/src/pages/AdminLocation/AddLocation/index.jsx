@@ -1,13 +1,17 @@
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import axios from "axios";
-import { fi } from "date-fns/locale";
 
+import TextField from "@material-ui/core/TextField";
+import SeatIcon from "@material-ui/icons/CallToActionRounded";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import PaymentIcon from "@material-ui/icons/Payment";
+import StepConnector, {
+  stepConnectorClasses,
+} from "@mui/material/StepConnector";
+import { styled } from "@mui/material/styles";
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import PropTypes from "prop-types";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as yup from "yup";
@@ -15,54 +19,115 @@ import {
   CreateLocationAction,
   postUploadImageAction,
 } from "../../../store/action/LocationAction";
+import useStyles from "./style";
+import Stack from "@mui/material/Stack";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+import { createAction } from "../../../store/action/createAction/createAction";
+import { RESET_DATA_LOCATION } from "../../../store/types/LocationType";
 // import {
 //   AddUserAction,
 //   UpdateUserAction,
 // } from "../../redux/actions/UserAction";
 
 const schema = yup.object().shape({
-  // taiKhoan: yup.string().required("*UserName is Required"),
-  // matKhau: yup.string().required("*Password is Required"),
-  // email: yup.string().required("*Email is Required").email("*Email is Invalid"),
-  // soDt: yup
-  //   .string()
-  //   .required()
-  //   .matches(/^[0-9]+$/, "*Phone is Invalid"),
-  // maNhom: yup.string().required("*GroupID is Required"),
-  // hoTen: yup.string().required("*FullName is Required"),
+  name: yup.string().required("*Name is Required"),
+  province: yup.string().required("*Province is Required"),
+  country: yup.string().required("*Country is Required"),
+  valueate: yup.string().required("*Valueate is Required"),
 });
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(0),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
+  [`&.${stepConnectorClasses.alternativeLabel}`]: {
+    top: 22,
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+  [`&.${stepConnectorClasses.active}`]: {
+    [`& .${stepConnectorClasses.line}`]: {
+      backgroundImage:
+        "linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)",
+    },
   },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+  [`&.${stepConnectorClasses.completed}`]: {
+    [`& .${stepConnectorClasses.line}`]: {
+      backgroundImage:
+        "linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)",
+    },
   },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  textfield: {
-    marginTop: theme.spacing(3),
-  },
-  button: {
-    marginTop: 8,
+  [`& .${stepConnectorClasses.line}`]: {
+    height: 3,
+    border: 0,
+    backgroundColor:
+      theme.palette.mode === "dark" ? theme.palette.grey[800] : "#eaeaf0",
+    borderRadius: 1,
   },
 }));
 
+const ColorlibStepIconRoot = styled("div")(({ theme, ownerState }) => ({
+  backgroundColor:
+    theme.palette.mode === "dark" ? theme.palette.grey[700] : "#ccc",
+  zIndex: 1,
+  color: "#fff",
+  width: 50,
+  height: 50,
+  display: "flex",
+  borderRadius: "50%",
+  justifyContent: "center",
+  alignItems: "center",
+  ...(ownerState.active && {
+    backgroundColor: "#3f51b5",
+    boxShadow: "0 4px 10px 0 rgba(0,0,0,.25)",
+  }),
+  ...(ownerState.completed && {
+    backgroundColor: "#3f51b5",
+  }),
+}));
+
+function ColorlibStepIcon(props) {
+  const { active, completed, className } = props;
+
+  const icons = {
+    1: <SeatIcon />,
+    2: <PaymentIcon />,
+    3: <CheckCircleIcon />,
+  };
+
+  return (
+    <ColorlibStepIconRoot
+      ownerState={{ completed, active }}
+      className={className}
+    >
+      {icons[String(props.icon)]}
+    </ColorlibStepIconRoot>
+  );
+}
+
+ColorlibStepIcon.propTypes = {
+  /**
+   * Whether this step is active.
+   * @default false
+   */
+  active: PropTypes.bool,
+  className: PropTypes.string,
+  /**
+   * Mark the step as completed. Is passed to child components.
+   * @default false
+   */
+  completed: PropTypes.bool,
+  /**
+   * The label displayed in the step icon.
+   */
+  icon: PropTypes.node,
+};
+
+const steps = ["THÊM VỊ TRÍ", "THÊM HÌNH ẢNH", "KẾT QUẢ"];
 export default function AddLocation(props) {
   const history = useHistory();
   const classes = useStyles();
   const dispatch = useDispatch();
   const { createLocation } = useSelector((state) => state.LocationReducer);
+  const { activeStep } = useSelector((state) => state.LocationReducer);
+  console.log("activeStep", activeStep);
   console.log("createLocation", createLocation);
   const {
     handleChange,
@@ -91,129 +156,135 @@ export default function AddLocation(props) {
     country: values.country,
     valueate: values.valueate,
   };
-  const [image, setImage] = useState();
+
   const handleChangeFile = async (event) => {
     setFieldValue(event.target.name, event.target.files[0]);
-    const file = event.target.files[0];
-    console.log(file);
-    if (
-      file.type === "image/jpeg" ||
-      file.type === "image/png" ||
-      file.type === "image/jpg"
-    ) {
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (e) => {
-        setImage(e.target.result);
-      };
-    }
-    // file là array mỗi lần chọn đúng 1 hình nên chọn index [0]
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!isValid) return;
     dispatch(CreateLocationAction(data));
-    // dispatch(postUploadImageAction(values.image));
   };
   const handleImage = async (e) => {
     e.preventDefault();
     if (!isValid) return;
-
     const formData = new FormData();
-
     formData.append("location", values.image);
-    //lưu ý key từ backend...
     console.log(formData.get("location"));
-
-    try {
-      const res = await axios({
-        method: "POST",
-
-        url: "https://airbnb.cybersoft.edu.vn/api/locations/upload-images/6173ff13efe193001c0a85b1",
-        headers: {
-          "Content-Type": "application/json",
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTY0NTEwMjk3ZDUzNjAwMWMyNjhhZWQiLCJlbWFpbCI6InR2eTEyM0BnbWFpbC5jb20iLCJ0eXBlIjoiQURNSU4iLCJpYXQiOjE2MzQxMTg0OTJ9.uIk07gzWzf_-bwKynCpMUca5t842qcyltCWtvmXtXw8",
-          tokenByClass:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCAwOSIsIkhldEhhblN0cmluZyI6IjI3LzAxLzIwMjIiLCJIZXRIYW5UaW1lIjoiMTY0MzI0MTYwMDAwMCIsIm5iZiI6MTYxNjM0NjAwMCwiZXhwIjoxNjQzMzg5MjAwfQ.NEQRF8SKORq7R7kYbYCCO9ZZXYxTWlbaTc2wxXWMfiw",
-        },
-        data: formData,
-      });
-      console.log(res);
-    } catch (error) {
-      console.log(error.response);
-    }
+    dispatch(postUploadImageAction(formData, createLocation._id));
   };
-
+  const handleClickBack = () => {
+    dispatch(createAction(RESET_DATA_LOCATION));
+    history.push("/admin/locations");
+  };
   return (
     <Container component="main" maxWidth="lg">
-      <h1>Thêm vị trí</h1>
-      <CssBaseline />
-      <div className={classes.paper}>
-        <form onSubmit={handleSubmit} className={classes.form} noValidate>
-          <TextField
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.name}
-            name="name"
-            variant="outlined"
-            autoFocus
-            required
-            fullWidth
-            id="name"
-            label="Name"
-            autoFocus
-          />
-          {touched.name && (
-            <p className="text-danger  text-left m-0">{errors.name}</p>
-          )}
-          <TextField
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.province}
-            className={classes.textfield}
-            variant="outlined"
-            required
-            fullWidth
-            name="province"
-            label="Province"
-            id="province"
-            autoComplete="current-password"
-          />
-          {touched.province && (
-            <p className="text-danger  text-left m-0">{errors.province}</p>
-          )}
-          <TextField
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.country}
-            className={classes.textfield}
-            name="country"
-            variant="outlined"
-            required
-            fullWidth
-            id="country"
-            label="Country"
-          />
-          {touched.country && (
-            <p className="text-danger  text-left m-0">{errors.country}</p>
-          )}
-          <TextField
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.valueate}
-            className={classes.textfield}
-            name="valueate"
-            variant="outlined"
-            required
-            fullWidth
-            id="valueate"
-            label="Valueate"
-          />
-          {touched.valueate && (
-            <p className="text-danger  text-left m-0">{errors.valueate}</p>
-          )}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          borderBottom: "1px solid #DDDDDD",
+          paddingBottom: 25,
+        }}
+      >
+        <Stack sx={{ width: "80%" }} spacing={0}>
+          <Stepper
+            alternativeLabel
+            activeStep={activeStep}
+            connector={<ColorlibConnector />}
+          >
+            {steps.map((label) => (
+              <Step key={label}>
+                <StepLabel
+                  classes={{ root: classes.label }}
+                  StepIconComponent={ColorlibStepIcon}
+                >
+                  {label}
+                </StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+        </Stack>
+      </div>
+
+      <div style={{ display: activeStep !== 0 ? "none" : "block" }}>
+        <h1 style={{ margin: "10px 0" }}>Thêm vị trí</h1>
+        <div className={classes.paper}>
+          <form onSubmit={handleSubmit} className={classes.form} noValidate>
+            <TextField
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.name}
+              name="name"
+              variant="outlined"
+              required
+              fullWidth
+              id="name"
+              label="Name"
+            />
+            {touched.name && <p className={classes.hyperText}>{errors.name}</p>}
+            <TextField
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.province}
+              className={classes.textfield}
+              variant="outlined"
+              required
+              fullWidth
+              name="province"
+              label="Province"
+              id="province"
+            />
+            {touched.province && (
+              <p className={classes.hyperText}>{errors.province}</p>
+            )}
+            <TextField
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.country}
+              className={classes.textfield}
+              name="country"
+              variant="outlined"
+              required
+              fullWidth
+              id="country"
+              label="Country"
+            />
+            {touched.country && (
+              <p className={classes.hyperText}>{errors.country}</p>
+            )}
+            <TextField
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.valueate}
+              className={classes.textfield}
+              name="valueate"
+              variant="outlined"
+              required
+              fullWidth
+              id="valueate"
+              label="Valueate"
+            />
+            {touched.valueate && (
+              <p className={classes.hyperText}>{errors.valueate}</p>
+            )}
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Thêm
+            </Button>
+          </form>
+        </div>
+      </div>
+      {activeStep === 1 && (
+        <div>
+          <h1 style={{ margin: "10px 0" }}>Thêm hình ảnh</h1>
           <input
             accept="image/*"
             className={classes.input}
@@ -234,16 +305,6 @@ export default function AddLocation(props) {
               Upload
             </Button>
           </label>
-
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Thêm
-          </Button>
           <Button
             type="button"
             fullWidth
@@ -254,8 +315,25 @@ export default function AddLocation(props) {
           >
             Thêm hình
           </Button>
-        </form>
-      </div>
+        </div>
+      )}
+      {activeStep === 2 && (
+        <div>
+          <h1 style={{ margin: "10px 0" }}>
+            Thêm vị trí và hình ảnh thành công
+          </h1>
+          <Button
+            type="button"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={handleClickBack}
+          >
+            Quay về
+          </Button>
+        </div>
+      )}
     </Container>
   );
 }
