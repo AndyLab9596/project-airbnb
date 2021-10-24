@@ -11,6 +11,8 @@ import PriceFilterDrawer from './PriceFilterDrawer';
 import useStyles from "./style";
 import DehazeIcon from '@material-ui/icons/Dehaze';
 import MapIcon from '@material-ui/icons/Map';
+import { scroller } from 'react-scroll';
+
 
 const MobileListRoom = () => {
 
@@ -77,34 +79,36 @@ const MobileListRoom = () => {
         setFilter(initialFilter)
     }
 
-    const sectionRef = useRef(null);
     const [transform, setTransform] = useState(false);
 
     const handleToggleMap = () => {
         if (!transform) {
             setTransform(true);
+
         } else {
             setTransform(false);
-            sectionRef.current.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" })
+
         }
     }
 
     const handleSetFullMap = () => {
         setTransform(true)
+        window.scrollTo(0, 0)
     }
 
-    useEffect(() => {
-        window.scrollTo(0, 0)
-        if (loading) return
 
-        setRentRooms(data[page - 1])
+    useEffect(() => {
+
+        if (loading) return
+        setRentRooms(data[page - 1]);
+        window.scrollTo(0, 0)
 
     }, [loading, page])
 
     const classes = useStyles({ transform });
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} >
 
             {/* Mapbox */}
             <div className={classes.map}>
@@ -118,7 +122,7 @@ const MobileListRoom = () => {
             ></div>
 
             {/* Content */}
-            <div className={classes.content} ref={sectionRef}>
+            <div className={classes.content} >
                 <div className={classes.wrapper}>
                     {/* Header */}
                     <div className={classes.header} onClick={() => handleToggleMap()}>
