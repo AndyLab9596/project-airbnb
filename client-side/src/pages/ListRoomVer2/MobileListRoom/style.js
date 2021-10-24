@@ -133,7 +133,7 @@ export default makeStyles(theme => ({
     },
 
     button__mobile__item: {
-        display: props => props.transform ? 'none' : 'inline-flex',
+        display: props => !props.transform && props.scroll ? 'inline-flex' : 'none',
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: '24px',
@@ -150,7 +150,4 @@ export default makeStyles(theme => ({
             marginRight: '8px'
         }
     }
-
-
-
 }))

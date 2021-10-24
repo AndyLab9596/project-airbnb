@@ -1,7 +1,8 @@
 import { Grid } from '@material-ui/core';
+import MapIcon from '@material-ui/icons/Map';
 import { Pagination } from '@material-ui/lab';
 import queryString from 'query-string';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router';
 import Mapbox from '../Mapbox';
 import OptionsDialog from '../OptionsDialog';
@@ -9,9 +10,6 @@ import useFetch from '../useFetch';
 import MobileCard from './MobileCard';
 import PriceFilterDrawer from './PriceFilterDrawer';
 import useStyles from "./style";
-import DehazeIcon from '@material-ui/icons/Dehaze';
-import MapIcon from '@material-ui/icons/Map';
-import { scroller } from 'react-scroll';
 
 
 const MobileListRoom = () => {
@@ -97,6 +95,20 @@ const MobileListRoom = () => {
     }
 
 
+    const [scroll, setScroll] = useState(false)
+
+
+    useEffect(() => {
+        const handleScrollToDisplay = () => {
+            setScroll(window.scrollY > 250)
+        };
+        window.addEventListener("scroll", handleScrollToDisplay)
+        return () => {
+            window.removeEventListener("scroll", handleScrollToDisplay);
+        }
+
+    }, [scroll])
+
     useEffect(() => {
 
         if (loading) return
@@ -105,7 +117,7 @@ const MobileListRoom = () => {
 
     }, [loading, page])
 
-    const classes = useStyles({ transform });
+    const classes = useStyles({ transform, scroll });
 
     return (
         <div className={classes.root} >
