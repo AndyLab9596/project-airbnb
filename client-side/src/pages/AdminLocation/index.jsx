@@ -32,7 +32,7 @@ const AdminLocation = () => {
 
   useEffect(() => {
     dispatch(getLocations(page));
-  }, [page]);
+  }, [dispatch]);
 
   const tableHeader = ["Name", "Image", "Province", "Country", "Valueate", ""];
   const handleDeleteLocation = (id) => {
