@@ -1,53 +1,121 @@
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-
+import SeatIcon from "@material-ui/icons/CallToActionRounded";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import PaymentIcon from "@material-ui/icons/Payment";
+import Stack from "@mui/material/Stack";
+import Step from "@mui/material/Step";
+import StepConnector, {
+  stepConnectorClasses,
+} from "@mui/material/StepConnector";
+import StepLabel from "@mui/material/StepLabel";
+import Stepper from "@mui/material/Stepper";
+import { styled } from "@mui/material/styles";
 import { useFormik } from "formik";
+import PropTypes from "prop-types";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as yup from "yup";
+import { createAction } from "../../../store/action/createAction/createAction";
+import {
+  postUploadImageAction,
+  putUpdateLocationAction,
+} from "../../../store/action/LocationAction";
+import { RESET_DATA_LOCATION } from "../../../store/types/LocationType";
 // import { UpdateUserAction } from "../../redux/actions/UserAction";
-
+import useStyles from "./style";
 const schema = yup.object().shape({
-  // taiKhoan: yup.string().required("*UserName is Required"),
-  // matKhau: yup.string().required("*Password is Required"),
-  // email: yup.string().required("*Email is Required").email("*Email is Invalid"),
-  // soDt: yup
-  //   .string()
-  //   .required()
-  //   .matches(/^[0-9]+$/, "*Phone is Invalid"),
-  // maNhom: yup.string().required("*GroupID is Required"),
-  // hoTen: yup.string().required("*FullName is Required"),
+  name: yup.string().required("*Name is Required"),
+  province: yup.string().required("*Province is Required"),
+  country: yup.string().required("*Country is Required"),
+  valueate: yup.string().required("*Valueate is Required"),
 });
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(0),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
+  [`&.${stepConnectorClasses.alternativeLabel}`]: {
+    top: 22,
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+  [`&.${stepConnectorClasses.active}`]: {
+    [`& .${stepConnectorClasses.line}`]: {
+      backgroundImage:
+        "linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)",
+    },
   },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+  [`&.${stepConnectorClasses.completed}`]: {
+    [`& .${stepConnectorClasses.line}`]: {
+      backgroundImage:
+        "linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)",
+    },
   },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  textfield: {
-    marginTop: theme.spacing(3),
-  },
-  button: {
-    marginTop: 25,
+  [`& .${stepConnectorClasses.line}`]: {
+    height: 3,
+    border: 0,
+    backgroundColor:
+      theme.palette.mode === "dark" ? theme.palette.grey[800] : "#eaeaf0",
+    borderRadius: 1,
   },
 }));
+
+const ColorlibStepIconRoot = styled("div")(({ theme, ownerState }) => ({
+  backgroundColor:
+    theme.palette.mode === "dark" ? theme.palette.grey[700] : "#ccc",
+  zIndex: 1,
+  color: "#fff",
+  width: 50,
+  height: 50,
+  display: "flex",
+  borderRadius: "50%",
+  justifyContent: "center",
+  alignItems: "center",
+  ...(ownerState.active && {
+    backgroundColor: "#3f51b5",
+    boxShadow: "0 4px 10px 0 rgba(0,0,0,.25)",
+  }),
+  ...(ownerState.completed && {
+    backgroundColor: "#3f51b5",
+  }),
+}));
+
+function ColorlibStepIcon(props) {
+  const { active, completed, className } = props;
+
+  const icons = {
+    1: <SeatIcon />,
+    2: <PaymentIcon />,
+    3: <CheckCircleIcon />,
+  };
+
+  return (
+    <ColorlibStepIconRoot
+      ownerState={{ completed, active }}
+      className={className}
+    >
+      {icons[String(props.icon)]}
+    </ColorlibStepIconRoot>
+  );
+}
+
+ColorlibStepIcon.propTypes = {
+  /**
+   * Whether this step is active.
+   * @default false
+   */
+  active: PropTypes.bool,
+  className: PropTypes.string,
+  /**
+   * Mark the step as completed. Is passed to child components.
+   * @default false
+   */
+  completed: PropTypes.bool,
+  /**
+   * The label displayed in the step icon.
+   */
+  icon: PropTypes.node,
+};
+
+const steps = ["CẬP NHẬT VỊ TRÍ", "CẬP NHẬT HÌNH ẢNH", "KẾT QUẢ"];
 
 export default function EditLocation(props) {
   console.log(props);
@@ -57,8 +125,8 @@ export default function EditLocation(props) {
   const userId = props.match.params.userId;
   console.log(userId);
   const { locations } = useSelector((state) => state.LocationReducer);
+  const { activeStep } = useSelector((state) => state.LocationReducer);
   const LocationEdit = locations.filter((user) => user._id === userId);
-
 
   console.log(LocationEdit);
 
@@ -82,136 +150,143 @@ export default function EditLocation(props) {
     enableReinitialize: true,
   });
   console.log(values);
-  // const updateSuccess = () => {
-  //   message.success({
-  //     content: "Cập nhật người dùng thành công",
-  //     style: { marginTop: "20px", color: "blue" },
-  //     duration: 1.5,
-  //   });
-  // };
 
-  // const updateError = () => {
-  //   message.error({
-  //     content: "Vui lòng nhập đúng thông tin ",
-  //     style: { marginTop: "20px", color: "red" },
-  //     duration: 1.5,
-  //   });
-  // };
-  const newPage = () => {
-    history.push("/admin/users");
+  const data = {
+    name: values.name,
+    province: values.province,
+    country: values.country,
+    valueate: values.valueate,
   };
+
+  const handleChangeFile = async (event) => {
+    setFieldValue(event.target.name, event.target.files[0]);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // dispatch(UpdateUserAction(values, updateSuccess, updateError, newPage));
+    if (!isValid) return;
+    dispatch(putUpdateLocationAction(data, userId));
+  };
+  const handleImage = async (e) => {
+    e.preventDefault();
+    if (!isValid) return;
+    const formData = new FormData();
+    formData.append("location", values.image);
+    console.log(formData.get("location"));
+    dispatch(postUploadImageAction(formData, userId));
+  };
+  const handleClickBack = () => {
+    dispatch(createAction(RESET_DATA_LOCATION));
+    history.push("/admin/locations");
   };
 
   return (
     <Container component="main" maxWidth="lg">
-      <h2>Cập nhật vị trí</h2>
-      <CssBaseline />
-      <div className={classes.paper}>
-        <form onSubmit={handleSubmit} className={classes.form} noValidate>
-          <TextField
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.name}
-            name="name"
-            variant="outlined"
-            autoFocus
-            required
-            fullWidth
-            id="name"
-            label="Name"
-            autoFocus
-          />
-          {touched.name && (
-            <p className="text-danger  text-left m-0">{errors.name}</p>
-          )}
-          {/* <TextField
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.matKhau}
-            className={classes.textfield}
-            variant="outlined"
-            required
-            fullWidth
-            name="matKhau"
-            label="Mật khẩu"
-            type="password"
-            id="matKhau"
-            autoComplete="current-password"
-          />
-          {touched.matKhau && (
-            <p className="text-danger  text-left m-0">{errors.matKhau}</p>
-          )} */}
-          <TextField
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.province}
-            className={classes.textfield}
-            name="province"
-            variant="outlined"
-            required
-            fullWidth
-            id="province"
-            label="Province"
-          />
-          {touched.province && (
-            <p className="text-danger  text-left m-0">{errors.province}</p>
-          )}
-          <TextField
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.country}
-            className={classes.textfield}
-            name="country"
-            variant="outlined"
-            required
-            fullWidth
-            id="country"
-            label="Country"
-          />
-          {touched.country && (
-            <p className="text-danger  text-left m-0">{errors.country}</p>
-          )}
-          <TextField
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.valueate}
-            className={classes.textfield}
-            variant="outlined"
-            required
-            fullWidth
-            id="valueate"
-            label="Valueate"
-            name="valueate"
-            autoComplete="valueate"
-          />
-          {touched.valueate && (
-            <p className="text-danger  text-left m-0">{errors.valueate}</p>
-          )}
-
-          {/* <TextField
-            className={classes.textfield}
-            id="outlined-select-currency-native"
-            name="maLoaiNguoiDung"
-            select
-            label="Loại người dùng"
-            fullWidth
-            value={values.maLoaiNguoiDung}
-            onChange={(e) => setFieldValue("maLoaiNguoiDung", e.target.value)}
-            SelectProps={{
-              native: true,
-            }}
-            variant="outlined"
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          borderBottom: "1px solid #DDDDDD",
+          paddingBottom: 25,
+        }}
+      >
+        <Stack sx={{ width: "80%" }} spacing={0}>
+          <Stepper
+            alternativeLabel
+            activeStep={activeStep}
+            connector={<ColorlibConnector />}
           >
-            {currencies.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
+            {steps.map((label) => (
+              <Step key={label}>
+                <StepLabel
+                  classes={{ root: classes.label }}
+                  StepIconComponent={ColorlibStepIcon}
+                >
+                  {label}
+                </StepLabel>
+              </Step>
             ))}
-            
-          </TextField> */}
+          </Stepper>
+        </Stack>
+      </div>
+
+      <div style={{ display: activeStep !== 0 ? "none" : "block" }}>
+        <h1 style={{ margin: "10px 0" }}>Cập nhật vị trí</h1>
+        <div className={classes.paper}>
+          <form onSubmit={handleSubmit} className={classes.form} noValidate>
+            <TextField
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.name}
+              name="name"
+              variant="outlined"
+              required
+              fullWidth
+              id="name"
+              label="Name"
+            />
+            {touched.name && <p className={classes.hyperText}>{errors.name}</p>}
+            <TextField
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.province}
+              className={classes.textfield}
+              variant="outlined"
+              required
+              fullWidth
+              name="province"
+              label="Province"
+              id="province"
+            />
+            {touched.province && (
+              <p className={classes.hyperText}>{errors.province}</p>
+            )}
+            <TextField
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.country}
+              className={classes.textfield}
+              name="country"
+              variant="outlined"
+              required
+              fullWidth
+              id="country"
+              label="Country"
+            />
+            {touched.country && (
+              <p className={classes.hyperText}>{errors.country}</p>
+            )}
+            <TextField
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.valueate}
+              className={classes.textfield}
+              name="valueate"
+              variant="outlined"
+              required
+              fullWidth
+              id="valueate"
+              label="Valueate"
+            />
+            {touched.valueate && (
+              <p className={classes.hyperText}>{errors.valueate}</p>
+            )}
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Cập nhật
+            </Button>
+          </form>
+        </div>
+      </div>
+      {activeStep === 1 && (
+        <div>
+          <h1 style={{ margin: "10px 0" }}>Thêm hình ảnh</h1>
           <input
             accept="image/*"
             className={classes.input}
@@ -219,6 +294,8 @@ export default function EditLocation(props) {
             id="raised-button-file"
             multiple
             type="file"
+            name="image"
+            onChange={handleChangeFile}
           />
           <label htmlFor="raised-button-file">
             <Button
@@ -230,20 +307,35 @@ export default function EditLocation(props) {
               Upload
             </Button>
           </label>
-          {/* {touched.valueate && (
-            <p className="text-danger  text-left m-0">{errors.valueate}</p>
-          )} */}
           <Button
-            type="submit"
+            type="button"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={handleImage}
           >
-            Cập nhật
+            Thêm hình
           </Button>
-        </form>
-      </div>
+        </div>
+      )}
+      {activeStep === 2 && (
+        <div>
+          <h1 style={{ margin: "10px 0" }}>
+            Thêm vị trí và hình ảnh thành công
+          </h1>
+          <Button
+            type="button"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={handleClickBack}
+          >
+            Quay về
+          </Button>
+        </div>
+      )}
     </Container>
   );
 }
