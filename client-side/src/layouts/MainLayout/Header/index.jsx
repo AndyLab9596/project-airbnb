@@ -223,13 +223,18 @@ const Header = () => {
                       </button>
                       <span className={classes.list__navbar__dash}></span>
                       <button className={classes.list__navbar__button}>
-                        {queryParams._checkIn && queryParams._checkOut ? (
-                          <span>
-                            {queryParams._checkIn} - {queryParams._checkOut}
-                          </span>
-                        ) : (
-                          <span>Thêm ngày</span>
-                        )}
+                        {
+                          queryParams._checkIn
+                            && queryParams._checkOut
+                            && queryParams._checkIn !== "Invalid date"
+                            && queryParams._checkOut !== "Invalid date"
+                            ? (
+                              <span>
+                                {queryParams._checkIn} - {queryParams._checkOut}
+                              </span>
+                            ) : (
+                              <span>Thêm ngày</span>
+                            )}
                       </button>
                       <span className={classes.list__navbar__dash}></span>
                       <button className={classes.list__navbar__button}>

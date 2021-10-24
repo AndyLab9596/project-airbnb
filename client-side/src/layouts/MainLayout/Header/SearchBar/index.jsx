@@ -1,4 +1,4 @@
-import { Menu, MenuItem } from "@material-ui/core";
+import { Menu } from "@material-ui/core";
 import LocationOnOutlinedIcon from "@material-ui/icons/LocationOnOutlined";
 import SearchIcon from "@material-ui/icons/Search";
 import useAutocomplete from "@material-ui/lab/useAutocomplete";
@@ -8,38 +8,30 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { vi } from "date-fns/locale";
 import moment from "moment";
 import queryString from "query-string";
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, { Fragment, useEffect, useMemo, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router";
 import manageLocationApi from "../../../../api/manageLocationApi";
-import useStyles from "./style";
-import { useDispatch, useSelector } from "react-redux";
-import { createAction } from "../../../../store/action/createAction/createAction";
-import { SEARCH_RESULT } from "../../../../store/types/SearchType";
 import GuestCount from "../../../../components/GuestCount";
-
-// Data from API 9
-// {
-//     "_id": "61627836dd5f72001d8686eb",
-//     "name": "Khu du lịch sinh thái Hồng Hào",
-//     "province": "Bến tre",
-//     "country": "viet nam",
-//     "valueate": 8,
-//     "__v": 0
-// },
+import useStyles from "./style";
 
 const SearchBar = ({ isDesktop, setSearchBarValue }) => {
-  // const [clickSearchLocation, setClickSearchLocation] = useState(false)
 
-  // const [startDate, setStartDate] = useState(null);
-  // const [endDate, setEndDate] = useState(null);
-  // const [focusedInput, setFocusedInput] = useState(null);
-  // const handleDatesChange = ({ startDate, endDate }) => {
-  //     setStartDate(startDate);
-  //     setEndDate(endDate);
-  // };
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
+  const receivedQueryParams = useMemo(() => {
+    const params = queryString.parse(location.search);
+    return {
+      ...params,
+      _location: params._location,
+      _checkIn: params._checkIn,
+      _checkOut: params._checkOut,
+      _adult: Number.parseInt(params._adult),
+      _children: Number.parseInt(params._baby),
+      _toddler: Number.parseInt(params._toddler),
+    };
+  }, [location.search]);
 
   const [locationList, setLocationList] = useState([]);
 
@@ -72,6 +64,7 @@ const SearchBar = ({ isDesktop, setSearchBarValue }) => {
   }, []);
 
   const {
+
     getRootProps,
     getInputLabelProps,
     getInputProps,
@@ -82,6 +75,7 @@ const SearchBar = ({ isDesktop, setSearchBarValue }) => {
     options: locationList,
     id: "useAutocomplete",
     getOptionLabel: (option) => option.province,
+    defaultValue: receivedQueryParams._location
   });
 
   const inputValue = { ...getInputProps() }.value;
@@ -94,32 +88,25 @@ const SearchBar = ({ isDesktop, setSearchBarValue }) => {
   const checkInFormatted = moment(bookingTime[0]).format("Do MMM");
   const checkOutFormatted = moment(bookingTime[1]).format("Do MMM");
 
-  const searchBarValue = {
-    location: locationInputValue,
-    checkIn: checkInFormatted,
-    checkOut: checkOutFormatted,
-    guest: numbers._adult + numbers._childrend,
-  };
 
   const queryParams = {
-    _checkIn: moment(bookingTime[0]).format("YYYY-MM-DD"),
-    _checkOut: moment(bookingTime[0]).format("YYYY-MM-DD"),
+    _location: locationInputValue?.province || "",
+    _checkIn: checkInFormatted,
+    _checkOut: checkOutFormatted,
     _adult: numbers._adult,
     _children: numbers._children,
     _toddler: numbers._toddler,
   };
 
-  const handleSearchSubmit = async (e) => {
+
+  const handleSearchSubmit = (e) => {
     e.preventDefault();
-    try {
-      await dispatch(createAction(SEARCH_RESULT, searchBarValue));
-      history.push({
-        pathname: `/list/${locationId}`,
-        search: queryString.stringify(queryParams),
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    if (!inputValue) return
+    history.push({
+      pathname: `/list/${locationId}`,
+      search: queryString.stringify(queryParams),
+    });
+
   };
 
   const classes = useStyles();
@@ -143,7 +130,7 @@ const SearchBar = ({ isDesktop, setSearchBarValue }) => {
                 type="text"
                 placeholder="Bạn sắp đi đâu?"
                 {...getInputProps()}
-
+              // defaultValue={receivedQueryParams._location}
               />
             </div>
           </div>
