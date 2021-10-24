@@ -126,7 +126,7 @@ export default makeStyles(theme => ({
 
     button__mobile__wrapper: {
         position: 'fixed',
-        bottom: '12%',
+        bottom: props => props.scroll ? '8%' : '12%',
         right: '50%',
         zIndex: 9,
         transform: 'translateX(50%)',
