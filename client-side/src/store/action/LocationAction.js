@@ -14,9 +14,10 @@ export const getLocations = () => {
     };
 };
 export const deleteLocationAction = (id) => {
-    return async () => {
+    return async (dispatch) => {
         try {
             await manageLocationApi.deleteLocation(id);
+            await dispatch(createAction(GET_LOCATIONS))
         } catch (error) {
             console.log(error);
         }

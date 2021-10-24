@@ -29,6 +29,7 @@ export const deleteUserAction = (idUser) => {
   return async () => {
     try {
       await manageUserApi.deleteUser(idUser);
+
     } catch (error) {
       console.log(error);
     }
