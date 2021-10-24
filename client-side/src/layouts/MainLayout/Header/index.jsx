@@ -57,7 +57,6 @@ const Header = () => {
     };
   }, [location.search]);
 
-  // console.log('queryParmas', queryParams)
 
   const handleLogout = () => {
     setAnchorEl(null);
@@ -333,7 +332,7 @@ const Header = () => {
                     ${detailpageRoute && classes.detail__searchBar}
                     `}
           >
-            <SearchBar isDesktop={isDesktop} />
+            <SearchBar listPageDisplaySearchBar={listPageDisplaySearchBar} isDesktop={isDesktop} />
           </Box>
         </AppBar>
       </ClickAwayListener>

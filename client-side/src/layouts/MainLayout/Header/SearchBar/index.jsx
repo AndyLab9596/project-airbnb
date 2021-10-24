@@ -15,7 +15,7 @@ import manageLocationApi from "../../../../api/manageLocationApi";
 import GuestCount from "../../../../components/GuestCount";
 import useStyles from "./style";
 
-const SearchBar = ({ isDesktop, setSearchBarValue }) => {
+const SearchBar = ({ isDesktop, listPageDisplaySearchBar }) => {
 
   const history = useHistory();
   const location = useLocation();
@@ -97,6 +97,18 @@ const SearchBar = ({ isDesktop, setSearchBarValue }) => {
     _children: numbers._children,
     _toddler: numbers._toddler,
   };
+
+  const historyPush = () => {
+    history.push({
+      pathname: `/list/${locationId}`,
+      search: queryString.stringify(queryParams),
+    });
+  }
+
+  useEffect(() => {
+    historyPush()
+
+  }, [listPageDisplaySearchBar])
 
 
   const handleSearchSubmit = (e) => {
