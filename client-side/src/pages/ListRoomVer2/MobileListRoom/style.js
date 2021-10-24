@@ -15,15 +15,17 @@ export default makeStyles(theme => ({
 
     mapBox: {
         width: '100%',
-        height: '40vh',
+        height: props => props.transform ? '90vh' : '40vh',
 
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        transition: 'all .3s ease-in',
+
     },
 
     content__top__transparent: {
-        height: '40vh',
+        height: props => props.transform ? '90vh' : '40vh',
         appearance: 'none',
         backgroundColor: 'transparent',
         border: 0,
@@ -31,7 +33,9 @@ export default makeStyles(theme => ({
         margin: 0,
         outline: 'none',
         width: '100%',
-        zIndex: -1
+        zIndex: 0,
+        transition: 'all .3s ease-in',
+
     },
 
     content: {
@@ -40,10 +44,9 @@ export default makeStyles(theme => ({
         display: 'flex',
         background: 'rgb(255, 255, 255)',
         width: '100%',
-        // borderTopLeftRadius: '24px',
-        // borderTopRightRadius: '24px',
         minHeight: 'calc(60vh + 65px)',
-
+        transform: props => props.transform ? 'translateY(-10vh)' : 'translateY(0)',
+        transition: 'all .3s ease-in',
     },
 
     wrapper: {
@@ -104,64 +107,6 @@ export default makeStyles(theme => ({
 
     },
 
-    card: {
-        position: 'relative',
-        marginTop: '8px',
-    },
-    card__media: {
-        position: 'relative',
-
-    },
-
-    card__media__img: {
-        display: 'block',
-        objectFit: 'cover',
-        width: '100%',
-        borderRadius: '12px',
-    },
-
-    card__content: {
-        marginTop: 10,
-
-    },
-
-    card__content_evaluate: {
-        display: 'flex',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        fontSize: '14px',
-        lineHeight: '18px',
-        marginBottom: '6px',
-        '& > span': {
-            marginRight: '4px'
-        }
-    },
-
-    card__content__name: {
-        '& > h3': {
-            margin: '0',
-            fontSize: '18px',
-            lineHeight: '24px',
-            color: '#222222',
-            fontWeight: 400
-        },
-
-    },
-
-    card__content__price: {
-        marginTop: '4px',
-        fontSize: '18px',
-        lineHeight: '24px',
-        fontWeight: 600,
-        color: '#222222',
-        '& > p': {
-            margin: 0,
-        },
-        '& >span': {
-            color: '#717171'
-        }
-
-    },
 
     pagination__wrapper: {
         width: '100%',

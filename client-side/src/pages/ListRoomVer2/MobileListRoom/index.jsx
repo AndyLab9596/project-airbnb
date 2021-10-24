@@ -75,6 +75,11 @@ const MobileListRoom = () => {
         setFilter(initialFilter)
     }
 
+    const [transform, setTransform] = useState(false);
+
+    const handleOpenMapFullScreen = () => {
+        setTransform(state => !state)
+    }
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -84,7 +89,7 @@ const MobileListRoom = () => {
 
     }, [loading, page])
 
-    const classes = useStyles();
+    const classes = useStyles({ transform });
 
     return (
         <div className={classes.root}>
@@ -96,13 +101,15 @@ const MobileListRoom = () => {
                 </div>
             </div>
             {/* this div is used to press the main content downward */}
-            <div className={classes.content__top__transparent}></div>
+            <div className={classes.content__top__transparent}
+
+            ></div>
 
             {/* Content */}
             <div className={classes.content}>
                 <div className={classes.wrapper}>
                     {/* Header */}
-                    <div className={classes.header}>
+                    <div className={classes.header} onClick={() => handleOpenMapFullScreen()}>
                         <div className={classes.header__content}>
                             <h6 className={classes.header__content__text}>
                                 Hơn 300 chỗ ở
