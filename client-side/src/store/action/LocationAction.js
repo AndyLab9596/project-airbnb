@@ -17,7 +17,7 @@ export const deleteLocationAction = (id) => {
     return async (dispatch) => {
         try {
             await manageLocationApi.deleteLocation(id);
-            await dispatch(createAction(GET_LOCATIONS))
+            await dispatch(getLocations());
         } catch (error) {
             console.log(error);
         }

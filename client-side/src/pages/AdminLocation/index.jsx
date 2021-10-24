@@ -30,7 +30,7 @@ import useStyles from "./style";
 const AdminLocation = () => {
   const classes = useStyles();
   const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowPerPage] = useState(10);
+  const [rowsPerPage, setRowPerPage] = useState(5);
 
   const dispatch = useDispatch();
   const { locations } = useSelector((state) => state.LocationReducer);
@@ -93,38 +93,40 @@ const AdminLocation = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filtered?.map((location) => (
-              <TableRow key={location._id}>
-                <TableCell align="left">{location?.name}</TableCell>
-                <TableCell align="left">
-                  <img
-                    src={location?.image || `${FAKE_AVATAR}/${location?._id}`}
-                    alt="avatar"
-                    className={classes.avatar}
-                  />
-                </TableCell>
-                <TableCell align="left">{location?.province}</TableCell>
-                <TableCell align="left">{location.country}</TableCell>
-                <TableCell align="left">{location?.valueate}</TableCell>
+            {filtered
+              ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              ?.map((location) => (
+                <TableRow key={location._id}>
+                  <TableCell align="left">{location?.name}</TableCell>
+                  <TableCell align="left">
+                    <img
+                      src={location?.image || `${FAKE_AVATAR}/${location?._id}`}
+                      alt="avatar"
+                      className={classes.avatar}
+                    />
+                  </TableCell>
+                  <TableCell align="left">{location?.province}</TableCell>
+                  <TableCell align="left">{location.country}</TableCell>
+                  <TableCell align="left">{location?.valueate}</TableCell>
 
-                <TableCell align="left">
-                  <IconButton
-                    color="primary"
-                    onClick={() =>
-                      history.push(`/admin/location/edit/${location._id}`)
-                    }
-                  >
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton
-                    color="secondary"
-                    onClick={() => handleDeleteLocation(location._id)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
+                  <TableCell align="left">
+                    <IconButton
+                      color="primary"
+                      onClick={() =>
+                        history.push(`/admin/location/edit/${location._id}`)
+                      }
+                    >
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton
+                      color="secondary"
+                      onClick={() => handleDeleteLocation(location._id)}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
@@ -137,12 +139,6 @@ const AdminLocation = () => {
           page={page}
           onPageChange={handlePageChange}
           onRowsPerPageChange={handleRowPerPageChange}
-          // count={locations?.totalPage}
-          // onChange={(e, page) => setPage(page)}
-          // page={page}
-          // defaultPage={1}
-          // color="primary"
-          // className={classes.pagination}
         />
       </Box>
     </Fragment>
