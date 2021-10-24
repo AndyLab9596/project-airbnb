@@ -31,6 +31,7 @@ export default makeStyles(theme => ({
         '&:hover': {
             transform: 'scale(1.1)',
         },
+
     },
 
     pin__content: {
@@ -61,6 +62,7 @@ export default makeStyles(theme => ({
         boxShadow: 'rgb(0 0 0 / 28%) 0px 8px 28px',
         color: 'rgb(34,34,34)',
         width: '100%',
+        cursor: 'pointer',
     },
 
     popup__img: {

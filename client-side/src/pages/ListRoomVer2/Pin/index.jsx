@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Marker, Popup } from 'react-map-gl';
 import { formMoney } from '../../../utilities/coordinates';
 import useStyles from "./style";
-const Pin = ({ location }) => {
+const Pin = ({ location, handleChangePage }) => {
     const classes = useStyles()
     const [showPopup, togglePopup] = useState(false);
 
@@ -21,7 +21,7 @@ const Pin = ({ location }) => {
                     onClose={() => togglePopup(false)}
                     offsetTop={10}
                     anchor="left" >
-                    <div className={classes.popup}>
+                    <div className={classes.popup} onClick={() => handleChangePage(location._id)}>
                         <img src={location.image} alt={location.name}
                             className={classes.popup__img} />
                         <div className={classes.popup__content}>
