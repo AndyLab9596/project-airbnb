@@ -25,6 +25,7 @@ import {
   deleteLocationAction,
   getLocations,
 } from "../../store/action/LocationAction";
+import SearchBar from "material-ui-search-bar";
 import useStyles from "./style";
 const AdminLocation = () => {
   const classes = useStyles();
@@ -62,12 +63,24 @@ const AdminLocation = () => {
     setRowPerPage(event.target.value);
     setPage(0);
   };
+  const cancelSearch = () => {
+    setSearch("");
+  };
+  const filtered = locations.filter((row) => {
+    return row.name.toLowerCase().includes(search.toLowerCase());
+  });
+  console.log("filtered", filtered);
   return (
     <Fragment>
       <Typography variant="h4" className={classes.title}>
         Location List
       </Typography>
-      {/* <SearchBar/> */}
+      <SearchBar
+        value={search}
+        onChange={(searchVal) => setSearch(searchVal)}
+        onCancelSearch={() => cancelSearch()}
+        placeholder="Search by name"
+      />
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
@@ -80,7 +93,7 @@ const AdminLocation = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {locations?.map((location) => (
+            {filtered?.map((location) => (
               <TableRow key={location._id}>
                 <TableCell align="left">{location?.name}</TableCell>
                 <TableCell align="left">
@@ -119,7 +132,7 @@ const AdminLocation = () => {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25, 100]}
           component="div"
-          count={locations.length}
+          count={filtered > 0 ? filtered.length : locations.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handlePageChange}
