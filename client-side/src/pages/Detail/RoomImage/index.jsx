@@ -34,6 +34,8 @@ const RoomImage = ({ detailRoom, detailRating }) => {
   const [scrolled, setScrolled] = useState(false);
   const ref = useRef(null);
 
+  console.log('detailRoom', detailRoom)
+
   useEffect(() => {
     if (isTablet) {
       const timer = setTimeout(() => {
@@ -58,31 +60,14 @@ const RoomImage = ({ detailRoom, detailRating }) => {
     afterChange: (current) => setCurrentImg(current + 1),
   };
 
-  //  Vì api chỉ có thể thêm 1 hình nên phải xét cứng
-  const arrImg = [
-    { img: detailRoom?.locationId?.image },
-    { img: detailRoom?.locationId?.image },
-    { img: detailRoom?.locationId?.image },
-    { img: detailRoom?.locationId?.image },
-    { img: detailRoom?.locationId?.image },
-    { img: detailRoom?.locationId?.image },
-    { img: detailRoom?.locationId?.image },
-    { img: detailRoom?.locationId?.image },
-    { img: detailRoom?.locationId?.image },
-    { img: detailRoom?.locationId?.image },
-    { img: detailRoom?.locationId?.image },
-    { img: detailRoom?.locationId?.image },
-    { img: detailRoom?.locationId?.image },
-    { img: detailRoom?.locationId?.image },
-    { img: detailRoom?.locationId?.image },
-    { img: detailRoom?.locationId?.image },
-    { img: detailRoom?.locationId?.image },
-    { img: detailRoom?.locationId?.image },
-    { img: detailRoom?.locationId?.image },
-    { img: detailRoom?.locationId?.image },
-    { img: detailRoom?.locationId?.image },
-    { img: detailRoom?.locationId?.image },
-  ];
+
+  const array = new Array({ image: detailRoom?.image });
+  const arrImg = []
+  for (let i = 0; i < 22; i++) {
+    arrImg[i] = array[0]
+  }
+
+
   const menuScroll = [
     {
       name: "Ảnh",
@@ -167,7 +152,7 @@ const RoomImage = ({ detailRoom, detailRating }) => {
                     className={classes.image}
                     onClick={() => setOpenModal(true)}
                   >
-                    <img src={detailRoom?.locationId?.image} alt="img" />
+                    <img src={detailRoom?.image} alt="img" />
                   </div>
                 </Grid>
                 <Grid item xs={6}>
@@ -178,7 +163,7 @@ const RoomImage = ({ detailRoom, detailRating }) => {
                           className={classes.image}
                           onClick={() => setOpenModal(true)}
                         >
-                          <img src={item.img} alt="img" />
+                          <img src={item.image} alt="img" />
                         </div>
                       </Grid>
                     ))}
@@ -211,7 +196,7 @@ const RoomImage = ({ detailRoom, detailRating }) => {
                     className={classes.image}
                     onClick={() => setOpenModal(true)}
                   >
-                    <img src={item.img} alt="img" />
+                    <img src={item.image} alt="img" />
                   </div>
                   <div className={classes.currentImg}>
                     {currentImg}/{arrImg.length}
@@ -262,13 +247,13 @@ const RoomImage = ({ detailRoom, detailRating }) => {
                   {index % 3 === 0 ? (
                     <Grid item xs={12}>
                       <div className={classes.image}>
-                        <img src={item.img} alt="img" />
+                        <img src={item.image} alt="img" />
                       </div>
                     </Grid>
                   ) : (
                     <Grid item xs={6}>
                       <div className={classes.image}>
-                        <img src={item.img} alt="img" />
+                        <img src={item.image} alt="img" />
                       </div>
                     </Grid>
                   )}
