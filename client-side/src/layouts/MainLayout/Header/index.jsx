@@ -208,7 +208,7 @@ const Header = () => {
                       <span className={classes.list__navbar__dash}></span>
                       <button className={classes.list__navbar__button}>
                         {searchResult?.checkIn !== "Invalid date" &&
-                        searchResult?.checkOut !== "Invalid date" ? (
+                          searchResult?.checkOut !== "Invalid date" ? (
                           <span>
                             {searchResult?.checkIn} - {searchResult?.checkOut}
                           </span>

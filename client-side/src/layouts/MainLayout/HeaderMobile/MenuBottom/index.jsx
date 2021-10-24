@@ -20,7 +20,7 @@ const MenuBottom = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 500);
+      setScrolled(window.scrollY > 250);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -40,7 +40,7 @@ const MenuBottom = () => {
         className={classes.content}
         onClick={() => {
           history.push("/");
-          handleShowSearchBar();
+          // handleShowSearchBar();
         }}
       >
         <Button disableRipple>
