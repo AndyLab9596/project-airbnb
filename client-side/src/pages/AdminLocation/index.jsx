@@ -1,4 +1,9 @@
-import { Button, IconButton, Typography } from "@material-ui/core";
+import {
+  Button,
+  IconButton,
+  TablePagination,
+  Typography,
+} from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -24,12 +29,14 @@ import useStyles from "./style";
 const AdminLocation = () => {
   const classes = useStyles();
   const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowPerPage] = useState(10);
+
   const dispatch = useDispatch();
   const { locations } = useSelector((state) => state.LocationReducer);
   console.log("locations", locations);
   const history = useHistory();
   const confirm = useConfirm();
-
+  const [search, setSearch] = useState("");
   useEffect(() => {
     dispatch(getLocations(page));
   }, [dispatch]);
@@ -48,11 +55,19 @@ const AdminLocation = () => {
       .then(() => dispatch(deleteLocationAction(id)))
       .catch(() => console.log("deletion canclled"));
   };
+  const handlePageChange = (event, newPage) => {
+    setPage(newPage);
+  };
+  const handleRowPerPageChange = (event) => {
+    setRowPerPage(event.target.value);
+    setPage(0);
+  };
   return (
     <Fragment>
       <Typography variant="h4" className={classes.title}>
         Location List
       </Typography>
+      {/* <SearchBar/> */}
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
@@ -101,13 +116,20 @@ const AdminLocation = () => {
         </Table>
       </TableContainer>
       <Box mt={4}>
-        <Pagination
-          count={locations?.totalPage}
-          onChange={(e, page) => setPage(page)}
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25, 100]}
+          component="div"
+          count={locations.length}
+          rowsPerPage={rowsPerPage}
           page={page}
-          defaultPage={1}
-          color="primary"
-          className={classes.pagination}
+          onPageChange={handlePageChange}
+          onRowsPerPageChange={handleRowPerPageChange}
+          // count={locations?.totalPage}
+          // onChange={(e, page) => setPage(page)}
+          // page={page}
+          // defaultPage={1}
+          // color="primary"
+          // className={classes.pagination}
         />
       </Box>
     </Fragment>
