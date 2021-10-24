@@ -160,7 +160,7 @@ const Header = () => {
         >
           <Toolbar className={classes.navbar__content}>
             <Box className={classes.navbar__content__right}>
-              <a href="/" target="_blank" rel="noreferrer">
+              <a href="/">
                 <img
                   src={isDesktop ? airbnbIcon : airbnbRedIcon}
                   alt="icon"
@@ -429,7 +429,7 @@ const Header = () => {
           </>
         )}
       </Menu>
-    </Fragment>
+    </Fragment >
   );
 };
 
