@@ -1,8 +1,8 @@
 import { Pagination } from '@material-ui/lab';
 import queryString from 'query-string';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLocation, useParams } from 'react-router';
+import { useLocation, useParams, useHistory } from 'react-router';
 import Card from '../Card'
 import Mapbox from '../Mapbox';
 import OptionsDialog from '../OptionsDialog';
@@ -18,11 +18,13 @@ const DesktopListRoom = () => {
     const dispatch = useDispatch();
     const param = useParams();
     const locationId = param.locationId;
+    const history = useHistory()
 
     const { loading, data } = useFetch(locationId);
 
 
     const [rentRooms, setRentRooms] = useState([]);
+
     const [page, setPage] = useState(1);
 
     const handlePageChange = (event, page) => {
@@ -32,9 +34,27 @@ const DesktopListRoom = () => {
     // Params
 
     const location = useLocation();
-    const params = queryString.parse(location.search);
+    const queryParams = useMemo(() => {
+        const params = queryString.parse(location.search);
+        return {
+            ...params,
+            _location: params._location,
+            _checkIn: params._checkIn,
+            _checkOut: params._checkOut,
+            _adult: Number.parseInt(params._adult),
+            _children: Number.parseInt(params._baby),
+            _toddler: Number.parseInt(params._toddler),
+        };
+    }, [location.search]);
+    // console.log('queryParams', queryParams)
+    const province = queryParams._location;
 
-    const province = params._location;
+    const handleChangePage = (roomId) => {
+        history.push({
+            pathname: `/detail/${roomId}`,
+            search: queryString.stringify(queryParams),
+        })
+    }
 
     // Filter
     const [priceValue, setPriceValue] = useState([0, 1000000]);
@@ -134,7 +154,10 @@ const DesktopListRoom = () => {
                     {/* List Rooms */}
 
                     <div className={classes.cards}>
-                        {loading ? <SkeletonCard length={4} /> : <Card finalFiltered={finalFiltered} />}
+                        {loading ? <SkeletonCard length={4} /> :
+                            <Card handleChangePage={handleChangePage} queryParams={queryParams} finalFiltered={finalFiltered}
+
+                            />}
 
 
                         {/* Pagination */}
@@ -159,7 +182,7 @@ const DesktopListRoom = () => {
                 {/* Map */}
                 <div className={classes.map}>
                     <div className={classes.mapBox}>
-                        <Mapbox province={province} rentRooms={rentRooms} />
+                        <Mapbox handleChangePage={handleChangePage} province={province} rentRooms={rentRooms} />
                     </div>
                 </div>
 

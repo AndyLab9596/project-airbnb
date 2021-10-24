@@ -6,7 +6,7 @@ import Pin from '../Pin';
 import useStyles from "./style";
 
 const Mapbox = (props) => {
-    const { rentRooms, province } = props;
+    const { rentRooms, province, handleChangePage } = props;
 
     const classes = useStyles();
     const [markerLocation, setMarkerLocation] = useState([]);
@@ -76,7 +76,7 @@ const Mapbox = (props) => {
             <NavigationControl style={navControlStyle} />
             {markerLocation.map((location, index) => (
                 <div key={location._id}>
-                    <Pin location={location} />
+                    <Pin location={location} handleChangePage={handleChangePage} />
                 </div>
             ))}
 

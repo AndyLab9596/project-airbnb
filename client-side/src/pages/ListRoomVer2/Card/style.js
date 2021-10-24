@@ -18,6 +18,7 @@ export default makeStyles(theme => ({
         display: 'inline-flex',
         width: '100%',
         height: '100%',
+        cursor: 'pointer',
     },
 
     card__img: {

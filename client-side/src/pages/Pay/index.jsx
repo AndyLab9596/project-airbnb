@@ -47,7 +47,7 @@ const Pay = () => {
   const param = useParams();
   const dispatch = useDispatch();
 
-  console.log(queryParams);
+  console.log('queryParams', queryParams);
   const { detailRoom } = useSelector((state) => state.RentRoomsReducer);
   const { arrPayBooking } = useSelector((state) => state.RentRoomsReducer);
   console.log("arrPayBooking", arrPayBooking);
@@ -74,8 +74,8 @@ const Pay = () => {
     return totalDate < 7
       ? formMoney(detailRoom?.price * totalDate + 100000)
       : totalDate > 30
-      ? formMoney(detailRoom?.price * (totalDate - 5) + 100000)
-      : formMoney(detailRoom?.price * (totalDate - 1) + 100000);
+        ? formMoney(detailRoom?.price * (totalDate - 5) + 100000)
+        : formMoney(detailRoom?.price * (totalDate - 1) + 100000);
   };
   // const [selectedValue, setSelectedValue] = React.useState("a");
 
@@ -383,7 +383,7 @@ const Pay = () => {
                   <ButtonSubmit
                     handleSubmit={handleOpen1}
                     text={text}
-                    // className={classes.pay__button__confirm}
+                  // className={classes.pay__button__confirm}
                   />
                 </div>
               </Grid>

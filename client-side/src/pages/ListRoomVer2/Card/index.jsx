@@ -4,14 +4,14 @@ import React, { Fragment } from 'react';
 import { formMoney } from '../../../utilities/coordinates';
 import useStyles from "./style";
 
-const Card = ({ finalFiltered, fakeRoom }) => {
+const Card = ({ finalFiltered, handleChangePage }) => {
     const classes = useStyles();
 
     return (
         <Fragment>
             {
                 finalFiltered.map((card, index) => (
-                    <div className={classes.card} key={index}>
+                    <div className={classes.card} key={index} >
 
                         {/* card top line */}
                         <div className={classes.card__topLine}>
@@ -19,7 +19,7 @@ const Card = ({ finalFiltered, fakeRoom }) => {
                         </div>
 
                         {/* card wrapper */}
-                        <div className={classes.card__wrapper}>
+                        <div className={classes.card__wrapper} onClick={() => handleChangePage(card._id)}>
 
                             <div className={classes.card__img}>
                                 <img src={card.image} alt={card.name} />

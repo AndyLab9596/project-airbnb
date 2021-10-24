@@ -268,7 +268,6 @@ export default makeStyles(theme => ({
     height: 30
   },
 
-
   menu__items: {
     padding: '8px',
     '&:nth-child(4)': {
