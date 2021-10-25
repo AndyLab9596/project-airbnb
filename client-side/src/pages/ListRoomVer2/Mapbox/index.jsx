@@ -6,7 +6,7 @@ import Pin from '../Pin';
 import useStyles from "./style";
 
 const Mapbox = (props) => {
-    const { rentRooms, province, handleChangePage, setCoors } = props;
+    const { rentRooms, province, handleChangePage, setRoomCors, setLocationCoors } = props;
 
     const classes = useStyles();
     const [markerLocation, setMarkerLocation] = useState([]);
@@ -35,7 +35,7 @@ const Mapbox = (props) => {
             try {
                 const res = await manageMapboxApi.getLocation(province, getLocationParams)
                 setViewport({ ...viewport, longitude: res.data.features?.[0]?.center?.[0], latitude: res.data.features?.[0]?.center?.[1] })
-
+                setLocationCoors({ longitude: res.data.features?.[0]?.center?.[0], latitude: res.data.features?.[0]?.center?.[1] })
             } catch (error) {
                 console.log(error)
             }
@@ -51,7 +51,7 @@ const Mapbox = (props) => {
                     newMarkerLocation[i] = { ...rentRooms[i], longitude: res.data.features?.[0].center?.[0], latitude: res.data.features?.[0].center?.[1] }
                 }
                 setMarkerLocation(newMarkerLocation)
-                setCoors(newMarkerLocation)
+                setRoomCors(newMarkerLocation)
             } catch (error) {
                 console.log(error.response)
             }
@@ -76,7 +76,7 @@ const Mapbox = (props) => {
             <NavigationControl style={navControlStyle} />
             {markerLocation.map((location, index) => (
                 <div key={location._id}>
-                    <Pin location={location} setCoors={setCoors} handleChangePage={handleChangePage} />
+                    <Pin location={location} handleChangePage={handleChangePage} />
                 </div>
             ))}
 

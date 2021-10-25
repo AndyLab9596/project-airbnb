@@ -31,7 +31,8 @@ const DesktopListRoom = () => {
         setPage(page)
     }
 
-    const [coors, setCoors] = useState([]);
+    const [roomCoors, setRoomCors] = useState([]);
+    const [locationCoors, setLocationCoors] = useState({})
     // Params
 
     const location = useLocation();
@@ -47,19 +48,18 @@ const DesktopListRoom = () => {
             _toddler: Number.parseInt(params._toddler),
         };
     }, [location.search]);
-    // console.log('queryParams', queryParams)
     const province = queryParams._location;
 
     const handleChangePage = (roomId) => {
 
-        const pickedRoom = coors.find((room => room._id === roomId));
-        console.log(pickedRoom)
+        const pickedRoom = roomCoors.find((room => room._id === roomId));
 
         history.push({
             pathname: `/detail/${roomId}`,
             search: queryString.stringify({
                 ...queryParams,
-                _latitude: pickedRoom.latitude, _longitude: pickedRoom.longitude
+                _roomLatitude: pickedRoom.latitude, _roomLongitude: pickedRoom.longitude,
+                _locationLatitude: locationCoors.latitude, _locationLongitude: locationCoors.longitude
             }),
         })
     }
@@ -193,7 +193,8 @@ const DesktopListRoom = () => {
                 <div className={classes.map}>
                     <div className={classes.mapBox}>
                         <Mapbox
-                            setCoors={setCoors}
+                            setLocationCoors={setLocationCoors}
+                            setRoomCors={setRoomCors}
                             handleChangePage={handleChangePage}
                             province={province}
                             rentRooms={rentRooms} />

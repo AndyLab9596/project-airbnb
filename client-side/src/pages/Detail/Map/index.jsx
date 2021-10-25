@@ -4,13 +4,13 @@ import { AiFillHome } from "react-icons/ai";
 import ReactMapGL, { Marker, NavigationControl } from "react-map-gl";
 import useStyles from "./style";
 
-const DetailRoomMap = () => {
+const DetailRoomMap = ({ queryParams }) => {
   const [viewport, setViewport] = useState({
     width: "100%",
     height: "100%",
-    latitude: 12.232980590878872,
-    longitude: 109.19706875210589,
-    zoom: 15,
+    latitude: queryParams._locationLatitude,
+    longitude: queryParams._locationLongitude,
+    zoom: 12,
   });
   const [settings, setsettings] = useState({
     scrollZoom: false,
@@ -33,7 +33,7 @@ const DetailRoomMap = () => {
           className={classes.navigateControl}
           showCompass={false}
         />
-        <Marker latitude={12.233112845703642} longitude={109.19472307380674}>
+        <Marker latitude={queryParams._roomLatitude} longitude={queryParams._roomLongitude}>
           <div className={classes.map__location}>
             <div>
               <Tooltip

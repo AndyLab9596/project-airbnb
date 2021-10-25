@@ -50,6 +50,10 @@ const Detail = () => {
       _adult: Number.parseInt(params._adult),
       _children: Number.parseInt(params._baby),
       _toddler: Number.parseInt(params._toddler),
+      _roomLatitude: Number(params._roomLatitude),
+      _roomLongitude: Number(params._roomLongitude),
+      _locationLatitude: Number(params._locationLatitude),
+      _locationLongitude: Number(params._locationLongitude)
     };
   }, [location.search]);
   const dispatch = useDispatch();
@@ -74,7 +78,7 @@ const Detail = () => {
 
       {/* Map */}
       <div className={classes.wrapper}>
-        <DetailRoomMap />
+        <DetailRoomMap queryParams={queryParams} />
       </div>
 
       {/*  Rating */}
