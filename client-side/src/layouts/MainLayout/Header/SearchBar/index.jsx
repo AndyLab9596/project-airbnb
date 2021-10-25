@@ -28,7 +28,7 @@ const SearchBar = ({ isDesktop, listPageDisplaySearchBar, listpageRoute }) => {
       _checkIn: params._checkIn,
       _checkOut: params._checkOut,
       _adult: Number.parseInt(params._adult),
-      _children: Number.parseInt(params._baby),
+      _children: Number.parseInt(params._children),
       _toddler: Number.parseInt(params._toddler),
     };
   }, [location.search]);

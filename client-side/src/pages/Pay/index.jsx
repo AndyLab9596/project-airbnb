@@ -4,16 +4,16 @@ import {
   Container,
   Dialog,
   DialogContent,
+  FormControlLabel,
   Grid,
   IconButton,
+  Radio,
+  RadioGroup,
   Slide,
   SwipeableDrawer,
   TextField,
   Typography,
 } from "@material-ui/core";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import CloseIcon from "@material-ui/icons/Close";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -157,7 +157,7 @@ const Pay = () => {
       <Container className={classes.pay} maxWidth={false}>
         <Box>
           <div className={classes.pay__title}>
-            <IconButton className={classes.icon}>
+            <IconButton className={classes.icon} onClick={() => history.goBack()}>
               <ArrowBackIosIcon className={classes.pay__title__icon} />
             </IconButton>
             <Typography

@@ -12,6 +12,9 @@ import {
 } from "../../../store/types/ModalType";
 import MenuBottom from "./MenuBottom";
 import useStyles from "./style";
+import moment from "moment";
+import queryString from 'query-string';
+
 
 const HeaderMobile = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -44,6 +47,26 @@ const HeaderMobile = () => {
       (item.name.toLowerCase()?.includes(valueSearch) && valueSearch !== "") ||
       (item.province.toLowerCase()?.includes(valueSearch) && valueSearch !== "")
   );
+
+  const handleCityClick = (locationId, location) => {
+    console.log(locationId, location)
+    const checkInDate = moment(new Date()).format('YYYY-MM-DD');
+    const checkOutDate = moment(new Date()).add(1, 'days').format('YYYY-MM-DD')
+    const queryParams = {
+      _location: location.province,
+      _checkIn: checkInDate,
+      _checkOut: checkOutDate,
+      _adult: 1,
+      _children: 0,
+      _toddler: 0,
+    }
+
+    history.push({
+      pathname: `/list/${locationId}`,
+      search: queryString.stringify(queryParams)
+    })
+  }
+
   return homepageRoute || listpageRoute ? (
     <Fragment>
       <div className={classes.content}>
@@ -95,7 +118,8 @@ const HeaderMobile = () => {
                           variant="body1"
                           className={classes.modal__locations__searched__name}
                           onClick={() => {
-                            history.push(`/list/${item._id}`);
+                            // history.push(`/list/${item._id}`);
+                            handleCityClick(item?._id, item);
                             handleHideModalSearch();
                           }}
                         >
@@ -128,7 +152,7 @@ const HeaderMobile = () => {
                           variant="body1"
                           className={classes.modal__locations__searched__name}
                           onClick={() => {
-                            history.push(`/list/${item._id}`);
+                            handleCityClick(item?._id, item);
                             handleHideModalSearch();
                           }}
                         >

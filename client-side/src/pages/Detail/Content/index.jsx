@@ -173,8 +173,8 @@ const ContentRoom = ({ detailRoom, queryParams, detailRating }) => {
             {/* Info Host */}
             <div className={classes.info__host}>
               <div>
-                <Typography variant="body2">Toàn bộ biệt thự</Typography>
-                <Typography variant="body2">Chủ nhà Quang Huy</Typography>
+                {/* <Typography variant="body2">Toàn bộ biệt thự</Typography> */}
+                <Typography variant="body2">{detailRoom?.name}</Typography>
               </div>
               <Box position="relative">
                 <img
@@ -188,8 +188,8 @@ const ContentRoom = ({ detailRoom, queryParams, detailRating }) => {
 
             <div>
               <Typography variant="span">
-                {detailRoom?.guests} khách.{detailRoom?.bedRoom} phòng ngủ .
-                {detailRoom?.bath} phòng tắm và 1 phòng vệ sinh cơ bản
+                {detailRoom?.guests} khách . {detailRoom?.bedRoom} phòng ngủ .
+                {detailRoom?.bath} phòng tắm
               </Typography>
             </div>
           </div>

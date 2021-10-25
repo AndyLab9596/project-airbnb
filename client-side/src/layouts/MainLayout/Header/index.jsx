@@ -52,7 +52,7 @@ const Header = () => {
       _checkIn: params._checkIn,
       _checkOut: params._checkOut,
       _adult: Number.parseInt(params._adult),
-      _children: Number.parseInt(params._baby),
+      _children: Number.parseInt(params._children),
       _toddler: Number.parseInt(params._toddler),
     };
   }, [location.search]);
@@ -132,6 +132,8 @@ const Header = () => {
   const homepageRoute = matchUrl.path === "/";
   const listpageRoute = matchUrl.path === "/list/:locationId";
   const detailpageRoute = matchUrl.path === "/detail/:roomId";
+  const profilepageRoute = matchUrl.path === "/profile/:personId";
+  const paypageRoute = matchUrl.path === "/pay/:roomId";
   const classes = useStyles({
     scroll,
     displaySearchBar,
@@ -140,6 +142,8 @@ const Header = () => {
     detailpageRoute,
     listPageDisplaySearchBar,
     detailPageDisplaySearchBar,
+    profilepageRoute,
+    paypageRoute,
     isUserId,
   });
   const handleProfile = (userId) => {
@@ -151,11 +155,12 @@ const Header = () => {
       {/* AppBar */}
       <ClickAwayListener onClickAway={() => handleClickAwayListener()}>
         <AppBar
-          elevation={0}
+          elevation={3}
           className={`
                     ${homepageRoute && classes.root} 
                     ${listpageRoute && classes.listRoot}
                     ${detailpageRoute && classes.detailRoot}
+                    ${(profilepageRoute || paypageRoute) && classes.profileRoot}
                     `}
         >
           <Toolbar className={classes.navbar__content}>
@@ -330,9 +335,14 @@ const Header = () => {
                     ${homepageRoute && classes.searchBar} 
                     ${listpageRoute && classes.list__searchBar}
                     ${detailpageRoute && classes.detail__searchBar}
+                    ${profilepageRoute && classes.profile__searchBar}
+                    ${paypageRoute && classes.profile__searchBar}
                     `}
           >
-            <SearchBar listPageDisplaySearchBar={listPageDisplaySearchBar} listpageRoute={listpageRoute} isDesktop={isDesktop} />
+            <SearchBar
+              listPageDisplaySearchBar={listPageDisplaySearchBar}
+              listpageRoute={listpageRoute}
+              isDesktop={isDesktop} />
           </Box>
         </AppBar>
       </ClickAwayListener>

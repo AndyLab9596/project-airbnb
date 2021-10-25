@@ -4,6 +4,7 @@ export default makeStyles(theme => ({
     card: {
         position: 'relative',
         marginTop: '8px',
+        cursor: 'pointer',
     },
     card__media: {
         position: 'relative',

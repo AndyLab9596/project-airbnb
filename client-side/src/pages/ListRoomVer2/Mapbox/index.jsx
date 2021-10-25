@@ -6,11 +6,10 @@ import Pin from '../Pin';
 import useStyles from "./style";
 
 const Mapbox = (props) => {
-    const { rentRooms, province, handleChangePage } = props;
+    const { rentRooms, province, handleChangePage, setRoomCors, setLocationCoors } = props;
 
     const classes = useStyles();
     const [markerLocation, setMarkerLocation] = useState([]);
-
 
     const [viewport, setViewport] = useState({
         longitude: 0,
@@ -36,7 +35,7 @@ const Mapbox = (props) => {
             try {
                 const res = await manageMapboxApi.getLocation(province, getLocationParams)
                 setViewport({ ...viewport, longitude: res.data.features?.[0]?.center?.[0], latitude: res.data.features?.[0]?.center?.[1] })
-
+                setLocationCoors({ longitude: res.data.features?.[0]?.center?.[0], latitude: res.data.features?.[0]?.center?.[1] })
             } catch (error) {
                 console.log(error)
             }
@@ -52,6 +51,7 @@ const Mapbox = (props) => {
                     newMarkerLocation[i] = { ...rentRooms[i], longitude: res.data.features?.[0].center?.[0], latitude: res.data.features?.[0].center?.[1] }
                 }
                 setMarkerLocation(newMarkerLocation)
+                setRoomCors(newMarkerLocation)
             } catch (error) {
                 console.log(error.response)
             }

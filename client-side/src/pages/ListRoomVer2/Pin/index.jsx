@@ -1,5 +1,5 @@
 import StarIcon from '@material-ui/icons/Star';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Marker, Popup } from 'react-map-gl';
 import { formMoney } from '../../../utilities/coordinates';
 import useStyles from "./style";
