@@ -2,8 +2,8 @@ import { Grid } from '@material-ui/core';
 import MapIcon from '@material-ui/icons/Map';
 import { Pagination } from '@material-ui/lab';
 import queryString from 'query-string';
-import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useHistory, useLocation, useParams } from 'react-router';
 import Mapbox from '../Mapbox';
 import OptionsDialog from '../OptionsDialog';
 import useFetch from '../useFetch';
@@ -15,8 +15,36 @@ import useStyles from "./style";
 const MobileListRoom = () => {
 
     const location = useLocation();
-    const params = queryString.parse(location.search);
-    const province = params._location;
+    const history = useHistory();
+    const [roomCoors, setRoomCors] = useState([]);
+    const [locationCoors, setLocationCoors] = useState({})
+    const queryParams = useMemo(() => {
+        const params = queryString.parse(location.search);
+        return {
+            ...params,
+            _location: params._location,
+            _checkIn: params._checkIn,
+            _checkOut: params._checkOut,
+            _adult: Number.parseInt(params._adult),
+            _children: Number.parseInt(params._baby),
+            _toddler: Number.parseInt(params._toddler),
+        };
+    }, [location.search]);
+    const province = queryParams._location;
+
+    const handleChangePage = (roomId) => {
+
+        const pickedRoom = roomCoors.find((room => room._id === roomId));
+
+        history.push({
+            pathname: `/detail/${roomId}`,
+            search: queryString.stringify({
+                ...queryParams,
+                _roomLatitude: pickedRoom.latitude, _roomLongitude: pickedRoom.longitude,
+                _locationLatitude: locationCoors.latitude, _locationLongitude: locationCoors.longitude
+            }),
+        })
+    }
 
     const param = useParams();
     const locationId = param.locationId;
@@ -125,7 +153,13 @@ const MobileListRoom = () => {
             {/* Mapbox */}
             <div className={classes.map}>
                 <div className={classes.mapBox} onClick={() => handleSetFullMap()}>
-                    <Mapbox province={province} rentRooms={rentRooms} />
+                    <Mapbox
+                        province={province}
+                        rentRooms={rentRooms}
+                        setLocationCoors={setLocationCoors}
+                        setRoomCors={setRoomCors}
+                        handleChangePage={handleChangePage}
+                    />
                 </div>
             </div>
             {/* this div is used to press the main content downward */}

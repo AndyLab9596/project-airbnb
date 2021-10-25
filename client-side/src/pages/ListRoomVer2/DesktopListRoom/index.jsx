@@ -31,11 +31,12 @@ const DesktopListRoom = () => {
         setPage(page)
     }
 
-    const [roomCoors, setRoomCors] = useState([]);
-    const [locationCoors, setLocationCoors] = useState({})
+
     // Params
 
     const location = useLocation();
+    const [roomCoors, setRoomCors] = useState([]);
+    const [locationCoors, setLocationCoors] = useState({})
     const queryParams = useMemo(() => {
         const params = queryString.parse(location.search);
         return {
