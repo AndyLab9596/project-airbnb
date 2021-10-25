@@ -1,40 +1,29 @@
 import {
-  Box,
-  Button,
-  Container,
-  Dialog,
-  Grid,
-  IconButton,
-  TextField,
-  Typography,
+  Box, Container,
+  Dialog, FormControlLabel, Grid,
+  IconButton, Radio,
+  RadioGroup, TextField,
+  Typography
 } from "@material-ui/core";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
-import FacebookIcon from "@material-ui/icons/Facebook";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import InstagramIcon from "@material-ui/icons/Instagram";
-import LanguageIcon from "@material-ui/icons/Language";
-import StarIcon from "@material-ui/icons/Star";
-import TwitterIcon from "@material-ui/icons/Twitter";
-import React, { Fragment, useMemo, useState } from "react";
-import { useHistory, useLocation, useParams } from "react-router";
-import useStyles from "./style";
-import queryString from "query-string";
-import moment from "moment";
-import { useDispatch, useSelector } from "react-redux";
-import BookingPrice from "../../components/BookingPrice";
-import { formMoney } from "../../utilities/coordinates";
-import { LocalizationProvider, StaticDateRangePicker } from "@mui/lab";
-import { vi } from "date-fns/locale";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import GuestCount from "../../components/GuestCount";
-import ButtonSubmit from "../../components/ButtonSubmit";
-import ResultTicket from "./ResultTicket";
 import CloseIcon from "@material-ui/icons/Close";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import StarIcon from "@material-ui/icons/Star";
+import { LocalizationProvider, StaticDateRangePicker } from "@mui/lab";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import { vi } from "date-fns/locale";
+import moment from "moment";
+import queryString from "query-string";
+import React, { Fragment, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useLocation, useParams } from "react-router";
+import BookingPrice from "../../components/BookingPrice";
+import ButtonSubmit from "../../components/ButtonSubmit";
+import GuestCount from "../../components/GuestCount";
 import { PayBookingAction } from "../../store/action/RentRoomsAction";
+import { formMoney } from "../../utilities/coordinates";
+import ResultTicket from "./ResultTicket";
+import useStyles from "./style";
 const Pay = () => {
   const location = useLocation();
   const history = useHistory();
@@ -146,7 +135,7 @@ const Pay = () => {
       <Container className={classes.pay} maxWidth={false}>
         <Box>
           <div className={classes.pay__title}>
-            <IconButton className={classes.icon}>
+            <IconButton className={classes.icon} onClick={() => history.goBack()}>
               <ArrowBackIosIcon className={classes.pay__title__icon} />
             </IconButton>
             <Typography

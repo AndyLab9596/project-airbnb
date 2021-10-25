@@ -4,6 +4,7 @@ export default makeStyles(theme => ({
 
     //ROOT
     pay: {
+        paddingTop: 80,
         paddingLeft: 160,
         paddingRight: 160,
         [theme.breakpoints.down(376)]: {
@@ -31,19 +32,15 @@ export default makeStyles(theme => ({
     },
     pay__title: {
         display: "flex",
-
         alignItems: "center",
         paddingTop: 64,
         paddingBottom: 48,
         [theme.breakpoints.down(376)]: {
-
             padding: "15px 0",
             position: "fixed",
             backgroundColor: "#fff",
             zIndex: 999,
             minWidth: 375,
-
-
         },
     },
     pay__content: {
@@ -56,7 +53,6 @@ export default makeStyles(theme => ({
     },
     pay__title__icon: {
         fontSize: 15,
-
 
     },
     pay__title__text: {
@@ -525,9 +521,9 @@ export default makeStyles(theme => ({
         alignItems: "center",
         padding: "0 24px",
         minHeight: 65,
-     
+
         borderBottom: "1px solid rgb(235, 235, 235)",
-       
+
         "& >p": {
             fontWeight: 800,
             fontSize: "1em",
