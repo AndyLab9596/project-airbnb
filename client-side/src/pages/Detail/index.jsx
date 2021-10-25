@@ -52,7 +52,6 @@ const Detail = () => {
       _toddler: Number.parseInt(params._toddler),
     };
   }, [location.search]);
-  // const fakeRoomId = "61699651efe193001c0a5bda";
   const dispatch = useDispatch();
   const { detailRoom, detailRating } = useSelector(
     (state) => state.RentRoomsReducer
@@ -60,7 +59,7 @@ const Detail = () => {
   useEffect(() => {
     dispatch(DetailRoomAction(roomId));
     dispatch(DetailRatingAction(roomId));
-  }, [dispatch]);
+  }, [dispatch, roomId]);
 
 
   return (

@@ -138,9 +138,7 @@ const RoomImage = ({ detailRoom, detailRating }) => {
                 </Typography>
                 <Typography variant="body2">
                   <Button disableRipple className={classes.room__location}>
-                    {detailRoom?.locationId?.name}
-                    {detailRoom?.locationId?.province}-
-                    {detailRoom?.locationId?.country}
+                    {detailRoom?.locationId?.name} {detailRoom?.locationId?.province} - {detailRoom?.locationId?.country}
                   </Button>
                 </Typography>
               </div>
