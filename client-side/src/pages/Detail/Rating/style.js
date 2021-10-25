@@ -139,7 +139,7 @@ export default makeStyles((theme) => ({
     },
   },
   rating__modal__content__userRated: {
-    paddingBottom: 80,
+    paddingBottom: 120,
 
     [theme.breakpoints.up("md")]: {
       paddingBottom: 0,
