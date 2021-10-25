@@ -2,13 +2,17 @@ import { Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, Dial
 import CloseIcon from '@material-ui/icons/Close';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import useStyles from "./style";
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function OptionsDialog({ filter, setFilter, resetFilter }) {
-    const classes = useStyles();
+    const theme = useTheme();
+    const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
 
     const utilities = [
         { id: 1, name: 'elevator', label: 'Thang máy' },
@@ -82,6 +86,7 @@ export default function OptionsDialog({ filter, setFilter, resetFilter }) {
     }, [open]);
 
 
+    const classes = useStyles({ isDesktop });
 
     return (
         <Fragment>
@@ -92,8 +97,9 @@ export default function OptionsDialog({ filter, setFilter, resetFilter }) {
             </div>
 
             <Dialog
-                fullWidth="true"
-                maxWidth="md"
+                fullWidth={isDesktop && "true"}
+                maxWidth={isDesktop && "md"}
+                fullScreen={!isDesktop && "true"}
                 open={open}
                 onClose={handleClose}
                 scroll={scroll}

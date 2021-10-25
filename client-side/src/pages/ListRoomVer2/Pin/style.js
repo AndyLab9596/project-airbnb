@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(theme => ({
     root: {
+        zIndex: 1,
         "& .mapboxgl-marker": {
             '&:hover': {
                 zIndex: 2

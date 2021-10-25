@@ -143,7 +143,7 @@ const ModalSignUp = () => {
                 />
                 <TextFieldComponent
                   {...formik}
-                  type="number"
+                  type="text"
                   label="Phone"
                   name="phone"
                   valueInput={formik.values.phone}

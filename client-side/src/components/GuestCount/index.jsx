@@ -10,7 +10,6 @@ const GuestCount = ({ numbersFilter, setNumbersFilter }) => {
   const matchUrl = useRouteMatch();
   const detailpageRoute = matchUrl.path === "/detail/:roomId";
 
-  console.log("detailpageRoute", detailpageRoute);
   const handleAddAdult = () => {
     if (numbersFilter._adult >= 9) return;
     setNumbersFilter({ ...numbersFilter, _adult: numbersFilter._adult + 1 });

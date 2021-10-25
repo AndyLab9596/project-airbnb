@@ -4,6 +4,7 @@ export default makeStyles(theme => ({
         width: '100%',
         maxHeight: '100vh - 80px',
         borderRadius: '12px',
+        zIndex: 9
     },
 
     header: {
@@ -137,7 +138,7 @@ export default makeStyles(theme => ({
 
     content__element__checkbox: {
         padding: '12px 0',
-        flexBasis: '50%',
+        flexBasis: props => props.isDesktop ? '50%' : '100%'
     },
 
     formControl: {

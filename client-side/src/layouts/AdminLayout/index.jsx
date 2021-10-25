@@ -34,9 +34,11 @@ import useStyles from "./style";
 import AddLocationIcon from "@material-ui/icons/AddLocation";
 import EditLocationIcon from "@material-ui/icons/EditLocation";
 import { AddLocation, EditLocation } from "@material-ui/icons";
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+
 const AdminLayout = (props) => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const [openList, setOpenList] = useState(true);
   const dispatch = useDispatch();
@@ -231,7 +233,7 @@ const AdminLayout = (props) => {
                                 {expanded.user.length > 0 ? (
                                   <ExpandMore />
                                 ) : (
-                                  <ExpandLess />
+                                  <NavigateNextIcon />
                                 )}
                               </Typography>
                             </Box>
@@ -242,6 +244,7 @@ const AdminLayout = (props) => {
                             to={"/admin/user/edit/:"}
                             activeClassName={classes.active}
                             className={classes.link}
+                            exact
                           >
                             <ContentTreeItem
                               nodeId="2"
@@ -255,6 +258,7 @@ const AdminLayout = (props) => {
                             to="/admin/user/add"
                             activeClassName={classes.active}
                             className={classes.link}
+                            exact
                           >
                             <ContentTreeItem
                               nodeId="3"
