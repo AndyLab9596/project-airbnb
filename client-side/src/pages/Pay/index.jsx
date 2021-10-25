@@ -3,8 +3,11 @@ import {
   Button,
   Container,
   Dialog,
+  DialogContent,
   Grid,
   IconButton,
+  Slide,
+  SwipeableDrawer,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -12,29 +15,27 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
-import FacebookIcon from "@material-ui/icons/Facebook";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import InstagramIcon from "@material-ui/icons/Instagram";
-import LanguageIcon from "@material-ui/icons/Language";
-import StarIcon from "@material-ui/icons/Star";
-import TwitterIcon from "@material-ui/icons/Twitter";
-import React, { Fragment, useMemo, useState } from "react";
-import { useHistory, useLocation, useParams } from "react-router";
-import useStyles from "./style";
-import queryString from "query-string";
-import moment from "moment";
-import { useDispatch, useSelector } from "react-redux";
-import BookingPrice from "../../components/BookingPrice";
-import { formMoney } from "../../utilities/coordinates";
-import { LocalizationProvider, StaticDateRangePicker } from "@mui/lab";
-import { vi } from "date-fns/locale";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import GuestCount from "../../components/GuestCount";
-import ButtonSubmit from "../../components/ButtonSubmit";
-import ResultTicket from "./ResultTicket";
 import CloseIcon from "@material-ui/icons/Close";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import StarIcon from "@material-ui/icons/Star";
+import { LocalizationProvider, StaticDateRangePicker } from "@mui/lab";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import { vi } from "date-fns/locale";
+import moment from "moment";
+import queryString from "query-string";
+import React, { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useLocation, useParams } from "react-router";
+import BookingPrice from "../../components/BookingPrice";
+import ButtonSubmit from "../../components/ButtonSubmit";
+import GuestCount from "../../components/GuestCount";
 import { PayBookingAction } from "../../store/action/RentRoomsAction";
+import { formMoney } from "../../utilities/coordinates";
+import ResultTicket from "./ResultTicket";
+import useStyles from "./style";
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 const Pay = () => {
   const location = useLocation();
   const history = useHistory();
@@ -47,7 +48,7 @@ const Pay = () => {
   const param = useParams();
   const dispatch = useDispatch();
 
-  console.log('queryParams', queryParams);
+  console.log("queryParams", queryParams);
   const { detailRoom } = useSelector((state) => state.RentRoomsReducer);
   const { arrPayBooking } = useSelector((state) => state.RentRoomsReducer);
   console.log("arrPayBooking", arrPayBooking);
@@ -74,8 +75,8 @@ const Pay = () => {
     return totalDate < 7
       ? formMoney(detailRoom?.price * totalDate + 100000)
       : totalDate > 30
-        ? formMoney(detailRoom?.price * (totalDate - 5) + 100000)
-        : formMoney(detailRoom?.price * (totalDate - 1) + 100000);
+      ? formMoney(detailRoom?.price * (totalDate - 5) + 100000)
+      : formMoney(detailRoom?.price * (totalDate - 1) + 100000);
   };
   // const [selectedValue, setSelectedValue] = React.useState("a");
 
@@ -140,7 +141,17 @@ const Pay = () => {
   const handleClickBackHome = () => {
     history.push("/");
   };
+  const toggleDrawer = (anchor, opened) => (event) => {
+    if (
+      event &&
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
 
+    setOpen({ ...open, [anchor]: opened });
+  };
   return (
     <div>
       <Container className={classes.pay} maxWidth={false}>
@@ -383,13 +394,13 @@ const Pay = () => {
                   <ButtonSubmit
                     handleSubmit={handleOpen1}
                     text={text}
-                  // className={classes.pay__button__confirm}
+                    // className={classes.pay__button__confirm}
                   />
                 </div>
               </Grid>
 
               {/* RIGHT  */}
-              <Grid item lg={6} md={6}>
+              <Grid item lg={6} md={6} xs={12}>
                 <Box className={classes.pay__right}>
                   <div>
                     <div className={classes.pay__left__noti}>
@@ -475,7 +486,9 @@ const Pay = () => {
           open={open.modalDate || open.modalPay || open.modalGuest}
           maxWidth="md"
           className={classes.root}
+          classes={{ paper: classes.paper }}
           keepMounted
+          TransitionComponent={Transition}
         >
           {open.modalPay && (
             <div>
@@ -503,7 +516,7 @@ const Pay = () => {
             </div>
           )}
           {open.modalDate && (
-            <div>
+            <div className={classes.date_modal}>
               <div className={classes.modal__header}>
                 <IconButton className={classes.icon} onClick={handleClose}>
                   <CloseIcon />
@@ -513,7 +526,6 @@ const Pay = () => {
                 ) : (
                   <Typography variant="body2">{totalDate} Đêm</Typography>
                 )}
-
                 <div></div>
               </div>
               <LocalizationProvider
@@ -524,6 +536,7 @@ const Pay = () => {
                   disablePast
                   displayStaticWrapperAs="desktop"
                   value={bookingTime}
+                  className={classes.booking__datepicker}
                   // calendars={isDesktop ? 2 : 1}
                   onChange={(newValue) => {
                     setBookingTime(newValue);
@@ -537,26 +550,87 @@ const Pay = () => {
                   )}
                 />
               </LocalizationProvider>
-            </div>
-          )}
-          {open.modalGuest && (
-            <div>
-              <div className={classes.modal__header}>
-                <IconButton className={classes.icon} onClick={handleClose}>
-                  <CloseIcon />
-                </IconButton>
-                <Typography variant="body2">Khách</Typography>
-                <div></div>
-              </div>
-              <div style={{ padding: 20 }}>
-                <GuestCount
-                  numbersFilter={numbersFilter}
-                  setNumbersFilter={setNumbersFilter}
-                />
+              <div className={classes.booking__container}>
+                <div className={classes.booking__content}>
+                  <Box
+                    display={isBooking ? "block" : "flex"}
+                    flexDirection="column"
+                  >
+                    <div>
+                      <Typography
+                        variant="h5"
+                        className={classes.booking__content__price}
+                      >
+                        {formMoney(detailRoom?.price)}
+                        <Typography variant="span">/đêm</Typography>
+                      </Typography>
+                    </div>
+                    <div>
+                      <Typography variant="body2">
+                        {!isBooking && (
+                          <Fragment>
+                            <Typography
+                              variant="span"
+                              className={classes.booking__dateTime}
+                              // onClick={() => setOpenModal(true)}
+                            >
+                              {moment(bookingTime[0]).format("Do MMM")} -
+                              <Typography variant="span">
+                                {moment(bookingTime[1]).format("Do MMM")}
+                              </Typography>
+                            </Typography>
+                          </Fragment>
+                        )}
+                      </Typography>
+                    </div>
+                  </Box>
+
+                  <Button
+                    // onClick={() => setOpenModal(false)}
+                    className={
+                      isBooking
+                        ? classes.booking__content__btn__save__isBooking
+                        : classes.booking__content__btn__save
+                    }
+                  >
+                    Lưu
+                  </Button>
+                </div>
               </div>
             </div>
           )}
         </Dialog>
+        <SwipeableDrawer
+          anchor="bottom"
+          open={open.modalGuest}
+          onClose={toggleDrawer("modalGuest", false)}
+          onOpen={toggleDrawer("modalGuest", true)}
+          // onClose={handleClose}
+        >
+          <div>
+            <div className={classes.modal__header}>
+              <IconButton className={classes.icon} onClick={handleClose}>
+                <CloseIcon />
+              </IconButton>
+              <Typography variant="body2">Khách</Typography>
+              <div></div>
+            </div>
+            <div style={{ padding: 20 }}>
+              <GuestCount
+                numbersFilter={numbersFilter}
+                setNumbersFilter={setNumbersFilter}
+              />
+            </div>
+            <div
+              style={{
+                borderTop: "1px solid #222222",
+                padding: 10,
+              }}
+            >
+              <button>lưu</button>
+            </div>
+          </div>
+        </SwipeableDrawer>
       </Container>
     </div>
   );
