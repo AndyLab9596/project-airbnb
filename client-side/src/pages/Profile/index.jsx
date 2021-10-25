@@ -1,17 +1,11 @@
-import { Avatar, Container, Grid, TextField } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
+import { Avatar, Container, Grid, Button, Card, CardActions, CardContent, Typography, useMediaQuery } from "@material-ui/core";
+import { useTheme } from "@material-ui/core/styles";
 import DoneOutlinedIcon from "@material-ui/icons/DoneOutlined";
 import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 import VerifiedUserOutlinedIcon from "@material-ui/icons/VerifiedUserOutlined";
+import { useFormik } from "formik";
 import React from "react";
 import useStyles from "./style";
-import { useTheme } from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { useFormik } from "formik";
 const Profile = () => {
   const classes = useStyles();
 
@@ -21,7 +15,7 @@ const Profile = () => {
     formik.setFieldValue(event.target.name, event.target.files[0]);
     // file là array mỗi lần chọn đúng 1 hình nên chọn index [0]
   };
-  
+
   const formik = useFormik({
     initialValues: {
       hinhAnh: "",
