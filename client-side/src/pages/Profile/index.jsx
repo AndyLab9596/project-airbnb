@@ -6,11 +6,18 @@ import VerifiedUserOutlinedIcon from "@material-ui/icons/VerifiedUserOutlined";
 import { useFormik } from "formik";
 import React from "react";
 import useStyles from "./style";
+import { useSelector } from "react-redux"
+
 const Profile = () => {
   const classes = useStyles();
 
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("xl"));
+
+  const infoUser = useSelector(state => state.AuthReducer.infoUser)
+  console.log(infoUser)
+
+
   const handleChangeFile = (event) => {
     formik.setFieldValue(event.target.name, event.target.files[0]);
     // file là array mỗi lần chọn đúng 1 hình nên chọn index [0]
@@ -31,8 +38,8 @@ const Profile = () => {
                 <CardContent className={classes.profile__top}>
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     <Avatar
-                      alt="Remy Sharp"
-                      src="/static/images/avatar/1.jpg"
+                      alt="Avatar"
+                      src={infoUser.avatar}
                       className={classes.large}
                     />
                   </div>
@@ -63,7 +70,7 @@ const Profile = () => {
                 </CardContent>
                 <CardActions style={{ display: "block", paddingTop: 20 }}>
                   <Typography variant="h6" style={{ marginBottom: 12 }}>
-                    Phat đã xác nhận
+                    {infoUser.name} đã xác nhận
                   </Typography>
                   <div style={{ display: "flex" }}>
                     <DoneOutlinedIcon style={{ marginRight: 5 }} />
@@ -78,7 +85,7 @@ const Profile = () => {
               <div className={classes.profile__left}>
                 <div style={{ marginBottom: 48 }}>
                   <Typography variant="h5" className={classes.profile__title}>
-                    Xin chào, tôi là Phat
+                    Xin chào, tôi là {infoUser.name}
                   </Typography>
                   <Typography className={classes.profile__text3}>
                     Bắt đầu tham gia vào 2021
