@@ -31,9 +31,12 @@ const DesktopListRoom = () => {
         setPage(page)
     }
 
+
     // Params
 
     const location = useLocation();
+    const [roomCoors, setRoomCors] = useState([]);
+    const [locationCoors, setLocationCoors] = useState({})
     const queryParams = useMemo(() => {
         const params = queryString.parse(location.search);
         return {
@@ -42,17 +45,23 @@ const DesktopListRoom = () => {
             _checkIn: params._checkIn,
             _checkOut: params._checkOut,
             _adult: Number.parseInt(params._adult),
-            _children: Number.parseInt(params._baby),
+            _children: Number.parseInt(params._children),
             _toddler: Number.parseInt(params._toddler),
         };
     }, [location.search]);
-    // console.log('queryParams', queryParams)
     const province = queryParams._location;
 
     const handleChangePage = (roomId) => {
+
+        const pickedRoom = roomCoors.find((room => room._id === roomId));
+
         history.push({
             pathname: `/detail/${roomId}`,
-            search: queryString.stringify(queryParams),
+            search: queryString.stringify({
+                ...queryParams,
+                _roomLatitude: pickedRoom.latitude, _roomLongitude: pickedRoom.longitude,
+                _locationLatitude: locationCoors.latitude, _locationLongitude: locationCoors.longitude
+            }),
         })
     }
 
@@ -155,7 +164,9 @@ const DesktopListRoom = () => {
 
                     <div className={classes.cards}>
                         {loading ? <SkeletonCard length={4} /> :
-                            <Card handleChangePage={handleChangePage} queryParams={queryParams} finalFiltered={finalFiltered}
+                            <Card handleChangePage={handleChangePage}
+                                queryParams={queryParams}
+                                finalFiltered={finalFiltered}
 
                             />}
 
@@ -182,7 +193,12 @@ const DesktopListRoom = () => {
                 {/* Map */}
                 <div className={classes.map}>
                     <div className={classes.mapBox}>
-                        <Mapbox handleChangePage={handleChangePage} province={province} rentRooms={rentRooms} />
+                        <Mapbox
+                            setLocationCoors={setLocationCoors}
+                            setRoomCors={setRoomCors}
+                            handleChangePage={handleChangePage}
+                            province={province}
+                            rentRooms={rentRooms} />
                     </div>
                 </div>
 

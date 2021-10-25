@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/styles";
 import queryString from "query-string";
 import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router";
+import { useLocation, useParams } from "react-router";
 import {
   DetailRatingAction,
   DetailRoomAction,
@@ -36,23 +36,36 @@ const Detail = () => {
   const isMobile = useMediaQuery(theme.breakpoints.up("md"));
   const isDeskTop = useMediaQuery(theme.breakpoints.up("xl"));
   const classes = useStyle({ isMobile, isDeskTop });
-  const fakeRoomId = "61699651efe193001c0a5bda";
-  const dispatch = useDispatch();
-  const { detailRoom, detailRating } = useSelector(
-    (state) => state.RentRoomsReducer
-  );
-  useEffect(() => {
-    dispatch(DetailRoomAction(fakeRoomId));
-    dispatch(DetailRatingAction(fakeRoomId));
-  }, [dispatch]);
+  const params = useParams();
+  const roomId = params.roomId
 
   const location = useLocation();
   const queryParams = useMemo(() => {
     const params = queryString.parse(location.search);
     return {
       ...params,
+      _location: params._location,
+      _checkIn: params._checkIn,
+      _checkOut: params._checkOut,
+      _adult: Number.parseInt(params._adult),
+      _children: Number.parseInt(params._children),
+      _toddler: Number.parseInt(params._toddler),
+      _roomLatitude: Number(params._roomLatitude),
+      _roomLongitude: Number(params._roomLongitude),
+      _locationLatitude: Number(params._locationLatitude),
+      _locationLongitude: Number(params._locationLongitude)
     };
   }, [location.search]);
+  const dispatch = useDispatch();
+  const { detailRoom, detailRating } = useSelector(
+    (state) => state.RentRoomsReducer
+  );
+  useEffect(() => {
+    dispatch(DetailRoomAction(roomId));
+    dispatch(DetailRatingAction(roomId));
+  }, [dispatch, roomId]);
+
+
   return (
     <div className={classes.content}>
       <RoomImage detailRoom={detailRoom} detailRating={detailRating} />
@@ -65,7 +78,7 @@ const Detail = () => {
 
       {/* Map */}
       <div className={classes.wrapper}>
-        <DetailRoomMap />
+        <DetailRoomMap queryParams={queryParams} />
       </div>
 
       {/*  Rating */}

@@ -32,7 +32,6 @@ export const DetailRatingAction = (idRoom) => {
   return async (dispatch) => {
     try {
       const res = await managerDetailRoom.getDetailRatingRoom(idRoom);
-      console.log(res);
       dispatch(createAction(DETAIL_RATING_ROOM, res));
     } catch (error) {
       console.log(error);

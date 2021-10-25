@@ -52,7 +52,7 @@ const Header = () => {
       _checkIn: params._checkIn,
       _checkOut: params._checkOut,
       _adult: Number.parseInt(params._adult),
-      _children: Number.parseInt(params._baby),
+      _children: Number.parseInt(params._children),
       _toddler: Number.parseInt(params._toddler),
     };
   }, [location.search]);
@@ -332,7 +332,10 @@ const Header = () => {
                     ${detailpageRoute && classes.detail__searchBar}
                     `}
           >
-            <SearchBar listPageDisplaySearchBar={listPageDisplaySearchBar} listpageRoute={listpageRoute} isDesktop={isDesktop} />
+            <SearchBar
+              listPageDisplaySearchBar={listPageDisplaySearchBar}
+              listpageRoute={listpageRoute}
+              isDesktop={isDesktop} />
           </Box>
         </AppBar>
       </ClickAwayListener>
