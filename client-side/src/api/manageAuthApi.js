@@ -18,8 +18,8 @@ const manageAuthApi = {
     // data {name: '', email: '', password: '', phone: '', birthday: '', gender: true(male), false(fermale), address: ''}
   },
 
-  updateAvatarUser(formData) {
-    const url = `users/upload-avatar`;
+  postAvatarUser(formData) {
+    const url = `/users/upload-avatar`;
     return axiosClient.post(url, formData);
   },
 };

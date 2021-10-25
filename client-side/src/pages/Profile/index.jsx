@@ -4,9 +4,10 @@ import DoneOutlinedIcon from "@material-ui/icons/DoneOutlined";
 import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 import VerifiedUserOutlinedIcon from "@material-ui/icons/VerifiedUserOutlined";
 import { useFormik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import useStyles from "./style";
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { updateAvatarUser } from "../../store/action/Auth";
 
 const Profile = () => {
   const classes = useStyles();
@@ -15,19 +16,32 @@ const Profile = () => {
   const isDesktop = useMediaQuery(theme.breakpoints.up("xl"));
 
   const infoUser = useSelector(state => state.AuthReducer.infoUser)
-  console.log(infoUser)
+  const dispatch = useDispatch()
+  // console.log(infoUser)
+  const formik = useFormik({
+    initialValues: {
+      image: "",
+    },
+  });
 
 
   const handleChangeFile = (event) => {
+    // event.preventDefault();
+    console.log(event.target.files[0])
     formik.setFieldValue(event.target.name, event.target.files[0]);
-    // file là array mỗi lần chọn đúng 1 hình nên chọn index [0]
   };
+  const handleUploadImage = (e) => {
+    if (!formik.isValid) return;
+    const formData = new FormData();
 
-  const formik = useFormik({
-    initialValues: {
-      hinhAnh: "",
-    },
-  });
+    formData.append("avatar", formik.values.image);
+
+    dispatch((updateAvatarUser(formData)));
+  }
+
+
+
+
   return (
     <Container maxWidth="lg" className={classes.profile}>
       {isDesktop ? (
@@ -45,13 +59,14 @@ const Profile = () => {
                   </div>
 
                   <input
-                    name="hinhAnh"
+                    name="image"
                     onChange={handleChangeFile}
                     type="file"
                   />
                   <Typography
                     className={classes.profile__text}
                     style={{ textAlign: "center" }}
+                    onClick={() => handleUploadImage()}
                   >
                     Cập nhật ảnh
                   </Typography>
