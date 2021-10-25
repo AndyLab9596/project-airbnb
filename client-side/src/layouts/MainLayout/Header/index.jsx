@@ -153,11 +153,13 @@ const Header = () => {
       {/* AppBar */}
       <ClickAwayListener onClickAway={() => handleClickAwayListener()}>
         <AppBar
-          elevation={0}
+          elevation={3}
           className={`
                     ${homepageRoute && classes.root} 
                     ${listpageRoute && classes.listRoot}
                     ${detailpageRoute && classes.detailRoot}
+                    ${profilepageRoute && classes.profileRoot}
+
                     `}
         >
           <Toolbar className={classes.navbar__content}>

@@ -40,6 +40,18 @@ export default makeStyles(theme => ({
     boxShadow: 'rgb(0 0 0 / 8%) 0px 1px 12px '
   },
 
+  profileRoot: {
+    height: props => props.profilepageRoute && '80px',
+    position: "fixed",
+    width: '100%',
+    margin: '0 auto',
+    padding: '0 40px',
+    paddingBottom: 0,
+    marginBottom: 0,
+    boxShadow: 'rgb(0 0 0 / 8%) 0px 1px 12px ',
+    backgroundColor: props => props.profilepageRoute && '#fff',
+  },
+
   navbar__content: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -218,7 +230,7 @@ export default makeStyles(theme => ({
   },
 
   list__navbar__content__left__button: {
-    color: props => (props.listpageRoute || props.detailpageRoute) && '#000',
+    color: props => (props.listpageRoute || props.detailpageRoute || props.profilepageRoute) && '#000',
     '&:hover': {
       backgroundColor: 'rgb(221, 221, 221)',
     }
@@ -238,7 +250,7 @@ export default makeStyles(theme => ({
   },
 
   list__language__icon: {
-    color: props => (props.listpageRoute || props.detailpageRoute) && '#000',
+    color: props => (props.listpageRoute || props.detailpageRoute || props.profilepageRoute) && '#000',
   },
 
 
