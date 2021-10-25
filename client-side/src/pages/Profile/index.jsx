@@ -1,13 +1,15 @@
-import { Avatar, Container, Grid, Button, Card, CardActions, CardContent, Typography, useMediaQuery } from "@material-ui/core";
+import { Avatar, Container, Grid, Button, Card, CardActions, CardContent, Typography, useMediaQuery, IconButton } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import DoneOutlinedIcon from "@material-ui/icons/DoneOutlined";
 import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 import VerifiedUserOutlinedIcon from "@material-ui/icons/VerifiedUserOutlined";
 import { useFormik } from "formik";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useStyles from "./style";
 import { useSelector, useDispatch } from "react-redux"
-import { updateAvatarUser } from "../../store/action/Auth";
+import { getInfoUserAction, updateAvatarUser } from "../../store/action/Auth";
+import manageAuthApi from "../../api/manageAuthApi";
+import { USERID } from "../../constants/config";
 
 const Profile = () => {
   const classes = useStyles();
@@ -17,28 +19,25 @@ const Profile = () => {
 
   const infoUser = useSelector(state => state.AuthReducer.infoUser)
   const dispatch = useDispatch()
-  // console.log(infoUser)
-  const formik = useFormik({
-    initialValues: {
-      image: "",
-    },
-  });
-
+  const [fileUpload, setFileUpload] = useState(null);
 
   const handleChangeFile = (event) => {
-    // event.preventDefault();
-    console.log(event.target.files[0])
-    formik.setFieldValue(event.target.name, event.target.files[0]);
+    setFileUpload(event.target.files[0])
   };
-  const handleUploadImage = (e) => {
-    if (!formik.isValid) return;
-    const formData = new FormData();
 
-    formData.append("avatar", formik.values.image);
+  const idUser = localStorage.getItem(USERID);
 
-    dispatch((updateAvatarUser(formData)));
-  }
+  useEffect(() => {
 
+    const handleUpImage = async () => {
+      const formData = new FormData();
+      formData.append("avatar", fileUpload);
+      const res = await manageAuthApi.postAvatarUser(formData);
+      dispatch(getInfoUserAction(idUser));
+    }
+
+    handleUpImage()
+  }, [dispatch, fileUpload, idUser])
 
 
 
@@ -58,18 +57,12 @@ const Profile = () => {
                     />
                   </div>
 
-                  <input
-                    name="image"
-                    onChange={handleChangeFile}
-                    type="file"
-                  />
-                  <Typography
-                    className={classes.profile__text}
-                    style={{ textAlign: "center" }}
-                    onClick={() => handleUploadImage()}
-                  >
-                    Cập nhật ảnh
-                  </Typography>
+                  <input accept="image/*" className={classes.uploadInput} id="icon-button-file" type="file" onChange={handleChangeFile} />
+                  <label htmlFor="icon-button-file">
+                    <Typography className={classes.uploadButton}>
+                      Cập nhật ảnh
+                    </Typography>
+                  </label>
                   <div style={{ marginTop: 32, marginBottom: 16 }}>
                     <VerifiedUserOutlinedIcon />
                   </div>

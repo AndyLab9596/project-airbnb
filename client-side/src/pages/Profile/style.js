@@ -130,6 +130,20 @@ export default makeStyles(theme => ({
         ...underLine
     },
 
+    uploadInput: {
+        display: 'none',
+        marginTop: 8
+    },
+
+    uploadButton: {
+        fontSize: '13px',
+        color: '#222222',
+        textDecoration: 'underline',
+        textAlign: 'center',
+        fontWeight: 500
+    }
+
+
 
 
 
