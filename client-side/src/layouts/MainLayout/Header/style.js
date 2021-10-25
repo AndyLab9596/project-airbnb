@@ -317,6 +317,10 @@ export default makeStyles(theme => ({
     transform: props => props.detailPageDisplaySearchBar && props.detailpageRoute ? 'scale(1)' : 'scale(0)'
   },
 
+  profile__searchBar: {
+    display: props => props.profilepageRoute && 'none'
+  },
+
   // Detail Page CSS
 
   list__navbar__search__wrapper: {

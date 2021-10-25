@@ -132,6 +132,7 @@ const Header = () => {
   const homepageRoute = matchUrl.path === "/";
   const listpageRoute = matchUrl.path === "/list/:locationId";
   const detailpageRoute = matchUrl.path === "/detail/:roomId";
+  const profilepageRoute = matchUrl.path === "/profile/:personId";
   const classes = useStyles({
     scroll,
     displaySearchBar,
@@ -140,6 +141,7 @@ const Header = () => {
     detailpageRoute,
     listPageDisplaySearchBar,
     detailPageDisplaySearchBar,
+    profilepageRoute,
     isUserId,
   });
   const handleProfile = (userId) => {
@@ -330,6 +332,7 @@ const Header = () => {
                     ${homepageRoute && classes.searchBar} 
                     ${listpageRoute && classes.list__searchBar}
                     ${detailpageRoute && classes.detail__searchBar}
+                    ${profilepageRoute && classes.profile__searchBar}
                     `}
           >
             <SearchBar

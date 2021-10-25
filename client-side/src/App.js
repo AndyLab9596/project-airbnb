@@ -24,10 +24,6 @@ import AddUser from "./pages/AdminUser/AddUser";
 import EditLocation from "./pages/AdminLocation/EditLocation";
 import AddLocation from "./pages/AdminLocation/AddLocation";
 
-
-
-
-
 //Components
 
 import ListRoom from "./pages/ListRoom";
