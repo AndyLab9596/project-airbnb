@@ -87,11 +87,13 @@ const PriceFilterDrawer = ({ filter, setFilter, priceValue, setPriceValue, handl
                     {/* Footer */}
                     <div className={classes.priceMenu__footer}>
                         <div className={classes.priceMenu__footer__wrapper}>
-                            <button className={classes.priceMenu__footer__deleteBtn} onClick={() => setPriceValue([0, 1000000])}>
+                            <button className={classes.priceMenu__footer__deleteBtn}
+                                onClick={() => setPriceValue([0, 1000000])}>
                                 Xóa
                             </button>
 
-                            <button className={classes.priceMenu__footer__saveBtn} onClick={toggleDrawer('bottom', false)}>
+                            <button className={classes.priceMenu__footer__saveBtn}
+                                onClick={toggleDrawer('bottom', false)}>
                                 Lưu
                             </button>
 
