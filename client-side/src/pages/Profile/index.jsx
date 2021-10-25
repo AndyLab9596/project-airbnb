@@ -1,15 +1,14 @@
-import { Avatar, Container, Grid, Button, Card, CardActions, CardContent, Typography, useMediaQuery, IconButton } from "@material-ui/core";
+import { Avatar, Button, Card, CardActions, CardContent, Container, Grid, Typography, useMediaQuery } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import DoneOutlinedIcon from "@material-ui/icons/DoneOutlined";
 import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 import VerifiedUserOutlinedIcon from "@material-ui/icons/VerifiedUserOutlined";
-import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
-import useStyles from "./style";
-import { useSelector, useDispatch } from "react-redux"
-import { getInfoUserAction, updateAvatarUser } from "../../store/action/Auth";
+import { useDispatch, useSelector } from "react-redux";
 import manageAuthApi from "../../api/manageAuthApi";
 import { USERID } from "../../constants/config";
+import { getInfoUserAction } from "../../store/action/Auth";
+import useStyles from "./style";
 
 const Profile = () => {
   const classes = useStyles();
@@ -131,7 +130,7 @@ const Profile = () => {
                 variant="h5"
                 className={classes.profile__mobile__title}
               >
-                Xin chào, tôi là Phat
+                Xin chào, tôi là {infoUser.name}
               </Typography>
               <Typography className={classes.profile__text3}>
                 Bắt đầu tham gia vào 2021
@@ -142,16 +141,16 @@ const Profile = () => {
             </div>
             <div>
               <Avatar
-                alt="Remy Sharp"
-                src="/static/images/avatar/1.jpg"
-                className={classes.large2}
+                alt="Avatar"
+                src={infoUser.avatar}
+                className={classes.large}
               />
-              <Typography
-                className={classes.profile__text}
-                style={{ textAlign: "center" }}
-              >
-                Cập nhật ảnh
-              </Typography>
+              <input accept="image/*" className={classes.uploadInput} id="icon-button-file" type="file" onChange={handleChangeFile} />
+              <label htmlFor="icon-button-file">
+                <Typography className={classes.uploadButton}>
+                  Cập nhật ảnh
+                </Typography>
+              </label>
             </div>
           </div>
           <div style={{ marginTop: 32, marginBottom: 16 }}>
@@ -171,7 +170,7 @@ const Profile = () => {
             style={{ display: "block", paddingTop: 20 }}
           >
             <Typography variant="h6" style={{ marginBottom: 12 }}>
-              Phat đã xác nhận
+              {infoUser.name} đã xác nhận
             </Typography>
             <div style={{ display: "flex" }}>
               <DoneOutlinedIcon style={{ marginRight: 5 }} />
