@@ -53,6 +53,7 @@ export default makeStyles(theme => ({
     },
     pay__title__icon: {
         fontSize: 15,
+        marginRight: 15
 
     },
     pay__title__text: {
@@ -61,9 +62,15 @@ export default makeStyles(theme => ({
         fontWeight: 600,
         color: "#222222",
         marginLeft: 20,
+        [theme.breakpoints.down(415)]: {
+
+            marginLeft: 40,
+            fontSize: 24,
+
+        },
         [theme.breakpoints.down(376)]: {
 
-
+            marginLeft: 40,
             fontSize: 16,
 
         },
@@ -258,7 +265,7 @@ export default makeStyles(theme => ({
         top: 150,
         marginLeft: 60,
         marginBottom: 100,
-        [theme.breakpoints.down(376)]: {
+        [theme.breakpoints.down(415)]: {
 
             marginLeft: 0,
 
@@ -511,6 +518,9 @@ export default makeStyles(theme => ({
         height: "100%",
         display: "flex",
         justifyContent: "center",
+
+
+
     },
     ButtonResult: {
         padding: 20
@@ -535,7 +545,111 @@ export default makeStyles(theme => ({
     icon: {
         position: "absolute",
         left: "1%",
+        [theme.breakpoints.down(415)]: {
+
+            left: "6%",
+
+        },
+        [theme.breakpoints.down(376)]: {
+
+            left: "-3%",
+
+        },
     },
+    booking__container: {
+        position: "fixed",
+        bottom: 0,
+        zIndex: 9999,
+        left: 0,
+        right: 0,
+        width: "100%",
+        backgroundColor: "rgb(255, 255, 255)",
+        borderTop: "1px solid rgb(221, 221, 221)",
+        minHeight: 80,
+    },
+    booking__content: {
+        padding: "0px 24px",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    booking__content__price: {
+        fontSize: 16,
+        fontWeight: 700,
+        "&>span": {
+            fontSize: 14,
+            fontWeight: 400,
+        },
+    },
+    booking__content__btn__save: {
+        width: "40%",
+        backgroundColor: "rgb(34, 34, 34)",
+        color: "#fff",
+        pointerEvents: "initial",
+    },
+    booking__content__btn__save__isBooking: {
+        width: "70%",
+        backgroundColor: "rgb(221, 221, 221)",
+        color: "#999",
+        pointerEvents: "none",
+    },
+    booking__dateTime: {
+        textDecoration: "underline",
+        fontSize: 18,
+        cursor: "pointer",
+    },
+
+    booking__modal: {
+        height: "100%",
+        backgroundColor: "#fff",
+        zIndex: 999,
+        display: "flex",
+        flexDirection: "column",
+        overflowX: "hidden",
+        padding: "0px 24px",
+        margin: "10px 0",
+        borderRadius: 12,
+        "& .css-4l7j15": {
+            overflow: "initial",
+        },
+    },
+    booking__modal__header: {
+        backgroundColor: "#fff",
+        position: "sticky",
+        top: 0,
+        width: "100%",
+        marginBottom: 15,
+        zIndex: 99,
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        "& >svg": {
+            cursor: "pointer",
+            fontSize: 20,
+        },
+        "& >span": {
+            textDecoration: "underline",
+            fontWeight: 600,
+        },
+    },
+    booking__datepicker: {
+        padding: "24px 0",
+        "& .css-1xhj18k": {
+            display: "block",
+            "& .css-1tape97": {
+                border: "none",
+            },
+        },
+    },
+    date_modal: {
+        minWidth: "414px",
+
+    },
+    paper: {
+        margin: 0
+    }
+
+
 
 
 }))

@@ -1,32 +1,45 @@
-import { Avatar, Container, Grid, TextField } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
+import { Avatar, Button, Card, CardActions, CardContent, Container, Grid, Typography, useMediaQuery } from "@material-ui/core";
+import { useTheme } from "@material-ui/core/styles";
 import DoneOutlinedIcon from "@material-ui/icons/DoneOutlined";
 import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 import VerifiedUserOutlinedIcon from "@material-ui/icons/VerifiedUserOutlined";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import manageAuthApi from "../../api/manageAuthApi";
+import { USERID } from "../../constants/config";
+import { getInfoUserAction } from "../../store/action/Auth";
 import useStyles from "./style";
-import { useTheme } from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { useFormik } from "formik";
+
 const Profile = () => {
   const classes = useStyles();
 
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("xl"));
+
+  const infoUser = useSelector(state => state.AuthReducer.infoUser)
+  const dispatch = useDispatch()
+  const [fileUpload, setFileUpload] = useState(null);
+
   const handleChangeFile = (event) => {
-    formik.setFieldValue(event.target.name, event.target.files[0]);
-    // file là array mỗi lần chọn đúng 1 hình nên chọn index [0]
+    setFileUpload(event.target.files[0])
   };
-  
-  const formik = useFormik({
-    initialValues: {
-      hinhAnh: "",
-    },
-  });
+
+  const idUser = localStorage.getItem(USERID);
+
+  useEffect(() => {
+
+    const handleUpImage = async () => {
+      const formData = new FormData();
+      formData.append("avatar", fileUpload);
+      const res = await manageAuthApi.postAvatarUser(formData);
+      dispatch(getInfoUserAction(idUser));
+    }
+
+    handleUpImage()
+  }, [dispatch, fileUpload, idUser])
+
+
+
   return (
     <Container maxWidth="lg" className={classes.profile}>
       {isDesktop ? (
@@ -37,23 +50,18 @@ const Profile = () => {
                 <CardContent className={classes.profile__top}>
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     <Avatar
-                      alt="Remy Sharp"
-                      src="/static/images/avatar/1.jpg"
+                      alt="Avatar"
+                      src={infoUser.avatar}
                       className={classes.large}
                     />
                   </div>
 
-                  <input
-                    name="hinhAnh"
-                    onChange={handleChangeFile}
-                    type="file"
-                  />
-                  <Typography
-                    className={classes.profile__text}
-                    style={{ textAlign: "center" }}
-                  >
-                    Cập nhật ảnh
-                  </Typography>
+                  <input accept="image/*" className={classes.uploadInput} id="icon-button-file" type="file" onChange={handleChangeFile} />
+                  <label htmlFor="icon-button-file">
+                    <Typography className={classes.uploadButton}>
+                      Cập nhật ảnh
+                    </Typography>
+                  </label>
                   <div style={{ marginTop: 32, marginBottom: 16 }}>
                     <VerifiedUserOutlinedIcon />
                   </div>
@@ -69,7 +77,7 @@ const Profile = () => {
                 </CardContent>
                 <CardActions style={{ display: "block", paddingTop: 20 }}>
                   <Typography variant="h6" style={{ marginBottom: 12 }}>
-                    Phat đã xác nhận
+                    {infoUser.name} đã xác nhận
                   </Typography>
                   <div style={{ display: "flex" }}>
                     <DoneOutlinedIcon style={{ marginRight: 5 }} />
@@ -84,7 +92,7 @@ const Profile = () => {
               <div className={classes.profile__left}>
                 <div style={{ marginBottom: 48 }}>
                   <Typography variant="h5" className={classes.profile__title}>
-                    Xin chào, tôi là Phat
+                    Xin chào, tôi là {infoUser.name}
                   </Typography>
                   <Typography className={classes.profile__text3}>
                     Bắt đầu tham gia vào 2021
@@ -122,7 +130,7 @@ const Profile = () => {
                 variant="h5"
                 className={classes.profile__mobile__title}
               >
-                Xin chào, tôi là Phat
+                Xin chào, tôi là {infoUser.name}
               </Typography>
               <Typography className={classes.profile__text3}>
                 Bắt đầu tham gia vào 2021
@@ -133,16 +141,16 @@ const Profile = () => {
             </div>
             <div>
               <Avatar
-                alt="Remy Sharp"
-                src="/static/images/avatar/1.jpg"
-                className={classes.large2}
+                alt="Avatar"
+                src={infoUser.avatar}
+                className={classes.large}
               />
-              <Typography
-                className={classes.profile__text}
-                style={{ textAlign: "center" }}
-              >
-                Cập nhật ảnh
-              </Typography>
+              <input accept="image/*" className={classes.uploadInput} id="icon-button-file" type="file" onChange={handleChangeFile} />
+              <label htmlFor="icon-button-file">
+                <Typography className={classes.uploadButton}>
+                  Cập nhật ảnh
+                </Typography>
+              </label>
             </div>
           </div>
           <div style={{ marginTop: 32, marginBottom: 16 }}>
@@ -162,7 +170,7 @@ const Profile = () => {
             style={{ display: "block", paddingTop: 20 }}
           >
             <Typography variant="h6" style={{ marginBottom: 12 }}>
-              Phat đã xác nhận
+              {infoUser.name} đã xác nhận
             </Typography>
             <div style={{ display: "flex" }}>
               <DoneOutlinedIcon style={{ marginRight: 5 }} />

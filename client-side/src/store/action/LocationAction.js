@@ -27,7 +27,7 @@ export const CreateLocationAction = (data) => {
     return async (dispatch) => {
         try {
             const res = await manageLocationApi.postCreateLocation(data);
-            console.log(res);
+            // console.log(res);
             dispatch(createAction(CREATE_LOCATION, res));
         } catch (error) {
             console.log(error.response);
@@ -38,7 +38,7 @@ export const postUploadImageAction = (data, id) => {
     return async (dispatch) => {
         try {
             const res = await manageLocationApi.postUploadImageLocation(data, id);
-            console.log(res);
+            // console.log(res);
             dispatch(createAction(UPLOAD_IMAGE, res));
         } catch (error) {
             console.log(error.response);
