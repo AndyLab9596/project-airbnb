@@ -2,7 +2,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { underLine } from './underline';
 export default makeStyles(theme => ({
     profile: {
-        marginTop: "100px"
+        paddingTop: 80,
+        margin: '48px auto'
+
     },
     root: {
         maxWidth: 308,
@@ -93,14 +95,14 @@ export default makeStyles(theme => ({
         margin: "auto",
         [theme.breakpoints.down(769)]: {
 
-            minHeight:"85vh",
-            marginTop:"20%"
+            minHeight: "85vh",
+            marginTop: "20%"
 
         },
         [theme.breakpoints.down(1025)]: {
 
-            minHeight:"85vh",
-            marginTop:"20%"
+            minHeight: "85vh",
+            marginTop: "20%"
 
         },
         [theme.breakpoints.down(376)]: {
@@ -127,6 +129,20 @@ export default makeStyles(theme => ({
         paddingTop: 20,
         ...underLine
     },
+
+    uploadInput: {
+        display: 'none',
+        marginTop: 8
+    },
+
+    uploadButton: {
+        fontSize: '13px',
+        color: '#222222',
+        textDecoration: 'underline',
+        textAlign: 'center',
+        fontWeight: 500
+    }
+
 
 
 
