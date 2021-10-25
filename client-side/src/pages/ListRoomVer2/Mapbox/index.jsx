@@ -6,11 +6,10 @@ import Pin from '../Pin';
 import useStyles from "./style";
 
 const Mapbox = (props) => {
-    const { rentRooms, province, handleChangePage } = props;
+    const { rentRooms, province, handleChangePage, setCoors } = props;
 
     const classes = useStyles();
     const [markerLocation, setMarkerLocation] = useState([]);
-
 
     const [viewport, setViewport] = useState({
         longitude: 0,
@@ -52,6 +51,7 @@ const Mapbox = (props) => {
                     newMarkerLocation[i] = { ...rentRooms[i], longitude: res.data.features?.[0].center?.[0], latitude: res.data.features?.[0].center?.[1] }
                 }
                 setMarkerLocation(newMarkerLocation)
+                setCoors(newMarkerLocation)
             } catch (error) {
                 console.log(error.response)
             }
@@ -76,7 +76,7 @@ const Mapbox = (props) => {
             <NavigationControl style={navControlStyle} />
             {markerLocation.map((location, index) => (
                 <div key={location._id}>
-                    <Pin location={location} handleChangePage={handleChangePage} />
+                    <Pin location={location} setCoors={setCoors} handleChangePage={handleChangePage} />
                 </div>
             ))}
 

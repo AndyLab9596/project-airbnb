@@ -31,6 +31,7 @@ const DesktopListRoom = () => {
         setPage(page)
     }
 
+    const [coors, setCoors] = useState([]);
     // Params
 
     const location = useLocation();
@@ -50,9 +51,16 @@ const DesktopListRoom = () => {
     const province = queryParams._location;
 
     const handleChangePage = (roomId) => {
+
+        const pickedRoom = coors.find((room => room._id === roomId));
+        console.log(pickedRoom)
+
         history.push({
             pathname: `/detail/${roomId}`,
-            search: queryString.stringify(queryParams),
+            search: queryString.stringify({
+                ...queryParams,
+                _latitude: pickedRoom.latitude, _longitude: pickedRoom.longitude
+            }),
         })
     }
 
@@ -155,7 +163,9 @@ const DesktopListRoom = () => {
 
                     <div className={classes.cards}>
                         {loading ? <SkeletonCard length={4} /> :
-                            <Card handleChangePage={handleChangePage} queryParams={queryParams} finalFiltered={finalFiltered}
+                            <Card handleChangePage={handleChangePage}
+                                queryParams={queryParams}
+                                finalFiltered={finalFiltered}
 
                             />}
 
@@ -182,7 +192,11 @@ const DesktopListRoom = () => {
                 {/* Map */}
                 <div className={classes.map}>
                     <div className={classes.mapBox}>
-                        <Mapbox handleChangePage={handleChangePage} province={province} rentRooms={rentRooms} />
+                        <Mapbox
+                            setCoors={setCoors}
+                            handleChangePage={handleChangePage}
+                            province={province}
+                            rentRooms={rentRooms} />
                     </div>
                 </div>
 
