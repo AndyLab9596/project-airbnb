@@ -133,6 +133,7 @@ const Header = () => {
   const listpageRoute = matchUrl.path === "/list/:locationId";
   const detailpageRoute = matchUrl.path === "/detail/:roomId";
   const profilepageRoute = matchUrl.path === "/profile/:personId";
+  const paypageRoute = matchUrl.path === "/pay/:roomId";
   const classes = useStyles({
     scroll,
     displaySearchBar,
@@ -142,6 +143,7 @@ const Header = () => {
     listPageDisplaySearchBar,
     detailPageDisplaySearchBar,
     profilepageRoute,
+    paypageRoute,
     isUserId,
   });
   const handleProfile = (userId) => {
@@ -158,8 +160,7 @@ const Header = () => {
                     ${homepageRoute && classes.root} 
                     ${listpageRoute && classes.listRoot}
                     ${detailpageRoute && classes.detailRoot}
-                    ${profilepageRoute && classes.profileRoot}
-
+                    ${(profilepageRoute || paypageRoute) && classes.profileRoot}
                     `}
         >
           <Toolbar className={classes.navbar__content}>
@@ -335,6 +336,7 @@ const Header = () => {
                     ${listpageRoute && classes.list__searchBar}
                     ${detailpageRoute && classes.detail__searchBar}
                     ${profilepageRoute && classes.profile__searchBar}
+                    ${paypageRoute && classes.profile__searchBar}
                     `}
           >
             <SearchBar

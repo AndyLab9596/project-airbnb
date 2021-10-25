@@ -41,7 +41,7 @@ export default makeStyles(theme => ({
   },
 
   profileRoot: {
-    height: props => props.profilepageRoute && '80px',
+    height: props => (props.profilepageRoute || props.paypageRoute) && '80px',
     position: "fixed",
     width: '100%',
     margin: '0 auto',
@@ -49,7 +49,7 @@ export default makeStyles(theme => ({
     paddingBottom: 0,
     marginBottom: 0,
     boxShadow: 'rgb(0 0 0 / 8%) 0px 1px 12px ',
-    backgroundColor: props => props.profilepageRoute && '#fff',
+    backgroundColor: props => (props.profilepageRoute || props.paypageRoute) && '#fff',
   },
 
   navbar__content: {
@@ -222,7 +222,7 @@ export default makeStyles(theme => ({
     borderRadius: '22px',
     textTransform: 'lowercase',
     minWidth: '150px',
-    display: 'flex',
+    display: props => props.paypageRoute ? 'none' : 'flex',
     flexWrap: 'noWrap',
     '&:hover': {
       backgroundColor: 'rgba(255, 255, 255, 0.15)',
@@ -246,7 +246,8 @@ export default makeStyles(theme => ({
 
   language__icon: {
     color: props => props.scroll ? '#000' : '#fff',
-    fontSize: '24px'
+    fontSize: '24px',
+    display: props => props.paypageRoute && 'none',
   },
 
   list__language__icon: {
@@ -259,7 +260,7 @@ export default makeStyles(theme => ({
     border: "1px solid #DDDDDD",
     color: "222222",
     cursor: 'pointer',
-    display: 'flex',
+    display: props => props.paypageRoute ? 'none' : 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: '5px 5px 5px 12px',
@@ -268,11 +269,13 @@ export default makeStyles(theme => ({
     width: '75px',
     "&:hover": {
       boxShadow: "0px 2px 4px rgb(0 0 0 / 18%)"
-    }
+    },
+
   },
 
   list__button__chip: {
-    backgroundColor: props => (props.listpageRoute || props.detailpageRoute) && "transparent"
+    backgroundColor: props => (props.listpageRoute || props.detailpageRoute) && "transparent",
+
   },
 
   avatar: {
@@ -330,7 +333,7 @@ export default makeStyles(theme => ({
   },
 
   profile__searchBar: {
-    display: props => props.profilepageRoute && 'none'
+    display: props => (props.profilepageRoute || props.paypageRoute) && 'none'
   },
 
   // Detail Page CSS
