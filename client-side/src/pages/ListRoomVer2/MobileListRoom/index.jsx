@@ -203,7 +203,7 @@ const MobileListRoom = () => {
 
                         <Grid container spacing={3}>
                             {finalFiltered?.map((rentRoom, index) => (
-                                <MobileCard rentRoom={rentRoom} key={index} />
+                                <MobileCard rentRoom={rentRoom} key={index} handleChangePage={handleChangePage} />
                             ))}
                         </Grid>
 

@@ -34,7 +34,6 @@ const RoomImage = ({ detailRoom, detailRating }) => {
   const [scrolled, setScrolled] = useState(false);
   const ref = useRef(null);
 
-  console.log('detailRoom', detailRoom)
 
   useEffect(() => {
     if (isTablet) {

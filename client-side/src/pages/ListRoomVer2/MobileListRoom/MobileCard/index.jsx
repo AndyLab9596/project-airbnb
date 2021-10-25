@@ -31,13 +31,13 @@ const fakeRoom = {
         "image": "https://airbnb.cybersoft.edu.vn/public/temp/1634304216447_saigonbuivien.jpg"
     }
 };
-const MobileList = ({ rentRoom }) => {
+const MobileList = ({ rentRoom, handleChangePage }) => {
     const classes = useStyles();
 
     return (
 
         <Grid item xs={12}>
-            <div className={classes.card}>
+            <div className={classes.card} onClick={() => handleChangePage(rentRoom._id)}>
                 <div className={classes.card__media}>
                     <img src={rentRoom.image} alt={rentRoom.name}
                         className={classes.card__media__img} />
