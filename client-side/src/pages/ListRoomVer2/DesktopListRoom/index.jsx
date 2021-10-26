@@ -13,14 +13,15 @@ import useFetch from '../useFetch'
 import DehazeIcon from '@material-ui/icons/Dehaze';
 import MapIcon from '@material-ui/icons/Map';
 
-const DesktopListRoom = () => {
+const DesktopListRoom = (props) => {
+
+    const { paginateRentRoom } = props;
 
     const dispatch = useDispatch();
-    const param = useParams();
-    const locationId = param.locationId;
     const history = useHistory()
-
-    const { loading, data } = useFetch(locationId);
+    // const param = useParams();
+    // const locationId = param.locationId;
+    // const { loading, data } = useFetch(locationId);
 
 
     const [rentRooms, setRentRooms] = useState([]);
@@ -94,35 +95,35 @@ const DesktopListRoom = () => {
     }
 
 
-    const [filter, setFilter] = useState(initialFilter);
+    // const [filter, setFilter] = useState(initialFilter);
 
-    const filtered = rentRooms.filter((item) => {
+    // const filtered = rentRooms.filter((item) => {
 
-        if (Object.keys(filter).every((p) => item[p] >= filter[p])) {
-            return true;
-        }
-    })
+    //     if (Object.keys(filter).every((p) => item[p] >= filter[p])) {
+    //         return true;
+    //     }
+    // })
 
-    const finalFiltered = filtered.filter((item) => {
-        if (item.price > priceValue[0] && item.price < priceValue[1]) {
-            return true
-        }
-    })
+    // const finalFiltered = filtered.filter((item) => {
+    //     if (item.price > priceValue[0] && item.price < priceValue[1]) {
+    //         return true
+    //     }
+    // })
 
-    const resetFilter = () => {
-        setFilter(initialFilter)
-    }
+    // const resetFilter = () => {
+    //     setFilter(initialFilter)
+    // }
 
     // Button transform between map and content:
     const [transform, setTransform] = useState(false);
 
     useEffect(() => {
-        window.scrollTo(0, 0)
-        if (loading) return
+        // window.scrollTo(0, 0)
+        // if (loading) return
 
-        setRentRooms(data[page - 1])
+        setRentRooms(paginateRentRoom[page - 1])
 
-    }, [loading, page])
+    }, [page])
 
     const classes = useStyles({ transform });
 
@@ -141,7 +142,7 @@ const DesktopListRoom = () => {
                     </div>
 
                     {/* Filter */}
-                    <div className={classes.filter}>
+                    {/* <div className={classes.filter}>
                         <div className={classes.filter__wrapper}>
                             <PriceMenuFilter
                                 filter={filter}
@@ -158,17 +159,23 @@ const DesktopListRoom = () => {
                             />
                         </div>
 
-                    </div>
+                    </div> */}
 
                     {/* List Rooms */}
 
                     <div className={classes.cards}>
-                        {loading ? <SkeletonCard length={4} /> :
+                        {/* {loading ? <SkeletonCard length={4} /> :
                             <Card handleChangePage={handleChangePage}
                                 queryParams={queryParams}
                                 finalFiltered={finalFiltered}
 
-                            />}
+                            />} */}
+
+                        <Card handleChangePage={handleChangePage}
+                            queryParams={queryParams}
+                            finalFiltered={paginateRentRoom}
+
+                        />
 
 
                         {/* Pagination */}
@@ -180,7 +187,7 @@ const DesktopListRoom = () => {
                                 className={classes.pagination}
                                 boundaryCount={1}
                                 defaultPage={1}
-                                count={data?.length}
+                                count={paginateRentRoom.length}
                                 page={page}
                                 onChange={handlePageChange}
                                 color="standard" />

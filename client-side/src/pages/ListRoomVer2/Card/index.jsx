@@ -10,7 +10,7 @@ const Card = ({ finalFiltered, handleChangePage }) => {
     return (
         <Fragment>
             {
-                finalFiltered.map((card, index) => (
+                finalFiltered?.map((card, index) => (
                     <div className={classes.card} key={index} >
 
                         {/* card top line */}

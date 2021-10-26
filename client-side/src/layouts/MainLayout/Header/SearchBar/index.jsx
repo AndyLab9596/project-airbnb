@@ -98,19 +98,19 @@ const SearchBar = ({ isDesktop, listPageDisplaySearchBar, listpageRoute }) => {
     _toddler: numbers._toddler,
   };
 
-  const historyPush = () => {
-    history.push({
-      pathname: `/list/${locationId}`,
-      search: queryString.stringify(queryParams),
-    });
-  }
+  // const historyPush = () => {
+  //   history.push({
+  //     pathname: `/list/${locationId}`,
+  //     search: queryString.stringify(queryParams),
+  //   });
+  // }
 
-  useEffect(() => {
-    if (listpageRoute) {
-      historyPush()
-    }
+  // useEffect(() => {
+  //   if (listpageRoute) {
+  //     historyPush()
+  //   }
 
-  }, [listPageDisplaySearchBar])
+  // }, [listPageDisplaySearchBar])
 
 
   const handleSearchSubmit = (e) => {

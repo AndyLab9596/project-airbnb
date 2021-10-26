@@ -53,11 +53,11 @@ const App = () => {
         <ModalSignIn />
         <Switch>
           <MainLayout path="/" exact Component={Home} />
-          <Route
+          {/* <Route
             path="/locationListPage/:locationId"
             exact
             component={Testing}
-          />
+          /> */}
           <MainLayout path="/profile/:personId" exact Component={Profile} />
           <MainLayout path="/list/:locationId" exact Component={ListRoomVer2} />
           <MainLayout path="/detail/:roomId" exact Component={Detail} />
