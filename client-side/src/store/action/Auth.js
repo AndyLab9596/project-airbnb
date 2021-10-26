@@ -48,3 +48,14 @@ export const getInfoUserAction = (idUser) => {
     }
   };
 };
+
+export const updateAvatarUser = (formData) => {
+  return async (dispatch) => {
+    try {
+      const res = await manageAuthApi.postAvatarUser(formData)
+      console.log(res)
+    } catch (error) {
+      console.log(error.response)
+    }
+  }
+}

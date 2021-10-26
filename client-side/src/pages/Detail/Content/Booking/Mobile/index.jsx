@@ -3,24 +3,23 @@ import {
   IconButton,
   Modal,
   Slide,
-  TextField,
   Typography,
 } from "@material-ui/core";
 import { LocalizationProvider, StaticDateRangePicker } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { Box } from "@mui/system";
 import moment from "moment";
+import queryString from "query-string";
 import React, { Fragment, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import ButtonSubmit from "../../../../../components/ButtonSubmit";
-import { formMoney } from "../../../../../utilities/coordinates";
-import useStyles from "./style";
-import queryString from "query-string";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
+import ButtonSubmit from "../../../../../components/ButtonSubmit";
+import { USERID } from "../../../../../constants/config";
 import { createAction } from "../../../../../store/action/createAction/createAction";
 import { SHOW_MODAL_SIGNIN } from "../../../../../store/types/AuthType";
-import { USERID } from "../../../../../constants/config";
-import { useDispatch } from "react-redux";
+import { formMoney } from "../../../../../utilities/coordinates";
+import useStyles from "./style";
 
 const BookingMobile = ({
   bookingTime,
@@ -101,7 +100,11 @@ const BookingMobile = ({
           )
         ) : (
           <Button
-            onClick={() => setOpenModal(false)}
+            disableRipple
+            onClick={() => {
+              if (isBooking) return;
+              setOpenModal(false);
+            }}
             className={
               isBooking
                 ? classes.booking__content__btn__save__isBooking
@@ -157,13 +160,6 @@ const BookingMobile = ({
                 onChange={(newValue) => {
                   setBookingTime(newValue);
                 }}
-                renderInput={(startProps, endProps) => (
-                  <React.Fragment>
-                    <TextField {...startProps} />
-                    <Box sx={{ mx: 2 }}> to </Box>
-                    <TextField {...endProps} />
-                  </React.Fragment>
-                )}
               />
             </LocalizationProvider>
           </div>

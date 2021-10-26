@@ -5,6 +5,7 @@ export default makeStyles((theme) => ({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 25,
+    cursor: "pointer",
     [theme.breakpoints.up("md")]: {
       alignItems: "initial",
     },
