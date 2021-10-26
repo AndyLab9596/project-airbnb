@@ -108,7 +108,6 @@ const SearchBar = ({ isDesktop, listPageDisplaySearchBar, listpageRoute }) => {
   useEffect(() => {
     if (listpageRoute) {
       historyPush()
-
     }
 
   }, [listPageDisplaySearchBar])
