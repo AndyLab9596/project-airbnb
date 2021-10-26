@@ -41,8 +41,8 @@ const ModalSignIn = () => {
     validateOnMount: true,
     validationSchema: schemaValidation,
     initialValues: {
-      email: "",
-      password: "",
+      email: "admin_airbnb@gmail.com",
+      password: "123456",
     },
   });
 

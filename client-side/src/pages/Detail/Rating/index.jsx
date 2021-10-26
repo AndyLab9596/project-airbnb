@@ -106,16 +106,18 @@ const DetailRating = ({ detailRating }) => {
                   <CatalogRating item={item} />
                 </Grid>
               ))}
-              {detailRating?.slice(0, 6).map((item, index) => (
-                <Grid item md={12} xl={6} key={index}>
-                  <Box py={2} pr={isDeskTop && 10}>
-                    <ContentUserRating
-                      item={item}
-                      handleShowModal={handleShowModal}
-                    />
-                  </Box>
-                </Grid>
-              ))}
+              <Grid item container style={{ paddingTop: 40 }}>
+                {detailRating?.slice(0, 6).map((item, index) => (
+                  <Grid item md={12} xl={6} key={index}>
+                    <Box py={2} pr={isDeskTop && 10}>
+                      <ContentUserRating
+                        item={item}
+                        handleShowModal={handleShowModal}
+                      />
+                    </Box>
+                  </Grid>
+                ))}
+              </Grid>
             </Grid>
           ) : (
             <Slider {...settings}>
@@ -216,23 +218,23 @@ const DetailRating = ({ detailRating }) => {
                     <div className={classes.rating__modal__content__userRated}>
                       {arrFilterContent?.length > 0
                         ? arrFilterContent?.map((item) => (
-                          <Box>
-                            <ContentUserRating
-                              item={item}
-                              handleShowModal={handleShowModal}
-                              openModal={modalRated}
-                            />
-                          </Box>
-                        ))
+                            <Box>
+                              <ContentUserRating
+                                item={item}
+                                handleShowModal={handleShowModal}
+                                openModal={modalRated}
+                              />
+                            </Box>
+                          ))
                         : detailRating.map((item) => (
-                          <Box>
-                            <ContentUserRating
-                              item={item}
-                              handleShowModal={handleShowModal}
-                              openModal={modalRated}
-                            />
-                          </Box>
-                        ))}
+                            <Box>
+                              <ContentUserRating
+                                item={item}
+                                handleShowModal={handleShowModal}
+                                openModal={modalRated}
+                              />
+                            </Box>
+                          ))}
                     </div>
                   </Grid>
                 </Grid>

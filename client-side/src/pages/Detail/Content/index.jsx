@@ -42,7 +42,6 @@ const ContentRoom = ({ detailRoom, queryParams, detailRating }) => {
   const isTablet = useMediaQuery(theme.breakpoints.up("md"));
   const isDesktop = useMediaQuery(theme.breakpoints.up("xl"));
   const classes = useStyles({ isMobile });
-  const numberBedroom = 2; // sau này lấy từ query params của api về
   const arrUtilitiesRoom = [
     {
       name: "Toàn bộ nhà ",
@@ -218,7 +217,7 @@ const ContentRoom = ({ detailRoom, queryParams, detailRating }) => {
               Nơi bạn sẽ ngủ nghỉ
             </Typography>
             <Grid container wrap="nowrap">
-              {arrBedroom.slice(0, `${numberBedroom}`).map((item) => (
+              {arrBedroom.slice(0, `${detailRoom?.bedRoom}`).map((item) => (
                 <Grid item xs={6} className={classes.bedroom__content}>
                   <div>{item.icon}</div>
                   <div className={classes.bedroom__detail}>

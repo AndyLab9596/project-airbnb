@@ -107,6 +107,7 @@ export default makeStyles((theme) => ({
     height: 30,
     borderRadius: "50%",
     zIndex: 999,
+    cursor: "pointer",
     "& >svg": {
       position: "absolute",
       top: "50%",

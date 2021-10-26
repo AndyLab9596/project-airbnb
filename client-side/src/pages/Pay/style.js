@@ -7,34 +7,34 @@ export default makeStyles(theme => ({
         paddingTop: 80,
         paddingLeft: 160,
         paddingRight: 160,
-        [theme.breakpoints.down(376)]: {
-
-            paddingLeft: 0,
-            paddingRight: 0,
-
-
-        },
-        [theme.breakpoints.down(769)]: {
-
-            paddingLeft: 30,
-            paddingRight: 30,
-
-
-        },
         [theme.breakpoints.down(1025)]: {
 
             paddingLeft: 40,
             paddingRight: 40,
-
-
         },
-
+        [theme.breakpoints.down(769)]: {
+            paddingLeft: 30,
+            paddingRight: 30,
+        },
+        [theme.breakpoints.down(415)]: {
+            paddingTop: 0,
+            paddingLeft: 20,
+            paddingRight: 20,
+        },
     },
+
     pay__title: {
         display: "flex",
         alignItems: "center",
         paddingTop: 64,
         paddingBottom: 48,
+        [theme.breakpoints.down(415)]: {
+            padding: "15px 0",
+            position: "fixed",
+            backgroundColor: "#fff",
+            zIndex: 999,
+            minWidth: 375,
+        },
         [theme.breakpoints.down(376)]: {
             padding: "15px 0",
             position: "fixed",
@@ -44,35 +44,28 @@ export default makeStyles(theme => ({
         },
     },
     pay__content: {
-        [theme.breakpoints.down(376)]: {
-
+        [theme.breakpoints.down(415)]: {
             padding: "75px 0px",
-
-
         },
+
     },
     pay__title__icon: {
         fontSize: 15,
         marginRight: 15
-
     },
     pay__title__text: {
         fontSize: 32,
         lineHeight: "20px",
         fontWeight: 600,
         color: "#222222",
-        marginLeft: 20,
+        marginLeft: 40,
         [theme.breakpoints.down(415)]: {
-
             marginLeft: 40,
             fontSize: 24,
-
         },
         [theme.breakpoints.down(376)]: {
-
             marginLeft: 40,
             fontSize: 16,
-
         },
     },
 
@@ -87,15 +80,10 @@ export default makeStyles(theme => ({
         display: "flex"
     },
     pay__left__noti__content__left: {
-
         "&>h6": {
             fontSize: 14,
             lineHeight: "20px",
-
-
-
         },
-
     },
     pay__left__noti__text: {
         fontSize: 16,
@@ -106,16 +94,6 @@ export default makeStyles(theme => ({
     pay__left__noti__content__right: {
         marginLeft: 20
     },
-
-
-
-
-
-
-
-
-
-
     // CHUYẾN ĐI CỦA BẠN
     pay__item: {
         paddingBottom: 24
@@ -128,19 +106,14 @@ export default makeStyles(theme => ({
     pay__item__style: {
         display: "flex",
         justifyContent: "space-between",
-
     },
-
-
     // CHỌN CÁCH THANH TOÁN
     pay__item__style__title: {
         padding: "24px 0",
         borderTop: "1px solid rgb(221, 221, 221)",
         [theme.breakpoints.down(376)]: {
-
             borderTop: "8px solid rgb(221, 221, 221)",
             width: "100%"
-
         },
     },
     pay__text__style: {
@@ -156,8 +129,6 @@ export default makeStyles(theme => ({
             color: " rgb(113, 113, 113)",
         }
     },
-
-
     pay__radio__top: {
         border: "1px solid rgb(221, 221, 221)",
         borderRadius: "8px 8px 0 0",
@@ -174,9 +145,6 @@ export default makeStyles(theme => ({
         display: "flex",
         justifyContent: "space-between",
         position: "relative",
-
-
-
     },
     pay__radio__right__item: {
         appearance: "none",
@@ -195,34 +163,22 @@ export default makeStyles(theme => ({
         margin: 0
     },
     pay__radio__right: {
-
-
-
         transform: "translate(35%, -20%) !important",
         [theme.breakpoints.down(769)]: {
-
             transform: "translate(0, -10%) !important",
-
-
         },
 
     },
     pay__radio__right1: {
         transform: "translate(35%, -10%) !important",
         [theme.breakpoints.down(769)]: {
-
             transform: "translate(0, -5%) !important",
-
-
         },
-
     },
     pay__radio__style: {
         fontSize: 15
     },
-
     //THANH TOÁN BẰNG
-
     pay__left__payment: {
         display: "flex",
         justifyContent: "space-between",
@@ -230,13 +186,10 @@ export default makeStyles(theme => ({
         padding: "24px 0",
         borderTop: "1px solid rgb(221, 221, 221)",
         [theme.breakpoints.down(376)]: {
-
             borderTop: "8px solid rgb(221, 221, 221)",
             width: "100%"
-
         },
     },
-
 
     // CHÍNH SÁCH HỦY
     pay__button__confirm: {
@@ -257,8 +210,6 @@ export default makeStyles(theme => ({
         fontWeight: 700
     },
 
-
-
     //RIGHT
     pay__right: {
         position: "sticky",
@@ -266,8 +217,10 @@ export default makeStyles(theme => ({
         marginLeft: 60,
         marginBottom: 100,
         [theme.breakpoints.down(415)]: {
-
+            height: 150,
+            borderBottom: "1px solid #DDDDDD",
             marginLeft: 0,
+            marginBottom: 30
 
         },
     },
@@ -275,18 +228,13 @@ export default makeStyles(theme => ({
         width: 115,
         height: 100,
         borderRadius: 8,
-        [theme.breakpoints.down(376)]: {
-
-            width: 100,
-            height: 100,
-
-        },
         [theme.breakpoints.down(769)]: {
-
             width: 90,
             height: 100,
-
-
+        },
+        [theme.breakpoints.down(415)]: {
+            width: 100,
+            height: 100,
         },
     },
     pay__right__style: {
@@ -295,35 +243,25 @@ export default makeStyles(theme => ({
         justifyContent: "space-between",
         flexDirection: "column",
         paddingBottom: 5,
-
         [theme.breakpoints.down(769)]: {
-
             paddingLeft: 15
-
-
+        },
+        [theme.breakpoints.down(415)]: {
+            paddingLeft: 0
         },
     },
     pay__right__text1: {
-        [theme.breakpoints.down(376)]: {
-
-            fontSize: 10
-
-        },
         [theme.breakpoints.down(769)]: {
-
             fontSize: 9
-
-
+        },
+        [theme.breakpoints.down(415)]: {
+            fontSize: 12
         },
     },
     pay__right__text: {
         fontSize: 14,
-
         [theme.breakpoints.down(1025)]: {
-
             fontSize: 12
-
-
         },
     },
     pay__right__item: {
@@ -349,9 +287,7 @@ export default makeStyles(theme => ({
     pay__left__list: {
         display: "flex",
         [theme.breakpoints.down(376)]: {
-
             display: "none"
-
         },
         "& >li": {
             padding: "0 5px",
@@ -369,20 +305,14 @@ export default makeStyles(theme => ({
         alignItems: "center",
         backgroundColor: "rgb(247, 247, 247)",
         [theme.breakpoints.down(1025)]: {
-
             display: "block",
-
         },
         [theme.breakpoints.down(744)]: {
-
             display: "block"
-
-
         },
         [theme.breakpoints.down(376)]: {
             display: "block",
             padding: "24px 30px",
-
         },
     },
     footer__item__list__first: {
@@ -403,29 +333,20 @@ export default makeStyles(theme => ({
         textDecoration: "none",
         alignItems: "center",
         [theme.breakpoints.down(1025)]: {
-
             justifyContent: "center",
             alignItems: "center",
             paddingBottom: "10px"
-
         },
         [theme.breakpoints.down(744)]: {
-
             display: "block"
-
-
         },
         [theme.breakpoints.down(376)]: {
             display: "flex",
             padding: "24px 30px",
-
         },
-
         "& li": {
-
             paddingLeft: 0,
             paddingRight: 0,
-
             "& a": {
                 textDecoration: "none",
                 color: "#222222",
@@ -450,10 +371,7 @@ export default makeStyles(theme => ({
                 whiteSpace: "nowrap",
                 transition: "all .2s",
                 lineHeight: "18px ",
-
             }
-
-
         }
     },
     footer__bot__content: {
@@ -461,29 +379,19 @@ export default makeStyles(theme => ({
             display: "flex",
             justifyContent: "center",
             alignItems: "center"
-
         },
         [theme.breakpoints.down(744)]: {
-
             fontSize: "15px",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-
-
-
         },
     },
-
-
     footer__bot__content1: {
         display: "flex",
         marginLeft: "32px",
         [theme.breakpoints.down(744)]: {
-
             display: "none"
-
-
         },
         "& ul": {
             listStyle: "none",
@@ -518,9 +426,6 @@ export default makeStyles(theme => ({
         height: "100%",
         display: "flex",
         justifyContent: "center",
-
-
-
     },
     ButtonResult: {
         padding: 20
@@ -531,9 +436,7 @@ export default makeStyles(theme => ({
         alignItems: "center",
         padding: "0 24px",
         minHeight: 65,
-
         borderBottom: "1px solid rgb(235, 235, 235)",
-
         "& >p": {
             fontWeight: 800,
             fontSize: "1em",
@@ -544,20 +447,16 @@ export default makeStyles(theme => ({
     },
     icon: {
         position: "absolute",
-        left: "1%",
-        [theme.breakpoints.down(415)]: {
-
-            left: "6%",
-
+        left: "11%",
+        [theme.breakpoints.down(1025)]: {
+            left: "2%",
         },
-        [theme.breakpoints.down(376)]: {
-
+        [theme.breakpoints.down(415)]: {
             left: "-3%",
-
         },
     },
     booking__container: {
-        position: "fixed",
+        position: props => props.isDesktop ? "relative" : "fixed",
         bottom: 0,
         zIndex: 9999,
         left: 0,
@@ -568,7 +467,7 @@ export default makeStyles(theme => ({
         minHeight: 80,
     },
     booking__content: {
-        padding: "0px 24px",
+        padding: "15px 24px",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
@@ -633,9 +532,10 @@ export default makeStyles(theme => ({
         },
     },
     booking__datepicker: {
-        padding: "24px 0",
+
         "& .css-1xhj18k": {
-            display: "block",
+            display: props => props.isDesktop ? "flex" : "block",
+
             "& .css-1tape97": {
                 border: "none",
             },
@@ -643,13 +543,28 @@ export default makeStyles(theme => ({
     },
     date_modal: {
         minWidth: "414px",
-
     },
-    paper: {
-        margin: 0
+    pay_modal_guest: {
+        display: props => props.isDesktop ? "block" : "none"
+    },
+    pay_drawer_guest: {
+        display: props => props.isDesktop ? "none" : "block"
+    },
+    pay_mobile: {
+        display: props => props.isDesktop ? "none" : "block"
+    },
+    pay_desktop: {
+        display: props => props.isDesktop ? "block" : "none"
+    },
+    iconModal: {
+        position: "absolute",
+        left: "5%",
+    },
+    drawer_content_bot: {
+        borderTop: "1px solid #222222",
+        padding: 10,
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
     }
-
-
-
-
 }))

@@ -2,7 +2,6 @@ import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles((theme) => ({
   table: {
     minWidth: 650,
-    marginTop: 30,
   },
   container: {
     maxHeight: 500,
@@ -24,7 +23,7 @@ export default makeStyles((theme) => ({
   },
   inputSearch: {
     borderRadius: 30,
-    marginBottom: 20,
+    marginBottom: 40,
     marginTop: 20,
     padding: "5px 20px",
     "&:focus-within": {

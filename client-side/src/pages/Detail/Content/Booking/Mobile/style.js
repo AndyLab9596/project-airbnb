@@ -12,7 +12,7 @@ export default makeStyles((theme) => ({
     minHeight: 80,
   },
   booking__content: {
-    padding: "0px 24px",
+    padding: "15px 24px",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
@@ -30,12 +30,15 @@ export default makeStyles((theme) => ({
     backgroundColor: "rgb(34, 34, 34)",
     color: "#fff",
     pointerEvents: "initial",
+    "&:hover": {
+      backgroundColor: "rgb(34, 34, 34,0.8)",
+    },
   },
   booking__content__btn__save__isBooking: {
     width: "70%",
     backgroundColor: "rgb(221, 221, 221)",
     color: "#999",
-    pointerEvents: "none",
+    cursor: "not-allowed",
   },
   booking__dateTime: {
     textDecoration: "underline",
@@ -74,6 +77,7 @@ export default makeStyles((theme) => ({
     "& >span": {
       textDecoration: "underline",
       fontWeight: 600,
+      cursor: "pointer",
     },
   },
   booking__datepicker: {

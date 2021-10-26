@@ -3,27 +3,30 @@ import {
   Button,
   Container,
   Dialog,
-  DialogContent,
   FormControlLabel,
   Grid,
   IconButton,
   Radio,
   RadioGroup,
   Slide,
+  Snackbar,
   SwipeableDrawer,
   TextField,
   Typography,
 } from "@material-ui/core";
+import { useTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import CloseIcon from "@material-ui/icons/Close";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import StarIcon from "@material-ui/icons/Star";
+import { Alert } from "@material-ui/lab";
 import { LocalizationProvider, StaticDateRangePicker } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { vi } from "date-fns/locale";
 import moment from "moment";
 import queryString from "query-string";
-import React, { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import React, { Fragment, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation, useParams } from "react-router";
 import BookingPrice from "../../components/BookingPrice";
@@ -39,38 +42,43 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const Pay = () => {
   const location = useLocation();
   const history = useHistory();
+  const theme = useTheme();
+  const dispatch = useDispatch();
+  const param = useParams();
+  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
+  const { detailRoom } = useSelector((state) => state.RentRoomsReducer);
+  const classes = useStyles({ isDesktop });
   const queryParams = useMemo(() => {
     const params = queryString.parse(location.search);
     return {
       ...params,
     };
   }, [location.search]);
-  const param = useParams();
-  const dispatch = useDispatch();
+  const [valueGroup, setValueGroup] = React.useState("Visa");
+  const [open, setOpen] = React.useState({
+    modalDate: false,
+    modalPay: false,
+    modalGuest: false,
+  });
+  const [numbersFilter, setNumbersFilter] = useState({
+    _adult: Number(queryParams._adult) || 1,
+    _children: Number(queryParams._children) || 1,
+    _toddler: Number(queryParams._toddler) || 1,
+  });
 
-  console.log("queryParams", queryParams);
-  const { detailRoom } = useSelector((state) => state.RentRoomsReducer);
-  const { arrPayBooking } = useSelector((state) => state.RentRoomsReducer);
-  console.log("arrPayBooking", arrPayBooking);
   const [bookingTime, setBookingTime] = useState([
     queryParams._checkIn ? new Date(queryParams._checkIn) : null,
     queryParams._checkOut ? new Date(queryParams._checkOut) : null,
   ]);
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
   const totalDateTime = bookingTime[1] - bookingTime[0];
   const totalDate = totalDateTime / (1000 * 3600 * 24);
   const isBooking = bookingTime.some((item) => item === null);
-  // const today = new Date(queryParams._checkIn);
 
   const date = new Date().setDate(bookingTime[0].getDate() - 4);
   const daysAgo = new Date(date);
 
-  const classes = useStyles();
-  const [valueGroup, setValueGroup] = React.useState("Visa");
-
-  const handleChangeRadioGroup = (event) => {
-    setValueGroup(event.target.value);
-  };
   const totalPrice = () => {
     return totalDate < 7
       ? formMoney(detailRoom?.price * totalDate + 100000)
@@ -78,38 +86,15 @@ const Pay = () => {
       ? formMoney(detailRoom?.price * (totalDate - 5) + 100000)
       : formMoney(detailRoom?.price * (totalDate - 1) + 100000);
   };
-  // const [selectedValue, setSelectedValue] = React.useState("a");
-
-  // const handleChange = (event) => {
-  //   setSelectedValue(event.target.value);
-  // };
-  const [open, setOpen] = React.useState({
-    modalDate: false,
-    modalPay: false,
-    modalGuest: false,
-  });
 
   const data = {
     roomId: param.roomId,
     checkIn: bookingTime[0],
     checkOut: bookingTime[1],
   };
-  console.log("data", data);
-  const handleOpen = () => {
-    setOpen({ ...open, modalDate: true });
-  };
-  const handleOpen1 = () => {
-    setOpen({ ...open, modalPay: true });
-    dispatch(PayBookingAction(data));
-  };
-  const handleOpen2 = () => {
-    setOpen({ ...open, modalGuest: true });
-  };
-  const handleClose = () => {
-    setOpen({ ...open, modalDate: false, modalPay: false, modalGuest: false });
-  };
-  const text = "Xác nhận và thanh toán";
-  const text2 = "Quay về trang chủ";
+
+  const textPayButton = "Xác nhận và thanh toán";
+  const textPayModal = "Quay về trang chủ";
   const days = ["C", "2", "3", "4", "5", "6", "7"];
   const months = [
     "Tháng 1",
@@ -133,11 +118,22 @@ const Pay = () => {
       month: (n) => months[n],
     },
   };
-  const [numbersFilter, setNumbersFilter] = useState({
-    _adult: Number(queryParams._adult) || 1,
-    _children: Number(queryParams._children) || 1,
-    _toddler: Number(queryParams._toddler) || 1,
-  });
+  const handleChangeRadioGroup = (event) => {
+    setValueGroup(event.target.value);
+  };
+  const handleOpen = () => {
+    setOpen({ ...open, modalDate: true });
+  };
+  const handleOpen1 = () => {
+    setOpen({ ...open, modalPay: true });
+    dispatch(PayBookingAction(data));
+  };
+  const handleOpen2 = () => {
+    setOpen({ ...open, modalGuest: true });
+  };
+  const handleClose = () => {
+    setOpen({ ...open, modalDate: false, modalPay: false, modalGuest: false });
+  };
   const handleClickBackHome = () => {
     history.push("/");
   };
@@ -152,12 +148,26 @@ const Pay = () => {
 
     setOpen({ ...open, [anchor]: opened });
   };
+
+  const handleAlert = () => {
+    setOpenSnackbar(true);
+  };
+  const handleCloseSnackbar = () => {
+    if (isBooking) {
+      setOpenSnackbar(false);
+    }
+
+    setOpenSnackbar(false);
+  };
   return (
     <div>
       <Container className={classes.pay} maxWidth={false}>
         <Box>
           <div className={classes.pay__title}>
-            <IconButton className={classes.icon} onClick={() => history.goBack()}>
+            <IconButton
+              className={classes.icon}
+              onClick={() => history.goBack()}
+            >
               <ArrowBackIosIcon className={classes.pay__title__icon} />
             </IconButton>
             <Typography
@@ -169,6 +179,74 @@ const Pay = () => {
           </div>
           <div className={classes.pay__content}>
             <Grid container>
+              {/* MOBILE RIGHT  */}
+              <Grid className={classes.pay_mobile} item lg={6} md={6} xs={12}>
+                <Box className={classes.pay__right}>
+                  <div>
+                    <div>
+                      <Box>
+                        <Box display="flex">
+                          <Box flex="0 0 35%">
+                            <img
+                              src={detailRoom.image}
+                              alt="img"
+                              className={classes.pay__right__img}
+                            />
+                          </Box>
+                          <div className={classes.pay__right__style}>
+                            <Typography
+                              className={classes.pay__right__text1}
+                              variant="caption"
+                            >
+                              Toàn bộ căn hộ cho thuê tại{" "}
+                              {detailRoom?.locationId?.name}
+                            </Typography>
+                            <div>
+                              <Typography
+                                variant="body1"
+                                className={classes.pay__right__text}
+                              >
+                                {detailRoom.name}
+                              </Typography>
+                              <Typography variant="caption">
+                                {detailRoom.guests} khách
+                              </Typography>
+                              <Typography variant="caption">
+                                · {detailRoom.bath} phòng tắm
+                              </Typography>{" "}
+                              <Typography variant="caption">
+                                · {detailRoom.bedRoom} phòng ngủ
+                              </Typography>
+                            </div>
+                            <Box display="flex" flexWrap="wrap">
+                              <Box paddingRight={3}>
+                                <div className={classes.pay__right__item}>
+                                  <StarIcon
+                                    className={classes.pay__right__item__icon}
+                                  />
+                                  <span>
+                                    {detailRoom?.locationId?.valueate} (172 )
+                                  </span>
+                                </div>
+                              </Box>
+                              <div>
+                                <div className={classes.pay__right__item}>
+                                  <FavoriteIcon
+                                    className={classes.pay__right__item__icon}
+                                  />
+                                  <span>Chủ nhà siêu cấp</span>
+                                </div>
+                              </div>
+                            </Box>
+                          </div>
+                        </Box>
+                      </Box>
+                    </div>
+                  </div>
+                </Box>
+              </Grid>
+
+              {/* LEFT DESKTOP  */}
               <Grid item lg={6} md={6} style={{ marginBottom: 100 }}>
                 {/* NOTI */}
 
@@ -393,14 +471,14 @@ const Pay = () => {
                 <div>
                   <ButtonSubmit
                     handleSubmit={handleOpen1}
-                    text={text}
+                    text={textPayButton}
                     // className={classes.pay__button__confirm}
                   />
                 </div>
               </Grid>
 
               {/* RIGHT  */}
-              <Grid item lg={6} md={6} xs={12}>
+              <Grid className={classes.pay_desktop} item lg={6} md={6} xs={12}>
                 <Box className={classes.pay__right}>
                   <div>
                     <div className={classes.pay__left__noti}>
@@ -482,18 +560,17 @@ const Pay = () => {
         </Box>
 
         <Dialog
-          onClose={handleClose}
+          onClose={isBooking ? handleAlert : handleClose}
           open={open.modalDate || open.modalPay || open.modalGuest}
           maxWidth="md"
           className={classes.root}
-          classes={{ paper: classes.paper }}
           keepMounted
           TransitionComponent={Transition}
         >
           {open.modalPay && (
             <div>
               <div className={classes.modal__header}>
-                <IconButton className={classes.icon} onClick={handleClose}>
+                <IconButton className={classes.iconModal} onClick={handleClose}>
                   <CloseIcon />
                 </IconButton>
                 <Typography variant="body2">Đặt vé thành công</Typography>
@@ -510,7 +587,7 @@ const Pay = () => {
                 <ButtonSubmit
                   handleSubmit={handleClickBackHome}
                   // className={classes.ButtonResultItem}.
-                  text={text2}
+                  text={textPayModal}
                 />
               </div>
             </div>
@@ -518,7 +595,10 @@ const Pay = () => {
           {open.modalDate && (
             <div className={classes.date_modal}>
               <div className={classes.modal__header}>
-                <IconButton className={classes.icon} onClick={handleClose}>
+                <IconButton
+                  className={classes.iconModal}
+                  onClick={isBooking ? handleAlert : handleClose}
+                >
                   <CloseIcon />
                 </IconButton>
                 {isBooking ? (
@@ -537,7 +617,6 @@ const Pay = () => {
                   displayStaticWrapperAs="desktop"
                   value={bookingTime}
                   className={classes.booking__datepicker}
-                  // calendars={isDesktop ? 2 : 1}
                   onChange={(newValue) => {
                     setBookingTime(newValue);
                   }}
@@ -572,7 +651,6 @@ const Pay = () => {
                             <Typography
                               variant="span"
                               className={classes.booking__dateTime}
-                              // onClick={() => setOpenModal(true)}
                             >
                               {moment(bookingTime[0]).format("Do MMM")} -
                               <Typography variant="span">
@@ -586,7 +664,7 @@ const Pay = () => {
                   </Box>
 
                   <Button
-                    // onClick={() => setOpenModal(false)}
+                    onClick={() => setOpen(false)}
                     className={
                       isBooking
                         ? classes.booking__content__btn__save__isBooking
@@ -597,6 +675,54 @@ const Pay = () => {
                   </Button>
                 </div>
               </div>
+              <Snackbar
+                open={openSnackbar}
+                autoHideDuration={6000}
+                onClose={handleCloseSnackbar}
+              >
+                <Alert onClose={handleCloseSnackbar} severity="success">
+                  Vui lòng nhập ngày
+                </Alert>
+              </Snackbar>
+            </div>
+          )}
+          {open.modalGuest && (
+            <div className={classes.pay_modal_guest}>
+              <div className={classes.modal__header}>
+                <IconButton className={classes.iconModal} onClick={handleClose}>
+                  <CloseIcon />
+                </IconButton>
+                <Typography variant="body2">Khách</Typography>
+                <div></div>
+              </div>
+              <div style={{ padding: 20 }}>
+                <GuestCount
+                  numbersFilter={numbersFilter}
+                  setNumbersFilter={setNumbersFilter}
+                />
+              </div>
+              <div
+                style={{
+                  borderTop: "1px solid #222222",
+                  padding: 10,
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Typography
+                  variant="h5"
+                  className={classes.booking__content__price}
+                >
+                  {numbersFilter._adult} khách
+                </Typography>
+                <Button
+                  onClick={() => setOpen(false)}
+                  className={classes.booking__content__btn__save}
+                >
+                  Lưu
+                </Button>
+              </div>
             </div>
           )}
         </Dialog>
@@ -606,10 +732,11 @@ const Pay = () => {
           onClose={toggleDrawer("modalGuest", false)}
           onOpen={toggleDrawer("modalGuest", true)}
           // onClose={handleClose}
+          className={classes.pay_drawer_guest}
         >
           <div>
             <div className={classes.modal__header}>
-              <IconButton className={classes.icon} onClick={handleClose}>
+              <IconButton className={classes.iconModal} onClick={handleClose}>
                 <CloseIcon />
               </IconButton>
               <Typography variant="body2">Khách</Typography>
@@ -621,13 +748,19 @@ const Pay = () => {
                 setNumbersFilter={setNumbersFilter}
               />
             </div>
-            <div
-              style={{
-                borderTop: "1px solid #222222",
-                padding: 10,
-              }}
-            >
-              <button>lưu</button>
+            <div className={classes.drawer_content_bot}>
+              <Typography
+                variant="h5"
+                className={classes.booking__content__price}
+              >
+                {numbersFilter._adult} khách
+              </Typography>
+              <Button
+                onClick={() => setOpen(false)}
+                className={classes.booking__content__btn__save}
+              >
+                Lưu
+              </Button>
             </div>
           </div>
         </SwipeableDrawer>
