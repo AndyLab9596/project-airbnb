@@ -14,6 +14,7 @@ const ListRoomVer3 = () => {
     const locationParams = useParams();
     const locationId = locationParams.locationId;
     const isDeskTop = useMediaQuery(theme.breakpoints.up("md"));
+    const [loading, setLoading] = useState(true);
 
     const fetchListRoomPaginate = useCallback(
         () => {
@@ -73,7 +74,7 @@ const ListRoomVer3 = () => {
         return newData;
     };
     const listRoomPaginate = paginate(finalFiltered);
-
+    console.log(listRoomPaginate)
 
     useEffect(() => {
         fetchListRoomPaginate()
@@ -105,8 +106,8 @@ const ListRoomVer3 = () => {
                     setFilter={setFilter}
 
                 /> :
-
-                <MobileView />}
+                <MobileView />
+            }
         </div>
     );
 };
