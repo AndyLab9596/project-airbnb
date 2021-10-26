@@ -1,14 +1,17 @@
-import {} from "../types/AuthType";
+import { } from "../types/AuthType";
 import {
   CLOSE_MODAL_FILTER,
   DETAIL_RATING_ROOM,
   DETAIL_ROOM,
   FILTER_ROOM,
   GET_LISTROOM,
+  GET_LISTROOM_PAGINATE,
   HIDE_MODAL_RATED,
   OPEN_MODAL_FILTER,
   PAY_BOOKING_ROOM,
   SHOW_MODAL_RATED,
+  FILTER_BY_OPTIONS,
+  FILTER_BY_PRICE
 } from "../types/ListRoomType";
 
 const initialState = {
@@ -25,6 +28,11 @@ const initialState = {
   detailRating: {},
 
   arrPayBooking: [],
+
+  // fixing
+  listRoom: [],
+  filteredRoom: [],
+
 };
 
 const RentRoomsReducer = (state = initialState, { type, payload }) => {
@@ -58,6 +66,37 @@ const RentRoomsReducer = (state = initialState, { type, payload }) => {
     case PAY_BOOKING_ROOM: {
       return { ...state, arrPayBooking: payload };
     }
+
+    // fixing
+    case GET_LISTROOM_PAGINATE: {
+
+      return { ...state, listRoom: payload, filteredRoom: payload }
+    }
+
+
+    case FILTER_BY_OPTIONS: {
+      const cloneListRoom = [...state.filteredRoom];
+      const filteredListRoom = cloneListRoom.filter((item) => {
+        if (Object.keys(payload).every((i) => item[i] >= payload[i])) {
+          return true;
+        }
+      });
+
+      return { ...state, listRoom: filteredListRoom, filteredRoom: filteredListRoom }
+    }
+
+    case FILTER_BY_PRICE: {
+      const cloneListRoom = [...state.filteredRoom];
+      const filteredListRoom = cloneListRoom.filter((item) => {
+        if (item.price > payload[0] && item.price < payload[1]) {
+          return true
+        }
+      })
+
+      return { ...state, listRoom: filteredListRoom, filteredRoom: filteredListRoom }
+    }
+
+
     default:
       return { ...state };
   }

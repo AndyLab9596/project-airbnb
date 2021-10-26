@@ -36,7 +36,7 @@ import AdminTicket from "./pages/AdminTicket";
 import AdminRating from "./pages/AdminRating";
 
 import ListRoomVer2 from "./pages/ListRoomVer2";
-
+import ListRoomVer3 from "./pages/ListRoomVer3";
 
 const App = () => {
   const idUser = localStorage.getItem(USERID);
@@ -59,7 +59,8 @@ const App = () => {
             component={Testing}
           />
           <MainLayout path="/profile/:personId" exact Component={Profile} />
-          <MainLayout path="/list/:locationId" exact Component={ListRoomVer2} />
+          {/* <MainLayout path="/list/:locationId" exact Component={ListRoomVer2} /> */}
+          <MainLayout path="/list/:locationId" exact Component={ListRoomVer3} />
           <MainLayout path="/detail/:roomId" exact Component={Detail} />
           <MainLayout path="/pay/:roomId" exact Component={Pay} />
 
