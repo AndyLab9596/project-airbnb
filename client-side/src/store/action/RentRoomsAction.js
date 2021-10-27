@@ -1,7 +1,7 @@
-import manageRentApi from "../../api/manageRentApi";
-import { createAction } from "./createAction/createAction";
-import { GET_LISTROOM, DETAIL_ROOM, DETAIL_RATING_ROOM, PAY_BOOKING_ROOM } from "../types/ListRoomType";
 import managerDetailRoom from "../../api/managerDetailRoom";
+import manageRentApi from "../../api/manageRentApi";
+import { DETAIL_RATING_ROOM, DETAIL_ROOM, GET_LISTROOM, PAY_BOOKING_ROOM } from "../types/ListRoomType";
+import { createAction } from "./createAction/createAction";
 
 export const getRentRoomsAction = (id) => {
   return async (dispatch) => {
