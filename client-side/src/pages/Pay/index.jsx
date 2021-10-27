@@ -203,7 +203,7 @@ const Pay = () => {
                           </Box>
                           <div className={classes.pay__right__style}>
                             <Typography
-                              className={classes.pay__right__text1}
+                              className={classes.pay__right__text__caption}
                               variant="caption"
                             >
                               Toàn bộ căn hộ cho thuê tại{" "}
@@ -501,7 +501,7 @@ const Pay = () => {
                           </Box>
                           <div className={classes.pay__right__style}>
                             <Typography
-                              className={classes.pay__right__text1}
+                              className={classes.pay__right__text__caption}
                               variant="caption"
                             >
                               Toàn bộ căn hộ cho thuê tại{" "}
@@ -690,7 +690,7 @@ const Pay = () => {
                 onClose={handleCloseSnackbar}
               >
                 <Alert onClose={handleCloseSnackbar} severity="success">
-                  Vui lòng nhập ngày
+                  Vui lòng chọn ngày
                 </Alert>
               </Snackbar>
             </div>
