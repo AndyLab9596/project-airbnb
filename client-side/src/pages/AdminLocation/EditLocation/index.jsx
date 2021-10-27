@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router";
 import * as yup from "yup";
 import TextFieldComponent from "../../../components/Login/TextField";
 import { createAction } from "../../../store/action/createAction/createAction";
@@ -13,6 +14,7 @@ import {
 } from "../../../store/action/LocationAction";
 import { RESET_DATA_LOCATION } from "../../../store/types/LocationType";
 import StepperBox from "../StepperBox";
+import queryString from "query-string";
 
 import useStyles from "./style";
 const schema = yup.object().shape({
@@ -26,11 +28,12 @@ export default function EditLocation(props) {
   const history = useHistory();
 
   const dispatch = useDispatch();
-  const userId = props.match.params.userId;
+  const location = useLocation();
+  const { locationId } = queryString.parse(location.search);
 
   const { locations } = useSelector((state) => state.LocationReducer);
   const { activeStep } = useSelector((state) => state.LocationReducer);
-  const LocationEdit = locations.filter((user) => user._id === userId);
+  const LocationEdit = locations.filter((user) => user._id === locationId);
   const classes = useStyles({ activeStep });
 
   const formik = useFormik({
@@ -59,7 +62,7 @@ export default function EditLocation(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formik.isValid) return;
-    dispatch(putUpdateLocationAction(data, userId));
+    dispatch(putUpdateLocationAction(data, locationId));
   };
   const handleImage = async (e) => {
     e.preventDefault();
@@ -67,7 +70,7 @@ export default function EditLocation(props) {
     const formData = new FormData();
     formData.append("location", formik.values.image);
 
-    dispatch(postUploadImageAction(formData, userId));
+    dispatch(postUploadImageAction(formData, locationId));
   };
   const handleClickBack = () => {
     dispatch(createAction(RESET_DATA_LOCATION));

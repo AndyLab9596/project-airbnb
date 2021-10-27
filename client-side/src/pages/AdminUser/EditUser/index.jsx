@@ -64,7 +64,6 @@ const EditUser = () => {
     dispatch(editUserAction(userId, formik.values));
   };
 
-  console.log(formik.values.gender);
   return (
     <form onSubmit={handleSubmitForm}>
       <Typography variant="h5" align="center" color="primary">
@@ -118,17 +117,13 @@ const EditUser = () => {
             label="Male"
             name="male"
             value="true"
-            // defaultValue={formik.values.gender}
-            checked={formik.values.gender === true}
           />
 
           <FormControlLabel
             control={<Radio />}
             label="Fermale"
             name="fermale"
-            value="true"
-            // defaultValue={formik.values.gender}
-            checked={formik.values.gender === false}
+            value="false"
           />
         </Box>
       </RadioGroup>

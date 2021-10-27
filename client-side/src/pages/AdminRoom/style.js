@@ -3,13 +3,8 @@ export default makeStyles((theme) => ({
   table: {
     minWidth: 650,
   },
-  tablerow: {
-    "&:hover": {
-      backgroundColor: "#ededf6",
-    },
-    "& >td >p": {
-      cursor: "pointer",
-    },
+  container: {
+    maxHeight: 500,
   },
   title: {
     fontSize: 30,
@@ -17,13 +12,28 @@ export default makeStyles((theme) => ({
     fontWeight: 600,
     paddingBottom: 20,
   },
-  avatar: {
+  image: {
     width: 70,
     height: 70,
     objectFit: "cover",
   },
+  description: {
+    width: "40%",
+  },
+  valueate: {
+    cursor: "pointer",
+  },
   pagination: {
     justifyContent: "center",
     display: "flex",
+  },
+  inputSearch: {
+    borderRadius: 30,
+    marginBottom: 40,
+    marginTop: 20,
+    padding: "5px 20px",
+    "&:focus-within": {
+      border: "1px solid #000",
+    },
   },
 }));

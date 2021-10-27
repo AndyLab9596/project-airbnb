@@ -33,6 +33,7 @@ import ButtonSubmit from "../../../components/ButtonSubmit";
 import clsx from "clsx";
 import { LocalizationProvider, StaticDateRangePicker } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import { removeAccents } from "../../../constants/config";
 
 const HeaderMobile = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -79,8 +80,10 @@ const HeaderMobile = () => {
   };
   const arrListSearch = locations?.filter(
     (item) =>
-      (item.name.toLowerCase()?.includes(valueSearch) && valueSearch !== "") ||
-      (item.province.toLowerCase()?.includes(valueSearch) && valueSearch !== "")
+      (removeAccents(item?.name).includes(valueSearch?.toLowerCase()) &&
+        valueSearch !== "") ||
+      (removeAccents(item?.province).includes(valueSearch?.toLowerCase()) &&
+        valueSearch !== "")
   );
 
   const handleCityClick = (locationId, location) => {

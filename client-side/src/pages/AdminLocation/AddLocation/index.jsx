@@ -41,7 +41,6 @@ export default function AddLocation(props) {
     validationSchema: schema,
     validateOnMount: true,
   });
-  console.log(formik.values.image);
 
   const data = {
     name: formik.values.name,
