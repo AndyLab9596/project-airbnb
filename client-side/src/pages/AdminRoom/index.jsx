@@ -29,6 +29,7 @@ import { formMoney } from "../../utilities/coordinates";
 import ButtonSubmit from "../../components/ButtonSubmit";
 import queryString from "query-string";
 import EditRoom from "./EditRoom";
+import { removeAccents } from "../../constants/config";
 
 const AdminRoom = ({ handleToggleRatedRoom }) => {
   const location = useLocation();
@@ -47,7 +48,7 @@ const AdminRoom = ({ handleToggleRatedRoom }) => {
   const tableHeader = ["", "", "Name", "Description", "Price", ""];
 
   const filteredRows = arrListRoom.filter((row) => {
-    return row.name.toLowerCase().includes(searched.toLowerCase());
+    return removeAccents(row?.name).includes(searched.toLowerCase());
   });
 
   const cancelSearch = () => {

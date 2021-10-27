@@ -26,7 +26,6 @@ import AddLocation from "./pages/AdminLocation/AddLocation";
 
 //Components
 
-
 import AdminLayout from "./layouts/AdminLayout";
 import Admin from "./pages/AdminUser";
 import AdminLocation from "./pages/AdminLocation";
@@ -34,12 +33,10 @@ import AdminRoom from "./pages/AdminRoom";
 import AdminTicket from "./pages/AdminTicket";
 import AdminRating from "./pages/AdminRating";
 
-
-import ListRoomVer2 from "./pages/ListRoomVer2";
+// import ListRoomVer2 from "./pages/ListRoomVer2";
 import AddRating from "./pages/AdminRating/AddRating";
 
 import ListRoomVer3 from "./pages/ListRoomVer3";
-
 
 const App = () => {
   const idUser = localStorage.getItem(USERID);
