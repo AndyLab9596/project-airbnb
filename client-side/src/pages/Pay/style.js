@@ -7,16 +7,16 @@ export default makeStyles(theme => ({
         paddingTop: 80,
         paddingLeft: 160,
         paddingRight: 160,
-        [theme.breakpoints.down(1025)]: {
+        [theme.breakpoints.down("lg")]: {
 
             paddingLeft: 40,
             paddingRight: 40,
         },
-        [theme.breakpoints.down(769)]: {
+        [theme.breakpoints.down("md")]: {
             paddingLeft: 30,
             paddingRight: 30,
         },
-        [theme.breakpoints.down(415)]: {
+        [theme.breakpoints.down("sm")]: {
             paddingTop: 0,
             paddingLeft: 20,
             paddingRight: 20,
@@ -28,14 +28,7 @@ export default makeStyles(theme => ({
         alignItems: "center",
         paddingTop: 64,
         paddingBottom: 48,
-        [theme.breakpoints.down(415)]: {
-            padding: "15px 0",
-            position: "fixed",
-            backgroundColor: "#fff",
-            zIndex: 999,
-            minWidth: 375,
-        },
-        [theme.breakpoints.down(376)]: {
+        [theme.breakpoints.down("sm")]: {
             padding: "15px 0",
             position: "fixed",
             backgroundColor: "#fff",
@@ -44,10 +37,9 @@ export default makeStyles(theme => ({
         },
     },
     pay__content: {
-        [theme.breakpoints.down(415)]: {
+        [theme.breakpoints.down("sm")]: {
             padding: "75px 0px",
         },
-
     },
     pay__title__icon: {
         fontSize: 15,
@@ -59,13 +51,9 @@ export default makeStyles(theme => ({
         fontWeight: 600,
         color: "#222222",
         marginLeft: 40,
-        [theme.breakpoints.down(415)]: {
+        [theme.breakpoints.down("sm")]: {
             marginLeft: 40,
             fontSize: 24,
-        },
-        [theme.breakpoints.down(376)]: {
-            marginLeft: 40,
-            fontSize: 16,
         },
     },
 
@@ -111,7 +99,7 @@ export default makeStyles(theme => ({
     pay__item__style__title: {
         padding: "24px 0",
         borderTop: "1px solid rgb(221, 221, 221)",
-        [theme.breakpoints.down(376)]: {
+        [theme.breakpoints.down("sm")]: {
             borderTop: "8px solid rgb(221, 221, 221)",
             width: "100%"
         },
@@ -129,52 +117,11 @@ export default makeStyles(theme => ({
             color: " rgb(113, 113, 113)",
         }
     },
-    pay__radio__top: {
-        border: "1px solid rgb(221, 221, 221)",
-        borderRadius: "8px 8px 0 0",
-        padding: 16,
-        display: "flex",
-        justifyContent: "space-between",
-        position: "relative"
 
-    },
-    pay__radio__bot: {
-        border: "1px solid rgb(221, 221, 221)",
-        borderRadius: "0px 0px 8px 8px",
-        padding: 16,
-        display: "flex",
-        justifyContent: "space-between",
-        position: "relative",
-    },
-    pay__radio__right__item: {
-        appearance: "none",
-        borderStyle: "solid",
-        overflow: "hidden",
-        borderRadius: "50%",
-        verticalAlign: "top",
-        outline: "none",
-        borderColor: "rgb(34, 34, 34)",
-        borderWidth: 7,
-        backgroundColor: "#fff",
-        cursor: "pointer",
-        height: 22,
-        width: 22,
-        flex: "0 0 auto",
-        margin: 0
-    },
-    pay__radio__right: {
-        transform: "translate(35%, -20%) !important",
-        [theme.breakpoints.down(769)]: {
-            transform: "translate(0, -10%) !important",
-        },
 
-    },
-    pay__radio__right1: {
-        transform: "translate(35%, -10%) !important",
-        [theme.breakpoints.down(769)]: {
-            transform: "translate(0, -5%) !important",
-        },
-    },
+
+
+
     pay__radio__style: {
         fontSize: 15
     },
@@ -185,7 +132,7 @@ export default makeStyles(theme => ({
         alignItems: "center",
         padding: "24px 0",
         borderTop: "1px solid rgb(221, 221, 221)",
-        [theme.breakpoints.down(376)]: {
+        [theme.breakpoints.down("sm")]: {
             borderTop: "8px solid rgb(221, 221, 221)",
             width: "100%"
         },
@@ -216,9 +163,9 @@ export default makeStyles(theme => ({
         top: 150,
         marginLeft: 60,
         marginBottom: 100,
-        [theme.breakpoints.down(415)]: {
+        [theme.breakpoints.down("sm")]: {
             height: 150,
-            borderBottom: "1px solid #DDDDDD",
+            borderBottom: "8px solid #DDDDDD",
             marginLeft: 0,
             marginBottom: 30
 
@@ -228,11 +175,11 @@ export default makeStyles(theme => ({
         width: 115,
         height: 100,
         borderRadius: 8,
-        [theme.breakpoints.down(769)]: {
+        [theme.breakpoints.down("md")]: {
             width: 90,
             height: 100,
         },
-        [theme.breakpoints.down(415)]: {
+        [theme.breakpoints.down("sm")]: {
             width: 100,
             height: 100,
         },
@@ -243,24 +190,24 @@ export default makeStyles(theme => ({
         justifyContent: "space-between",
         flexDirection: "column",
         paddingBottom: 5,
-        [theme.breakpoints.down(769)]: {
+        [theme.breakpoints.down("md")]: {
             paddingLeft: 15
         },
-        [theme.breakpoints.down(415)]: {
+        [theme.breakpoints.down("sm")]: {
             paddingLeft: 0
         },
     },
-    pay__right__text1: {
-        [theme.breakpoints.down(769)]: {
+    pay__right__text__caption: {
+        [theme.breakpoints.down("md")]: {
             fontSize: 9
         },
-        [theme.breakpoints.down(415)]: {
+        [theme.breakpoints.down("sm")]: {
             fontSize: 12
         },
     },
     pay__right__text: {
         fontSize: 14,
-        [theme.breakpoints.down(1025)]: {
+        [theme.breakpoints.down("lg")]: {
             fontSize: 12
         },
     },
@@ -278,146 +225,16 @@ export default makeStyles(theme => ({
         paddingRight: 2,
     },
 
-    pay__right__table: {
-        display: "table", marginBottom: 15
-    },
-    pay__right__table__item: {
-        display: "table-cell", width: "100%"
-    },
+
     pay__left__list: {
         display: "flex",
-        [theme.breakpoints.down(376)]: {
+        [theme.breakpoints.down("sm")]: {
             display: "none"
         },
         "& >li": {
             padding: "0 5px",
             "& >img": {
                 height: 10
-            }
-        }
-    },
-
-    footer__bot: {
-        display: "flex",
-        padding: "24px 160px",
-        borderTop: "1px solid #DDDDDD",
-        justifyContent: "space-between",
-        alignItems: "center",
-        backgroundColor: "rgb(247, 247, 247)",
-        [theme.breakpoints.down(1025)]: {
-            display: "block",
-        },
-        [theme.breakpoints.down(744)]: {
-            display: "block"
-        },
-        [theme.breakpoints.down(376)]: {
-            display: "block",
-            padding: "24px 30px",
-        },
-    },
-    footer__item__list__first: {
-        [theme.breakpoints.down(376)]: {
-            display: "none"
-        },
-    },
-    footer__item__list__end: {
-        [theme.breakpoints.down(376)]: {
-            flex: "0 0 30%"
-        },
-    },
-    footer__item__bot: {
-        // width: "45%",
-        display: "flex",
-        listStyle: "none",
-        paddingRight: 10,
-        textDecoration: "none",
-        alignItems: "center",
-        [theme.breakpoints.down(1025)]: {
-            justifyContent: "center",
-            alignItems: "center",
-            paddingBottom: "10px"
-        },
-        [theme.breakpoints.down(744)]: {
-            display: "block"
-        },
-        [theme.breakpoints.down(376)]: {
-            display: "flex",
-            padding: "24px 30px",
-        },
-        "& li": {
-            paddingLeft: 0,
-            paddingRight: 0,
-            "& a": {
-                textDecoration: "none",
-                color: "#222222",
-                fontSize: 15,
-                display: "block",
-                paddingRight: "10px",
-                whiteSpace: "nowrap",
-                transition: "all .2s",
-                lineHeight: "18px ",
-                "&:hover": {
-                    color: "inherit",
-                    cursor: "pointer",
-                    textDecoration: "underline"
-                }
-            },
-            "& span": {
-                textDecoration: "none",
-                color: "#222222",
-                fontSize: 15,
-                display: "block",
-                paddingRight: "10px",
-                whiteSpace: "nowrap",
-                transition: "all .2s",
-                lineHeight: "18px ",
-            }
-        }
-    },
-    footer__bot__content: {
-        [theme.breakpoints.down(1025)]: {
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center"
-        },
-        [theme.breakpoints.down(744)]: {
-            fontSize: "15px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-        },
-    },
-    footer__bot__content1: {
-        display: "flex",
-        marginLeft: "32px",
-        [theme.breakpoints.down(744)]: {
-            display: "none"
-        },
-        "& ul": {
-            listStyle: "none",
-            padding: 0,
-            textDecoration: "none",
-            display: "flex",
-            margin: 0,
-            "& li": {
-                marginRight: "24px",
-                paddingLeft: 0,
-                paddingRight: 0,
-                "& a": {
-                    textDecoration: "none",
-                    color: "#222222",
-                    fontSize: 15,
-                    display: "block",
-
-                    whiteSpace: "nowrap",
-                    transition: "all .2s",
-                    lineHeight: "18px ",
-                    "&:hover": {
-                        color: "inherit",
-                        cursor: "pointer",
-                        textDecoration: "underline"
-                    }
-                }
             }
         }
     },
@@ -432,10 +249,14 @@ export default makeStyles(theme => ({
     },
     modal__header: {
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "right",
         alignItems: "center",
         padding: "0 24px",
         minHeight: 65,
+        position: "sticky",
+        top: 0,
+        backgroundColor: "#fff",
+        zIndex: 9,
         borderBottom: "1px solid rgb(235, 235, 235)",
         "& >p": {
             fontWeight: 800,
@@ -445,13 +266,23 @@ export default makeStyles(theme => ({
             padding: 6,
         },
     },
+    modal__pay: {
+        justifyContent: "center !important",
+    },
+    modal__date__delete: {
+        paddingRight: 15,
+        textDecoration: "underline",
+        fontWeight: 600,
+        fontSize: 16,
+        cursor: "pointer"
+    },
     icon: {
         position: "absolute",
         left: "11%",
-        [theme.breakpoints.down(1025)]: {
+        [theme.breakpoints.down("lg")]: {
             left: "2%",
         },
-        [theme.breakpoints.down(415)]: {
+        [theme.breakpoints.down("sm")]: {
             left: "-3%",
         },
     },

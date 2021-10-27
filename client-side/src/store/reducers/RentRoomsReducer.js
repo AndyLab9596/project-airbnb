@@ -1,14 +1,13 @@
-import {} from "../types/AuthType";
+import { } from "../types/AuthType";
 import {
   CLOSE_MODAL_FILTER,
   DETAIL_RATING_ROOM,
   DETAIL_ROOM,
   FILTER_ROOM,
-  GET_LISTROOM,
-  HIDE_MODAL_RATED,
+  GET_LISTROOM, HIDE_MODAL_RATED,
   OPEN_MODAL_FILTER,
   PAY_BOOKING_ROOM,
-  SHOW_MODAL_RATED,
+  SHOW_MODAL_RATED
 } from "../types/ListRoomType";
 
 const initialState = {
@@ -25,6 +24,7 @@ const initialState = {
   detailRating: {},
 
   arrPayBooking: [],
+
 };
 
 const RentRoomsReducer = (state = initialState, { type, payload }) => {
@@ -58,6 +58,7 @@ const RentRoomsReducer = (state = initialState, { type, payload }) => {
     case PAY_BOOKING_ROOM: {
       return { ...state, arrPayBooking: payload };
     }
+
     default:
       return { ...state };
   }

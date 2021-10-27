@@ -26,13 +26,16 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { vi } from "date-fns/locale";
 import moment from "moment";
 import queryString from "query-string";
-import React, { Fragment, useMemo, useState } from "react";
+import React, { Fragment, useMemo, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation, useParams } from "react-router";
 import BookingPrice from "../../components/BookingPrice";
 import ButtonSubmit from "../../components/ButtonSubmit";
 import GuestCount from "../../components/GuestCount";
-import { PayBookingAction } from "../../store/action/RentRoomsAction";
+import {
+  DetailRoomAction,
+  PayBookingAction,
+} from "../../store/action/RentRoomsAction";
 import { formMoney } from "../../utilities/coordinates";
 import ResultTicket from "./ResultTicket";
 import useStyles from "./style";
@@ -48,12 +51,14 @@ const Pay = () => {
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
   const { detailRoom } = useSelector((state) => state.RentRoomsReducer);
   const classes = useStyles({ isDesktop });
+
   const queryParams = useMemo(() => {
     const params = queryString.parse(location.search);
     return {
       ...params,
     };
   }, [location.search]);
+
   const [valueGroup, setValueGroup] = React.useState("Visa");
   const [open, setOpen] = React.useState({
     modalDate: false,
@@ -62,8 +67,8 @@ const Pay = () => {
   });
   const [numbersFilter, setNumbersFilter] = useState({
     _adult: Number(queryParams._adult) || 1,
-    _children: Number(queryParams._children) || 1,
-    _toddler: Number(queryParams._toddler) || 1,
+    _children: Number(queryParams._children),
+    _toddler: Number(queryParams._toddler),
   });
 
   const [bookingTime, setBookingTime] = useState([
@@ -76,9 +81,12 @@ const Pay = () => {
   const totalDate = totalDateTime / (1000 * 3600 * 24);
   const isBooking = bookingTime.some((item) => item === null);
 
-  const date = new Date().setDate(bookingTime[0].getDate() - 4);
+  const date = new Date()?.setDate(bookingTime[0]?.getDate() - 4);
   const daysAgo = new Date(date);
 
+  useEffect(() => {
+    dispatch(DetailRoomAction(param.roomId));
+  }, [dispatch]);
   const totalPrice = () => {
     return totalDate < 7
       ? formMoney(detailRoom?.price * totalDate + 100000)
@@ -195,7 +203,7 @@ const Pay = () => {
                           </Box>
                           <div className={classes.pay__right__style}>
                             <Typography
-                              className={classes.pay__right__text1}
+                              className={classes.pay__right__text__caption}
                               variant="caption"
                             >
                               Toàn bộ căn hộ cho thuê tại{" "}
@@ -493,7 +501,7 @@ const Pay = () => {
                           </Box>
                           <div className={classes.pay__right__style}>
                             <Typography
-                              className={classes.pay__right__text1}
+                              className={classes.pay__right__text__caption}
                               variant="caption"
                             >
                               Toàn bộ căn hộ cho thuê tại{" "}
@@ -569,7 +577,7 @@ const Pay = () => {
         >
           {open.modalPay && (
             <div>
-              <div className={classes.modal__header}>
+              <div className={`${classes.modal__header} ${classes.modal__pay}`}>
                 <IconButton className={classes.iconModal} onClick={handleClose}>
                   <CloseIcon />
                 </IconButton>
@@ -586,7 +594,6 @@ const Pay = () => {
                 />
                 <ButtonSubmit
                   handleSubmit={handleClickBackHome}
-                  // className={classes.ButtonResultItem}.
                   text={textPayModal}
                 />
               </div>
@@ -601,13 +608,15 @@ const Pay = () => {
                 >
                   <CloseIcon />
                 </IconButton>
-                {isBooking ? (
-                  <Typography variant="body2">Vui lòng chọn ngày</Typography>
-                ) : (
-                  <Typography variant="body2">{totalDate} Đêm</Typography>
-                )}
-                <div></div>
+                <Typography
+                  className={classes.modal__date__delete}
+                  variant="subtitle2"
+                  onClick={() => setBookingTime([null, null])}
+                >
+                  Xóa ngày
+                </Typography>
               </div>
+
               <LocalizationProvider
                 dateAdapter={AdapterDateFns}
                 locale={locale}
@@ -681,7 +690,7 @@ const Pay = () => {
                 onClose={handleCloseSnackbar}
               >
                 <Alert onClose={handleCloseSnackbar} severity="success">
-                  Vui lòng nhập ngày
+                  Vui lòng chọn ngày
                 </Alert>
               </Snackbar>
             </div>
@@ -692,7 +701,20 @@ const Pay = () => {
                 <IconButton className={classes.iconModal} onClick={handleClose}>
                   <CloseIcon />
                 </IconButton>
-                <Typography variant="body2">Khách</Typography>
+                <Typography
+                  className={classes.modal__date__delete}
+                  variant="subtitle2"
+                  onClick={() =>
+                    setNumbersFilter({
+                      ...numbersFilter,
+                      _adult: 1,
+                      _children: 0,
+                      _toddler: 0,
+                    })
+                  }
+                >
+                  Xóa
+                </Typography>
                 <div></div>
               </div>
               <div style={{ padding: 20 }}>
@@ -701,15 +723,7 @@ const Pay = () => {
                   setNumbersFilter={setNumbersFilter}
                 />
               </div>
-              <div
-                style={{
-                  borderTop: "1px solid #222222",
-                  padding: 10,
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
+              <div className={classes.drawer_content_bot}>
                 <Typography
                   variant="h5"
                   className={classes.booking__content__price}
@@ -739,7 +753,12 @@ const Pay = () => {
               <IconButton className={classes.iconModal} onClick={handleClose}>
                 <CloseIcon />
               </IconButton>
-              <Typography variant="body2">Khách</Typography>
+              <Typography
+                variant="h5"
+                className={classes.booking__content__price}
+              >
+                {numbersFilter._adult} khách
+              </Typography>
               <div></div>
             </div>
             <div style={{ padding: 20 }}>
@@ -750,11 +769,20 @@ const Pay = () => {
             </div>
             <div className={classes.drawer_content_bot}>
               <Typography
-                variant="h5"
-                className={classes.booking__content__price}
+                className={classes.modal__date__delete}
+                variant="subtitle2"
+                onClick={() =>
+                  setNumbersFilter({
+                    ...numbersFilter,
+                    _adult: 1,
+                    _children: 0,
+                    _toddler: 0,
+                  })
+                }
               >
-                {numbersFilter._adult} khách
+                Xóa
               </Typography>
+
               <Button
                 onClick={() => setOpen(false)}
                 className={classes.booking__content__btn__save}
