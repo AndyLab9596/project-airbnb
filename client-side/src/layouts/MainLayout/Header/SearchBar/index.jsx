@@ -10,7 +10,7 @@ import moment from "moment";
 import queryString from "query-string";
 import React, { Fragment, useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory, useLocation } from "react-router";
+import { useHistory, useLocation, useParams } from "react-router";
 import manageLocationApi from "../../../../api/manageLocationApi";
 import GuestCount from "../../../../components/GuestCount";
 import useStyles from "./style";
@@ -83,14 +83,18 @@ const SearchBar = ({ isDesktop, listPageDisplaySearchBar, listpageRoute }) => {
   const locationInputValue = locationList.find(
     (location) => location.province === inputValue
   );
-  const locationId = locationInputValue?._id;
+
 
   const checkInFormatted = moment(bookingTime[0]).format("YYYY-MM-DD");
   const checkOutFormatted = moment(bookingTime[1]).format("YYYY-MM-DD");
 
 
+  const locationParams = useParams();
+  const locationIdFromParams = locationParams.locationId;
+  const locationId = locationInputValue?._id || locationIdFromParams;
+
   const queryParams = {
-    _location: locationInputValue?.province || "",
+    _location: locationInputValue?.province,
     _checkIn: checkInFormatted,
     _checkOut: checkOutFormatted,
     _adult: numbers._adult,
@@ -108,7 +112,6 @@ const SearchBar = ({ isDesktop, listPageDisplaySearchBar, listpageRoute }) => {
   useEffect(() => {
     if (listpageRoute) {
       historyPush()
-
     }
 
   }, [listPageDisplaySearchBar])
