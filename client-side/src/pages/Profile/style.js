@@ -141,6 +141,22 @@ export default makeStyles(theme => ({
         textDecoration: 'underline',
         textAlign: 'center',
         fontWeight: 500
+    },
+    profile__info__text: {
+        color: "#222222",
+        textDecoration: "underline",
+        borderRadius: "4px",
+        fontWeight: 600,
+        outline: "none",
+        fontSize: 20,
+        paddingBottom: 20
+    },
+    profile__info__item: {
+        display: "flex",
+        justifyContent: "space-between",
+        borderBottom: "1px solid #DDDDDD",
+        marginBottom: 10,
+        paddingBottom: 5,
     }
 
 

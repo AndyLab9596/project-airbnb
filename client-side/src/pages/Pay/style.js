@@ -432,10 +432,14 @@ export default makeStyles(theme => ({
     },
     modal__header: {
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "right",
         alignItems: "center",
         padding: "0 24px",
         minHeight: 65,
+        position: "sticky",
+        top: 0,
+        backgroundColor: "#fff",
+        zIndex: 9,
         borderBottom: "1px solid rgb(235, 235, 235)",
         "& >p": {
             fontWeight: 800,
@@ -444,6 +448,16 @@ export default makeStyles(theme => ({
         "& > button": {
             padding: 6,
         },
+    },
+    modal__pay: {
+        justifyContent: "center !important",
+    },
+    modal__date__delete: {
+        paddingRight: 15,
+        textDecoration: "underline",
+        fontWeight: 600,
+        fontSize: 16,
+        cursor: "pointer"
     },
     icon: {
         position: "absolute",
