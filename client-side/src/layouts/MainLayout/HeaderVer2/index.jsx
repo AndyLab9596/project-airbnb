@@ -1,14 +1,13 @@
 import {
-    AppBar, Button, Toolbar, Typography, useMediaQuery
+    AppBar, useMediaQuery
 } from '@material-ui/core';
 import { useTheme } from "@material-ui/core/styles";
+import clsx from 'clsx';
 import React from 'react';
 import { useRouteMatch } from 'react-router';
-import useStyles from './style';
-import clsx from 'clsx';
 import airbnbIcon from "../../../assets/img/airbnblogo.png";
 import airbnbRedIcon from "../../../assets/img/airbnbRedIcon.png";
-import { NavLink } from 'react-router-dom';
+import useStyles from './style';
 
 
 const HeaderVer2 = () => {
@@ -46,6 +45,8 @@ const HeaderVer2 = () => {
                         </a>
                     </div>
 
+
+                    {/* List navigation */}
                     <div className={classes.navigation}>
                         <ul className={classes.navigation__list}>
                             <li className={classes.navigation__list__item}>
@@ -66,6 +67,7 @@ const HeaderVer2 = () => {
                         </ul>
                     </div>
 
+                    {/* Profile section */}
                     <div className={classes.imageIcon}>
                         <a href="/">
                             <img
