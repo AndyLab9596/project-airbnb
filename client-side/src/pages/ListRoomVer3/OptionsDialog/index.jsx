@@ -4,8 +4,6 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import CloseIcon from '@material-ui/icons/Close';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createAction } from '../../../store/action/createAction/createAction';
-import { FILTER_BY_OPTIONS } from '../../../store/types/ListRoomType';
 import useStyles from "./style";
 
 
@@ -78,7 +76,6 @@ export default function OptionsDialog(props) {
 
     const handleClose = () => {
         setOpen(false);
-        dispatch(createAction(FILTER_BY_OPTIONS, filter))
 
     };
 
