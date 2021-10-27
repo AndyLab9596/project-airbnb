@@ -42,7 +42,6 @@ const BookingTablet = ({
     _children: Number(queryParams._children) || 0,
     _toddler: Number(queryParams._toddler) || 0,
   });
-  console.log('numbersFilter', numbersFilter)
 
   const [anchorEl, setAnchorEl] = useState(null);
   const history = useHistory();

@@ -12,6 +12,7 @@ const TextFieldComponent = ({
   valueInput,
   name,
   type,
+  fontSize,
 }) => {
   const useStyle = makeStyles(() => ({
     textField: {
@@ -23,6 +24,7 @@ const TextFieldComponent = ({
   return (
     <Fragment>
       <TextField
+        size={fontSize}
         type={type}
         variant="outlined"
         className={classes.textField}

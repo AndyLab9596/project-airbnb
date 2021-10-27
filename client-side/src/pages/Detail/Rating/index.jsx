@@ -17,6 +17,7 @@ import { BsFillStarFill } from "react-icons/bs";
 import { MdSearch } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
+import { removeAccents } from "../../../constants/config";
 import { createAction } from "../../../store/action/createAction/createAction";
 import {
   HIDE_MODAL_RATED,
@@ -77,7 +78,7 @@ const DetailRating = ({ detailRating }) => {
     className: `${classes.slider}`,
   };
   const arrFilterContent = detailRating?.filter?.((item) =>
-    item?.content?.toLowerCase()?.includes(valueInput)
+    removeAccents(item?.content).includes(valueInput?.toLowerCase())
   );
 
   return (

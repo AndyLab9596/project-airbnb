@@ -10,9 +10,12 @@ export default makeStyles((theme) => ({
   labelIcon: {
     marginRight: 10,
     fontSize: 20,
+    color: (props) => props.color,
   },
   labelText: {
     fontWeight: "inherit",
     flexGrow: 1,
+    color: (props) => props.color,
+    backgroundColor: (props) => props.bgColor,
   },
 }));

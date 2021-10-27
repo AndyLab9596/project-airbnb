@@ -10,6 +10,14 @@ export const TOKEN_BY_CLASS =
 export const FAKE_AVATAR = "https://i.pravatar.cc/300?u=";
 export const TOKEN = "token";
 export const USERID = "userId";
+export const removeAccents = (name) => {
+  return name
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ/g, "d")
+    .replace(/Đ/g, "D")
+    .toLowerCase();
+};
 
 export const theme = createTheme({
   breakpoints: {

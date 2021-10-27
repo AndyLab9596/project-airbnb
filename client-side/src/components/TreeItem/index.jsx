@@ -3,8 +3,16 @@ import { TreeItem } from "@material-ui/lab";
 import useStyles from "./style";
 
 const ContentTreeItem = (props) => {
-  const { labelText, labelIcon: LabelIcon, labelInfo, ...other } = props;
-  const classes = useStyles();
+  const {
+    labelText,
+    labelIcon: LabelIcon,
+    labelInfo,
+    color,
+    bgColor,
+
+    ...other
+  } = props;
+  const classes = useStyles({ color, bgColor });
 
   return (
     <TreeItem

@@ -20,12 +20,12 @@ import PeopleOutlineIcon from "@material-ui/icons/PeopleOutline";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import { TreeView } from "@material-ui/lab";
 import clsx from "clsx";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdAdminPanelSettings, MdOutlineRateReview } from "react-icons/md";
 import { RiHotelLine } from "react-icons/ri";
 import { TiTicket } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
-import { useRouteMatch } from "react-router";
+import { useRouteMatch, useLocation, useParams } from "react-router";
 import { NavLink, Redirect, Route, useHistory } from "react-router-dom";
 import airbnbIcon from "../../assets/img/airbnblogo.png";
 import ContentTreeItem from "../../components/TreeItem";
@@ -35,15 +35,19 @@ import AddLocationIcon from "@material-ui/icons/AddLocation";
 import EditLocationIcon from "@material-ui/icons/EditLocation";
 import { AddLocation, EditLocation } from "@material-ui/icons";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import ListIcon from "@material-ui/icons/List";
+import queryString from "query-string";
 
 const AdminLayout = (props) => {
-  const classes = useStyles();
+  const { Component, ...restRoute } = props;
+  const classes = useStyles({ restRoute: restRoute.path });
   const [open, setOpen] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const [openList, setOpenList] = useState(true);
   const dispatch = useDispatch();
   const history = useHistory();
-  const matchUrl = useRouteMatch();
+  const location = useLocation();
+  const params = queryString.parse(location.search);
   const { infoUser } = useSelector((state) => state.AuthReducer);
   const handleListClick = () => {
     setOpenList((state) => !state);
@@ -52,7 +56,6 @@ const AdminLayout = (props) => {
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-
   const handleDrawerClose = () => {
     setOpen(false);
   };
@@ -63,17 +66,19 @@ const AdminLayout = (props) => {
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
-
   //   const handleLogoutClick = () => {
   //     dispatch(createAction(actionTypes.LOGOUT_USER));
   //     history.push("/");
   //     window.location.reload();
   //   };
   //   const currentUser = useSelector((state) => state.UserReducer.registerUser);
-  const { Component, ...restRoute } = props;
-  const [expanded, setExpanded] = React.useState({ user: [], location: [] });
+  const [expanded, setExpanded] = React.useState({
+    user: [],
+    location: [],
+    room: [],
+    ratedRoom: [],
+  });
   const [selected, setSelected] = React.useState([]);
-  console.log(expanded);
   const handleToggleUser = (event, nodeIds) => {
     setExpanded({ ...expanded, user: nodeIds });
   };
@@ -81,9 +86,17 @@ const AdminLayout = (props) => {
     setExpanded({ ...expanded, location: nodeIds });
   };
 
+  const handleToggleRoom = (event, nodeIds) => {
+    setExpanded({ ...expanded, room: nodeIds });
+  };
+
+  const handleToggleRatedRoom = (event, nodeIds) => {
+    setExpanded({ ...expanded, ratedRoom: nodeIds });
+  };
   const handleSelect = (event, nodeIds) => {
     setSelected(nodeIds);
   };
+
   return (
     <Route
       {...restRoute}
@@ -199,104 +212,171 @@ const AdminLayout = (props) => {
               <Divider />
               <List>
                 <ListItem button onClick={handleListClick}>
-                  <ListItemIcon>
-                    <MdAdminPanelSettings fontSize="large" />
-                  </ListItemIcon>
-                  <ListItemText primary="Admin Control" />
+                  <ListItemText>
+                    <Typography variant="h5" color="primary">
+                      DashBoard
+                    </Typography>
+                  </ListItemText>
                   {openList ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
                 <Collapse in={openList} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
-                    <NavLink
-                      to="/admin"
-                      className={classes.link}
-                      activeClassName={classes.active}
-                      exact
+                    <TreeView
+                      className={classes.rootTreeview}
+                      expanded={expanded.user}
+                      selected={selected}
+                      onNodeToggle={handleToggleUser}
+                      onNodeSelect={handleSelect}
                     >
-                      <TreeView
-                        className={classes.rootTreeview}
-                        expanded={expanded.user}
-                        selected={selected}
-                        onNodeToggle={handleToggleUser}
-                        onNodeSelect={handleSelect}
+                      <ContentTreeItem
+                        nodeId="1"
+                        labelText={
+                          <Box
+                            display="flex"
+                            justifyContent="space-between"
+                            alignItems="center"
+                          >
+                            Quản lý thông tin người dùng
+                            <Typography>
+                              {expanded?.user?.length > 0 ? (
+                                <ExpandMore />
+                              ) : (
+                                <NavigateNextIcon />
+                              )}
+                            </Typography>
+                          </Box>
+                        }
+                        labelIcon={PeopleOutlineIcon}
                       >
-                        <ContentTreeItem
-                          nodeId="1"
-                          labelText={
-                            <Box
-                              display="flex"
-                              justifyContent="space-between"
-                              alignItems="center"
-                            >
-                              Quản lý thông tin người dùng
-                              <Typography>
-                                {expanded.user.length > 0 ? (
-                                  <ExpandMore />
-                                ) : (
-                                  <NavigateNextIcon />
-                                )}
-                              </Typography>
-                            </Box>
-                          }
-                          labelIcon={PeopleOutlineIcon}
-                        >
-                          <NavLink
-                            to={"/admin/user/edit/:"}
-                            activeClassName={classes.active}
-                            className={classes.link}
-                            exact
-                          >
-                            <ContentTreeItem
-                              nodeId="2"
-                              labelText="Cập nhật người dùng"
-                              labelIcon={EditIcon}
-                              color="#1a73e8"
-                              bgColor="#e8f0fe"
-                            />
-                          </NavLink>
-                          <NavLink
-                            to="/admin/user/add"
-                            activeClassName={classes.active}
-                            className={classes.link}
-                            exact
-                          >
-                            <ContentTreeItem
-                              nodeId="3"
-                              labelText="Thêm người dùng "
-                              labelIcon={PersonAddIcon}
-                              color="#1a73e8"
-                              bgColor="#e8f0fe"
-                            />
-                          </NavLink>
-                        </ContentTreeItem>
-                      </TreeView>
-                    </NavLink>
+                        <NavLink to="/admin/user">
+                          <ContentTreeItem
+                            nodeId="2"
+                            labelText="Danh sách người dùng"
+                            labelIcon={ListIcon}
+                            color={
+                              restRoute.path === "/admin/user"
+                                ? "#1a73e8"
+                                : "#999"
+                            }
+                          />
+                        </NavLink>
+                        {restRoute.path === "/admin/user/edit/:userId" && (
+                          <ContentTreeItem
+                            nodeId="3"
+                            labelText="Cập nhật người dùng"
+                            labelIcon={EditIcon}
+                            color={
+                              restRoute.path === "/admin/user/edit/:userId"
+                                ? "#1a73e8"
+                                : "#fff"
+                            }
+                          />
+                        )}
+                        <NavLink to="/admin/user/add">
+                          <ContentTreeItem
+                            nodeId="4"
+                            labelText="Thêm người dùng "
+                            labelIcon={PersonAddIcon}
+                            color={
+                              restRoute.path === "/admin/user/add"
+                                ? "#1a73e8"
+                                : "#999"
+                            }
+                          />
+                        </NavLink>
+                      </ContentTreeItem>
+                    </TreeView>
                   </List>
                   <List component="div" disablePadding>
-                    <NavLink
-                      to="/admin/locations"
-                      className={classes.link}
-                      activeClassName={classes.active}
-                      exact
+                    <TreeView
+                      className={classes.rootTreeview}
+                      expanded={expanded.location}
+                      selected={selected}
+                      onNodeToggle={handleToggleLocation}
+                      onNodeSelect={handleSelect}
                     >
+                      <ContentTreeItem
+                        nodeId="5"
+                        labelText={
+                          <Box
+                            display="flex"
+                            justifyContent="space-between"
+                            alignItems="center"
+                          >
+                            Quản lý vị trí
+                            <Typography>
+                              {expanded?.location?.length > 0 ? (
+                                <ExpandMore />
+                              ) : (
+                                <ExpandLess />
+                              )}
+                            </Typography>
+                          </Box>
+                        }
+                        labelIcon={LocationOn}
+                      >
+                        <NavLink to="/admin/locations">
+                          <ContentTreeItem
+                            nodeId="6"
+                            labelText="Danh sách vị trí"
+                            labelIcon={ListIcon}
+                            color={
+                              restRoute.path === "/admin/locations"
+                                ? "#1a73e8"
+                                : "#999"
+                            }
+                          />
+                        </NavLink>
+                        {restRoute.path === "/admin/location/edit" && (
+                          <ContentTreeItem
+                            nodeId="7"
+                            labelText="Cập nhật vị trí"
+                            labelIcon={EditIcon}
+                            color={
+                              restRoute.path === "/admin/location/edit"
+                                ? "#1a73e8"
+                                : "#999"
+                            }
+                          />
+                        )}
+
+                        <NavLink to="/admin/location/add">
+                          <ContentTreeItem
+                            nodeId="8"
+                            labelText="Thêm vị trí "
+                            labelIcon={AddLocationIcon}
+                            color={
+                              restRoute.path === "/admin/location/add"
+                                ? "#1a73e8"
+                                : "#999"
+                            }
+                          />
+                        </NavLink>
+                      </ContentTreeItem>
+                    </TreeView>
+                  </List>
+
+                  {params?.locationId?.length > 0 ||
+                  params?.roomId?.length > 0 ? (
+                    <List component="div" disablePadding>
                       <TreeView
                         className={classes.rootTreeview}
-                        expanded={expanded.location}
+                        expanded={expanded.room}
                         selected={selected}
-                        onNodeToggle={handleToggleLocation}
+                        onNodeToggle={handleToggleRoom}
                         onNodeSelect={handleSelect}
                       >
                         <ContentTreeItem
-                          nodeId="4"
+                          nodeId="9"
                           labelText={
                             <Box
                               display="flex"
                               justifyContent="space-between"
                               alignItems="center"
                             >
-                              Quản lý vị trí
+                              Quản lý phòng
                               <Typography>
-                                {expanded.location.length > 0 ? (
+                                {expanded?.room?.length > 0 ? (
                                   <ExpandMore />
                                 ) : (
                                   <ExpandLess />
@@ -307,78 +387,126 @@ const AdminLayout = (props) => {
                           labelIcon={LocationOn}
                         >
                           <NavLink
-                            to={"/admin/location/edit/:"}
-                            activeClassName={classes.active}
-                            className={classes.link}
+                            to={{
+                              pathname: `/admin/rooms`,
+                              search: queryString.stringify({
+                                ...params,
+                                locationId: params?.locationId,
+                              }),
+                            }}
                           >
                             <ContentTreeItem
-                              nodeId="5"
-                              labelText="Cập nhật vị trí"
-                              labelIcon={EditIcon}
-                              color="#1a73e8"
-                              bgColor="#e8f0fe"
+                              nodeId="10"
+                              labelText="Danh sách phòng"
+                              labelIcon={ListIcon}
+                              color={
+                                restRoute.path === "/admin/rooms"
+                                  ? "#1a73e8"
+                                  : "#999"
+                              }
                             />
                           </NavLink>
+
                           <NavLink
-                            to="/admin/location/add"
-                            activeClassName={classes.active}
-                            className={classes.link}
+                            to={{
+                              pathname: `/admin/rooms/add`,
+                              search: queryString.stringify({
+                                ...params,
+                                locationId: params?.locationId,
+                              }),
+                            }}
                           >
                             <ContentTreeItem
-                              nodeId="6"
-                              labelText="Thêm vị trí "
+                              nodeId="11"
+                              labelText="Thêm phòng"
                               labelIcon={AddLocationIcon}
-                              color="#1a73e8"
-                              bgColor="#e8f0fe"
+                              color={
+                                restRoute.path === "/admin/rooms/add"
+                                  ? "#1a73e8"
+                                  : "#999"
+                              }
                             />
                           </NavLink>
                         </ContentTreeItem>
                       </TreeView>
-                    </NavLink>
-                  </List>
+                    </List>
+                  ) : null}
+
+                  {params?.roomId?.length > 0 && (
+                    <List component="div" disablePadding>
+                      <TreeView
+                        className={classes.rootTreeview}
+                        expanded={expanded.ratedRoom}
+                        selected={selected}
+                        onNodeToggle={handleToggleRatedRoom}
+                        onNodeSelect={handleSelect}
+                      >
+                        <ContentTreeItem
+                          nodeId="12"
+                          labelText={
+                            <Box
+                              display="flex"
+                              justifyContent="space-between"
+                              alignItems="center"
+                            >
+                              Quản lý Đánh giá
+                              <Typography>
+                                {expanded?.rated?.length > 0 ? (
+                                  <ExpandMore />
+                                ) : (
+                                  <ExpandLess />
+                                )}
+                              </Typography>
+                            </Box>
+                          }
+                          labelIcon={LocationOn}
+                        >
+                          <NavLink
+                            to={{
+                              pathname: `/admin/rooms/ratings`,
+                              search: queryString.stringify({
+                                ...params,
+                                roomId: params?.roomId,
+                              }),
+                            }}
+                          >
+                            <ContentTreeItem
+                              nodeId="13"
+                              labelText="Danh sách đánh giá"
+                              labelIcon={ListIcon}
+                              color={
+                                restRoute.path === "/admin/rooms/ratings"
+                                  ? "#1a73e8"
+                                  : "#999"
+                              }
+                            />
+                          </NavLink>
+
+                          <NavLink
+                            to={{
+                              pathname: `/admin/rooms/ratings/add`,
+                              search: queryString.stringify({
+                                ...params,
+                                roomId: params?.roomId,
+                              }),
+                            }}
+                          >
+                            <ContentTreeItem
+                              nodeId="14"
+                              labelText="Thêm đánh giá"
+                              labelIcon={AddLocationIcon}
+                              color={
+                                restRoute.path === "/admin/rooms/ratings/add"
+                                  ? "#1a73e8"
+                                  : "#999"
+                              }
+                            />
+                          </NavLink>
+                        </ContentTreeItem>
+                      </TreeView>
+                    </List>
+                  )}
                   {/* <List component="div" disablePadding>
-                    <NavLink
-                      to="/admin/locations"
-                      activeClassName={classes.active}
-                      className={classes.link}
-                    >
-                      <ListItem button className={classes.nested}>
-                        <ListItemIcon>
-                          <HiOutlineLocationMarker />
-                        </ListItemIcon>
-                        <ListItemText>Quản lý thông tin vị trí</ListItemText>
-                      </ListItem>
-                    </NavLink>
-                  </List> */}
-                  <List component="div" disablePadding>
-                    <NavLink
-                      to="/admin/rooms"
-                      activeClassName={classes.active}
-                      className={classes.link}
-                    >
-                      <ListItem button className={classes.nested}>
-                        <ListItemIcon>
-                          <RiHotelLine />
-                        </ListItemIcon>
-                        <ListItemText primary="Quản lý thông tin phòng" />
-                      </ListItem>
-                    </NavLink>
-                  </List>
-                  <List component="div" disablePadding>
-                    <NavLink
-                      to="/admin/ratings"
-                      activeClassName={classes.active}
-                      className={classes.link}
-                    >
-                      <ListItem button className={classes.nested}>
-                        <ListItemIcon>
-                          <MdOutlineRateReview />
-                        </ListItemIcon>
-                        <ListItemText primary="Quản lý đánh giá " />
-                      </ListItem>
-                    </NavLink>
-                  </List>
-                  <List component="div" disablePadding>
                     <NavLink
                       to="/admin/tickets"
                       activeClassName={classes.active}
@@ -391,7 +519,7 @@ const AdminLayout = (props) => {
                         <ListItemText disablePadding primary="Quản lý vé" />
                       </ListItem>
                     </NavLink>
-                  </List>
+                  </List> */}
                 </Collapse>
               </List>
               <Divider />
@@ -402,7 +530,13 @@ const AdminLayout = (props) => {
               })}
             >
               <div className={classes.drawerHeader} />
-              <Component {...propsRoute} />
+              <Component
+                {...propsRoute}
+                handleToggleUser={handleToggleUser}
+                handleToggleRoom={handleToggleRoom}
+                handleToggleLocation={handleToggleLocation}
+                handleToggleRatedRoom={handleToggleRatedRoom}
+              />
             </main>
           </div>
         );

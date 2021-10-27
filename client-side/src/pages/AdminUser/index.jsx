@@ -20,13 +20,14 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import NO_AVATAR from "../../assets/img/NO_AVATAR.png";
+import { removeAccents } from "../../constants/config";
 import {
   deleteUserAction,
   getListUser,
 } from "../../store/action/ManageUserAction";
 import useStyles from "./style";
 
-const AdminUser = () => {
+const AdminUser = ({ handleToggleUser }) => {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -64,7 +65,7 @@ const AdminUser = () => {
   };
 
   const filteredRows = userList.filter((row) => {
-    return row.name.toLowerCase().includes(searched.toLowerCase());
+    return removeAccents(row?.name).includes(searched.toLowerCase());
   });
 
   const cancelSearch = () => {
@@ -77,41 +78,6 @@ const AdminUser = () => {
     setRowsPerPage(event.target.value);
     setPage(0);
   };
-  const ContentTableRow = ({ user }) => (
-    <TableRow key={user._id} hover role="checkbox" tabIndex={-1}>
-      <TableCell align="left">{user?.name}</TableCell>
-      <TableCell align="left">
-        <img
-          src={user?.avatar || NO_AVATAR}
-          alt="avatar"
-          className={classes.avatar}
-        />
-      </TableCell>
-      <TableCell align="left">{user?.email}</TableCell>
-      <TableCell align="left">
-        {moment(user?.birthday).format("DD/MM/YYYY")}
-      </TableCell>
-      <TableCell align="left">
-        {user?.gender === true ? "Male" : "Female"}
-      </TableCell>
-      <TableCell align="left">{user?.type}</TableCell>
-      <TableCell align="left">{user?.address}</TableCell>
-      <TableCell align="left">
-        <IconButton
-          color="primary"
-          onClick={() => history.push(`/admin/user/edit/${user._id}`)}
-        >
-          <EditIcon />
-        </IconButton>
-        <IconButton
-          color="secondary"
-          onClick={() => handleDeleteUser(user._id)}
-        >
-          <DeleteIcon />
-        </IconButton>
-      </TableCell>
-    </TableRow>
-  );
 
   return (
     <Fragment>
@@ -137,13 +103,46 @@ const AdminUser = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredRows?.length > 0
-              ? filteredRows
-                  ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  ?.map((user) => <ContentTableRow user={user} />)
-              : userList
-                  ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  ?.map((user) => <ContentTableRow user={user} />)}
+            {filteredRows
+              ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              ?.map((user) => (
+                <TableRow key={user._id} hover role="checkbox" tabIndex={-1}>
+                  <TableCell align="left">{user?.name}</TableCell>
+                  <TableCell align="left">
+                    <img
+                      src={user?.avatar || NO_AVATAR}
+                      alt="avatar"
+                      className={classes.avatar}
+                    />
+                  </TableCell>
+                  <TableCell align="left">{user?.email}</TableCell>
+                  <TableCell align="left">
+                    {moment(user?.birthday).format("DD/MM/YYYY")}
+                  </TableCell>
+                  <TableCell align="left">
+                    {user?.gender === true ? "Male" : "Female"}
+                  </TableCell>
+                  <TableCell align="left">{user?.type}</TableCell>
+                  <TableCell align="left">{user?.address}</TableCell>
+                  <TableCell align="left">
+                    <IconButton
+                      color="primary"
+                      onClick={(e) => {
+                        history.push(`/admin/user/edit/${user._id}`);
+                        handleToggleUser(e, ["1"]);
+                      }}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton
+                      color="secondary"
+                      onClick={() => handleDeleteUser(user._id)}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>

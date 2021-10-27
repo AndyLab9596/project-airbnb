@@ -12,10 +12,10 @@ import {
 import Modal from "@material-ui/core/Modal";
 import CloseIcon from "@material-ui/icons/Close";
 import { useFormik } from "formik";
+import * as yup from "yup";
 import moment from "moment";
 import React, { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import * as yup from "yup";
 import { registerAction } from "../../../store/action/Auth";
 import { createAction } from "../../../store/action/createAction/createAction";
 import {
