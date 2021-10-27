@@ -704,7 +704,14 @@ const Pay = () => {
                 <Typography
                   className={classes.modal__date__delete}
                   variant="subtitle2"
-                  // onClick={() => setBookingTime([null, null])}
+                  onClick={() =>
+                    setNumbersFilter({
+                      ...numbersFilter,
+                      _adult: 1,
+                      _children: 0,
+                      _toddler: 0,
+                    })
+                  }
                 >
                   Xóa
                 </Typography>
