@@ -21,6 +21,8 @@ const DeskTopView = (props) => {
         handleChangeInputField,
         filter,
         setFilter,
+        resetPrice,
+        resetFilter
     } = props;
 
     const history = useHistory()
@@ -32,6 +34,7 @@ const DeskTopView = (props) => {
         setPage(page)
     }
     useEffect(() => {
+        window.scrollTo(0, 0)
         setListRooms(listRoomPaginate[page - 1])
 
     }, [listRoomPaginate, page])
@@ -101,19 +104,30 @@ const DeskTopView = (props) => {
                                 setPriceValue={setPriceValue}
                                 handleChangePriceValue={handleChangePriceValue}
                                 handleChangeInputField={handleChangeInputField}
+                                resetPrice={resetPrice}
                             />
                             <OptionsDialog
                                 filter={filter}
                                 setFilter={setFilter}
+                                resetFilter={resetFilter}
                             />
                         </div>
                     </div>
 
                     <div className={classes.cards}>
-                        <Card
-                            handleChangePage={handleChangePage}
-                            listRooms={listRooms}
-                        />
+                        {listRooms?.length > 0
+                            ? <Card
+                                handleChangePage={handleChangePage}
+                                listRooms={listRooms}
+                            />
+                            :
+
+                            <h3>
+                                Không tìm thấy phòng theo yêu cầu
+                            </h3>
+
+                        }
+
                         {/* Pagination */}
                         <div className={classes.pagination__wrapper}>
                             <div className={classes.pagination__topLine}>

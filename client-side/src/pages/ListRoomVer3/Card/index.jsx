@@ -10,7 +10,7 @@ const Card = ({ listRooms, handleChangePage }) => {
     return (
         <Fragment>
             {
-                listRooms.map((card, index) => (
+                listRooms?.map((card, index) => (
                     <div className={classes.card} key={index} >
 
                         {/* card top line */}

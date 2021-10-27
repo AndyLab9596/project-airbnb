@@ -56,7 +56,8 @@ export default makeStyles(theme => ({
             width: '90%',
         },
         display: 'flex',
-        flexFlow: 'column wrap'
+        flexFlow: 'column wrap',
+        minHeight: '85vh'
     },
 
     map: {

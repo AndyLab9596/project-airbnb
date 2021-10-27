@@ -1,12 +1,12 @@
 import { Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControlLabel, Slide, Typography } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
-import React, { Fragment, useEffect, useRef, useState } from 'react';
-import useStyles from "./style";
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import CloseIcon from '@material-ui/icons/Close';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createAction } from '../../../store/action/createAction/createAction';
 import { FILTER_BY_OPTIONS } from '../../../store/types/ListRoomType';
+import useStyles from "./style";
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -14,7 +14,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function OptionsDialog(props) {
-    const { setFilter, filter } = props;
+    const { setFilter, filter, resetFilter } = props;
     const dispatch = useDispatch();
     const theme = useTheme();
     const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
@@ -31,24 +31,6 @@ export default function OptionsDialog(props) {
         { id: 9, name: 'heating', label: 'Máy sửu' },
         { id: 10, name: 'cableTV', label: 'TV Cáp' },
     ];
-
-    // const initialFilter = {
-    //     guests: 0,
-    //     bedRoom: 0,
-    //     bath: 0,
-    //     elevator: false,
-    //     hotTub: false,
-    //     pool: false,
-    //     indoorFireplace: false,
-    //     dryer: false,
-    //     gym: false,
-    //     kitchen: false,
-    //     wifi: false,
-    //     heating: false,
-    //     cableTV: false,
-    // }
-
-    // const [filter, setFilter] = useState(initialFilter);
 
     const addBed = () => {
         if (filter.guests > 15) return;
@@ -148,7 +130,6 @@ export default function OptionsDialog(props) {
                         tabIndex={-1}
                     >
                         <div className={classes.content}>
-                            {/* <header className={classes.content__header}></header> */}
                             <div className={classes.content__container}>
                                 <main>
                                     <div className={classes.content__element}>
@@ -273,7 +254,7 @@ export default function OptionsDialog(props) {
                 <DialogActions >
                     <div className={classes.footer__wrapper}>
                         <button className={classes.footer__deleteAll}
-                        // onClick={resetFilter}
+                            onClick={() => resetFilter()}
                         >
                             Xóa tất cả
                         </button>

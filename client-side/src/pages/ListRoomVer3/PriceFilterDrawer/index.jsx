@@ -1,51 +1,44 @@
-import { Menu, MenuItem } from '@material-ui/core';
+import { SwipeableDrawer } from '@material-ui/core';
 import React, { Fragment, useState } from 'react';
 import { AirbnbSlider, AirbnbThumbComponent, PriceInputField, useStyles } from "./style";
 
-const PriceMenuFilter = (props) => {
+const PriceFilterDrawer = (props) => {
+
     const { priceValue, setPriceValue, handleChangePriceValue, handleChangeInputField, resetPrice } = props;
+
+    const [state, setState] = useState({
+        bottom: false,
+    });
+
+    const toggleDrawer = (anchor, open) => (event) => {
+        if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            return;
+        }
+
+        setState({ ...state, [anchor]: open });
+    };
+
+
     const classes = useStyles();
-    const [anchorElPrice, setAnchorElPrice] = useState(null);
-    const handleOpenPrice = (event) => {
-        setAnchorElPrice(event.currentTarget);
-    };
-
-    const handleClosePrice = () => {
-        setAnchorElPrice(null);
-    };
-
-
     return (
         <Fragment>
             <div className={classes.filter__item}>
-                <button className={classes.filter__item__button} onClick={(event) => handleOpenPrice(event)}>
-                    <span>Giá</span>
+                <button className={classes.filter__item__button}
+
+                    onClick={toggleDrawer('bottom', true)}
+
+                >
+                    <span>Bộ lọc giá</span>
                 </button>
             </div>
 
-            {/* Modal Price */}
-            <Menu
-
-                id="price-menu"
-                anchorReference="anchorPosition"
-                anchorPosition={{ top: 250, left: 10 }}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                }}
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                }}
-                anchorEl={anchorElPrice}
-                keepMounted
-                open={Boolean(anchorElPrice)}
-                onClose={handleClosePrice}
-                className={classes.rootPriceMenu}
+            <SwipeableDrawer
+                anchor="bottom"
+                open={state.bottom}
+                onClose={toggleDrawer('bottom', false)}
+                onOpen={toggleDrawer('bottom', true)}
             >
-                <MenuItem
-                    disableRipple
-                    className={classes.priceMenu}>
+                <div className={classes.priceMenu}>
                     <div className={classes.priceMenu__wrapper}>
                         <div className={classes.priceMenu__content}>
                             <h6>Giá trung bình hàng đêm là $42</h6>
@@ -95,22 +88,26 @@ const PriceMenuFilter = (props) => {
                     {/* Footer */}
                     <div className={classes.priceMenu__footer}>
                         <div className={classes.priceMenu__footer__wrapper}>
-                            <button className={classes.priceMenu__footer__deleteBtn} onClick={() => resetPrice()}>
+                            <button className={classes.priceMenu__footer__deleteBtn}
+                                onClick={() => resetPrice()}>
                                 Xóa
                             </button>
 
-                            <button className={classes.priceMenu__footer__saveBtn} onClick={() => handleClosePrice()}>
+                            <button className={classes.priceMenu__footer__saveBtn}
+                                onClick={toggleDrawer('bottom', false)}>
                                 Lưu
                             </button>
 
                         </div>
                     </div>
-                </MenuItem>
-            </Menu>
+                </div>
+
+            </SwipeableDrawer>
+
 
 
         </Fragment>
     );
 };
 
-export default PriceMenuFilter;
+export default PriceFilterDrawer;

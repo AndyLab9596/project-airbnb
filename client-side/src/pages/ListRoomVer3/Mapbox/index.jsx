@@ -26,7 +26,7 @@ const Mapbox = (props) => {
         access_token: MAPBOX_TOKEN,
         country: 'vn',
         proximity: `${viewport.longitude},${viewport.latitude}`,
-        limit: listRooms.length
+        limit: listRooms?.length
     };
 
 
@@ -62,6 +62,7 @@ const Mapbox = (props) => {
         right: 10,
         top: 100
     };
+
 
     return (
         <ReactMapGL

@@ -6,6 +6,8 @@ import { getRentRoomsPaginateAction } from '../../store/action/RentRoomsAction';
 import DeskTopView from './DeskTopView';
 import ListRoomSkeleton from './ListRoomSkeleton';
 import MobileView from './MobileView';
+import manageRentApi from "../../api/manageRentApi";
+import ListRoomSkeletonMobile from './ListRoomSkeletonMobile';
 
 const ListRoomVer3 = () => {
 
@@ -15,15 +17,7 @@ const ListRoomVer3 = () => {
     const locationId = locationParams.locationId;
     const isDeskTop = useMediaQuery(theme.breakpoints.up("md"));
     const [loading, setLoading] = useState(true);
-
-    const fetchListRoomPaginate = useCallback(
-        () => {
-            dispatch(getRentRoomsPaginateAction(locationId))
-        },
-        [dispatch, locationId]
-    );
-    // listRoom <- reducer
-    const listRoom = useSelector(state => state.RentRoomsReducer.listRoom)
+    const [listRoom, setListRoom] = useState([])
 
     // filter data
     const initialFilter = {
@@ -63,6 +57,14 @@ const ListRoomVer3 = () => {
         setPriceValue(event.target.value === '' ? '' : Number(event.target.value))
     };
 
+    const resetFilter = () => {
+        setFilter(initialFilter)
+    };
+
+    const resetPrice = () => {
+        setPriceValue([0, 1000000])
+    }
+
     // paginate
     const paginate = (data) => {
         const itemsPerPage = 4;
@@ -74,19 +76,28 @@ const ListRoomVer3 = () => {
         return newData;
     };
     const listRoomPaginate = paginate(finalFiltered);
-    console.log(listRoomPaginate)
+    // console.log(listRoomPaginate)
 
     useEffect(() => {
-        fetchListRoomPaginate()
+        (async () => {
+            try {
+                const res = await manageRentApi.getRentRooms(locationId)
+                setListRoom(res)
+            } catch (error) {
+                console.log(error)
+            }
+            setLoading(false)
+        })()
 
-    }, [fetchListRoomPaginate, filter, priceValue])
+    }, [locationId, filter, priceValue])
 
-    if (!listRoomPaginate || listRoomPaginate.length === 0) {
+
+    if (loading) {
         return (
             <Fragment>
                 <div style={{ height: "80px", width: "100%", backgroundColor: 'red' }}></div>
                 {/* Skeleton */}
-                <ListRoomSkeleton />
+                {isDeskTop ? <ListRoomSkeleton /> : <ListRoomSkeletonMobile />}
             </Fragment>
         )
     }
@@ -104,9 +115,20 @@ const ListRoomVer3 = () => {
                     handleChangeInputField={handleChangeInputField}
                     filter={filter}
                     setFilter={setFilter}
-
+                    resetFilter={resetFilter}
+                    resetPrice={resetPrice}
                 /> :
-                <MobileView />
+                <MobileView
+                    listRoomPaginate={listRoomPaginate}
+                    setPriceValue={setPriceValue}
+                    priceValue={priceValue}
+                    handleChangePriceValue={handleChangePriceValue}
+                    handleChangeInputField={handleChangeInputField}
+                    filter={filter}
+                    setFilter={setFilter}
+                    resetFilter={resetFilter}
+                    resetPrice={resetPrice}
+                />
             }
         </div>
     );
