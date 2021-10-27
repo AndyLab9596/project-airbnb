@@ -1,17 +1,14 @@
 import { useMediaQuery, useTheme } from '@material-ui/core';
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import React, { Fragment, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { getRentRoomsPaginateAction } from '../../store/action/RentRoomsAction';
+import manageRentApi from "../../api/manageRentApi";
 import DeskTopView from './DeskTopView';
 import ListRoomSkeleton from './ListRoomSkeleton';
-import MobileView from './MobileView';
-import manageRentApi from "../../api/manageRentApi";
 import ListRoomSkeletonMobile from './ListRoomSkeletonMobile';
+import MobileView from './MobileView';
 
 const ListRoomVer3 = () => {
 
-    const dispatch = useDispatch()
     const theme = useTheme();
     const locationParams = useParams();
     const locationId = locationParams.locationId;
@@ -95,7 +92,6 @@ const ListRoomVer3 = () => {
     if (loading) {
         return (
             <Fragment>
-                <div style={{ height: "80px", width: "100%", backgroundColor: 'red' }}></div>
                 {/* Skeleton */}
                 {isDeskTop ? <ListRoomSkeleton /> : <ListRoomSkeletonMobile />}
             </Fragment>
@@ -105,7 +101,6 @@ const ListRoomVer3 = () => {
     return (
         <div>
             {/* Fake header */}
-            <div style={{ height: "80px", width: "100%", backgroundColor: 'red' }}></div>
             {isDeskTop ?
                 <DeskTopView
                     listRoomPaginate={listRoomPaginate}
