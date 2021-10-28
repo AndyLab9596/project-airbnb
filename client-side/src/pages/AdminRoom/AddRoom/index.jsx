@@ -112,13 +112,11 @@ const AddRoom = ({ handleToggleRoom }) => {
   };
   const handleAddImage = () => {
     if (fileData.image !== null) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
       const formData = new FormData();
       formData.append("room", fileData.image);
-
       dispatch(
-        UpdateImageRoomAction(newRoom?._id, formData, params?.locationId, () =>
-          setActiveStep((prevActiveStep) => prevActiveStep + 1)
-        )
+        UpdateImageRoomAction(newRoom?._id, formData, params?.locationId)
       );
     }
     return;

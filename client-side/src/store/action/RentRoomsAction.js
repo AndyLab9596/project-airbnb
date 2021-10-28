@@ -54,6 +54,7 @@ export const UpdateDetailRoomAction = (idRoom, valueRoom, locaTionId) => {
   return async (dispatch) => {
     try {
       const res = await managerDetailRoom.updateDetailRoom(idRoom, valueRoom);
+
       await dispatch(getRentRoomsAction(locaTionId));
     } catch (error) {
       console.log(error);
@@ -72,18 +73,10 @@ export const AddRoomAction = (valueRoom, locaTionId) => {
   };
 };
 
-export const UpdateImageRoomAction = (
-  idRoom,
-  fileData,
-  locaTionId,
-  setActiveStep
-) => {
+export const UpdateImageRoomAction = (idRoom, fileData, locaTionId) => {
   return async (dispatch) => {
     try {
       const res = await managerDetailRoom.updateImageRoom(idRoom, fileData);
-      if (Object.keys(res).length > 0) {
-        setActiveStep();
-      }
       await dispatch(getRentRoomsAction(locaTionId));
     } catch (error) {
       console.log(error);

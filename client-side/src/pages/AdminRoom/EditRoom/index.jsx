@@ -95,7 +95,6 @@ const EditRoom = ({ room, params }) => {
       };
     }
   };
-
   const handleSubmitForm = (e) => {
     e.preventDefault();
     if (!formik.isValid) return;
@@ -108,11 +107,10 @@ const EditRoom = ({ room, params }) => {
         params?.locationId
       )
     );
-    if (fileData.image !== null) {
+    if (fileData?.image !== null) {
       dispatch(UpdateImageRoomAction(room?._id, formData, params?.locationId));
     }
   };
-
   return (
     <Box m={3}>
       <form onSubmit={handleSubmitForm}>
