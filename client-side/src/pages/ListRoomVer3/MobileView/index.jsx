@@ -21,7 +21,7 @@ const MobileView = (props) => {
         filter,
         setFilter,
         resetFilter,
-        resetPrice
+        resetPrice,
     } = props;
 
     const history = useHistory()
@@ -109,6 +109,7 @@ const MobileView = (props) => {
         })
     }
 
+    const locationProvince = listRooms?.[0]?.locationId.province;
 
 
     const classes = useStyles({ transform, scroll });
@@ -122,7 +123,7 @@ const MobileView = (props) => {
                         setLocationCoors={setLocationCoors}
                         setRoomCors={setRoomCors}
                         handleChangePage={handleChangePage}
-                        province={queryParams._location}
+                        province={locationProvince}
                         listRooms={listRooms}
                     />
                 </div>

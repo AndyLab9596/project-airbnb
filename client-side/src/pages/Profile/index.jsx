@@ -49,6 +49,10 @@ const Profile = () => {
     handleUpImage();
   }, [dispatch, fileUpload, idUser]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <Container maxWidth="lg" className={classes.profile}>
       {isDesktop ? (

@@ -22,7 +22,7 @@ const ExploreNearby = () => {
       _location: location.province,
       _checkIn: checkInDate,
       _checkOut: checkOutDate,
-      _adult: 1,
+      _adult: 0,
       _children: 0,
       _toddler: 0,
     }
