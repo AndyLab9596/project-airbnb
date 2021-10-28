@@ -102,7 +102,7 @@ const App = () => {
             Component={AddRating}
           />
 
-          {/* <AdminLayout path="/admin" Component={Admin} /> */}
+          <AdminLayout path="/admin" Component={Admin} />
         </Switch>
       </ThemeProvider>
     </BrowserRouter>
