@@ -37,7 +37,7 @@ import { AddLocation, EditLocation } from "@material-ui/icons";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import ListIcon from "@material-ui/icons/List";
 import queryString from "query-string";
-
+import { SiAdguard, SiAirbnb } from "react-icons/si";
 const AdminLayout = (props) => {
   const { Component, ...restRoute } = props;
   const classes = useStyles({ restRoute: restRoute.path });
@@ -49,6 +49,7 @@ const AdminLayout = (props) => {
   const location = useLocation();
   const params = queryString.parse(location.search);
   const { infoUser } = useSelector((state) => state.AuthReducer);
+  console.log(infoUser);
   const handleListClick = () => {
     setOpenList((state) => !state);
   };
@@ -124,8 +125,10 @@ const AdminLayout = (props) => {
                   <MenuIcon />
                 </IconButton>
 
-                <div className={classes.logo}>
-                  <img src={airbnbIcon} alt="logo" />
+                <div className={classes.admin__header}>
+                  <a href="/">
+                    <img className={classes.logo} src={airbnbIcon} alt="logo" />
+                  </a>
                 </div>
                 <button
                   className={`${classes.button__chip} ${classes.list__button__chip}`}
@@ -201,10 +204,26 @@ const AdminLayout = (props) => {
                 paper: classes.drawerPaper,
               }}
             >
+              <div className={classes.admin__title}>
+                <SiAirbnb />
+                <Typography variant="span">Airbnb Admin</Typography>
+              </div>
               <div className={classes.drawerHeader}>
-                <Typography variant="h5" color="primary">
-                  DashBoard
-                </Typography>
+                <Box display="flex">
+                  <Box textAlign="center">
+                    <Avatar
+                      alt="Avatar"
+                      src={infoUser.avatar}
+                      className={classes.large}
+                    />
+                    <Typography variant="subtitle2">{infoUser.type}</Typography>
+                  </Box>
+                  <Box marginLeft={2}>
+                    <Typography variant="subtitle2">Welcome,</Typography>
+                    <Typography variant="subtitle2">{infoUser.name}</Typography>
+                  </Box>
+                </Box>
+
                 <IconButton onClick={handleDrawerClose}>
                   <ChevronLeftIcon />
                 </IconButton>
