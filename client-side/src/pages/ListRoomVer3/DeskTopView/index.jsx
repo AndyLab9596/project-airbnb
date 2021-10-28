@@ -22,7 +22,7 @@ const DeskTopView = (props) => {
         filter,
         setFilter,
         resetPrice,
-        resetFilter
+        resetFilter,
     } = props;
 
     const history = useHistory()
@@ -83,6 +83,9 @@ const DeskTopView = (props) => {
     const [transform, setTransform] = useState(false);
     const classes = useStyles({ transform });
 
+    // 
+    const locationProvince = listRooms?.[0]?.locationId.province;
+
     return (
         <Fragment>
             <div className={classes.root}>
@@ -92,7 +95,8 @@ const DeskTopView = (props) => {
                     <div className={classes.content__header}>
                         <p>Hơn 300 chỗ ở</p>
                         <h3>
-                            Chỗ ở tại thành phố {queryParams._location}
+                            {/* Chỗ ở tại thành phố {queryParams._location} */}
+                            Chỗ ở tại thành phố {locationProvince}
                         </h3>
                     </div>
 
@@ -152,7 +156,7 @@ const DeskTopView = (props) => {
                             setLocationCoors={setLocationCoors}
                             setRoomCors={setRoomCors}
                             handleChangePage={handleChangePage}
-                            province={queryParams._location}
+                            province={locationProvince}
                             listRooms={listRooms}
 
                         />

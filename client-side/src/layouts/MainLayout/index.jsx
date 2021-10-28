@@ -5,6 +5,7 @@ import Header from "./Header";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import HeaderMobile from "./HeaderMobile";
+import HeaderVer2 from "./HeaderVer2";
 
 const MainLayout = (props) => {
   const { Component, redirectPath, ...restProps } = props;
@@ -18,11 +19,10 @@ const MainLayout = (props) => {
         return (
           <Fragment>
             {isDesktop ? (
-              <Header {...propsRoute} />
+              <HeaderVer2  {...propsRoute} />
             ) : (
               <HeaderMobile {...propsRoute} />
             )}
-
             <Component {...propsRoute} />
             <Footer {...propsRoute} />
           </Fragment>

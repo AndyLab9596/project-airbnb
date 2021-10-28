@@ -1,5 +1,5 @@
 import manageLocationApi from "../../api/manageLocationApi";
-import { CREATE_LOCATION, GET_LOCATIONS, UPDATE_LOCATION, UPLOAD_IMAGE } from "../types/LocationType";
+import { CREATE_LOCATION, GET_LOCATION, GET_LOCATIONS, UPDATE_LOCATION, UPLOAD_IMAGE } from "../types/LocationType";
 import { createAction } from "./createAction/createAction";
 
 export const getLocations = () => {
@@ -50,10 +50,23 @@ export const putUpdateLocationAction = (data, id) => {
     return async (dispatch) => {
         try {
             const res = await manageLocationApi.putUpdateLocation(data, id);
-            console.log(res);
             dispatch(createAction(UPDATE_LOCATION, res));
         } catch (error) {
             console.log(error.response);
+        }
+    };
+};
+
+export const getLocation = (id) => {
+    return async (dispatch) => {
+        try {
+            const res = await manageLocationApi.get(id);
+            console.log(res)
+
+            dispatch(createAction(GET_LOCATION, res))
+
+        } catch (error) {
+            console.log(error);
         }
     };
 };
