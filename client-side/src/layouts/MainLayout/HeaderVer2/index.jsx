@@ -143,11 +143,6 @@ const HeaderVer2 = () => {
         dispatch(createAction(LOG_OUT));
     };
 
-    //
-    // console.log('queryParams', queryParams)
-
-
-
     const classes = useStyles({ homePagePath, scroll, displaySearchBar, listPagePath })
     return (
         <div className={classes.root}>

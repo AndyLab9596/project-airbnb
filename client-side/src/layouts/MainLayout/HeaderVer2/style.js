@@ -52,6 +52,7 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.up("xl")]: {
             flex: '0 0 275px'
         },
+        flex: '0  0 auto',
     },
 
     imageIcon__img: {
@@ -60,6 +61,7 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
         height: 32,
         objectFit: 'cover',
+
     },
 
     navigation: {
@@ -247,6 +249,11 @@ const useStyles = makeStyles(theme => ({
         transition: 'box-shadow 0.2s ease',
         '&:hover': {
             boxShadow: '0px 2px 4px rgb(0 0 0 / 18%)'
+        },
+        maxWidth: 350,
+        overflow: 'hidden',
+        [theme.breakpoints.up("lg")]: {
+            maxWidth: 'none'
         }
     },
 
@@ -298,7 +305,8 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
         flex: '0 1 auto',
         height: '48px',
-        minWidth: 0,
+        overflow: 'visible',
+        textOverflow: 'ellipsis',
 
         '&>span': {
             fontSize: '14px',
@@ -309,8 +317,11 @@ const useStyles = makeStyles(theme => ({
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
             overflow: 'hidden',
+        },
+        maxWidth: 100,
+        [theme.breakpoints.up("lg")]: {
+            maxWidth: 'none'
         }
-
     },
 
     list__navbar__dash: {
@@ -329,6 +340,7 @@ const useStyles = makeStyles(theme => ({
         border: '1px solid #DDDDDD',
         backgroundColor: 'transparent',
         cursor: 'pointer',
+        flex: '0 1 auto',
     },
 
     navigation__search__btn__title: {
@@ -361,6 +373,7 @@ const useStyles = makeStyles(theme => ({
     profile: {
         display: 'flex',
         alignItems: 'center',
+        flex: '1 1 auto'
     },
 
     profile__btn: {
