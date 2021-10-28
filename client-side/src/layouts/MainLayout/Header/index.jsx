@@ -195,11 +195,23 @@ const Header = () => {
                     </button>
                   </Box>
                 ) : (
-                  <Box className={classes.navbar__content__menu}>
-                    <span>Nơi ở</span>
-                    <span>Trải nghiệm</span>
-                    <span>Trải nghiệm trực tuyến</span>
-                  </Box>
+                  <ul className={classes.navigation__list}>
+                    <li className={classes.navigation__list__item}>
+                      <a href="/">
+                        <span>Nơi ở</span>
+                      </a>
+                    </li>
+                    <li className={classes.navigation__list__item}>
+                      <a href="/">
+                        <span>Trải nghiệm</span>
+                      </a>
+                    </li>
+                    <li className={classes.navigation__list__item}>
+                      <a href="/">
+                        <span>Trải nghiệm trực tuyến</span>
+                      </a>
+                    </li>
+                  </ul>
                 )}
               </>
             )}

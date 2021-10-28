@@ -102,7 +102,10 @@ const App = () => {
             Component={AddRoom}
           />
 
+
           <AdminLayout path="/admin" Component={AdminUser} />
+
+        
         </Switch>
       </ThemeProvider>
     </BrowserRouter>

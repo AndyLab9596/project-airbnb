@@ -386,6 +386,60 @@ export default makeStyles(theme => ({
     flex: '0 0 1px',
     height: '24px',
     width: '1px'
-  }
+  },
+
+  navigation__list: {
+    display: 'flex',
+    alignItems: 'center',
+    listStyleType: 'none',
+
+    '& > li > a': {
+      opacity: .8,
+    },
+
+    '& > li:first-child > a': {
+      opacity: 1,
+    },
+
+    '& > li:first-child > a::before': {
+      content: "''",
+      display: 'block',
+      position: 'absolute',
+      bottom: -15,
+      left: '50%',
+      transform: 'translateX(-50%)',
+      width: 16,
+      height: 2,
+      backgroundColor: '#fff',
+      transition: 'all .4s ease-in',
+    },
+  },
+
+  navigation__list__item: {
+    padding: '10px 16px',
+    '& > a': {
+      color: props => (props.scroll && props.homepageRoute) ? '#000' : '#fff',
+      fontSize: '16px',
+      lineHeight: '20px',
+      fontWeight: 400,
+      position: 'relative',
+    },
+    '& > a:hover': {
+      opacity: 1,
+      transition: 'hover .4s ease-in'
+    },
+    '& > a:hover::before': {
+      content: "''",
+      display: 'block',
+      position: 'absolute',
+      bottom: -15,
+      left: '50%',
+      transform: 'translateX(-50%)',
+      width: 8,
+      height: 2,
+      backgroundColor: '#fff',
+      transition: 'all .4s ease-in',
+    },
+  },
 
 }))

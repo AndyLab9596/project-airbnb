@@ -1,14 +1,16 @@
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import React, { Fragment, useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import manageRentApi from "../../api/manageRentApi";
+import manageLocationApi from "../../api/manageLocationApi";
 import DeskTopView from './DeskTopView';
 import ListRoomSkeleton from './ListRoomSkeleton';
 import ListRoomSkeletonMobile from './ListRoomSkeletonMobile';
 import MobileView from './MobileView';
 
 const ListRoomVer3 = () => {
-
+    const location = useLocation();
+    const locationSearch = location.search;
     const theme = useTheme();
     const locationParams = useParams();
     const locationId = locationParams.locationId;
@@ -73,7 +75,6 @@ const ListRoomVer3 = () => {
         return newData;
     };
     const listRoomPaginate = paginate(finalFiltered);
-    // console.log(listRoomPaginate)
 
     useEffect(() => {
         (async () => {
@@ -86,7 +87,7 @@ const ListRoomVer3 = () => {
             setLoading(false)
         })()
 
-    }, [locationId, filter, priceValue])
+    }, [locationId, filter, priceValue, locationSearch])
 
 
     if (loading) {
