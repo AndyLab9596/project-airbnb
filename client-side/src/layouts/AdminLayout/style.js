@@ -54,13 +54,15 @@ export default makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
-
-  logo: {
+  admin__header: {
     flexGrow: 1,
-    "&>img": {
-      width: 100,
-      height: 30,
-    },
+  },
+  logo: {
+
+
+    width: 100,
+    height: 30,
+
   },
 
   activeNavLinK: {
@@ -126,9 +128,9 @@ export default makeStyles((theme) => ({
     },
 
     "&:focus > $content $label, &:hover > $content $label, &$selected > $content $label":
-      {
-        backgroundColor: "transparent",
-      },
+    {
+      backgroundColor: "transparent",
+    },
     "& .MuiTreeItem-iconContainer": {
       display: "none",
     },
@@ -136,8 +138,29 @@ export default makeStyles((theme) => ({
       padding: "5px 15px",
     },
     "& .MuiTreeItem-root.Mui-selected > .MuiTreeItem-content .MuiTreeItem-label":
-      {
-        backgroundColor: "transparent",
-      },
+    {
+      backgroundColor: "transparent",
+    },
   },
+  large: {
+    border: "2px solid #000",
+    width: 50,
+    height: 50,
+    textAlign: "center"
+  },
+  admin__title: {
+    display: "flex",
+    alignItems: "center",
+    margin: "10px auto",
+    "&>svg": {
+      marginRight: 10,
+      fontSize: 30,
+      color: "#ff385c",
+    },
+    "& > span": {
+      fontSize: 25,
+      fontWeight: 800,
+      color: "#ff385c",
+    },
+  }
 }));
