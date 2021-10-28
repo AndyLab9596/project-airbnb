@@ -10,5 +10,4 @@ export const SHOW_MODAL_RATED = "SHOW_MODAL_RATED";
 export const HIDE_MODAL_RATED = "HIDE_MODAL_RATED";
 export const PAY_BOOKING_ROOM = "PAY_BOOKING_ROOM";
 
-
-
+export const NEW_ROOM = "NEW_ROOM";

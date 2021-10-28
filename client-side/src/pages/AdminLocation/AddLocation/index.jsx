@@ -49,7 +49,7 @@ export default function AddLocation(props) {
     valueate: formik.values.valueate,
   };
 
-  const handleChangeFile = async (event) => {
+  const handleChangeFile = (event) => {
     formik.setFieldValue(event.target.name, event.target.files[0]);
   };
 
@@ -58,7 +58,7 @@ export default function AddLocation(props) {
     if (!formik.isValid) return;
     dispatch(CreateLocationAction(data));
   };
-  const handleImage = async (e) => {
+  const handleImage = (e) => {
     e.preventDefault();
     if (!formik.isValid) return;
     const formData = new FormData();

@@ -27,16 +27,16 @@ import AddLocation from "./pages/AdminLocation/AddLocation";
 //Components
 
 import AdminLayout from "./layouts/AdminLayout";
-import Admin from "./pages/AdminUser";
+import AdminUser from "./pages/AdminUser";
 import AdminLocation from "./pages/AdminLocation";
 import AdminRoom from "./pages/AdminRoom";
 import AdminTicket from "./pages/AdminTicket";
 import AdminRating from "./pages/AdminRating";
 
-// import ListRoomVer2 from "./pages/ListRoomVer2";
 import AddRating from "./pages/AdminRating/AddRating";
 
 import ListRoomVer3 from "./pages/ListRoomVer3";
+import AddRoom from "./pages/AdminRoom/AddRoom";
 
 const App = () => {
   const idUser = localStorage.getItem(USERID);
@@ -65,7 +65,7 @@ const App = () => {
 
           {/* Admin User*/}
 
-          <AdminLayout path="/admin/user" exact Component={Admin} />
+          <AdminLayout path="/admin/user" exact Component={AdminUser} />
           <AdminLayout
             path="/admin/user/edit/:userId"
             exact
@@ -90,7 +90,7 @@ const App = () => {
           />
 
           <AdminLayout path="/admin/rooms" exact Component={AdminRoom} />
-          <AdminLayout path="/admin/rooms/add" exact Component={AdminTicket} />
+          <AdminLayout path="/admin/rooms/add" exact Component={AddRoom} />
           <AdminLayout
             path="/admin/rooms/ratings"
             exact
@@ -99,10 +99,13 @@ const App = () => {
           <AdminLayout
             path="/admin/rooms/ratings/add"
             exact
-            Component={AddRating}
+            Component={AddRoom}
           />
 
-          <AdminLayout path="/admin" Component={Admin} />
+
+          <AdminLayout path="/admin" Component={AdminUser} />
+
+        
         </Switch>
       </ThemeProvider>
     </BrowserRouter>

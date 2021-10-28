@@ -1,16 +1,11 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams, useLocation } from "react-router";
-import { getRentRoomsAction } from "../../store/action/RentRoomsAction";
 import {
-  Button,
+  Collapse,
   IconButton,
   TablePagination,
-  Box,
-  Typography,
   Tooltip,
-  Collapse,
-  Grid,
+  Typography,
+  Box,
+  Button,
 } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -19,19 +14,20 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
-import useStyles from "./style";
-import SearchBar from "material-ui-search-bar";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import { formMoney } from "../../utilities/coordinates";
-import ButtonSubmit from "../../components/ButtonSubmit";
+import SearchBar from "material-ui-search-bar";
 import queryString from "query-string";
-import EditRoom from "./EditRoom";
+import React, { Fragment, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useLocation } from "react-router";
 import { removeAccents } from "../../constants/config";
+import { getRentRoomsAction } from "../../store/action/RentRoomsAction";
+import { formMoney } from "../../utilities/coordinates";
+import EditRoom from "./EditRoom";
+import useStyles from "./style";
 
-const AdminRoom = ({ handleToggleRatedRoom }) => {
+const AdminRoom = ({ handleToggleRatedRoom, handleToggleRoom }) => {
   const location = useLocation();
   const params = queryString.parse(location.search);
 
@@ -119,9 +115,24 @@ const AdminRoom = ({ handleToggleRatedRoom }) => {
 
   return (
     <Fragment>
-      <Typography variant="h5" color="primary">
-        {arrListRoom?.[0]?.locationId?.province} - Việt Nam
-      </Typography>
+      <Box display="flex" justifyContent="space-between">
+        <Typography variant="h5" color="primary">
+          {arrListRoom?.[0]?.locationId?.province} - Việt Nam
+        </Typography>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={(e) => {
+            history.push({
+              pathname: "/admin/rooms/add",
+              search: queryString.stringify({ locationId: params?.locationId }),
+            });
+            handleToggleRoom(e, ["9"]);
+          }}
+        >
+          Thêm phòng
+        </Button>
+      </Box>
       <SearchBar
         value={searched}
         onChange={(searchVal) => setSearched(searchVal)}
