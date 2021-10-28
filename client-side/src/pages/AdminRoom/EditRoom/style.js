@@ -5,6 +5,12 @@ export default makeStyles((theme) => ({
     justifyContent: "space-between",
     alignItems: "center",
     paddingBottom: 15,
+    "& .MuiFormControlLabel-root": {
+      width: "100%",
+    },
+    "& .MuiBox-root": {
+      width: "auto",
+    },
   },
   card: {
     border: "1px  solid #eaeff4",

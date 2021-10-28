@@ -13,6 +13,10 @@ const managerDetailRoom = {
     const url = `rooms/${idRoom}`;
     return axiosClient.put(url, valueRoom);
   },
+  addRoom(valueRoom) {
+    const url = `rooms`;
+    return axiosClient.post(url, valueRoom);
+  },
   deleteRoom(idRoom) {
     const url = `rooms/${idRoom}`;
     return axiosClient.delete(url);

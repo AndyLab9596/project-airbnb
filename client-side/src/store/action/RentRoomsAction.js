@@ -4,7 +4,7 @@ import {
   DETAIL_RATING_ROOM,
   DETAIL_ROOM,
   GET_LISTROOM,
-  PAY_BOOKING_ROOM,
+  NEW_ROOM,
 } from "../types/ListRoomType";
 import { createAction } from "./createAction/createAction";
 
@@ -44,7 +44,6 @@ export const PayBookingAction = (data) => {
   return async (dispatch) => {
     try {
       const res = await manageRentApi.postBookingRentRooms(data);
-      dispatch(createAction(PAY_BOOKING_ROOM, res));
     } catch (error) {
       console.log(error.response);
     }
@@ -62,10 +61,29 @@ export const UpdateDetailRoomAction = (idRoom, valueRoom, locaTionId) => {
   };
 };
 
-export const UpdateImageRoomAction = (idRoom, fileData, locaTionId) => {
+export const AddRoomAction = (valueRoom, locaTionId) => {
+  return async (dispatch) => {
+    try {
+      const res = await managerDetailRoom.addRoom(valueRoom);
+      dispatch(createAction(NEW_ROOM, res));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const UpdateImageRoomAction = (
+  idRoom,
+  fileData,
+  locaTionId,
+  setActiveStep
+) => {
   return async (dispatch) => {
     try {
       const res = await managerDetailRoom.updateImageRoom(idRoom, fileData);
+      if (Object.keys(res).length > 0) {
+        setActiveStep();
+      }
       await dispatch(getRentRoomsAction(locaTionId));
     } catch (error) {
       console.log(error);
