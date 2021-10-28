@@ -373,7 +373,6 @@ const useStyles = makeStyles(theme => ({
     profile: {
         display: 'flex',
         alignItems: 'center',
-        flex: '1 1 auto'
     },
 
     profile__btn: {
