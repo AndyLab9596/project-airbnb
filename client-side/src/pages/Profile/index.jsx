@@ -7,19 +7,20 @@ import {
   Container,
   Grid,
   Typography,
-  useMediaQuery,
+  useMediaQuery
 } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import DoneOutlinedIcon from "@material-ui/icons/DoneOutlined";
 import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 import VerifiedUserOutlinedIcon from "@material-ui/icons/VerifiedUserOutlined";
+import { Box } from "@mui/system";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import manageAuthApi from "../../api/manageAuthApi";
 import { USERID } from "../../constants/config";
 import { getInfoUserAction } from "../../store/action/Auth";
 import useStyles from "./style";
-import moment from "moment";
 const Profile = () => {
   const classes = useStyles();
 
@@ -27,7 +28,7 @@ const Profile = () => {
   const isDesktop = useMediaQuery(theme.breakpoints.up("xl"));
 
   const infoUser = useSelector((state) => state.AuthReducer.infoUser);
-  console.log(infoUser);
+
   const dispatch = useDispatch();
   const [fileUpload, setFileUpload] = useState(null);
 
@@ -60,13 +61,13 @@ const Profile = () => {
             <Grid item lg={4}>
               <Card className={classes.root} variant="outlined">
                 <CardContent className={classes.profile__top}>
-                  <div style={{ display: "flex", justifyContent: "center" }}>
+                  <Box display="flex" justifyContent="center">
                     <Avatar
                       alt="Avatar"
                       src={infoUser.avatar}
                       className={classes.large}
                     />
-                  </div>
+                  </Box>
 
                   <input
                     accept="image/*"
@@ -80,29 +81,29 @@ const Profile = () => {
                       Cập nhật ảnh
                     </Typography>
                   </label>
-                  <div style={{ marginTop: 32, marginBottom: 16 }}>
+                  <div className={classes.icon__style}>
                     <VerifiedUserOutlinedIcon />
                   </div>
                   <Typography className={classes.pos}>
                     Xác minh danh tính
                   </Typography>
-                  <Typography className={classes.profile__text1}>
+                  <Typography className={classes.profile__text__accuracy}>
                     Xác thực danh tính của bạn với huy hiệu xác minh danh tính.
                   </Typography>
                   <Button className={classes.profile__button} size="small">
                     Nhận huy hiệu
                   </Button>
                 </CardContent>
-                <CardActions style={{ display: "block", paddingTop: 20 }}>
-                  <Typography variant="h6" style={{ marginBottom: 12 }}>
+                <CardActions className={classes.profile__name}>
+                  <Typography variant="h6">
                     {infoUser.name} đã xác nhận
                   </Typography>
-                  <div style={{ display: "flex" }}>
-                    <DoneOutlinedIcon style={{ marginRight: 5 }} />
-                    <Typography style={{ marginBottom: 20 }}>
+                  <Box display="flex">
+                    <DoneOutlinedIcon className={classes.profile__name__icon} />
+                    <Typography className={classes.profile__name__text}>
                       Địa chỉ email
                     </Typography>
-                  </div>
+                  </Box>
                 </CardActions>
               </Card>
             </Grid>
@@ -112,11 +113,11 @@ const Profile = () => {
                   <Typography variant="h5" className={classes.profile__title}>
                     Xin chào, tôi là {infoUser.name}
                   </Typography>
-                  <Typography className={classes.profile__text3}>
-                    Bắt đầu tham gia vào 2021
+                  <Typography className={classes.profile__text__start}>
+                    Bắt đầu tham gia vào 2022
                   </Typography>
                 </div>
-                <div style={{ marginBottom: 48 }}>
+                <div className={classes.propfile__info}>
                   <Typography className={classes.profile__info__text}>
                     Thông tin cá nhân
                   </Typography>
@@ -182,14 +183,8 @@ const Profile = () => {
                   </div>
                 </div>
                 <div className={classes.profile__left__item}>
-                  <StarOutlinedIcon style={{ marginRight: 8 }} />
-                  <Typography
-                    style={{
-                      fontSize: 22,
-                      lineHeight: "28px",
-                      fontWeight: 600,
-                    }}
-                  >
+                  <StarOutlinedIcon />
+                  <Typography className={classes.profile__left__item__text}>
                     0 đánh giá
                   </Typography>
                 </div>
@@ -204,7 +199,7 @@ const Profile = () => {
         </div>
       ) : (
         <div className={classes.profile__mobile}>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <Box display="flex" justifyContent="space-between">
             <div>
               <Typography
                 variant="h5"
@@ -212,12 +207,23 @@ const Profile = () => {
               >
                 Xin chào, tôi là {infoUser.name}
               </Typography>
-              <Typography className={classes.profile__text3}>
+              <Typography className={classes.profile__text__start}>
                 Bắt đầu tham gia vào 2021
               </Typography>
-              <Typography className={classes.profile__text}>
-                Chỉnh sửa hồ sơ
-              </Typography>
+              <div className={classes.icon__style}>
+                <VerifiedUserOutlinedIcon />
+              </div>
+              <div className={classes.profile__top}>
+                <Typography className={classes.pos}>
+                  Xác minh danh tính
+                </Typography>
+                <Typography className={classes.profile__text__accuracy}>
+                  Xác thực danh tính của bạn với huy hiệu xác minh danh tính.
+                </Typography>
+                <Button className={classes.profile__button} size="small">
+                  Nhận huy hiệu
+                </Button>
+              </div>
             </div>
             <div>
               <Avatar
@@ -238,46 +244,88 @@ const Profile = () => {
                 </Typography>
               </label>
             </div>
-          </div>
-          <div style={{ marginTop: 32, marginBottom: 16 }}>
-            <VerifiedUserOutlinedIcon />
-          </div>
-          <div className={classes.profile__top}>
-            <Typography className={classes.pos}>Xác minh danh tính</Typography>
-            <Typography className={classes.profile__text1}>
-              Xác thực danh tính của bạn với huy hiệu xác minh danh tính.
-            </Typography>
-            <Button className={classes.profile__button} size="small">
-              Nhận huy hiệu
-            </Button>
-          </div>
-          <div
-            className={classes.profile__mobile__item}
-            style={{ display: "block", paddingTop: 20 }}
-          >
-            <Typography variant="h6" style={{ marginBottom: 12 }}>
-              {infoUser.name} đã xác nhận
-            </Typography>
-            <div style={{ display: "flex" }}>
-              <DoneOutlinedIcon style={{ marginRight: 5 }} />
-              <Typography style={{ marginBottom: 20 }}>
+          </Box>
+
+          <div className={classes.profile__mobile__item}>
+            <Typography variant="h6">{infoUser.name} đã xác nhận</Typography>
+            <Box display="flex">
+              <DoneOutlinedIcon className={classes.profile__name__icon} />
+              <Typography className={classes.profile__name__text}>
                 Địa chỉ email
               </Typography>
+            </Box>
+          </div>
+          <div className={classes.profile__left}>
+            <div className={classes.propfile__info}>
+              <Typography className={classes.profile__info__text}>
+                Thông tin cá nhân
+              </Typography>
+              <div className={classes.profile__info__item}>
+                <div>
+                  <Typography variant="subtitle2">Name</Typography>
+                </div>
+                <div>
+                  <Typography variant="subtitle1">{infoUser.name}</Typography>
+                </div>
+              </div>
+              <div className={classes.profile__info__item}>
+                <div>
+                  <Typography variant="subtitle2">Birthday</Typography>
+                </div>
+                <div>
+                  <Typography variant="subtitle1">
+                    {moment(infoUser.birthday).format("Do MMM YYYY")}
+                  </Typography>
+                </div>
+              </div>
+              <div className={classes.profile__info__item}>
+                <div>
+                  <Typography variant="subtitle2">Address</Typography>
+                </div>
+                <div>
+                  <Typography variant="subtitle1">
+                    {infoUser.address}
+                  </Typography>
+                </div>
+              </div>
+              <div className={classes.profile__info__item}>
+                <div>
+                  <Typography variant="subtitle2">Email</Typography>
+                </div>
+                <div>
+                  <Typography variant="subtitle1">{infoUser.email}</Typography>
+                </div>
+              </div>
+              <div className={classes.profile__info__item}>
+                <div>
+                  <Typography variant="subtitle2">Phone</Typography>
+                </div>
+                <div>
+                  <Typography variant="subtitle1">{infoUser.phone}</Typography>
+                </div>
+              </div>
+              <div className={classes.profile__info__item}>
+                <div>
+                  <Typography variant="subtitle2">Gender</Typography>
+                </div>
+                <div>
+                  <Typography variant="subtitle1">
+                    {infoUser.gender ? "Nam" : "Nữ"}
+                  </Typography>
+                </div>
+              </div>
             </div>
-          </div>
-
-          <div className={classes.profile__left__item2}>
-            <StarOutlinedIcon style={{ marginRight: 8 }} />
-            <Typography
-              style={{ fontSize: 22, lineHeight: "28px", fontWeight: 600 }}
-            >
-              0 đánh giá
-            </Typography>
-          </div>
-          <div className={classes.profile__left__item2}>
-            <Typography className={classes.profile__text}>
-              Đánh giá của bạn
-            </Typography>
+            <div className={classes.profile__left__item}>
+              <StarOutlinedIcon />
+              <Typography className={classes.profile__left__item__text}>
+                0 đánh giá
+              </Typography>
+            </div>
+            <div className={classes.profile__left__item2}>
+              <Typography className={classes.profile__text}>
+                Đánh giá của bạn
+              </Typography>
+            </div>
           </div>
         </div>
       )}

@@ -3,8 +3,10 @@ import { underLine } from './underline';
 export default makeStyles(theme => ({
     profile: {
         paddingTop: 80,
-        margin: '48px auto'
-
+        margin: '48px auto',
+        [theme.breakpoints.down("lg")]: {
+            paddingTop: 0,
+        },
     },
     root: {
         maxWidth: 308,
@@ -12,7 +14,6 @@ export default makeStyles(theme => ({
         borderRadius: 12,
         marginRight: "25px",
         marginLeft: 0,
-
     },
     bullet: {
         display: 'inline-block',
@@ -35,7 +36,6 @@ export default makeStyles(theme => ({
     },
     profile__top: {
         paddingBottom: 30,
-        ...underLine
     },
     profile__text: {
         color: "#222222",
@@ -45,7 +45,7 @@ export default makeStyles(theme => ({
         outline: "none",
         fontSize: 13
     },
-    profile__text1: {
+    profile__text__accuracy: {
         fontSize: 16,
         lineHeight: "20px",
         marginBottom: 16
@@ -54,11 +54,13 @@ export default makeStyles(theme => ({
         border: "1px solid #DDDDDD",
         padding: "10px 18px"
     },
-
     profile__left: {
         marginLeft: 25,
+        [theme.breakpoints.down("lg")]: {
+            paddingTop: 20,
+            marginLeft: 0,
+        },
         maxWidth: 632
-
     },
     profile__title: {
         fontSize: 32,
@@ -66,7 +68,7 @@ export default makeStyles(theme => ({
         fontWeight: 600,
         marginBottom: 8
     },
-    profile__text3: {
+    profile__text__start: {
         fontSize: 14,
         lineHeight: "18px",
         color: "#717171",
@@ -76,6 +78,9 @@ export default makeStyles(theme => ({
         display: "flex",
         position: "relative",
         paddingBottom: "25px",
+        "& > svg": {
+            marginRight: 8
+        },
         ...underLine
     },
     profile__left__item2: {
@@ -83,6 +88,11 @@ export default makeStyles(theme => ({
         position: "relative",
         padding: "25px 0",
         ...underLine
+    },
+    profile__left__item__text: {
+        fontSize: 22,
+        lineHeight: "28px",
+        fontWeight: 600,
     },
     //Mobile
     large2: {
@@ -93,54 +103,61 @@ export default makeStyles(theme => ({
     profile__mobile: {
         maxWidth: 632,
         margin: "auto",
-        [theme.breakpoints.down(769)]: {
-
+        [theme.breakpoints.down("lg")]: {
             minHeight: "85vh",
             marginTop: "20%"
-
         },
-        [theme.breakpoints.down(1025)]: {
-
-            minHeight: "85vh",
-            marginTop: "20%"
-
-        },
-        [theme.breakpoints.down(376)]: {
-
+        [theme.breakpoints.down("sm")]: {
             margin: "0 25px",
-
         },
-
-
     },
     profile__mobile__title: {
         fontSize: 32,
         lineHeight: "36px",
         fontWeight: 600,
         marginBottom: 8,
-        [theme.breakpoints.down(376)]: {
-
+        [theme.breakpoints.down("sm")]: {
             fontSize: 24
-
         },
     },
     profile__mobile__item: {
         display: "block",
         paddingTop: 20,
+        "& > h6": {
+            marginBottom: 12
+        },
         ...underLine
     },
-
     uploadInput: {
         display: 'none',
         marginTop: 8
     },
-
     uploadButton: {
         fontSize: '13px',
         color: '#222222',
         textDecoration: 'underline',
         textAlign: 'center',
         fontWeight: 500
+    },
+    icon__style: {
+        marginTop: 32,
+        marginBottom: 16
+    },
+    profile__name: {
+        display: "block",
+        paddingTop: 20,
+        "& > h6": {
+            marginBottom: 12
+        }
+    },
+    profile__name__icon: {
+        marginRight: 5
+    },
+    profile__name__text: {
+        marginBottom: 20
+    },
+    propfile__info: {
+        marginBottom: 48
     },
     profile__info__text: {
         color: "#222222",
@@ -158,10 +175,4 @@ export default makeStyles(theme => ({
         marginBottom: 10,
         paddingBottom: 5,
     }
-
-
-
-
-
-
 }))

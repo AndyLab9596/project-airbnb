@@ -1,27 +1,26 @@
 import {
-  Typography,
   Box,
-  Grid,
-  TextField,
-  TextareaAutosize,
-  Checkbox,
-  FormControlLabel,
+  Button,
   Card,
   CardMedia,
-  Button,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  TextareaAutosize,
+  Typography,
 } from "@material-ui/core";
-import React, { useState } from "react";
-import TextFieldComponent from "../../../components/Login/TextField";
-import useStyles from "./style";
-import { useConfirm } from "material-ui-confirm";
 import { useFormik } from "formik";
+import { useConfirm } from "material-ui-confirm";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import * as yup from "yup";
+import TextFieldComponent from "../../../components/Login/TextField";
 import {
   DeleteRoomAction,
   UpdateDetailRoomAction,
   UpdateImageRoomAction,
 } from "../../../store/action/RentRoomsAction";
-import { useDispatch } from "react-redux";
+import useStyles from "./style";
 
 const schema = yup.object().shape({
   name: yup.string().required("*Name is required"),
@@ -36,7 +35,7 @@ const EditRoom = ({ room, params }) => {
   const confirm = useConfirm();
   const dispatch = useDispatch();
   const [image, setImage] = useState(room?.image);
-  const [fileData, setFileData] = useState({ image: null }); // key api yêu cầu gửi là room
+  const [fileData, setFileData] = useState({ image: null });
   const [checkbox, setCheckBox] = useState({
     elevator: room?.elevator,
     hotTub: room?.hotTub,
@@ -227,8 +226,8 @@ const EditRoom = ({ room, params }) => {
             </Box>
           </Box>
 
-          <Grid container style={{ width: "40%" }}>
-            <Grid item xs={6}>
+          <Grid container style={{ marginLeft: 25 }}>
+            <Grid item xs={5}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -286,7 +285,7 @@ const EditRoom = ({ room, params }) => {
               />
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={4}>
               <FormControlLabel
                 control={
                   <Checkbox
