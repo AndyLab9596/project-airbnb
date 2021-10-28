@@ -1,7 +1,7 @@
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import { useFormik } from "formik";
-import React from "react";
+import React, { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as yup from "yup";
@@ -14,7 +14,9 @@ import {
 import { RESET_DATA_LOCATION } from "../../../store/types/LocationType";
 import StepperBox from "../StepperBox";
 import useStyles from "./style";
-
+import GetAppIcon from "@material-ui/icons/GetApp";
+import { Box } from "@mui/system";
+import ButtonSubmit from "../../../components/ButtonSubmit";
 const schema = yup.object().shape({
   name: yup.string().required("*Name is Required"),
   province: yup.string().required("*Province is Required"),
@@ -27,9 +29,10 @@ export default function AddLocation(props) {
 
   const dispatch = useDispatch();
   const { createLocation } = useSelector((state) => state.LocationReducer);
-  const { activeStep } = useSelector((state) => state.LocationReducer);
-  const classes = useStyles({ activeStep });
 
+  const [image, setImage] = useState(null);
+  const [activeStep, setActiveStep] = useState(0);
+  const classes = useStyles({ activeStep, image });
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -49,13 +52,26 @@ export default function AddLocation(props) {
     valueate: formik.values.valueate,
   };
 
-  const handleChangeFile = (event) => {
-    formik.setFieldValue(event.target.name, event.target.files[0]);
+  const handleChangeFile = (e) => {
+    formik.setFieldValue(e.target.name, e.target.files[0]);
+    let file = e?.target?.files[0];
+    if (
+      file.type === "image/jpeg" ||
+      file.type === "image/png" ||
+      file.type === "image/jpg"
+    ) {
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        setImage(e.target.result);
+      };
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formik.isValid) return;
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
     dispatch(CreateLocationAction(data));
   };
   const handleImage = (e) => {
@@ -64,17 +80,29 @@ export default function AddLocation(props) {
     const formData = new FormData();
     formData.append("location", formik.values.image);
 
-    dispatch(postUploadImageAction(formData, createLocation._id));
+    dispatch(
+      postUploadImageAction(formData, createLocation._id, () =>
+        setActiveStep((prevActiveStep) => prevActiveStep + 1)
+      )
+    );
   };
   const handleClickBack = () => {
     dispatch(createAction(RESET_DATA_LOCATION));
     history.push("/admin/locations");
   };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+  };
   const steps = ["THÊM VỊ TRÍ", "THÊM HÌNH ẢNH", "KẾT QUẢ"];
   return (
     <Container component="main" maxWidth="lg">
       <div className={classes.root}>
-        <StepperBox steps={steps} />
+        <StepperBox activeStep={activeStep} steps={steps} />
       </div>
 
       <div className={classes.add_content}>
@@ -116,69 +144,69 @@ export default function AddLocation(props) {
               errorInput={formik.errors.valueate}
               touchedInput={formik.touched.valueate}
             />
-
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Thêm
-            </Button>
+            <ButtonSubmit text="Thêm" />
           </form>
         </div>
       </div>
       {activeStep === 1 && (
-        <div>
-          <h1 className={classes.add_title}>Thêm hình ảnh</h1>
-          <input
-            accept="image/*"
-            className={classes.input}
-            style={{ display: "none" }}
-            id="raised-button-file"
-            multiple
-            type="file"
-            name="image"
-            onChange={handleChangeFile}
-          />
-          <label htmlFor="raised-button-file">
-            <Button
-              fullWidth
-              variant="contained"
-              component="span"
-              className={classes.button}
-            >
-              Upload
-            </Button>
-          </label>
-          <Button
-            type="button"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={handleImage}
-          >
-            Thêm hình
-          </Button>
-        </div>
+        <Fragment>
+          <div className={classes.upload__card}>
+            <div className={classes.upload__card__content}>
+              <label htmlFor="contained-button-file">
+                <GetAppIcon className={classes.upload__card__icons} />
+              </label>
+              <input
+                accept="image/*"
+                id="contained-button-file"
+                multiple
+                type="file"
+                name="image"
+                onChange={handleChangeFile}
+              />
+              <label
+                className={classes.upload__card__label}
+                htmlFor="contained-button-file"
+              >
+                {image !== null
+                  ? "Click change image"
+                  : " Click choose a image"}
+              </label>
+            </div>
+          </div>
+          <Box className={classes.upload__card__btnContent}>
+            <div>
+              <Button
+                onClick={handleBack}
+                className={classes.upload__card__btnReset}
+                color="primary"
+              >
+                Quay lại
+              </Button>
+            </div>
+            <div>
+              <ButtonSubmit handleSubmit={handleImage} text="Thêm ảnh" />
+            </div>
+          </Box>
+        </Fragment>
       )}
       {activeStep === 2 && (
         <div>
-          <h1 className={classes.add_title}>
-            Thêm vị trí và hình ảnh thành công
-          </h1>
-          <Button
-            type="button"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={handleClickBack}
-          >
-            Quay về
-          </Button>
+          <div className={classes.completed}>Thêm phòng thành công</div>
+
+          <div className={classes.completedAdd}>
+            <div>
+              <Button
+                onClick={handleReset}
+                className={classes.upload__card__btnReset}
+                color="primary"
+              >
+                Reset
+              </Button>
+            </div>
+            <div>
+              <ButtonSubmit handleSubmit={handleClickBack} text="Hoàn thành" />
+            </div>
+          </div>
         </div>
       )}
     </Container>

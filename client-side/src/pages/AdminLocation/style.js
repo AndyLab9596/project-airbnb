@@ -26,4 +26,13 @@ export default makeStyles((theme) => ({
     justifyContent: "center",
     display: "flex",
   },
+  inputSearch: {
+    borderRadius: 30,
+    marginBottom: 40,
+    marginTop: 20,
+    padding: "5px 20px",
+    "&:focus-within": {
+      border: "1px solid #000",
+    },
+  },
 }));

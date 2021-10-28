@@ -49,7 +49,7 @@ const AdminLayout = (props) => {
   const location = useLocation();
   const params = queryString.parse(location.search);
   const { infoUser } = useSelector((state) => state.AuthReducer);
-  console.log(infoUser);
+
   const handleListClick = () => {
     setOpenList((state) => !state);
   };

@@ -80,6 +80,7 @@ const AdminLocation = ({ handleToggleRoom }) => {
         onChange={(searchVal) => setSearch(searchVal)}
         onCancelSearch={() => cancelSearch()}
         placeholder="Search by name"
+        className={classes.inputSearch}
       />
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
