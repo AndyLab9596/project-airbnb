@@ -85,14 +85,15 @@ const Pay = () => {
   const daysAgo = new Date(date);
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     dispatch(DetailRoomAction(param.roomId));
   }, [dispatch]);
   const totalPrice = () => {
     return totalDate < 7
       ? formMoney(detailRoom?.price * totalDate + 100000)
       : totalDate > 30
-      ? formMoney(detailRoom?.price * (totalDate - 5) + 100000)
-      : formMoney(detailRoom?.price * (totalDate - 1) + 100000);
+        ? formMoney(detailRoom?.price * (totalDate - 5) + 100000)
+        : formMoney(detailRoom?.price * (totalDate - 1) + 100000);
   };
 
   const data = {
@@ -480,7 +481,7 @@ const Pay = () => {
                   <ButtonSubmit
                     handleSubmit={handleOpen1}
                     text={textPayButton}
-                    // className={classes.pay__button__confirm}
+                  // className={classes.pay__button__confirm}
                   />
                 </div>
               </Grid>

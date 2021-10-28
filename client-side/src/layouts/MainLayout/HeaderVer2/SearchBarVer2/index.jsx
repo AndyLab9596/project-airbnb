@@ -1,17 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
-import useStyles from "./style";
+import { ClickAwayListener, Grow, MenuList, Paper, Popper } from '@material-ui/core';
 import LocationOnOutlinedIcon from "@material-ui/icons/LocationOnOutlined";
+import SearchIcon from "@material-ui/icons/Search";
 import useAutocomplete from "@material-ui/lab/useAutocomplete";
-import manageLocationApi from '../../../../api/manageLocationApi';
 import { DesktopDateRangePicker, LocalizationProvider } from '@mui/lab';
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { vi } from "date-fns/locale";
-import SearchIcon from "@material-ui/icons/Search";
-import { ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper } from '@material-ui/core';
-import GuestCount from "../../../../components/GuestCount";
 import moment from "moment";
-import { useHistory, useLocation, useParams } from "react-router";
 import queryString from "query-string";
+import React, { useEffect, useRef, useState } from 'react';
+import { useHistory, useLocation, useParams } from "react-router";
+import manageLocationApi from '../../../../api/manageLocationApi';
+import GuestCount from "../../../../components/GuestCount";
+import useStyles from "./style";
 
 const SearchBarVer2 = ({ queryParams, setDisplaySearchBar }) => {
 
