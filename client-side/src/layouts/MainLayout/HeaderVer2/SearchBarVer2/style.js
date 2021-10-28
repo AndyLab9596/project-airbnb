@@ -287,6 +287,8 @@ const useStyles = makeStyles(theme => ({
         maxHeight: "calc(100vh -220px)",
         overflowX: "hidden",
         overflowY: "auto",
+        zIndex: 2,
+
     },
 
 
