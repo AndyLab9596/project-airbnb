@@ -4,7 +4,10 @@ const useStyles = makeStyles(theme => ({
     root: {
         backgroundColor: '#ffffff',
         height: 66,
-        maxWidth: 850,
+        maxWidth: 686,
+        [theme.breakpoints.up("lg")]: {
+            maxWidth: 850
+        },
         margin: '0 auto',
         width: '100%',
         border: '1px solid #dddddd',
@@ -268,7 +271,7 @@ const useStyles = makeStyles(theme => ({
     // Menu Guest
     popper: {
         top: '30px !important',
-        left: '-40px !important',
+        left: '-90px !important',
         overflow: 'hidden',
         zIndex: 2,
         borderRadius: "32px",

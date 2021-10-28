@@ -9,13 +9,32 @@ import { vi } from "date-fns/locale";
 import SearchIcon from "@material-ui/icons/Search";
 import { ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper } from '@material-ui/core';
 import GuestCount from "../../../../components/GuestCount";
+import moment from "moment";
+import { useHistory, useLocation, useParams } from "react-router";
+import queryString from "query-string";
+
+const SearchBarVer2 = ({ queryParams, setDisplaySearchBar }) => {
 
 
-const SearchBarVer2 = () => {
+    const history = useHistory();
+    const location = useLocation();
+
+    // Date Picker
+    const [bookingTime, setBookingTime] = useState([
+        queryParams._checkIn ? new Date(queryParams._checkIn) : null,
+        queryParams._checkOut ? new Date(queryParams._checkOut) : null,
+    ]);
+
+    useEffect(() => {
+        if (queryParams._checkIn && queryParams._checkOut) {
+            setBookingTime([queryParams._checkIn, queryParams._checkOut])
+        }
+    }, [queryParams])
 
     // location Search
     const [locationList, setLocationList] = useState([]);
     useEffect(() => {
+
         (async () => {
             const response = await manageLocationApi.getAll();
             setLocationList(response);
@@ -33,10 +52,27 @@ const SearchBarVer2 = () => {
         options: locationList,
         id: "useAutocomplete",
         getOptionLabel: (option) => option.province,
+        // defaultValue: [locationList.find((location) => {
+        //     console.log(location.province, queryParams._location)
+        //     return location.province === queryParams._location
+        // })]
     });
 
-    // Date Picker
-    const [bookingTime, setBookingTime] = useState([null, null]);
+
+    const inputValue = { ...getInputProps() }.value;
+
+    const locationInputValue = locationList.find(
+        (location) => location.province === inputValue
+    );
+
+    const checkInFormatted = moment(bookingTime[0]).format("YYYY-MM-DD");
+    const checkOutFormatted = moment(bookingTime[1]).format("YYYY-MM-DD");
+
+
+    const locationParams = useParams();
+    const locationIdFromParams = locationParams.locationId;
+    const locationId = locationInputValue?._id || locationIdFromParams;
+
 
     // Guest count
     const [numbers, setNumbers] = useState({
@@ -57,6 +93,30 @@ const SearchBarVer2 = () => {
         }
         setOpenMenu(false);
     }
+
+    // Search Action
+    const pushQueryParams = {
+        ...queryParams,
+        _location: queryParams._location || locationInputValue?.province,
+        _checkIn: checkInFormatted,
+        _checkOut: checkOutFormatted,
+        _adult: numbers._adult,
+        _children: numbers._children,
+        _toddler: numbers._toddler,
+
+    }
+
+    const handleSearch = () => {
+        history.push({
+            pathname: `/list/${locationId}`,
+            search: queryString.stringify(pushQueryParams),
+        });
+        setDisplaySearchBar(false)
+    }
+
+    // useEffect(() => {
+    //     handleSearch()
+    // }, [pushQueryParams])
 
     const classes = useStyles();
     return (
@@ -146,11 +206,11 @@ const SearchBarVer2 = () => {
 
 
             {/* Customer */}
-            <div className={classes.customer} >
+            <div className={classes.customer} ref={anchorRef}>
                 <div className={classes.customer__el}>
                     <div
                         className={classes.customer__el__content}
-                        ref={anchorRef} onClick={handleToggleMenu}
+                        onClick={handleToggleMenu}
                     >
                         <p className={classes.customer__title}>Khách</p>
                         <p className={classes.customer__text}>
@@ -166,7 +226,9 @@ const SearchBarVer2 = () => {
                             )}
                         </p>
                     </div>
-                    <button className={classes.formControl__button}  >
+                    <button className={classes.formControl__button}
+                        onClick={handleSearch}
+                    >
                         <SearchIcon className={classes.formControl__button__icon} />
                     </button>
                 </div>

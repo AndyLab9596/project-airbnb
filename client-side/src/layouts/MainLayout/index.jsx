@@ -18,14 +18,11 @@ const MainLayout = (props) => {
       render={(propsRoute) => {
         return (
           <Fragment>
-            {/* {isDesktop ? (
-              <Header {...propsRoute} />
+            {isDesktop ? (
+              <HeaderVer2  {...propsRoute} />
             ) : (
               <HeaderMobile {...propsRoute} />
-            )} */}
-
-            <HeaderVer2 {...propsRoute} />
-
+            )}
             <Component {...propsRoute} />
             <Footer {...propsRoute} />
           </Fragment>
