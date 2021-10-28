@@ -52,10 +52,7 @@ const SearchBarVer2 = ({ queryParams, setDisplaySearchBar }) => {
         options: locationList,
         id: "useAutocomplete",
         getOptionLabel: (option) => option.province,
-        // defaultValue: [locationList.find((location) => {
-        //     console.log(location.province, queryParams._location)
-        //     return location.province === queryParams._location
-        // })]
+
     });
 
 
@@ -114,9 +111,7 @@ const SearchBarVer2 = ({ queryParams, setDisplaySearchBar }) => {
         setDisplaySearchBar(false)
     }
 
-    // useEffect(() => {
-    //     handleSearch()
-    // }, [pushQueryParams])
+
 
     const classes = useStyles();
     return (
