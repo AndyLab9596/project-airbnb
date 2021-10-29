@@ -17,6 +17,7 @@ import EditLocation from "./pages/AdminLocation/EditLocation";
 import AdminRating from "./pages/AdminRating";
 import AdminRoom from "./pages/AdminRoom";
 import AddRoom from "./pages/AdminRoom/AddRoom";
+
 import AdminUser from "./pages/AdminUser";
 import AddUser from "./pages/AdminUser/AddUser";
 // PageAdmin
@@ -30,6 +31,9 @@ import Pay from "./pages/Pay";
 import Profile from "./pages/Profile";
 import Testing from "./pages/Testing";
 import { getInfoUserAction } from "./store/action/Auth";
+
+import AdminProfile from "./pages/AdminProfile";
+
 
 const App = () => {
   const idUser = localStorage.getItem(USERID);
@@ -95,7 +99,11 @@ const App = () => {
             Component={AddRoom}
           />
 
-          <AdminLayout path="/admin" Component={AdminUser} />
+
+
+          <AdminLayout path="/admin" Component={AdminProfile} />
+
+
         </Switch>
       </ThemeProvider>
     </BrowserRouter>

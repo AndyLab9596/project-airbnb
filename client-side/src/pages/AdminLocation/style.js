@@ -11,6 +11,7 @@ export default makeStyles((theme) => ({
       cursor: "pointer",
     },
   },
+
   avatar: {
     width: 70,
     height: 70,

@@ -72,6 +72,7 @@ const AdminLocation = ({ handleToggleRoom }) => {
 
   return (
     <Fragment>
+
       <SearchBar
         value={search}
         onChange={(searchVal) => setSearch(searchVal)}
