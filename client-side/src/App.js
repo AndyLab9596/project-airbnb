@@ -37,6 +37,7 @@ import AddRating from "./pages/AdminRating/AddRating";
 
 import ListRoomVer3 from "./pages/ListRoomVer3";
 import AddRoom from "./pages/AdminRoom/AddRoom";
+import AdminProfile from "./pages/AdminProfile";
 
 const App = () => {
   const idUser = localStorage.getItem(USERID);
@@ -103,9 +104,9 @@ const App = () => {
           />
 
 
-          <AdminLayout path="/admin" Component={AdminUser} />
+          <AdminLayout path="/admin" Component={AdminProfile} />
 
-        
+
         </Switch>
       </ThemeProvider>
     </BrowserRouter>
