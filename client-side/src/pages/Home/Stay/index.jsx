@@ -24,7 +24,6 @@ const Stay = () => {
     },
   ];
   var settings = {
-    dots: true,
     infinite: false,
     speed: 500,
     slidesToShow: 4,
@@ -34,10 +33,9 @@ const Stay = () => {
       {
         breakpoint: 1025,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 3.5,
           slidesToScroll: 3,
-          infinite: true,
-          dots: true,
+          infinite: false,
         },
       },
       {
