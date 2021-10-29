@@ -2,7 +2,6 @@ import { useMediaQuery, useTheme } from '@material-ui/core';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router';
 import manageRentApi from "../../api/manageRentApi";
-import manageLocationApi from "../../api/manageLocationApi";
 import DeskTopView from './DeskTopView';
 import ListRoomSkeleton from './ListRoomSkeleton';
 import ListRoomSkeletonMobile from './ListRoomSkeletonMobile';
