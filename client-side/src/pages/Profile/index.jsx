@@ -7,7 +7,7 @@ import {
   Container,
   Grid,
   Typography,
-  useMediaQuery
+  useMediaQuery,
 } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import DoneOutlinedIcon from "@material-ui/icons/DoneOutlined";
@@ -50,8 +50,8 @@ const Profile = () => {
   }, [dispatch, fileUpload, idUser]);
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Container maxWidth="lg" className={classes.profile}>

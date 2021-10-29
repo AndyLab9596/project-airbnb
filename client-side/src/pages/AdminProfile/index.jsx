@@ -1,13 +1,12 @@
 import {
-    Avatar,
-    Button,
-    Card,
-    CardActions,
-    CardContent,
-    Container,
-    Grid,
-    Typography,
-    useMediaQuery
+  Avatar,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Grid,
+  Typography,
+  useMediaQuery,
 } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import DoneOutlinedIcon from "@material-ui/icons/DoneOutlined";
@@ -25,7 +24,6 @@ const AdminProfile = () => {
 
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("xl"));
-
   const infoUser = useSelector((state) => state.AuthReducer.infoUser);
 
   const dispatch = useDispatch();
@@ -38,6 +36,7 @@ const AdminProfile = () => {
   const idUser = localStorage.getItem(USERID);
 
   useEffect(() => {
+    if (fileUpload === null) return;
     const handleUpImage = async () => {
       const formData = new FormData();
       formData.append("avatar", fileUpload);
@@ -53,11 +52,11 @@ const AdminProfile = () => {
   }, []);
 
   return (
-    <Container maxWidth="lg" className={classes.profile}>
+    <div className={classes.profile}>
       {isDesktop ? (
         <div>
           <Grid container>
-            <Grid item lg={4}>
+            <Grid item lg={3}>
               <Card className={classes.root} variant="outlined">
                 <CardContent className={classes.profile__top}>
                   <Box display="flex" justifyContent="center">
@@ -106,14 +105,14 @@ const AdminProfile = () => {
                 </CardActions>
               </Card>
             </Grid>
-            <Grid item lg={8}>
+            <Grid item lg={9}>
               <div className={classes.profile__left}>
                 <div>
                   <Typography variant="h5" className={classes.profile__title}>
                     Xin chào, tôi là {infoUser.name}
                   </Typography>
                   <Typography className={classes.profile__text__start}>
-                    Bắt đầu tham gia vào 2022
+                    Bắt đầu tham gia vào 2021
                   </Typography>
                 </div>
                 <div className={classes.propfile__info}>
@@ -136,7 +135,7 @@ const AdminProfile = () => {
                     </div>
                     <div>
                       <Typography variant="subtitle1">
-                        {moment(infoUser.birthday).format("Do MMM YYYY")}
+                        {moment(infoUser.birthday).format("DD-MM-YYYY")}
                       </Typography>
                     </div>
                   </div>
@@ -306,7 +305,7 @@ const AdminProfile = () => {
           </div>
         </div>
       )}
-    </Container>
+    </div>
   );
 };
 

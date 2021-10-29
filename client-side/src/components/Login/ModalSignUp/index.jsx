@@ -51,11 +51,12 @@ const ModalSignUp = () => {
     dispatch(createAction(SHOW_MODAL_SIGNIN));
     handleClose();
   };
-  const handleSubmitForm = (e) => {
+  const handleSubmitForm = async (e) => {
     e.preventDefault();
-
     if (!formik.isValid) return;
     dispatch(registerAction(formik.values));
+    handleClose();
+    await dispatch(createAction(SHOW_MODAL_SIGNIN));
   };
   const formik = useFormik({
     validateOnMount: true,

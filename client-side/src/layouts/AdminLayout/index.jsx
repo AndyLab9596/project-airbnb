@@ -351,29 +351,39 @@ const AdminLayout = (props) => {
               }}
             >
               <div className={classes.admin__title}>
-                <SiAirbnb />
-                <Typography variant="span">Airbnb Admin</Typography>
-              </div>
-              <div className={classes.drawerHeader}>
-                <Box display="flex">
-                  <Box textAlign="center">
-                    <Avatar
-                      alt="Avatar"
-                      src={infoUser.avatar}
-                      className={classes.large}
-                    />
-                    <Typography variant="subtitle2">{infoUser.type}</Typography>
-                  </Box>
-                  <Box marginLeft={2}>
-                    <Typography variant="subtitle2">Welcome,</Typography>
-                    <Typography variant="subtitle2">{infoUser.name}</Typography>
-                  </Box>
-                </Box>
-
+                <div
+                  className={classes.admin__logo}
+                  onClick={() => history.push("/admin")}
+                >
+                  <SiAirbnb />
+                  <Typography variant="span">Airbnb Admin</Typography>
+                </div>
                 <IconButton onClick={handleDrawerClose}>
                   <ChevronLeftIcon />
                 </IconButton>
               </div>
+              {restRoute.path !== "/admin" && (
+                <div className={classes.drawerHeader}>
+                  <Box display="flex" alignItems="center">
+                    <Box>
+                      <Avatar
+                        alt="Avatar"
+                        src={infoUser.avatar}
+                        className={classes.large}
+                      />
+                      <Typography variant="subtitle2">
+                        {infoUser.type}
+                      </Typography>
+                    </Box>
+                    <Box marginLeft={2}>
+                      <Typography variant="subtitle2">Welcome,</Typography>
+                      <Typography variant="subtitle2">
+                        {infoUser.name}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </div>
+              )}
               <Divider />
               <List>
                 <ListItem button onClick={handleListClick}>

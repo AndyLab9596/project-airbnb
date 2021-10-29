@@ -34,7 +34,7 @@ export default makeStyles((theme) => ({
   drawerHeader: {
     display: "flex",
     alignItems: "center",
-    padding: "15px 0 15px 20px",
+    padding: "15px 20px",
     ...theme.mixins.toolbar,
     justifyContent: "space-between",
   },
@@ -145,7 +145,11 @@ export default makeStyles((theme) => ({
   admin__title: {
     display: "flex",
     alignItems: "center",
-    margin: "10px auto",
+    justifyContent: "space-between",
+    padding: "10px",
+  },
+  admin__logo: {
+    cursor: "pointer",
     "&>svg": {
       marginRight: 10,
       fontSize: 30,
