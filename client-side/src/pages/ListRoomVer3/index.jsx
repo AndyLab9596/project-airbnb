@@ -100,7 +100,6 @@ const ListRoomVer3 = () => {
 
     return (
         <div>
-            {/* Fake header */}
             {isDeskTop ?
                 <DeskTopView
                     listRoomPaginate={listRoomPaginate}
