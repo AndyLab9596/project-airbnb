@@ -19,4 +19,8 @@ export default makeStyles((theme) => ({
     color: "rgb(0, 138, 5)",
     fontWeight: 600,
   },
+
+  service__fees: {
+    textDecoration: 'underline'
+  }
 }));

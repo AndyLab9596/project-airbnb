@@ -377,11 +377,7 @@ const Pay = () => {
                       label="Paypal"
                     />
                   </RadioGroup>
-                  <div style={{ padding: "24px 0" }}>
-                    <Typography className={classes.pay__button__style}>
-                      Chỉnh sửa
-                    </Typography>
-                  </div>
+
                 </div>
 
                 {/* BẮT BUỘC CHUYẾN ĐI CỦA BẠN  */}
@@ -572,7 +568,7 @@ const Pay = () => {
           TransitionComponent={Transition}
         >
           {open.modalPay && (
-            <div>
+            <div >
               <div className={`${classes.modal__header} ${classes.modal__pay}`}>
                 <IconButton className={classes.iconModal} onClick={handleClose}>
                   <CloseIcon />

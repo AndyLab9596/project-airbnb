@@ -252,6 +252,13 @@ export default makeStyles(theme => ({
         height: "100%",
         display: "flex",
         justifyContent: "center",
+        "& .MuiPaper-rounded": {
+            borderRadius: 22
+        }
+    },
+    modal__root: {
+
+
     },
     ButtonResult: {
         padding: 20
