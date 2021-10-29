@@ -182,7 +182,7 @@ const Profile = () => {
                     </div>
                   </div>
                 </div>
-                <div className={classes.profile__left__item}>
+                {/* <div className={classes.profile__left__item}>
                   <StarOutlinedIcon />
                   <Typography className={classes.profile__left__item__text}>
                     0 đánh giá
@@ -192,7 +192,7 @@ const Profile = () => {
                   <Typography className={classes.profile__text}>
                     Đánh giá của bạn
                   </Typography>
-                </div>
+                </div> */}
               </div>
             </Grid>
           </Grid>
@@ -317,14 +317,14 @@ const Profile = () => {
             </div>
             <div className={classes.profile__left__item}>
               <StarOutlinedIcon />
-              <Typography className={classes.profile__left__item__text}>
+              {/* <Typography className={classes.profile__left__item__text}>
                 0 đánh giá
               </Typography>
             </div>
             <div className={classes.profile__left__item2}>
               <Typography className={classes.profile__text}>
                 Đánh giá của bạn
-              </Typography>
+              </Typography> */}
             </div>
           </div>
         </div>

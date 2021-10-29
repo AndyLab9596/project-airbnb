@@ -153,7 +153,8 @@ const HeaderVer2 = () => {
                         classes.appBar,
                         { [classes.appBarFixed]: homePagePath, },
                         { [classes.appBarFixedList]: listPagePath },
-                        { [classes.appBarStaticDetail]: detailPagePath || profilePagePath || payPagePath },
+                        { [classes.appBarStaticDetail]: detailPagePath },
+                        { [classes.appBarStaticPay]: payPagePath || profilePagePath }
                     )}
                 >
                     <div className={classes.wrapper}>
@@ -464,6 +465,7 @@ const HeaderVer2 = () => {
                     <div className={clsx(
                         { [classes.searchBar]: homePagePath },
                         { [classes.list__searchBar]: listPagePath || detailPagePath },
+                        { [classes.pay__searchBar]: payPagePath || profilePagePath },
                         {
                             [classes.hideSearchBar]: !displaySearchBar,
                         }

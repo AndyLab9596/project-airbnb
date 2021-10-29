@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { underLine } from '../Profile/underline';
 export default makeStyles(theme => ({
 
     //ROOT
@@ -41,9 +40,19 @@ export default makeStyles(theme => ({
             padding: "75px 0px",
         },
     },
+
+    pay__title__iconBtn: {
+        width: 48,
+        height: 48,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
     pay__title__icon: {
         fontSize: 15,
-        marginRight: 15
+        textAlign: 'center',
+        margin: 'auto'
     },
     pay__title__text: {
         fontSize: 32,
@@ -243,6 +252,13 @@ export default makeStyles(theme => ({
         height: "100%",
         display: "flex",
         justifyContent: "center",
+        "& .MuiPaper-rounded": {
+            borderRadius: 22
+        }
+    },
+    modal__root: {
+
+
     },
     ButtonResult: {
         padding: 20
@@ -316,6 +332,10 @@ export default makeStyles(theme => ({
         backgroundColor: "rgb(34, 34, 34)",
         color: "#fff",
         pointerEvents: "initial",
+        "&:hover": {
+            backgroundColor: "rgb(0, 0, 0)",
+            color: 'rgb(255, 255, 255)'
+        }
     },
     booking__content__btn__save__isBooking: {
         width: "70%",

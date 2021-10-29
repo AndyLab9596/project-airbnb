@@ -8,8 +8,8 @@ const BookingPrice = ({ detailRoom, totalDate }) => {
     return totalDate < 7
       ? formMoney(detailRoom?.price * totalDate + 100000)
       : totalDate > 30
-      ? formMoney(detailRoom?.price * (totalDate - 5) + 100000)
-      : formMoney(detailRoom?.price * (totalDate - 1) + 100000);
+        ? formMoney(detailRoom?.price * (totalDate - 5) + 100000)
+        : formMoney(detailRoom?.price * (totalDate - 1) + 100000);
   };
   const classes = useStyles();
   return (
@@ -43,7 +43,7 @@ const BookingPrice = ({ detailRoom, totalDate }) => {
           )}
         </div>
         <div className={classes.booking__payment__content}>
-          <Typography variant="body2">Phí dịch vụ</Typography>
+          <Typography variant="body2" className={classes.service__fees}>Phí dịch vụ</Typography>
           <Typography variant="span"> {formMoney(100000)}</Typography>
         </div>
       </div>

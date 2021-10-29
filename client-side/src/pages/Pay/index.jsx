@@ -1,56 +1,50 @@
-import {
-  Box,
-  Button,
-  Container,
-  Dialog,
-  FormControlLabel,
-  Grid,
-  IconButton,
-  Radio,
-  RadioGroup,
-  Slide,
-  Snackbar,
-  SwipeableDrawer,
-  TextField,
-  Typography,
-} from "@material-ui/core";
+import React, { Fragment, useEffect, useMemo, useState } from "react";
+
+import { Box, Button, Container, Dialog, FormControlLabel, Grid, IconButton, Radio, RadioGroup, Slide, Snackbar, SwipeableDrawer, TextField, Typography, useMediaQuery } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+
+
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import CloseIcon from "@material-ui/icons/Close";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import StarIcon from "@material-ui/icons/Star";
+
 import { Alert } from "@material-ui/lab";
+
 import { LocalizationProvider, StaticDateRangePicker } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { vi } from "date-fns/locale";
+
 import moment from "moment";
 import queryString from "query-string";
-import React, { Fragment, useMemo, useState, useEffect } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation, useParams } from "react-router";
+
 import BookingPrice from "../../components/BookingPrice";
 import ButtonSubmit from "../../components/ButtonSubmit";
 import GuestCount from "../../components/GuestCount";
-import {
-  DetailRoomAction,
-  PayBookingAction,
-} from "../../store/action/RentRoomsAction";
+
+import { DetailRoomAction, PayBookingAction } from "../../store/action/RentRoomsAction";
 import { formMoney } from "../../utilities/coordinates";
+
 import ResultTicket from "./ResultTicket";
 import useStyles from "./style";
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+
 const Pay = () => {
   const location = useLocation();
   const history = useHistory();
   const theme = useTheme();
   const dispatch = useDispatch();
   const param = useParams();
+
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
   const { detailRoom } = useSelector((state) => state.RentRoomsReducer);
-  const classes = useStyles({ isDesktop });
+
 
   const queryParams = useMemo(() => {
     const params = queryString.parse(location.search);
@@ -59,8 +53,8 @@ const Pay = () => {
     };
   }, [location.search]);
 
-  const [valueGroup, setValueGroup] = React.useState("Visa");
-  const [open, setOpen] = React.useState({
+  const [valueGroup, setValueGroup] = useState("Visa");
+  const [open, setOpen] = useState({
     modalDate: false,
     modalPay: false,
     modalGuest: false,
@@ -75,7 +69,7 @@ const Pay = () => {
     queryParams._checkIn ? new Date(queryParams._checkIn) : null,
     queryParams._checkOut ? new Date(queryParams._checkOut) : null,
   ]);
-  const [openSnackbar, setOpenSnackbar] = React.useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const totalDateTime = bookingTime[1] - bookingTime[0];
   const totalDate = totalDateTime / (1000 * 3600 * 24);
@@ -168,13 +162,15 @@ const Pay = () => {
 
     setOpenSnackbar(false);
   };
+
+  const classes = useStyles({ isDesktop });
   return (
     <div>
       <Container className={classes.pay} maxWidth={false}>
         <Box>
           <div className={classes.pay__title}>
             <IconButton
-              className={classes.icon}
+              className={classes.pay__title__iconBtn}
               onClick={() => history.goBack()}
             >
               <ArrowBackIosIcon className={classes.pay__title__icon} />
@@ -381,11 +377,7 @@ const Pay = () => {
                       label="Paypal"
                     />
                   </RadioGroup>
-                  <div style={{ padding: "24px 0" }}>
-                    <Typography className={classes.pay__button__style}>
-                      Chỉnh sửa
-                    </Typography>
-                  </div>
+
                 </div>
 
                 {/* BẮT BUỘC CHUYẾN ĐI CỦA BẠN  */}
@@ -481,7 +473,6 @@ const Pay = () => {
                   <ButtonSubmit
                     handleSubmit={handleOpen1}
                     text={textPayButton}
-                  // className={classes.pay__button__confirm}
                   />
                 </div>
               </Grid>
@@ -577,7 +568,7 @@ const Pay = () => {
           TransitionComponent={Transition}
         >
           {open.modalPay && (
-            <div>
+            <div >
               <div className={`${classes.modal__header} ${classes.modal__pay}`}>
                 <IconButton className={classes.iconModal} onClick={handleClose}>
                   <CloseIcon />
