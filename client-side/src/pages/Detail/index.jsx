@@ -1,7 +1,7 @@
 import { useMediaQuery, useTheme } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import queryString from "query-string";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router";
 import {
@@ -14,12 +14,14 @@ import DetailRoomMap from "./Map";
 import DetailRating from "./Rating";
 import RoomImage from "./RoomImage";
 import DetailRules from "./Rules";
+import DetailRoomSkeletonDeskTop from "./DetailRoomSkeletonDeskTop";
+import DetailRoomSkeletonMobile from "./DetailRoomSkeletonMobile";
 
 const Detail = () => {
   const useStyle = makeStyles(() => ({
     content: {
       padding: (props) =>
-        props.isDeskTop ? "0 80px" : props.isMobile ? " 0 40px" : 0,
+        props.isDeskTop ? "0 80px" : props.isTablet ? " 0 40px" : 0,
 
       maxWidth: 1120,
       margin: "0 auto",
@@ -33,11 +35,12 @@ const Detail = () => {
     },
   }));
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.up("md"));
+  const isTablet = useMediaQuery(theme.breakpoints.up("md"));
   const isDeskTop = useMediaQuery(theme.breakpoints.up("xl"));
-  const classes = useStyle({ isMobile, isDeskTop });
+  const classes = useStyle({ isTablet, isDeskTop });
   const params = useParams();
-  const roomId = params.roomId
+  const roomId = params.roomId;
+  const [loading, setLoading] = useState(true);
 
   const location = useLocation();
   const queryParams = useMemo(() => {
@@ -53,7 +56,7 @@ const Detail = () => {
       _roomLatitude: Number(params._roomLatitude),
       _roomLongitude: Number(params._roomLongitude),
       _locationLatitude: Number(params._locationLatitude),
-      _locationLongitude: Number(params._locationLongitude)
+      _locationLongitude: Number(params._locationLongitude),
     };
   }, [location.search]);
   const dispatch = useDispatch();
@@ -61,10 +64,21 @@ const Detail = () => {
     (state) => state.RentRoomsReducer
   );
   useEffect(() => {
-    dispatch(DetailRoomAction(roomId));
+    dispatch(DetailRoomAction(roomId,setLoading));
     dispatch(DetailRatingAction(roomId));
   }, [dispatch, roomId]);
 
+  if (loading) {
+    return (
+      <div className={classes.content}>
+        {isTablet ? (
+          <DetailRoomSkeletonDeskTop />
+        ) : (
+          <DetailRoomSkeletonMobile />
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className={classes.content}>

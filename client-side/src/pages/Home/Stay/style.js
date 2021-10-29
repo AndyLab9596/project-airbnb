@@ -13,9 +13,18 @@ export default makeStyles(theme => ({
     },
     stay__title: {
         fontWeight: 700,
-        lineHeight: "52px",
         letterSpacing: 0,
-        paddingBottom: 16
+        paddingBottom: 16,
+        lineHeight: "30px",
+        fontSize: 22,
+        [theme.breakpoints.up("md")]: {
+            fontSize: 26,
+            lineHeight: "36px",
+        },
+        [theme.breakpoints.up("xl")]: {
+            fontSize: 32,
+            lineHeight: '52px',
+        },
     },
     stay__item: {
         padding: "7px",
