@@ -18,6 +18,7 @@ const DetailRoomMap = ({ queryParams }) => {
     touchRotate: false,
   });
 
+
   const classes = useStyles();
   return (
     <div id="map" className={classes.map__container}>
@@ -25,8 +26,8 @@ const DetailRoomMap = ({ queryParams }) => {
       <ReactMapGL
         {...viewport}
         {...settings}
-        mapStyle="mapbox://styles/thienvy95/ckuvywfwtntgx17pr1vnuxbj8"
-        mapboxApiAccessToken="pk.eyJ1IjoidGhpZW52eTk1IiwiYSI6ImNrdXFkcTlycjByem8yeHBnbXVmNmwwMzQifQ.rLTXpQcU4iZjpeNw8DblUQ"
+        mapStyle={process.env.REACT_APP_MAPBOX_STYLE}
+        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX}
         onViewportChange={(viewport) => setViewport(viewport)}
       >
         <NavigationControl

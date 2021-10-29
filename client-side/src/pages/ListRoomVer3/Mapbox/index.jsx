@@ -70,8 +70,8 @@ const Mapbox = (props) => {
             className={classes.ReactMapGL}
             width="100%"
             height="100%"
-            mapStyle="mapbox://styles/thienvy95/ckuvywfwtntgx17pr1vnuxbj8"
-            mapboxApiAccessToken="pk.eyJ1IjoidGhpZW52eTk1IiwiYSI6ImNrdXFkcTlycjByem8yeHBnbXVmNmwwMzQifQ.rLTXpQcU4iZjpeNw8DblUQ"
+            mapStyle={process.env.REACT_APP_MAPBOX_STYLE}
+            mapboxApiAccessToken={process.env.REACT_APP_MAPBOX}
             onViewportChange={(viewport) => setViewport(viewport)}
         >
             <NavigationControl style={navControlStyle} />
