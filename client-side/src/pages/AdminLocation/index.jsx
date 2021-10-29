@@ -72,7 +72,12 @@ const AdminLocation = ({ handleToggleRoom }) => {
 
   return (
     <Fragment>
-      <Typography variant="h4" className={classes.title}>
+      <Typography
+        variant="h5"
+        align="center"
+        color="primary"
+        className={classes.title}
+      >
         Location List
       </Typography>
       <SearchBar

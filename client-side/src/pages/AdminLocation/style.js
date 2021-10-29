@@ -13,8 +13,7 @@ export default makeStyles((theme) => ({
   },
   title: {
     fontSize: 30,
-    textAlign: "center",
-    fontWeight: 600,
+
     paddingBottom: 20,
   },
   avatar: {
