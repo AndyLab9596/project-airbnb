@@ -8,7 +8,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  Toolbar
+  Toolbar,
 } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -16,7 +16,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import LanguageIcon from "@material-ui/icons/Language";
 import MenuOutlinedIcon from "@material-ui/icons/MenuOutlined";
 import SearchIcon from "@material-ui/icons/Search";
-import queryString from 'query-string';
+import queryString from "query-string";
 import React, { Fragment, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router";
@@ -28,11 +28,10 @@ import { createAction } from "../../../store/action/createAction/createAction";
 import {
   LOG_OUT,
   SHOW_MODAL_SIGNIN,
-  SHOW_MODAL_SIGNUP
+  SHOW_MODAL_SIGNUP,
 } from "../../../store/types/AuthType";
 import SearchBar from "./SearchBar";
 import useStyles from "./style";
-
 
 const Header = () => {
   const isUserId = localStorage.getItem(USERID);
@@ -40,7 +39,6 @@ const Header = () => {
   const windowWidth = window.innerWidth;
   const dispatch = useDispatch();
   const history = useHistory();
-  const idUser = localStorage.getItem(USERID);
   const { infoUser } = useSelector((state) => state.AuthReducer);
 
   const location = useLocation();
@@ -56,7 +54,6 @@ const Header = () => {
       _toddler: Number.parseInt(params._toddler),
     };
   }, [location.search]);
-
 
   const handleLogout = () => {
     setAnchorEl(null);
@@ -239,18 +236,16 @@ const Header = () => {
                       </button>
                       <span className={classes.list__navbar__dash}></span>
                       <button className={classes.list__navbar__button}>
-                        {
-                          queryParams._checkIn
-                            && queryParams._checkOut
-                            && queryParams._checkIn !== "Invalid date"
-                            && queryParams._checkOut !== "Invalid date"
-                            ? (
-                              <span>
-                                {queryParams._checkIn} - {queryParams._checkOut}
-                              </span>
-                            ) : (
-                              <span>Thêm ngày</span>
-                            )}
+                        {queryParams._checkIn &&
+                        queryParams._checkOut &&
+                        queryParams._checkIn !== "Invalid date" &&
+                        queryParams._checkOut !== "Invalid date" ? (
+                          <span>
+                            {queryParams._checkIn} - {queryParams._checkOut}
+                          </span>
+                        ) : (
+                          <span>Thêm ngày</span>
+                        )}
                       </button>
                       <span className={classes.list__navbar__dash}></span>
                       <button className={classes.list__navbar__button}>
@@ -354,7 +349,8 @@ const Header = () => {
             <SearchBar
               listPageDisplaySearchBar={listPageDisplaySearchBar}
               listpageRoute={listpageRoute}
-              isDesktop={isDesktop} />
+              isDesktop={isDesktop}
+            />
           </Box>
         </AppBar>
       </ClickAwayListener>
@@ -451,7 +447,7 @@ const Header = () => {
           </>
         )}
       </Menu>
-    </Fragment >
+    </Fragment>
   );
 };
 

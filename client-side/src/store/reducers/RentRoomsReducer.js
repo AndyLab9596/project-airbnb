@@ -23,7 +23,7 @@ const initialState = {
 
   detailRoom: {},
   modalRated: false,
-  detailRating: {},
+  detailRating: [],
 
   arrPayBooking: [],
 

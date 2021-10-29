@@ -18,7 +18,7 @@ import {
   AddRoomAction,
   UpdateImageRoomAction,
 } from "../../../store/action/RentRoomsAction";
-import StepperBox from "../../AdminLocation/StepperBox";
+import StepperBox from "../../../components/StepperBox";
 import useStyles from "./style";
 
 const schema = yup.object().shape({

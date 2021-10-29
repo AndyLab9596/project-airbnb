@@ -5,11 +5,10 @@ import {
   Radio,
   RadioGroup,
   TextField,
-  Typography,
 } from "@material-ui/core";
 import { useFormik } from "formik";
 import moment from "moment";
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import * as yup from "yup";
 import ButtonSubmit from "../../../components/ButtonSubmit";
@@ -69,9 +68,6 @@ const AddUser = () => {
   };
   return (
     <form onSubmit={handleSubmitForm}>
-      <Typography variant="h5" align="center" color="primary">
-        ADD NEW USER
-      </Typography>
       <TextFieldComponent
         {...formik}
         label="Email"

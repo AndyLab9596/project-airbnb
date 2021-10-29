@@ -13,7 +13,7 @@ import {
   putUpdateLocationAction,
 } from "../../../store/action/LocationAction";
 import { RESET_DATA_LOCATION } from "../../../store/types/LocationType";
-import StepperBox from "../StepperBox";
+import StepperBox from "../../../components/StepperBox";
 import queryString from "query-string";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import { Box } from "@mui/system";

@@ -8,7 +8,14 @@ const managerDetailRoom = {
     const url = `reviews/byRoom?roomId=${idRoom}`;
     return axiosClient.get(url);
   },
-
+  addRatingRoom(idRoom, content) {
+    const url = `reviews?roomId=${idRoom}`;
+    return axiosClient.post(url, content);
+  },
+  deleteRatingRoom(idRating) {
+    const url = `reviews/${idRating}`;
+    return axiosClient.delete(url);
+  },
   updateDetailRoom(idRoom, valueRoom) {
     const url = `rooms/${idRoom}`;
     return axiosClient.put(url, valueRoom);
