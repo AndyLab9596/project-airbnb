@@ -12,7 +12,7 @@ import {
   postUploadImageAction,
 } from "../../../store/action/LocationAction";
 import { RESET_DATA_LOCATION } from "../../../store/types/LocationType";
-import StepperBox from "../StepperBox";
+import StepperBox from "../../../components/StepperBox";
 import useStyles from "./style";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import { Box } from "@mui/system";

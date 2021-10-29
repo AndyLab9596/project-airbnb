@@ -8,6 +8,7 @@ import {
   Grid,
   TextareaAutosize,
   Typography,
+  TextField,
 } from "@material-ui/core";
 import { useFormik } from "formik";
 import { useConfirm } from "material-ui-confirm";
@@ -157,10 +158,11 @@ const EditRoom = ({ room, params }) => {
               </div>
               <div className={classes.description}>
                 <Typography variant="body2">Description</Typography>
-                <TextareaAutosize
-                  aria-label="minimum height"
-                  maxRows={5}
+                <TextField
+                  multiline
+                  rows={4}
                   name="description"
+                  variant="outlined"
                   value={formik.values.description}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}

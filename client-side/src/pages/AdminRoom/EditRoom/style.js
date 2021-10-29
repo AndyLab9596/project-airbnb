@@ -72,7 +72,7 @@ export default makeStyles((theme) => ({
       paddingBottom: 10,
       paddingTop: 10,
     },
-    "&> textarea": {
+    "& .MuiTextField-root": {
       width: "100%",
       padding: 5,
       fontSize: 15,

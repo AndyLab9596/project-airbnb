@@ -17,16 +17,16 @@ import EditIcon from "@material-ui/icons/Edit";
 import { Box } from "@mui/system";
 import { useConfirm } from "material-ui-confirm";
 import SearchBar from "material-ui-search-bar";
+import queryString from "query-string";
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { FAKE_AVATAR, removeAccents } from "../../constants/config";
+import { removeAccents } from "../../constants/config";
 import {
   deleteLocationAction,
   getLocations,
 } from "../../store/action/LocationAction";
 import useStyles from "./style";
-import queryString from "query-string";
 
 const AdminLocation = ({ handleToggleRoom }) => {
   const classes = useStyles();
@@ -72,14 +72,7 @@ const AdminLocation = ({ handleToggleRoom }) => {
 
   return (
     <Fragment>
-      <Typography
-        variant="h5"
-        align="center"
-        color="primary"
-        className={classes.title}
-      >
-        Location List
-      </Typography>
+
       <SearchBar
         value={search}
         onChange={(searchVal) => setSearch(searchVal)}
@@ -155,7 +148,7 @@ const AdminLocation = ({ handleToggleRoom }) => {
                       color="primary"
                       onClick={() =>
                         history.push({
-                          pathname: "/admin/location/edit",
+                          pathname: "/admin/locations/edit",
                           search: queryString.stringify({
                             locationId: location._id,
                           }),

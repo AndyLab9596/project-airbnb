@@ -58,11 +58,8 @@ export default makeStyles((theme) => ({
     flexGrow: 1,
   },
   logo: {
-
-
     width: 100,
     height: 30,
-
   },
 
   activeNavLinK: {
@@ -93,14 +90,9 @@ export default makeStyles((theme) => ({
     },
   },
 
-  link: {
-    color: "#000",
-    "& .MuiTreeItem-content": {
-      paddingRight: 10,
-    },
-  },
-  active: {
-    color: "red ",
+  textBreadcrumb: {
+    color: "rgb(255,255,255,0.8)",
+    fontSize: 17,
   },
   menu: {
     "& .MuiPaper-root": {
@@ -111,6 +103,8 @@ export default makeStyles((theme) => ({
       overflowY: "auto",
       padding: 10,
       width: 200,
+      marginRight: 50,
+      marginTop: 10,
     },
     "& .MuiList-root ": {
       width: "100%",
@@ -128,9 +122,9 @@ export default makeStyles((theme) => ({
     },
 
     "&:focus > $content $label, &:hover > $content $label, &$selected > $content $label":
-    {
-      backgroundColor: "transparent",
-    },
+      {
+        backgroundColor: "transparent",
+      },
     "& .MuiTreeItem-iconContainer": {
       display: "none",
     },
@@ -138,15 +132,15 @@ export default makeStyles((theme) => ({
       padding: "5px 15px",
     },
     "& .MuiTreeItem-root.Mui-selected > .MuiTreeItem-content .MuiTreeItem-label":
-    {
-      backgroundColor: "transparent",
-    },
+      {
+        backgroundColor: "transparent",
+      },
   },
   large: {
     border: "2px solid #000",
     width: 50,
     height: 50,
-    textAlign: "center"
+    textAlign: "center",
   },
   admin__title: {
     display: "flex",
@@ -162,5 +156,5 @@ export default makeStyles((theme) => ({
       fontWeight: 800,
       color: "#ff385c",
     },
-  }
+  },
 }));

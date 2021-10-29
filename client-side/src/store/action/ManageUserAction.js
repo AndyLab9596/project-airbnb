@@ -28,7 +28,6 @@ export const addUserAction = (info) => {
   return async (dispatch) => {
     try {
       const res = await manageUserApi.addUser(info);
-      console.log(res);
     } catch (error) {
       console.log(error);
     }

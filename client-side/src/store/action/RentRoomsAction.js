@@ -34,7 +34,31 @@ export const DetailRatingAction = (idRoom) => {
   return async (dispatch) => {
     try {
       const res = await managerDetailRoom.getDetailRatingRoom(idRoom);
+
       dispatch(createAction(DETAIL_RATING_ROOM, res));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const AddRatingAction = (idRoom, content) => {
+  return async (dispatch) => {
+    try {
+      const res = await managerDetailRoom.addRatingRoom(idRoom, content);
+      console.log(res);
+      await dispatch(DetailRatingAction(idRoom));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const DeleteRatingAction = (idRoom, idRating) => {
+  return async (dispatch) => {
+    try {
+      const res = await managerDetailRoom.deleteRatingRoom(idRating);
+      console.log(res);
+      await dispatch(DetailRatingAction(idRoom));
     } catch (error) {
       console.log(error);
     }

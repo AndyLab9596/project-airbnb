@@ -81,9 +81,6 @@ const AdminUser = ({ handleToggleUser }) => {
 
   return (
     <Fragment>
-      <Typography variant="h5" align="center" color="primary">
-        User List
-      </Typography>
       <SearchBar
         value={searched}
         onChange={(searchVal) => setSearched(searchVal)}

@@ -30,7 +30,6 @@ import useStyles from "./style";
 const AdminRoom = ({ handleToggleRatedRoom, handleToggleRoom }) => {
   const location = useLocation();
   const params = queryString.parse(location.search);
-
   const dispatch = useDispatch();
   const [searched, setSearched] = useState("");
   const [page, setPage] = useState(0);
@@ -91,7 +90,10 @@ const AdminRoom = ({ handleToggleRatedRoom, handleToggleRoom }) => {
                 onClick={(e) => {
                   history.push({
                     pathname: "/admin/rooms/ratings",
-                    search: queryString.stringify({ roomId: room?._id }),
+                    search: queryString.stringify({
+                      ...params,
+                      roomId: room?._id,
+                    }),
                   });
                   handleToggleRatedRoom(e, ["12"]);
                 }}
