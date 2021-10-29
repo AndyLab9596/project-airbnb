@@ -13,9 +13,9 @@ import {
   SwipeableDrawer,
   TextField,
   Typography,
+  useMediaQuery
 } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import CloseIcon from "@material-ui/icons/Close";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -26,7 +26,7 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { vi } from "date-fns/locale";
 import moment from "moment";
 import queryString from "query-string";
-import React, { Fragment, useMemo, useState, useEffect } from "react";
+import React, { Fragment, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation, useParams } from "react-router";
 import BookingPrice from "../../components/BookingPrice";
@@ -34,7 +34,7 @@ import ButtonSubmit from "../../components/ButtonSubmit";
 import GuestCount from "../../components/GuestCount";
 import {
   DetailRoomAction,
-  PayBookingAction,
+  PayBookingAction
 } from "../../store/action/RentRoomsAction";
 import { formMoney } from "../../utilities/coordinates";
 import ResultTicket from "./ResultTicket";
@@ -50,9 +50,10 @@ const Pay = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const param = useParams();
+
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
   const { detailRoom } = useSelector((state) => state.RentRoomsReducer);
-  const classes = useStyles({ isDesktop });
+
 
   const queryParams = useMemo(() => {
     const params = queryString.parse(location.search);
@@ -170,13 +171,15 @@ const Pay = () => {
 
     setOpenSnackbar(false);
   };
+
+  const classes = useStyles({ isDesktop });
   return (
     <div>
       <Container className={classes.pay} maxWidth={false}>
         <Box>
           <div className={classes.pay__title}>
             <IconButton
-              className={classes.icon}
+              className={classes.pay__title__iconBtn}
               onClick={() => history.goBack()}
             >
               <ArrowBackIosIcon className={classes.pay__title__icon} />
