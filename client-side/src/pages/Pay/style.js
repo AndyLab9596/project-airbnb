@@ -325,6 +325,10 @@ export default makeStyles(theme => ({
         backgroundColor: "rgb(34, 34, 34)",
         color: "#fff",
         pointerEvents: "initial",
+        "&:hover": {
+            backgroundColor: "rgb(0, 0, 0)",
+            color: 'rgb(255, 255, 255)'
+        }
     },
     booking__content__btn__save__isBooking: {
         width: "70%",
