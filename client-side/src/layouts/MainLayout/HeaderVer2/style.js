@@ -32,6 +32,13 @@ const useStyles = makeStyles(theme => ({
         boxShadow: props => props.displaySearchBar ? 'none' : '0px 2px 4px rgb(0 0 0 / 18%)',
     },
 
+    appBarStaticPay: {
+        position: 'static',
+        backgroundColor: 'rgb(255, 255, 255)',
+        borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
+        boxShadow: '0px 2px 4px rgb(0 0 0 / 18%)',
+    },
+
     wrapper: {
         paddingLeft: 40,
         paddingRight: 40,
@@ -572,6 +579,10 @@ const useStyles = makeStyles(theme => ({
         paddingBottom: 20,
         borderBottom: props => props.displaySearchBar ? '1px solid rgba(0, 0, 0, 0.1)' : 'none',
         boxShadow: props => props.displaySearchBar ? '0px 2px 4px rgb(0 0 0 / 18%)' : 'none',
+    },
+
+    pay__searchBar: {
+        display: 'none',
     },
 
     hideSearchBar: {

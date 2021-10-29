@@ -39,9 +39,11 @@ import {
 import { formMoney } from "../../utilities/coordinates";
 import ResultTicket from "./ResultTicket";
 import useStyles from "./style";
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+
 const Pay = () => {
   const location = useLocation();
   const history = useHistory();
@@ -481,7 +483,6 @@ const Pay = () => {
                   <ButtonSubmit
                     handleSubmit={handleOpen1}
                     text={textPayButton}
-                  // className={classes.pay__button__confirm}
                   />
                 </div>
               </Grid>
