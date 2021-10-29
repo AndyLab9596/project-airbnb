@@ -1,42 +1,33 @@
-import {
-  Box,
-  Button,
-  Container,
-  Dialog,
-  FormControlLabel,
-  Grid,
-  IconButton,
-  Radio,
-  RadioGroup,
-  Slide,
-  Snackbar,
-  SwipeableDrawer,
-  TextField,
-  Typography,
-  useMediaQuery
-} from "@material-ui/core";
+import React, { Fragment, useEffect, useMemo, useState } from "react";
+
+import { Box, Button, Container, Dialog, FormControlLabel, Grid, IconButton, Radio, RadioGroup, Slide, Snackbar, SwipeableDrawer, TextField, Typography, useMediaQuery } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
+
+
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import CloseIcon from "@material-ui/icons/Close";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import StarIcon from "@material-ui/icons/Star";
+
 import { Alert } from "@material-ui/lab";
+
 import { LocalizationProvider, StaticDateRangePicker } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { vi } from "date-fns/locale";
+
 import moment from "moment";
 import queryString from "query-string";
-import React, { Fragment, useEffect, useMemo, useState } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation, useParams } from "react-router";
+
 import BookingPrice from "../../components/BookingPrice";
 import ButtonSubmit from "../../components/ButtonSubmit";
 import GuestCount from "../../components/GuestCount";
-import {
-  DetailRoomAction,
-  PayBookingAction
-} from "../../store/action/RentRoomsAction";
+
+import { DetailRoomAction, PayBookingAction } from "../../store/action/RentRoomsAction";
 import { formMoney } from "../../utilities/coordinates";
+
 import ResultTicket from "./ResultTicket";
 import useStyles from "./style";
 
@@ -62,8 +53,8 @@ const Pay = () => {
     };
   }, [location.search]);
 
-  const [valueGroup, setValueGroup] = React.useState("Visa");
-  const [open, setOpen] = React.useState({
+  const [valueGroup, setValueGroup] = useState("Visa");
+  const [open, setOpen] = useState({
     modalDate: false,
     modalPay: false,
     modalGuest: false,
@@ -78,7 +69,7 @@ const Pay = () => {
     queryParams._checkIn ? new Date(queryParams._checkIn) : null,
     queryParams._checkOut ? new Date(queryParams._checkOut) : null,
   ]);
-  const [openSnackbar, setOpenSnackbar] = React.useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const totalDateTime = bookingTime[1] - bookingTime[0];
   const totalDate = totalDateTime / (1000 * 3600 * 24);
