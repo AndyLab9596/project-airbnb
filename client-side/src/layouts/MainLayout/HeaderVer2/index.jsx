@@ -8,35 +8,33 @@ import {
   MenuList,
   Paper,
   Popper,
-  useMediaQuery,
+  useMediaQuery
 } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
-import clsx from "clsx";
-import React, { Fragment, useEffect, useMemo, useState } from "react";
-import {
-  useHistory,
-  useLocation,
-  useRouteMatch,
-  useParams,
-} from "react-router";
-import { useDispatch, useSelector } from "react-redux";
-import { createAction } from "../../../store/action/createAction/createAction";
-import airbnbIcon from "../../../assets/img/airbnblogo.png";
-import airbnbRedIcon from "../../../assets/img/airbnbRedIcon.png";
-import useStyles from "./style";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import LanguageIcon from "@material-ui/icons/Language";
 import MenuOutlinedIcon from "@material-ui/icons/MenuOutlined";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import SearchIcon from "@material-ui/icons/Search";
+import clsx from "clsx";
+import queryString from "query-string";
+import React, { Fragment, useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  useHistory,
+  useLocation, useParams, useRouteMatch
+} from "react-router";
+import airbnbIcon from "../../../assets/img/airbnblogo.png";
+import airbnbRedIcon from "../../../assets/img/airbnbRedIcon.png";
+import { USERID } from "../../../constants/config";
+import { createAction } from "../../../store/action/createAction/createAction";
+import { getLocation } from "../../../store/action/LocationAction";
 import {
   LOG_OUT,
   SHOW_MODAL_SIGNIN,
-  SHOW_MODAL_SIGNUP,
+  SHOW_MODAL_SIGNUP
 } from "../../../store/types/AuthType";
 import SearchBarVer2 from "./SearchBarVer2";
-import { USERID } from "../../../constants/config";
-import queryString from "query-string";
-import { getLocation } from "../../../store/action/LocationAction";
+import useStyles from "./style";
 
 const HeaderVer2 = () => {
   const isUserId = localStorage.getItem(USERID);
