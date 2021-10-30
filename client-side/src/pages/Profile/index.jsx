@@ -11,7 +11,6 @@ import {
 } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import DoneOutlinedIcon from "@material-ui/icons/DoneOutlined";
-import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 import VerifiedUserOutlinedIcon from "@material-ui/icons/VerifiedUserOutlined";
 import { Box } from "@mui/system";
 import moment from "moment";
@@ -42,7 +41,7 @@ const Profile = () => {
     const handleUpImage = async () => {
       const formData = new FormData();
       formData.append("avatar", fileUpload);
-      const res = await manageAuthApi.postAvatarUser(formData);
+      await manageAuthApi.postAvatarUser(formData);
       dispatch(getInfoUserAction(idUser));
     };
 
@@ -182,17 +181,6 @@ const Profile = () => {
                     </div>
                   </div>
                 </div>
-                {/* <div className={classes.profile__left__item}>
-                  <StarOutlinedIcon />
-                  <Typography className={classes.profile__left__item__text}>
-                    0 đánh giá
-                  </Typography>
-                </div>
-                <div className={classes.profile__left__item2}>
-                  <Typography className={classes.profile__text}>
-                    Đánh giá của bạn
-                  </Typography>
-                </div> */}
               </div>
             </Grid>
           </Grid>
@@ -314,17 +302,6 @@ const Profile = () => {
                   </Typography>
                 </div>
               </div>
-            </div>
-            <div className={classes.profile__left__item}>
-              <StarOutlinedIcon />
-              {/* <Typography className={classes.profile__left__item__text}>
-                0 đánh giá
-              </Typography>
-            </div>
-            <div className={classes.profile__left__item2}>
-              <Typography className={classes.profile__text}>
-                Đánh giá của bạn
-              </Typography> */}
             </div>
           </div>
         </div>

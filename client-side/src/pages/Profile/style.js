@@ -74,32 +74,9 @@ export default makeStyles((theme) => ({
     color: "#717171",
     marginBottom: 8,
   },
-  profile__left__item: {
-    display: "flex",
-    position: "relative",
-    paddingBottom: "25px",
-    "& > svg": {
-      marginRight: 8,
-    },
-    ...underLine,
-  },
-  profile__left__item2: {
-    display: "flex",
-    position: "relative",
-    padding: "25px 0",
-    ...underLine,
-  },
-  profile__left__item__text: {
-    fontSize: 22,
-    lineHeight: "28px",
-    fontWeight: 600,
-  },
+
   //Mobile
-  large2: {
-    width: 85,
-    height: 85,
-    textAlign: "center",
-  },
+
   profile__mobile: {
     maxWidth: 632,
     margin: "auto",

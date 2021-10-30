@@ -15,6 +15,8 @@ import ButtonSubmit from "../../../components/ButtonSubmit";
 import TextFieldComponent from "../../../components/Login/TextField";
 import { addUserAction } from "../../../store/action/ManageUserAction";
 import useStyles from "./style";
+import { useSnackbar } from "notistack";
+import { useHistory } from "react-router";
 
 const schema = yup.object().shape({
   name: yup.string().required("*FulName is required"),
@@ -33,6 +35,9 @@ const schema = yup.object().shape({
 const AddUser = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+  const history = useHistory();
+
   const formik = useFormik({
     validateOnMount: true,
     validationSchema: schema,
@@ -64,7 +69,15 @@ const AddUser = () => {
   const handleSubmitForm = (e) => {
     e.preventDefault();
     if (!formik.isValid) return;
-    dispatch(addUserAction(formik.values));
+    dispatch(
+      addUserAction(
+        formik.values,
+        (mes) => {
+          enqueueSnackbar(mes, { variant: "success" });
+        },
+        () => history.push("/admin/user")
+      )
+    );
   };
   return (
     <form onSubmit={handleSubmitForm}>

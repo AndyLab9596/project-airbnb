@@ -6,12 +6,12 @@ import {
   Checkbox,
   FormControlLabel,
   Grid,
-  TextareaAutosize,
   Typography,
   TextField,
 } from "@material-ui/core";
 import { useFormik } from "formik";
 import { useConfirm } from "material-ui-confirm";
+import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import * as yup from "yup";
@@ -37,6 +37,8 @@ const EditRoom = ({ room, params }) => {
   const dispatch = useDispatch();
   const [image, setImage] = useState(room?.image);
   const [fileData, setFileData] = useState({ image: null });
+  const { enqueueSnackbar } = useSnackbar();
+
   const [checkbox, setCheckBox] = useState({
     elevator: room?.elevator,
     hotTub: room?.hotTub,
@@ -78,7 +80,13 @@ const EditRoom = ({ room, params }) => {
       confirmationText: <Button color="secondary">DELETE</Button>,
       cancellationText: <Button color="primary">CANCLE</Button>,
     })
-      .then(() => dispatch(DeleteRoomAction(idroom, params?.locationId)))
+      .then(() =>
+        dispatch(
+          DeleteRoomAction(idroom, params?.locationId, (mes) => {
+            enqueueSnackbar(mes, { variant: "success" });
+          })
+        )
+      )
       .catch(() => console.log("deletion canclled"));
   };
   const handleChangeFile = async (e) => {
@@ -105,7 +113,10 @@ const EditRoom = ({ room, params }) => {
       UpdateDetailRoomAction(
         room?._id,
         { ...formik.values, ...checkbox },
-        params?.locationId
+        params?.locationId,
+        (mes) => {
+          enqueueSnackbar(mes, { variant: "success" });
+        }
       )
     );
     if (fileData?.image !== null) {

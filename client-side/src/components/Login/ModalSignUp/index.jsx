@@ -25,6 +25,7 @@ import {
 import ButtonSubmit from "../../ButtonSubmit";
 import TextFieldComponent from "../TextField";
 import useStyles from "./style";
+import { useSnackbar } from "notistack";
 
 const schema = yup.object().shape({
   name: yup.string().required("*FulName is required"),
@@ -44,6 +45,7 @@ const schema = yup.object().shape({
 const ModalSignUp = () => {
   const { modalSignUp } = useSelector((state) => state.AuthReducer);
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
   const handleClose = () => {
     dispatch(createAction(HIDE_MODAL_SIGNUP));
   };
@@ -54,9 +56,14 @@ const ModalSignUp = () => {
   const handleSubmitForm = async (e) => {
     e.preventDefault();
     if (!formik.isValid) return;
-    dispatch(registerAction(formik.values));
+    dispatch(
+      registerAction(formik.values, (mes) => {
+        enqueueSnackbar(mes, { variant: "success" });
+      }, (mes) => {
+        enqueueSnackbar(mes, { variant: "error" });
+      })
+    );
     handleClose();
-    await dispatch(createAction(SHOW_MODAL_SIGNIN));
   };
   const formik = useFormik({
     validateOnMount: true,

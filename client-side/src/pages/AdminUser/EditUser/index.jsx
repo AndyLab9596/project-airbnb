@@ -10,12 +10,13 @@ import { useFormik } from "formik";
 import moment from "moment";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import * as yup from "yup";
 import ButtonSubmit from "../../../components/ButtonSubmit";
 import TextFieldComponent from "../../../components/Login/TextField";
 import { editUserAction } from "../../../store/action/ManageUserAction";
 import useStyles from "./style";
+import { useSnackbar } from "notistack";
 
 const schema = yup.object().shape({
   name: yup.string().required("*FulName is required"),
@@ -27,8 +28,10 @@ const EditUser = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { userId } = useParams();
+  const { enqueueSnackbar } = useSnackbar();
   const { userList } = useSelector((state) => state.ManageUserReducer);
   const infoUser = userList?.filter((user) => user._id === userId);
+  const history = useHistory();
   const formik = useFormik({
     validateOnMount: true,
     validationSchema: schema,
@@ -60,7 +63,16 @@ const EditUser = () => {
   const handleSubmitForm = (e) => {
     e.preventDefault();
     if (!formik.isValid) return;
-    dispatch(editUserAction(userId, formik.values));
+    dispatch(
+      editUserAction(
+        userId,
+        formik.values,
+        (mes) => {
+          enqueueSnackbar(mes, { variant: "success" });
+        },
+        () => history.push("/admin/user")
+      )
+    );
   };
 
   return (

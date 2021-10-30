@@ -16,6 +16,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import { useConfirm } from "material-ui-confirm";
 import SearchBar from "material-ui-search-bar";
 import moment from "moment";
+import { useSnackbar } from "notistack";
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
@@ -39,6 +40,7 @@ const AdminUser = ({ handleToggleUser }) => {
   const history = useHistory();
   const confirm = useConfirm();
   const [searched, setSearched] = useState("");
+  const { enqueueSnackbar } = useSnackbar();
 
   const tableHeader = [
     "Name",
@@ -60,7 +62,13 @@ const AdminUser = ({ handleToggleUser }) => {
       confirmationText: <Button color="secondary">DELETE</Button>,
       cancellationText: <Button color="primary">CANCLE</Button>,
     })
-      .then(() => dispatch(deleteUserAction(idUser)))
+      .then(() =>
+        dispatch(
+          deleteUserAction(idUser, (mes) => {
+            enqueueSnackbar(mes, { variant: "success" });
+          })
+        )
+      )
       .catch(() => console.log("deletion canclled"));
   };
 

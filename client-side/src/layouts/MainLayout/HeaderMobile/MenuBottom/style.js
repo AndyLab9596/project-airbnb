@@ -6,7 +6,6 @@ export default makeStyles((theme) => ({
     left: 0,
     right: 0,
     bottom: 0,
-    // zIndex: 9999,
     maxWidth: "100vw",
     width: "100%",
     backgroundColor: "rgb(255, 255, 255)",
@@ -17,8 +16,8 @@ export default makeStyles((theme) => ({
     height: "80px",
     border: "1px solid rgb(255, 255, 255)",
     transition: "all 0.4s",
-    opacity: (props) => (props.isScrolled ? 0 : 1),
-    visibility: (props) => (props.isScrolled ? "hidden" : "visible"),
+    opacity: (props) => (props.isScrolled ? 1 : 0),
+    visibility: (props) => (props.isScrolled ? "visible" : "hidden"),
     zIndex: 1,
   },
   content: {

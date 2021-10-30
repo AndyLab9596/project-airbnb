@@ -8,32 +8,34 @@ import {
 } from "../types/AuthType";
 import { createAction } from "./createAction/createAction";
 
-export const loginAction = (user) => {
+export const loginAction = (user, success, error) => {
   return async (dispatch) => {
     try {
       const res = await manageAuthApi.login(user);
       if (res.token) {
         dispatch(createAction(HIDE_MODAL_SIGNIN));
+        await success('Đăng nhập thành công')
       }
       dispatch(createAction(GET_INFO_USER, res.user));
       localStorage.setItem(USERID, res.user._id);
       localStorage.setItem(TOKEN, res.token);
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      error('Email hoặc mật khẩu không đúng')
+      console.log(err);
     }
   };
 };
 
-export const registerAction = (user) => {
+export const registerAction = (user, success, error) => {
   return async (dispatch) => {
     try {
-      const res = await manageAuthApi.register(user);
-      if (res.token) {
-        dispatch(createAction(HIDE_MODAL_SIGNUP));
-        await dispatch(createAction(SHOW_MODAL_SIGNIN));
-      }
-    } catch (error) {
-      console.log(error);
+      await manageAuthApi.register(user);
+      dispatch(createAction(HIDE_MODAL_SIGNUP));
+      success('Đăng ký thành công')
+      await dispatch(createAction(SHOW_MODAL_SIGNIN));
+    } catch (err) {
+      error('Vui lòng nhập đúng thông tin')
+      console.log(err);
     }
   };
 };
