@@ -42,7 +42,7 @@ const App = () => {
     if (idUser) {
       dispatch(getInfoUserAction(idUser));
     }
-  });
+  }, [dispatch, idUser]);
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>

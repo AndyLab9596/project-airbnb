@@ -9,38 +9,44 @@ import { useHistory } from "react-router";
 import { USERID } from "../../../../constants/config";
 import { createAction } from "../../../../store/action/createAction/createAction";
 import { SHOW_MODAL_SIGNIN } from "../../../../store/types/AuthType";
-import { SHOW_MODAL_SEARCH } from "../../../../store/types/ModalType";
 import useStyles from "./style";
 
 const MenuBottom = () => {
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState({
+    prevScrollpos: window.pageYOffset,
+    visible: false,
+  });
   const history = useHistory();
   const dispatch = useDispatch();
   const { infoUser } = useSelector((state) => state.AuthReducer);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 250);
+      const { prevScrollpos } = scrolled;
+      const currentScrollPos = window.pageYOffset;
+      const visible = prevScrollpos > currentScrollPos;
+      setScrolled({
+        prevScrollpos: currentScrollPos,
+        visible,
+      });
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scrolled]);
   const isUserId = localStorage.getItem(USERID);
 
-  const classes = useStyles({ isScrolled: scrolled });
+  const classes = useStyles({ isScrolled: scrolled.visible });
   const handleClickLogin = () => {
     dispatch(createAction(SHOW_MODAL_SIGNIN));
   };
-  const handleShowSearchBar = () => {
-    dispatch(createAction(SHOW_MODAL_SEARCH));
-  };
+
   return (
     <div className={classes.rootBottom}>
       <div
         className={classes.content}
         onClick={() => {
           history.push("/");
-          // handleShowSearchBar();
         }}
       >
         <Button disableRipple>

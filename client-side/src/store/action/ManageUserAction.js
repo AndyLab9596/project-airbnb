@@ -13,32 +13,36 @@ export const getListUser = () => {
   };
 };
 
-export const deleteUserAction = (idUser) => {
+export const deleteUserAction = (idUser, success) => {
   return async (dispatch) => {
     try {
       await manageUserApi.deleteUser(idUser);
       await dispatch(getListUser());
+      success('Xóa người dùng thành công')
     } catch (error) {
       console.log(error);
     }
   };
 };
 
-export const addUserAction = (info) => {
+export const addUserAction = (info, success, changePage) => {
   return async (dispatch) => {
     try {
-      const res = await manageUserApi.addUser(info);
+      await manageUserApi.addUser(info);
+      success('Thêm người dùng thành công')
+      changePage()
     } catch (error) {
       console.log(error);
     }
   };
 };
 
-export const editUserAction = (idUser, info) => {
-  return async (dispatch) => {
+export const editUserAction = (idUser, info, success, changePage) => {
+  return async () => {
     try {
-      const res = await manageUserApi.editUser(idUser, info);
-      console.log(res);
+      await manageUserApi.editUser(idUser, info);
+      success('Cập nhật người dùng thành công')
+      changePage()
     } catch (error) {
       console.log(error);
     }

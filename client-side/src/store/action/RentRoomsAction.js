@@ -36,7 +36,6 @@ export const DetailRatingAction = (idRoom) => {
   return async (dispatch) => {
     try {
       const res = await managerDetailRoom.getDetailRatingRoom(idRoom);
-
       dispatch(createAction(DETAIL_RATING_ROOM, res));
     } catch (error) {
       console.log(error);
@@ -44,44 +43,44 @@ export const DetailRatingAction = (idRoom) => {
   };
 };
 
-export const AddRatingAction = (idRoom, content) => {
+export const AddRatingAction = (idRoom, content, success) => {
   return async (dispatch) => {
     try {
-      const res = await managerDetailRoom.addRatingRoom(idRoom, content);
-      console.log(res);
+      await managerDetailRoom.addRatingRoom(idRoom, content);
       await dispatch(DetailRatingAction(idRoom));
+      success('Thêm đánh giá thành công')
     } catch (error) {
       console.log(error);
     }
   };
 };
-export const DeleteRatingAction = (idRoom, idRating) => {
+export const DeleteRatingAction = (idRoom, idRating, success) => {
   return async (dispatch) => {
     try {
-      const res = await managerDetailRoom.deleteRatingRoom(idRating);
-      console.log(res);
+      await managerDetailRoom.deleteRatingRoom(idRating);
       await dispatch(DetailRatingAction(idRoom));
+      success('Xóa đánh giá thành công')
     } catch (error) {
       console.log(error);
     }
   };
 };
 export const PayBookingAction = (data) => {
-  return async (dispatch) => {
+  return async () => {
     try {
-      const res = await manageRentApi.postBookingRentRooms(data);
+      await manageRentApi.postBookingRentRooms(data);
     } catch (error) {
       console.log(error.response);
     }
   };
 };
 
-export const UpdateDetailRoomAction = (idRoom, valueRoom, locaTionId) => {
+export const UpdateDetailRoomAction = (idRoom, valueRoom, locaTionId, success) => {
   return async (dispatch) => {
     try {
-      const res = await managerDetailRoom.updateDetailRoom(idRoom, valueRoom);
-
+      await managerDetailRoom.updateDetailRoom(idRoom, valueRoom);
       await dispatch(getRentRoomsAction(locaTionId));
+      success('Cập nhật phòng thành công')
     } catch (error) {
       console.log(error);
     }
@@ -102,7 +101,7 @@ export const AddRoomAction = (valueRoom, locaTionId) => {
 export const UpdateImageRoomAction = (idRoom, fileData, locaTionId) => {
   return async (dispatch) => {
     try {
-      const res = await managerDetailRoom.updateImageRoom(idRoom, fileData);
+      await managerDetailRoom.updateImageRoom(idRoom, fileData);
       await dispatch(getRentRoomsAction(locaTionId));
     } catch (error) {
       console.log(error);
@@ -110,12 +109,12 @@ export const UpdateImageRoomAction = (idRoom, fileData, locaTionId) => {
   };
 };
 
-export const DeleteRoomAction = (idRoom, locaTionId) => {
+export const DeleteRoomAction = (idRoom, locaTionId, success) => {
   return async (dispatch) => {
     try {
-      const res = await managerDetailRoom.deleteRoom(idRoom);
-
+      await managerDetailRoom.deleteRoom(idRoom);
       await dispatch(getRentRoomsAction(locaTionId));
+      success('Xóa phòng thành công')
     } catch (error) {
       console.log(error);
     }

@@ -97,11 +97,10 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down(744)]: {
       display: "block",
       paddingBottom: (props) =>
-        props.detailpageRoute || props.profilepageRoute ? 125 : 24,
+        props.detailpageRoute ? 125 : 24,
     },
   },
   footer__item__bot: {
-    // width: "45%",
     display: "flex",
     listStyle: "none",
     paddingRight: 10,

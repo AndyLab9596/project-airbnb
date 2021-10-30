@@ -16,6 +16,7 @@ import LoginWithFacebook from "../FacebookLogin";
 import LoginWithGoogle from "../GoogleLogin";
 import TextFieldComponent from "../TextField";
 import useStyles from "./style";
+import { useSnackbar } from "notistack";
 
 const schemaValidation = yup.object().shape({
   password: yup.string().required("*Password is required"),
@@ -25,6 +26,7 @@ const schemaValidation = yup.object().shape({
 const ModalSignIn = () => {
   const { modalSignIn } = useSelector((state) => state.AuthReducer);
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
   const handleClose = () => {
     dispatch(createAction(HIDE_MODAL_SIGNIN));
   };
@@ -35,7 +37,17 @@ const ModalSignIn = () => {
   const handleSubmitForm = (e) => {
     e.preventDefault();
     if (!formik.isValid) return;
-    dispatch(loginAction(formik.values));
+    dispatch(
+      loginAction(
+        formik.values,
+        (mes) => {
+          enqueueSnackbar(mes, { variant: "success" });
+        },
+        (mes) => {
+          enqueueSnackbar(mes, { variant: "error" });
+        }
+      )
+    );
   };
   const formik = useFormik({
     validateOnMount: true,

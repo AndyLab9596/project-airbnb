@@ -37,7 +37,7 @@ export default makeStyles(theme => ({
     },
     pay__content: {
         [theme.breakpoints.down("sm")]: {
-            padding: "75px 0px",
+            paddingTop: 75,
         },
     },
 

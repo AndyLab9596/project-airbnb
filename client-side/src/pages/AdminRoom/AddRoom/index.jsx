@@ -378,18 +378,6 @@ const AddRoom = ({ handleToggleRoom }) => {
       {activeStep === steps.length - 1 && (
         <div>
           <div className={classes.completed}>Thêm phòng thành công</div>
-          {/* <div>
-            <Button
-              disabled={activeStep === 0}
-              onClick={handleBack}
-              className={classes.backButton}
-            >
-              Back
-            </Button>
-            <Button variant="contained" color="primary">
-              {activeStep === steps.length - 1 ? "Finish" : "Next"}
-            </Button>
-          </div> */}
           <div className={classes.completedAdd}>
             <div>
               <Button

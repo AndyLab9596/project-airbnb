@@ -18,11 +18,12 @@ export const getLocations = () => {
     }
   };
 };
-export const deleteLocationAction = (id) => {
+export const deleteLocationAction = (id, success) => {
   return async (dispatch) => {
     try {
       await manageLocationApi.deleteLocation(id);
       await dispatch(getLocations());
+      success('Xóa vị trí thành công')
     } catch (error) {
       console.log(error);
     }

@@ -17,6 +17,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import { Box } from "@mui/system";
 import { useConfirm } from "material-ui-confirm";
 import SearchBar from "material-ui-search-bar";
+import { useSnackbar } from "notistack";
 import queryString from "query-string";
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,9 +40,9 @@ const AdminLocation = ({ handleToggleRoom }) => {
   const confirm = useConfirm();
   const [search, setSearch] = useState("");
   useEffect(() => {
-    dispatch(getLocations(page));
+    dispatch(getLocations());
   }, [dispatch]);
-
+  const { enqueueSnackbar } = useSnackbar();
   const tableHeader = ["Name", "Image", "Province", "Country", "Valueate", ""];
   const handleDeleteLocation = (id) => {
     confirm({
@@ -53,7 +54,13 @@ const AdminLocation = ({ handleToggleRoom }) => {
       confirmationText: <Button color="secondary">DELETE</Button>,
       cancellationText: <Button color="primary">CANCLE</Button>,
     })
-      .then(() => dispatch(deleteLocationAction(id)))
+      .then(() =>
+        dispatch(
+          deleteLocationAction(id, (mes) => {
+            enqueueSnackbar(mes, { variant: "success" });
+          })
+        )
+      )
       .catch(() => console.log("deletion canclled"));
   };
   const handlePageChange = (event, newPage) => {
@@ -72,7 +79,6 @@ const AdminLocation = ({ handleToggleRoom }) => {
 
   return (
     <Fragment>
-
       <SearchBar
         value={search}
         onChange={(searchVal) => setSearch(searchVal)}
@@ -132,7 +138,12 @@ const AdminLocation = ({ handleToggleRoom }) => {
                       <Typography
                         variant="body2"
                         onClick={(e) => {
-                          history.push(`/admin/rooms/${location._id}`);
+                          history.push({
+                            pathname: `/admin/rooms`,
+                            search: queryString.stringify({
+                              locationId: location._id,
+                            }),
+                          });
                           handleToggleRoom(e, ["9"]);
                         }}
                       >

@@ -18,6 +18,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { useConfirm } from "material-ui-confirm";
 import SearchBar from "material-ui-search-bar";
 import moment from "moment";
+import { useSnackbar } from "notistack";
 import queryString from "query-string";
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,6 +44,7 @@ const AdminRating = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searched, setSearched] = useState("");
   const confirm = useConfirm();
+  const { enqueueSnackbar } = useSnackbar();
 
   const tableHeader = ["Author", "Avatar", "Comment", "Created_at", ""];
   useEffect(() => {
@@ -66,7 +68,11 @@ const AdminRating = () => {
     if (contentRating === "") return;
     setShowContentAdd(false);
     setContentRating("");
-    dispatch(AddRatingAction(params?.roomId, { content: contentRating }));
+    dispatch(
+      AddRatingAction(params?.roomId, { content: contentRating }, (mes) => {
+        enqueueSnackbar(mes, { variant: "success" });
+      })
+    );
   };
 
   const handleDeleteRating = (idRating) => {
@@ -79,7 +85,13 @@ const AdminRating = () => {
       confirmationText: <Button color="secondary">DELETE</Button>,
       cancellationText: <Button color="primary">CANCLE</Button>,
     })
-      .then(() => dispatch(DeleteRatingAction(params?.roomId, idRating)))
+      .then(() =>
+        dispatch(
+          DeleteRatingAction(params?.roomId, idRating, (mes) => {
+            enqueueSnackbar(mes, { variant: "success" });
+          })
+        )
+      )
       .catch(() => console.log("deletion canclled"));
   };
   return (
