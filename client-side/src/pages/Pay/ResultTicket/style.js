@@ -109,6 +109,16 @@ const useStyles = makeStyles(theme => ({
         fontStyle: 'italic',
         fontWeight: 500,
     },
+    table__modal: {
+        display: "flex",
+        justifyContent: "space-between"
+    },
+    table__modal__left:{
+        width: "40%"
+    },
+    table__modal__right:{
+        width: "50%"
+    }
 }))
 
 
