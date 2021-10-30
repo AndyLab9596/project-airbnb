@@ -1,8 +1,23 @@
 import React, { Fragment, useEffect, useMemo, useState } from "react";
 
-import { Box, Button, Container, Dialog, FormControlLabel, Grid, IconButton, Radio, RadioGroup, Slide, Snackbar, SwipeableDrawer, TextField, Typography, useMediaQuery } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Container,
+  Dialog,
+  FormControlLabel,
+  Grid,
+  IconButton,
+  Radio,
+  RadioGroup,
+  Slide,
+  Snackbar,
+  SwipeableDrawer,
+  TextField,
+  Typography,
+  useMediaQuery,
+} from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
-
 
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import CloseIcon from "@material-ui/icons/Close";
@@ -25,7 +40,10 @@ import BookingPrice from "../../components/BookingPrice";
 import ButtonSubmit from "../../components/ButtonSubmit";
 import GuestCount from "../../components/GuestCount";
 
-import { DetailRoomAction, PayBookingAction } from "../../store/action/RentRoomsAction";
+import {
+  DetailRoomAction,
+  PayBookingAction,
+} from "../../store/action/RentRoomsAction";
 import { formMoney } from "../../utilities/coordinates";
 
 import ResultTicket from "./ResultTicket";
@@ -44,7 +62,6 @@ const Pay = () => {
 
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
   const { detailRoom } = useSelector((state) => state.RentRoomsReducer);
-
 
   const queryParams = useMemo(() => {
     const params = queryString.parse(location.search);
@@ -79,15 +96,15 @@ const Pay = () => {
   const daysAgo = new Date(date);
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
     dispatch(DetailRoomAction(param.roomId));
   }, [dispatch]);
   const totalPrice = () => {
     return totalDate < 7
       ? formMoney(detailRoom?.price * totalDate + 100000)
       : totalDate > 30
-        ? formMoney(detailRoom?.price * (totalDate - 5) + 100000)
-        : formMoney(detailRoom?.price * (totalDate - 1) + 100000);
+      ? formMoney(detailRoom?.price * (totalDate - 5) + 100000)
+      : formMoney(detailRoom?.price * (totalDate - 1) + 100000);
   };
 
   const data = {
@@ -377,7 +394,6 @@ const Pay = () => {
                       label="Paypal"
                     />
                   </RadioGroup>
-
                 </div>
 
                 {/* BẮT BUỘC CHUYẾN ĐI CỦA BẠN  */}
@@ -568,7 +584,7 @@ const Pay = () => {
           TransitionComponent={Transition}
         >
           {open.modalPay && (
-            <div >
+            <div>
               <div className={`${classes.modal__header} ${classes.modal__pay}`}>
                 <IconButton className={classes.iconModal} onClick={handleClose}>
                   <CloseIcon />

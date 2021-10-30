@@ -3,7 +3,7 @@ export default makeStyles(theme => ({
 
     //ROOT
     pay: {
-        paddingTop: 80,
+        paddingTop: 0,
         paddingLeft: 160,
         paddingRight: 160,
         [theme.breakpoints.down("lg")]: {
@@ -61,7 +61,7 @@ export default makeStyles(theme => ({
         color: "#222222",
         marginLeft: 40,
         [theme.breakpoints.down("sm")]: {
-            marginLeft: 40,
+            marginLeft: 0,
             fontSize: 24,
         },
     },
@@ -402,7 +402,11 @@ export default makeStyles(theme => ({
         display: props => props.isDesktop ? "none" : "block"
     },
     pay_mobile: {
-        display: props => props.isDesktop ? "none" : "block"
+        display: props => props.isDesktop ? "none" : "block",
+        [theme.breakpoints.down("sm")]: {
+            paddingTop: 10
+        },
+
     },
     pay_desktop: {
         display: props => props.isDesktop ? "block" : "none"
