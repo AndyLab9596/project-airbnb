@@ -1,13 +1,16 @@
 import { useMediaQuery, useTheme } from '@material-ui/core';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router';
 import manageRentApi from "../../api/manageRentApi";
 import DeskTopView from './DeskTopView';
 import ListRoomSkeleton from './ListRoomSkeleton';
 import ListRoomSkeletonMobile from './ListRoomSkeletonMobile';
 import MobileView from './MobileView';
+import { useDispatch } from "react-redux";
+import { getLocations } from '../../store/action/LocationAction';
 
 const ListRoomVer3 = () => {
+    const dispatch = useDispatch()
     const location = useLocation();
     const locationSearch = location.search;
     const theme = useTheme();
@@ -87,6 +90,17 @@ const ListRoomVer3 = () => {
         })()
 
     }, [locationId, filter, priceValue, locationSearch])
+
+    // dispatch locations for header
+
+    const fetchLocations = useCallback(() => {
+        dispatch(getLocations())
+    }, [dispatch])
+
+    useEffect(() => {
+        fetchLocations()
+
+    }, [])
 
 
     if (loading) {
