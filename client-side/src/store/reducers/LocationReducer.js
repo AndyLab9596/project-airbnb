@@ -3,7 +3,7 @@ import { CREATE_LOCATION, GET_LOCATIONS, RESET_DATA_LOCATION, UPLOAD_IMAGE, UPDA
 const initialState = {
     locations: [],
     createLocation: [],
-    activeStep: 0,
+ 
     arrUpdate: [],
     location: {},
 }
@@ -17,7 +17,7 @@ const LocationReducer = (state = initialState, { type, payload }) => {
         }
         case CREATE_LOCATION: {
 
-            return { ...state, createLocation: payload, activeStep: 1 }
+            return { ...state, createLocation: payload }
         }
         case UPLOAD_IMAGE: {
 
@@ -25,11 +25,11 @@ const LocationReducer = (state = initialState, { type, payload }) => {
         }
         case RESET_DATA_LOCATION: {
 
-            return { ...state, activeStep: 0, locations: [], createLocation: [], arrUpdate: [] }
+            return { ...state,  locations: [], createLocation: [], arrUpdate: [] }
         }
         case UPDATE_LOCATION: {
 
-            return { ...state, arrUpdate: payload, activeStep: 1 }
+            return { ...state, arrUpdate: payload }
         }
         case GET_LOCATION: {
 

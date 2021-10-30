@@ -91,25 +91,29 @@ function ResultTicket({ totalDate, detailRoom, valueGroup, totalPrice }) {
             </table>
           ) : (
             <div className={classes.table}>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <span style={{ width: "40%" }} valign="top">
+              <div className={classes.table__modal}>
+                <span className={classes.table__modal__left} valign="top">
                   Họ tên:
                 </span>
-                <span style={{ width: "50%" }}>{infoUser?.name}</span>
+                <span className={classes.table__modal__right}>
+                  {infoUser?.name}
+                </span>
               </div>
 
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <span style={{ width: "40%" }} valign="top">
+              <div className={classes.table__modal}>
+                <span className={classes.table__modal__left} valign="top">
                   Số điện thoại:
                 </span>
-                <span style={{ width: "50%" }}>{infoUser.phone}</span>
+                <span className={classes.table__modal__right}>
+                  {infoUser.phone}
+                </span>
               </div>
 
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <span style={{ width: "40%" }} valign="top">
+              <div className={classes.table__modal}>
+                <span className={classes.table__modal__left} valign="top">
                   Tổng tiền:
                 </span>
-                <span style={{ width: "50%" }} valign="top">
+                <span className={classes.table__modal__right} valign="top">
                   <span>{totalPrice()}</span>
                 </span>
               </div>
