@@ -64,7 +64,7 @@ const Detail = () => {
     (state) => state.RentRoomsReducer
   );
   useEffect(() => {
-    dispatch(DetailRoomAction(roomId,setLoading));
+    dispatch(DetailRoomAction(roomId, () => setLoading()));
     dispatch(DetailRatingAction(roomId));
   }, [dispatch, roomId]);
 

@@ -19,15 +19,16 @@ export const getRentRoomsAction = (id) => {
   };
 };
 
-export const DetailRoomAction = (idRoom,setLoading) => {
+export const DetailRoomAction = (idRoom, setLoading) => {
   return async (dispatch) => {
     try {
       const res = await managerDetailRoom.getDetailRoom(idRoom);
-      dispatch(createAction(DETAIL_ROOM, res));
+      await dispatch(createAction(DETAIL_ROOM, res));
+      setLoading(false)
     } catch (error) {
       console.log(error);
     }
-    setLoading(false)
+
   };
 };
 
