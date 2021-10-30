@@ -511,8 +511,7 @@ const useStyles = makeStyles(theme => ({
         borderRadius: 22,
         overflow: 'hidden',
         zIndex: 99999,
-        boxShadow: '2px 2px 20px 0px rgba(0,0,0,0.5)',
-        transition: 'box-shadow 358ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
+
 
     },
 

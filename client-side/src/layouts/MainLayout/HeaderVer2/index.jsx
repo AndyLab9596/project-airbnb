@@ -262,9 +262,9 @@ const HeaderVer2 = () => {
                         <span className={classes.list__navbar__dash}></span>
                         <button className={classes.list__navbar__button}>
                           {queryParams._checkIn &&
-                          queryParams._checkOut &&
-                          queryParams._checkIn !== "Invalid date" &&
-                          queryParams._checkOut !== "Invalid date" ? (
+                            queryParams._checkOut &&
+                            queryParams._checkIn !== "Invalid date" &&
+                            queryParams._checkOut !== "Invalid date" ? (
                             <span>
                               {queryParams._checkIn} - {queryParams._checkOut}
                             </span>
