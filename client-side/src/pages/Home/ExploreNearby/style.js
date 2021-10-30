@@ -28,10 +28,21 @@ export default makeStyles(theme => ({
 
     places__title: {
         fontWeight: 700,
-        lineHeight: '52px',
         letterSpacing: '0',
         paddingBottom: '1rem',
         paddingTop: '1rem',
+        fontSize:22,
+            lineHeight: "30px",
+        [theme.breakpoints.up("md")]: {
+      fontSize: 26,
+      lineHeight: "36px",
+    },
+    [theme.breakpoints.up("xl")]: {
+      fontSize: 32,
+     
+              lineHeight: '52px',
+
+    },
     },
 
     cities: {

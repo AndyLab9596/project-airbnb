@@ -172,8 +172,8 @@ const ContentRoom = ({ detailRoom, queryParams, detailRating }) => {
             {/* Info Host */}
             <div className={classes.info__host}>
               <div>
-                {/* <Typography variant="body2">Toàn bộ biệt thự</Typography> */}
-                <Typography variant="body2">{detailRoom?.name}</Typography>
+                <Typography variant="body2">Toàn bộ biệt thự</Typography>
+                <Typography variant="body2">Chủ nhà Quang Huy</Typography>
               </div>
               <Box position="relative">
                 <img

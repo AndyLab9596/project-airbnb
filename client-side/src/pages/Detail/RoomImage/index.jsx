@@ -34,7 +34,6 @@ const RoomImage = ({ detailRoom, detailRating }) => {
   const [scrolled, setScrolled] = useState(false);
   const ref = useRef(null);
 
-
   useEffect(() => {
     if (isTablet) {
       const timer = setTimeout(() => {
@@ -59,13 +58,11 @@ const RoomImage = ({ detailRoom, detailRating }) => {
     afterChange: (current) => setCurrentImg(current + 1),
   };
 
-
   const array = new Array({ image: detailRoom?.image });
-  const arrImg = []
+  const arrImg = [];
   for (let i = 0; i < 22; i++) {
-    arrImg[i] = array[0]
+    arrImg[i] = array[0];
   }
-
 
   const menuScroll = [
     {
@@ -101,7 +98,7 @@ const RoomImage = ({ detailRoom, detailRating }) => {
   return (
     <Fragment>
       {isTablet ? (
-        <Fragment>
+        <div>
           <div className={classes.headerScroll}>
             <div className={classes.header__menu}>
               {menuScroll.map((item, index) => (
@@ -137,13 +134,15 @@ const RoomImage = ({ detailRoom, detailRating }) => {
                 </Typography>
                 <Typography variant="body2">
                   <Button disableRipple className={classes.room__location}>
-                    {detailRoom?.locationId?.name} {detailRoom?.locationId?.province} - {detailRoom?.locationId?.country}
+                    {detailRoom?.locationId?.name}
+                    {detailRoom?.locationId?.province} -
+                    {detailRoom?.locationId?.country}
                   </Button>
                 </Typography>
               </div>
             </div>
             <div className={classes.room__image__content}>
-              <Grid container spacing={1}>
+              <Grid container spacing={1} height="100%">
                 <Grid item xs={6}>
                   <div
                     className={classes.image}
@@ -176,7 +175,7 @@ const RoomImage = ({ detailRoom, detailRating }) => {
               </div>
             </div>
           </div>
-        </Fragment>
+        </div>
       ) : (
         <Fragment>
           <div

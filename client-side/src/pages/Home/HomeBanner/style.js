@@ -9,7 +9,13 @@ export default makeStyles(theme => ({
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "center center",
-        height: '95vh',
+        height: '50vh',
         width: '100%',
+        [theme.breakpoints.up('md')]:{
+            height:'70vh',
+        },
+          [theme.breakpoints.up('xl')]:{
+            height:'95vh',
+        }
     },
 }))
