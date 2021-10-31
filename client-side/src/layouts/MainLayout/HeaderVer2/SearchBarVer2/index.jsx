@@ -40,6 +40,8 @@ const SearchBarVer2 = ({ queryParams, setDisplaySearchBar, payPagePath }) => {
         })();
     }, []);
     const {
+        value,
+        inputValue,
         getRootProps,
         getInputLabelProps,
         getInputProps,
@@ -50,8 +52,12 @@ const SearchBarVer2 = ({ queryParams, setDisplaySearchBar, payPagePath }) => {
         options: locationList,
         id: "useAutocomplete",
         getOptionLabel: (option) => option.province,
+        defaultValue: locationList[1],
     });
 
+    console.log('locationList', locationList)
+    console.log('value', value)
+    console.log('inputValue', inputValue)
 
     const inputValueRef = { ...getInputProps() }.value;
 
@@ -135,7 +141,6 @@ const SearchBarVer2 = ({ queryParams, setDisplaySearchBar, payPagePath }) => {
                         htmlFor=""
                         className={classes.locationSearch__label}
                         {...getInputLabelProps()}
-
                     >
                         Địa điểm
                     </label>
@@ -145,7 +150,6 @@ const SearchBarVer2 = ({ queryParams, setDisplaySearchBar, payPagePath }) => {
                             type="text"
                             placeholder="Bạn sắp đi đâu?"
                             {...getInputProps()}
-
                         />
                     </div>
                 </div>
