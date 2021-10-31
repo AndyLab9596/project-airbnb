@@ -510,6 +510,7 @@ const HeaderVer2 = () => {
             <SearchBarVer2
               setDisplaySearchBar={setDisplaySearchBar}
               queryParams={queryParams}
+              payPagePath={payPagePath}
             />
           </div>
         </AppBar>

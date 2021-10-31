@@ -13,11 +13,10 @@ import manageLocationApi from '../../../../api/manageLocationApi';
 import GuestCount from "../../../../components/GuestCount";
 import useStyles from "./style";
 
-const SearchBarVer2 = ({ queryParams, setDisplaySearchBar }) => {
+const SearchBarVer2 = ({ queryParams, setDisplaySearchBar, payPagePath }) => {
 
 
     const history = useHistory();
-    const location = useLocation();
 
     // Date Picker
     const [bookingTime, setBookingTime] = useState([
@@ -41,7 +40,6 @@ const SearchBarVer2 = ({ queryParams, setDisplaySearchBar }) => {
         })();
     }, []);
     const {
-
         getRootProps,
         getInputLabelProps,
         getInputProps,
@@ -52,14 +50,13 @@ const SearchBarVer2 = ({ queryParams, setDisplaySearchBar }) => {
         options: locationList,
         id: "useAutocomplete",
         getOptionLabel: (option) => option.province,
-
     });
 
 
-    const inputValue = { ...getInputProps() }.value;
+    const inputValueRef = { ...getInputProps() }.value;
 
     const locationInputValue = locationList.find(
-        (location) => location.province === inputValue
+        (location) => location.province === inputValueRef
     );
 
     const checkInFormatted = moment(bookingTime[0]).format("YYYY-MM-DD");
@@ -111,6 +108,20 @@ const SearchBarVer2 = ({ queryParams, setDisplaySearchBar }) => {
         setDisplaySearchBar(false)
     }
 
+    // Reset Search bar when user in pay page
+
+    useEffect(() => {
+        if (payPagePath) {
+            setBookingTime([null, null]);
+            setNumbers({
+                _adult: 0,
+                _children: 0,
+                _toddler: 0,
+            })
+        }
+
+    }, [payPagePath])
+
 
 
     const classes = useStyles();
@@ -124,6 +135,7 @@ const SearchBarVer2 = ({ queryParams, setDisplaySearchBar }) => {
                         htmlFor=""
                         className={classes.locationSearch__label}
                         {...getInputLabelProps()}
+
                     >
                         Địa điểm
                     </label>
@@ -133,6 +145,7 @@ const SearchBarVer2 = ({ queryParams, setDisplaySearchBar }) => {
                             type="text"
                             placeholder="Bạn sắp đi đâu?"
                             {...getInputProps()}
+
                         />
                     </div>
                 </div>
