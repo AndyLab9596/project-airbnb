@@ -127,7 +127,12 @@ const HeaderVer2 = () => {
         setDisplaySearchBar(true);
       }
     }
-  }, [scroll, homePagePath]);
+
+    if (listPagePath || detailPagePath) {
+      setDisplaySearchBar(false);
+    }
+
+  }, [scroll, homePagePath, listPagePath, detailPagePath]);
 
   // ClickAwayListener
   const handleClickAwayListener = () => {
