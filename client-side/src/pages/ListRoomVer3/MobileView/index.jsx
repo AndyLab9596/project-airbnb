@@ -17,11 +17,14 @@ const MobileView = (props) => {
         priceValue,
         setPriceValue,
         handleChangePriceValue,
-        handleChangeInputField,
         filter,
         setFilter,
         resetFilter,
         resetPrice,
+        handleChangInputFieldMin,
+        handleChangInputFieldMax,
+        totalRooms,
+        filterDisplayRooms
     } = props;
 
     const history = useHistory()
@@ -140,7 +143,7 @@ const MobileView = (props) => {
                     <div className={classes.header} onClick={() => handleToggleMap()}>
                         <div className={classes.header__content}>
                             <h6 className={classes.header__content__text} >
-                                Hơn 300 chỗ ở
+                                Hơn {totalRooms} chỗ ở
                             </h6>
                         </div>
 
@@ -155,14 +158,16 @@ const MobileView = (props) => {
                                 priceValue={priceValue}
                                 setPriceValue={setPriceValue}
                                 handleChangePriceValue={handleChangePriceValue}
-                                handleChangeInputField={handleChangeInputField}
                                 resetPrice={resetPrice}
+                                handleChangInputFieldMin={handleChangInputFieldMin}
+                                handleChangInputFieldMax={handleChangInputFieldMax}
                             />
 
                             <OptionsDialog
                                 filter={filter}
                                 setFilter={setFilter}
                                 resetFilter={resetFilter}
+                                filterDisplayRooms={filterDisplayRooms}
                             />
                         </div>
 

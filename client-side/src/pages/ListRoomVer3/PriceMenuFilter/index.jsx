@@ -1,9 +1,10 @@
 import { Menu, MenuItem } from '@material-ui/core';
 import React, { Fragment, useState } from 'react';
+import { formMoney } from '../../../utilities/coordinates';
 import { AirbnbSlider, AirbnbThumbComponent, PriceInputField, useStyles } from "./style";
 
 const PriceMenuFilter = (props) => {
-    const { priceValue, setPriceValue, handleChangePriceValue, handleChangeInputField, resetPrice } = props;
+    const { priceValue, setPriceValue, handleChangePriceValue, resetPrice, handleChangInputFieldMin, handleChangInputFieldMax } = props;
     const classes = useStyles();
     const [anchorElPrice, setAnchorElPrice] = useState(null);
     const handleOpenPrice = (event) => {
@@ -48,7 +49,7 @@ const PriceMenuFilter = (props) => {
                     className={classes.priceMenu}>
                     <div className={classes.priceMenu__wrapper}>
                         <div className={classes.priceMenu__content}>
-                            <h6>Giá trung bình hàng đêm là $42</h6>
+                            <h6>Giá trung bình hàng đêm là {formMoney(500000)} </h6>
                         </div>
 
                         <div className={classes.priceMenu__rangePrice}>
@@ -75,7 +76,7 @@ const PriceMenuFilter = (props) => {
                                     value={priceValue[0]}
                                     variant="filled"
                                     id="price-inputfield1"
-                                    onChange={handleChangeInputField}
+                                    onChange={handleChangInputFieldMin}
                                 />
                                 <span className={classes.priceMenu__inputField__divide}>-</span>
                                 <PriceInputField
@@ -85,7 +86,7 @@ const PriceMenuFilter = (props) => {
                                     value={priceValue[1]}
                                     variant="filled"
                                     id="price-inputfield2"
-                                    onChange={handleChangeInputField}
+                                    onChange={handleChangInputFieldMax}
                                 />
                             </div>
                         </div>

@@ -161,7 +161,7 @@ const useStyles = makeStyles(theme => ({
         border: 'none',
         outline: 'none',
         backgroundColor: 'transparent',
-        color: 'rgb(221, 221, 221)',
+        color: '#000',
         margin: '0 -10px',
         textAlign: 'center',
         width: 'auto',

@@ -12,7 +12,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function OptionsDialog(props) {
-    const { setFilter, filter, resetFilter } = props;
+    const { setFilter, filter, resetFilter, filterDisplayRooms } = props;
     const dispatch = useDispatch();
     const theme = useTheme();
     const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
@@ -257,7 +257,7 @@ export default function OptionsDialog(props) {
                         </button>
 
                         <button className={classes.footer__display} onClick={handleClose}>
-                            Hiển thị hơn chỗ ở
+                            Hiển thị hơn {filterDisplayRooms} chỗ ở
                         </button>
                     </div>
                 </DialogActions>
