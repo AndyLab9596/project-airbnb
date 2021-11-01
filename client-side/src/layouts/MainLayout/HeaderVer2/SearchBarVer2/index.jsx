@@ -40,6 +40,7 @@ const SearchBarVer2 = ({ queryParams, setDisplaySearchBar, payPagePath }) => {
         })();
     }, []);
     const {
+        value,
         getRootProps,
         getInputLabelProps,
         getInputProps,
@@ -101,6 +102,7 @@ const SearchBarVer2 = ({ queryParams, setDisplaySearchBar, payPagePath }) => {
     }
 
     const handleSearch = () => {
+        if (!value) return
         history.push({
             pathname: `/list/${locationId}`,
             search: queryString.stringify(pushQueryParams),
