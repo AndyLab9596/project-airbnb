@@ -66,6 +66,7 @@ const Detail = () => {
   useEffect(() => {
     dispatch(DetailRoomAction(roomId, () => setLoading()));
     dispatch(DetailRatingAction(roomId));
+    window.scrollTo(0, 0);
   }, [dispatch, roomId]);
 
   if (loading) {
