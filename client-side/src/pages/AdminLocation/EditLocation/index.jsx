@@ -1,43 +1,45 @@
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
+import GetAppIcon from "@material-ui/icons/GetApp";
+import { Box } from "@mui/system";
 import { useFormik } from "formik";
-import React, { useState, Fragment } from "react";
+import { useSnackbar } from "notistack";
+import queryString from "query-string";
+import React, { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router";
+import { useHistory } from "react-router-dom";
 import * as yup from "yup";
+import ButtonSubmit from "../../../components/ButtonSubmit";
 import TextFieldComponent from "../../../components/Login/TextField";
-import { createAction } from "../../../store/action/createAction/createAction";
+import StepperBox from "../../../components/StepperBox";
 import {
   postUploadImageAction,
   putUpdateLocationAction,
 } from "../../../store/action/LocationAction";
-import { RESET_DATA_LOCATION } from "../../../store/types/LocationType";
-import StepperBox from "../../../components/StepperBox";
-import queryString from "query-string";
-import GetAppIcon from "@material-ui/icons/GetApp";
-import { Box } from "@mui/system";
-import ButtonSubmit from "../../../components/ButtonSubmit";
 import useStyles from "./style";
 const schema = yup.object().shape({
   name: yup.string().required("*Name is Required"),
   province: yup.string().required("*Province is Required"),
   country: yup.string().required("*Country is Required"),
-  valueate: yup.string().required("*Valueate is Required"),
+  valueate: yup
+    .number()
+    .min(0, "Minimum valueate is 0 ")
+    .max(10, "Maximum valueate is 10")
+    .required("*Valueate is Required"),
 });
 
-export default function EditLocation(props) {
+export default function EditLocation() {
   const history = useHistory();
-
   const dispatch = useDispatch();
   const location = useLocation();
   const { locationId } = queryString.parse(location.search);
-
+  const { enqueueSnackbar } = useSnackbar();
   const { locations } = useSelector((state) => state.LocationReducer);
   const [image, setImage] = useState(null);
   const [activeStep, setActiveStep] = useState(0);
   const LocationEdit = locations.filter((user) => user._id === locationId);
-  const classes = useStyles({ activeStep, image });
+  const classes = useStyles({ image });
 
   const formik = useFormik({
     initialValues: {
@@ -51,15 +53,8 @@ export default function EditLocation(props) {
     enableReinitialize: true,
   });
 
-  const data = {
-    name: formik.values.name,
-    province: formik.values.province,
-    country: formik.values.country,
-    valueate: formik.values.valueate,
-  };
-
   const handleChangeFile = async (e) => {
-    formik.setFieldValue(e.target.name, e.target.files[0]);
+    await formik.setFieldValue(e.target.name, e.target.files[0]);
     let file = e?.target?.files[0];
     if (
       file.type === "image/jpeg" ||
@@ -76,13 +71,21 @@ export default function EditLocation(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formik.isValid) return;
+    if (!formik.isValid) {
+      return enqueueSnackbar("Vui lòng nhập đầy đủ thông tin", {
+        variant: "error",
+      });
+    }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    dispatch(putUpdateLocationAction(data, locationId));
+    dispatch(putUpdateLocationAction(formik.values, locationId));
   };
-  const handleImage = async (e) => {
+  const handleImage = (e) => {
     e.preventDefault();
-    if (!formik.isValid) return;
+    if (!formik.values.image) {
+      return enqueueSnackbar("Vui lòng chọn hình ảnh", {
+        variant: "error",
+      });
+    }
     const formData = new FormData();
     formData.append("location", formik.values.image);
 
@@ -92,17 +95,15 @@ export default function EditLocation(props) {
       )
     );
   };
-  const handleClickBack = () => {
-    dispatch(createAction(RESET_DATA_LOCATION));
-    history.push("/admin/locations");
-  };
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+
+  const handleSkip = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleReset = () => {
     setActiveStep(0);
   };
+  console.log(image);
   const steps = ["CẬP NHẬT VỊ TRÍ", "CẬP NHẬT HÌNH ẢNH", "KẾT QUẢ"];
   return (
     <Container component="main" maxWidth="lg">
@@ -110,48 +111,50 @@ export default function EditLocation(props) {
         <StepperBox steps={steps} activeStep={activeStep} />
       </div>
 
-      <div className={classes.edit_content}>
-        <h1 className={classes.edit_title}>Cập nhật vị trí</h1>
-        <div className={classes.paper}>
-          <form onSubmit={handleSubmit} className={classes.form} noValidate>
-            <TextFieldComponent
-              {...formik}
-              label="Name"
-              name="name"
-              valueInput={formik.values.name}
-              errorInput={formik.errors.name}
-              touchedInput={formik.touched.name}
-            />
-            <TextFieldComponent
-              {...formik}
-              label="Province"
-              name="province"
-              valueInput={formik.values.province}
-              errorInput={formik.errors.province}
-              touchedInput={formik.touched.province}
-            />
-            <TextFieldComponent
-              {...formik}
-              label="Country"
-              name="country"
-              valueInput={formik.values.country}
-              errorInput={formik.errors.country}
-              touchedInput={formik.touched.country}
-            />
+      {activeStep === 0 && (
+        <div>
+          <h1 className={classes.edit_title}>Cập nhật vị trí</h1>
+          <div className={classes.paper}>
+            <form onSubmit={handleSubmit} className={classes.form} noValidate>
+              <TextFieldComponent
+                {...formik}
+                label="Name"
+                name="name"
+                valueInput={formik.values.name}
+                errorInput={formik.errors.name}
+                touchedInput={formik.touched.name}
+              />
+              <TextFieldComponent
+                {...formik}
+                label="Province"
+                name="province"
+                valueInput={formik.values.province}
+                errorInput={formik.errors.province}
+                touchedInput={formik.touched.province}
+              />
+              <TextFieldComponent
+                {...formik}
+                label="Country"
+                name="country"
+                valueInput={formik.values.country}
+                errorInput={formik.errors.country}
+                touchedInput={formik.touched.country}
+              />
 
-            <TextFieldComponent
-              {...formik}
-              label="Valueate"
-              name="valueate"
-              valueInput={formik.values.valueate}
-              errorInput={formik.errors.valueate}
-              touchedInput={formik.touched.valueate}
-            />
+              <TextFieldComponent
+                {...formik}
+                label="Valueate"
+                name="valueate"
+                valueInput={formik.values.valueate}
+                errorInput={formik.errors.valueate}
+                touchedInput={formik.touched.valueate}
+              />
 
-            <ButtonSubmit text="Cập nhật" />
-          </form>
+              <ButtonSubmit text="Cập nhật" handleSubmit={handleSubmit} />
+            </form>
+          </div>
         </div>
-      </div>
+      )}
       {activeStep === 1 && (
         <Fragment>
           <div className={classes.upload__card}>
@@ -180,11 +183,11 @@ export default function EditLocation(props) {
           <Box className={classes.upload__card__btnContent}>
             <div>
               <Button
-                onClick={handleBack}
+                onClick={handleSkip}
                 className={classes.upload__card__btnReset}
                 color="primary"
               >
-                Quay lại
+                Skip
               </Button>
             </div>
             <div>
@@ -195,7 +198,7 @@ export default function EditLocation(props) {
       )}
       {activeStep === 2 && (
         <div>
-          <div className={classes.completed}>Thêm phòng thành công</div>
+          <div className={classes.completed}>Cập nhật phòng thành công</div>
 
           <div className={classes.completedAdd}>
             <div>
@@ -208,7 +211,10 @@ export default function EditLocation(props) {
               </Button>
             </div>
             <div>
-              <ButtonSubmit handleSubmit={handleClickBack} text="Hoàn thành" />
+              <ButtonSubmit
+                handleSubmit={() => history.push("/admin/locations")}
+                text="Hoàn thành"
+              />
             </div>
           </div>
         </div>

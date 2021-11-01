@@ -14,16 +14,16 @@ const ContentUserRating = ({ item, handleShowModal, openModal }) => {
           className={classes.rating_avatar}
         />
         <div className={classes.rating__createAt}>
-          <Typography variant="body2">{item?.userId.name}</Typography>
+          <Typography variant="body2">{item?.userId?.name}</Typography>
           <Typography variant="span">
             {moment(`${item?.created_at}`).format("Do MMM YYYY hh:mm")}
           </Typography>
         </div>
       </div>
       <Typography variant="span" className={classes.rating__content}>
-        {item?.content.length > 160 && !openModal ? (
+        {item?.content?.length > 160 && !openModal ? (
           <Fragment>
-            {item?.content.substr(0, 140)}...
+            {item?.content?.substr(0, 140)}...
             <Button onClick={handleShowModal}>
               Hiển thị thêm <MdNavigateNext />
             </Button>
