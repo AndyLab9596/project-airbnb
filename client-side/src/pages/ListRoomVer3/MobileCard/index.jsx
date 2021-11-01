@@ -26,9 +26,6 @@ const MobileList = ({ listRooms, handleChangePage }) => {
                                 <span className={classes.evaluate__points}>
                                     {room.locationId.valueate}
                                 </span>
-                                <span className={classes.evaluate__number}>
-                                    ( 56 đánh giá )
-                                </span>
                             </div>
 
                             <div className={classes.card__content__name}>
