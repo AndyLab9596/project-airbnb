@@ -34,9 +34,7 @@ export default makeStyles(theme => ({
         textAlign: "left",
         margin: 0
     },
-    edit_content: {
-        display: props => props.activeStep !== 0 ? "none" : "block"
-    },
+
     edit_title: {
         marginTop: 10
     },

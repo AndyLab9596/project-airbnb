@@ -100,7 +100,6 @@ export default makeStyles((theme) => ({
     "&>div": {
       width: "20%",
       marginRight: 10,
-      marginTop: 50,
     },
   },
 }));
