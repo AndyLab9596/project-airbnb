@@ -9,8 +9,6 @@ export default makeStyles((theme) => ({
     zIndex: 999,
     boxShadow: "rgb(0 0 0 / 10%) 0px 1px 0px",
     padding: "0 40px",
-    maxWidth: 1120,
-    margin: "0 auto",
     [theme.breakpoints.up("xl")]: {
       padding: "0 80px",
     },
@@ -18,6 +16,9 @@ export default makeStyles((theme) => ({
   header__menu: {
     display: "flex",
     alignItems: "center",
+    [theme.breakpoints.up("xl")]: {
+      paddingLeft: "120px",
+    },
     "& >div": {
       marginRight: 24,
       padding: "30px 0",
