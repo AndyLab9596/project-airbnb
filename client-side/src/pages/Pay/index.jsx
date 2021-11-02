@@ -254,7 +254,7 @@ const Pay = () => {
                                     className={classes.pay__right__item__icon}
                                   />
                                   <span>
-                                    {detailRoom?.locationId?.valueate} (172 )
+                                    {detailRoom?.locationId?.valueate}
                                   </span>
                                 </div>
                               </Box>
@@ -324,7 +324,13 @@ const Pay = () => {
                       >
                         Khách
                       </Typography>
-                      <Typography>{numbersFilter._adult} khách</Typography>
+                      <Typography>
+                        {" "}
+                        {numbersFilter._adult + numbersFilter._children} khách
+                        {numbersFilter._toddler !== 0
+                          ? `, ${numbersFilter._toddler} em bé`
+                          : null}
+                      </Typography>
                     </div>
                     <div>
                       <Typography
@@ -546,8 +552,7 @@ const Pay = () => {
                                     className={classes.pay__right__item__icon}
                                   />
                                   <span>
-                                    {detailRoom?.locationId?.valueate} (172 đánh
-                                    giá)
+                                    {detailRoom?.locationId?.valueate}
                                   </span>
                                 </div>
                               </Box>
@@ -734,7 +739,10 @@ const Pay = () => {
                   variant="h5"
                   className={classes.booking__content__price}
                 >
-                  {numbersFilter._adult} khách
+                  {numbersFilter._adult + numbersFilter._children} khách
+                  {numbersFilter._toddler !== 0
+                    ? `, ${numbersFilter._toddler} em bé`
+                    : null}
                 </Typography>
                 <Button
                   onClick={() => setOpen(false)}
