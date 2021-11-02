@@ -145,8 +145,15 @@ const Pay = () => {
     setOpen({ ...open, modalDate: true });
   };
   const handleOpen1 = () => {
-    setOpen({ ...open, modalPay: true });
-    dispatch(PayBookingAction(data));
+    if (
+      bookingTime[0].toString() !== "Invalid Date" &&
+      bookingTime[1].toString() !== "Invalid Date"
+    ) {
+      setOpen({ ...open, modalPay: true });
+      dispatch(PayBookingAction(data));
+    } else {
+      setOpenSnackbar(true);
+    }
   };
   const handleOpen2 = () => {
     setOpen({ ...open, modalGuest: true });
@@ -692,15 +699,6 @@ const Pay = () => {
                   </Button>
                 </div>
               </div>
-              <Snackbar
-                open={openSnackbar}
-                autoHideDuration={6000}
-                onClose={handleCloseSnackbar}
-              >
-                <Alert onClose={handleCloseSnackbar} severity="success">
-                  Vui lòng chọn ngày
-                </Alert>
-              </Snackbar>
             </div>
           )}
           {open.modalGuest && (
@@ -800,6 +798,15 @@ const Pay = () => {
             </div>
           </div>
         </SwipeableDrawer>
+        <Snackbar
+          open={openSnackbar}
+          autoHideDuration={6000}
+          onClose={handleCloseSnackbar}
+        >
+          <Alert onClose={handleCloseSnackbar} severity="success">
+            Vui lòng chọn ngày
+          </Alert>
+        </Snackbar>
       </Container>
     </div>
   );
