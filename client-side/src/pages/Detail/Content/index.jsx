@@ -128,10 +128,13 @@ const ContentRoom = ({ detailRoom, queryParams, detailRating }) => {
       icon: <MdCable />,
     },
   ];
-
   const [bookingTime, setBookingTime] = useState([
-    queryParams._checkIn ? new Date(queryParams._checkIn) : null,
-    queryParams._checkOut ? new Date(queryParams._checkOut) : null,
+    queryParams._checkIn !== "Invalid date"
+      ? new Date(queryParams._checkIn)
+      : null,
+    queryParams._checkOut !== "Invalid date"
+      ? new Date(queryParams._checkOut)
+      : null,
   ]);
 
   const totalDateTime = bookingTime[1] - bookingTime[0];

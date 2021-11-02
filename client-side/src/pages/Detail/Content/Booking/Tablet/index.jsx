@@ -212,7 +212,10 @@ const BookingTablet = ({
       </div>
       <div>
         {isBooking ? (
-          <ButtonSubmit text="Kiểm tra tình trạng còn phòng" />
+          <ButtonSubmit
+            text="Kiểm tra tình trạng còn phòng"
+            handleSubmit={() => setOpenDatePicker(true)}
+          />
         ) : (
           <ButtonSubmit text="  Đặt phòng" handleSubmit={handleClickBooking} />
         )}
