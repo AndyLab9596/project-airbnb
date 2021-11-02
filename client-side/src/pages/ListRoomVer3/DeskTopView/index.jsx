@@ -18,11 +18,14 @@ const DeskTopView = (props) => {
         priceValue,
         setPriceValue,
         handleChangePriceValue,
-        handleChangeInputField,
         filter,
         setFilter,
         resetPrice,
         resetFilter,
+        handleChangInputFieldMin,
+        handleChangInputFieldMax,
+        totalRooms,
+        filterDisplayRooms,
     } = props;
 
     const history = useHistory()
@@ -93,7 +96,7 @@ const DeskTopView = (props) => {
                 {/* Content */}
                 <div className={classes.content}>
                     <div className={classes.content__header}>
-                        <p>Hơn 300 chỗ ở</p>
+                        <p>Hơn {totalRooms} chỗ ở</p>
                         <h3>
                             {/* Chỗ ở tại thành phố {queryParams._location} */}
                             Chỗ ở tại thành phố {locationProvince}
@@ -107,13 +110,15 @@ const DeskTopView = (props) => {
                                 priceValue={priceValue}
                                 setPriceValue={setPriceValue}
                                 handleChangePriceValue={handleChangePriceValue}
-                                handleChangeInputField={handleChangeInputField}
                                 resetPrice={resetPrice}
+                                handleChangInputFieldMin={handleChangInputFieldMin}
+                                handleChangInputFieldMax={handleChangInputFieldMax}
                             />
                             <OptionsDialog
                                 filter={filter}
                                 setFilter={setFilter}
                                 resetFilter={resetFilter}
+                                filterDisplayRooms={filterDisplayRooms}
                             />
                         </div>
                     </div>

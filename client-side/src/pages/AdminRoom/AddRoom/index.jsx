@@ -17,9 +17,11 @@ import TextFieldComponent from "../../../components/Login/TextField";
 import {
   AddRoomAction,
   UpdateImageRoomAction,
+  DeleteRoomAction,
 } from "../../../store/action/RentRoomsAction";
 import StepperBox from "../../../components/StepperBox";
 import useStyles from "./style";
+import { useSnackbar } from "notistack";
 
 const schema = yup.object().shape({
   name: yup.string().required("*Name is required"),
@@ -54,6 +56,7 @@ const AddRoom = ({ handleToggleRoom }) => {
   const [fileData, setFileData] = useState({ image: null });
   const classes = useStyles({ image });
   const { newRoom } = useSelector((state) => state.RentRoomsReducer);
+  const { enqueueSnackbar } = useSnackbar();
 
   const [checkbox, setCheckBox] = useState({
     elevator: false,
@@ -100,7 +103,11 @@ const AddRoom = ({ handleToggleRoom }) => {
 
   const handleAddRoom = (e) => {
     e.preventDefault();
-    if (!formik.isValid) return;
+    if (!formik.isValid) {
+      return enqueueSnackbar("Vui lòng nhập đầy đủ thông tin", {
+        variant: "error",
+      });
+    }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     dispatch(
       AddRoomAction({
@@ -111,7 +118,11 @@ const AddRoom = ({ handleToggleRoom }) => {
     );
   };
   const handleAddImage = () => {
-    if (fileData.image !== null) {
+    if (fileData.image === null) {
+      return enqueueSnackbar("Vui lòng chọn hình ảnh", {
+        variant: "error",
+      });
+    } else {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
       const formData = new FormData();
       formData.append("room", fileData.image);
@@ -119,7 +130,6 @@ const AddRoom = ({ handleToggleRoom }) => {
         UpdateImageRoomAction(newRoom?._id, formData, params?.locationId)
       );
     }
-    return;
   };
 
   const steps = ["THÊM PHÒNG", "THÊM HÌNH ẢNH", "KẾT QUẢ"];
@@ -128,6 +138,7 @@ const AddRoom = ({ handleToggleRoom }) => {
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    dispatch(DeleteRoomAction(newRoom?._id, params?.locationId));
   };
 
   const handleReset = () => {
@@ -366,7 +377,7 @@ const AddRoom = ({ handleToggleRoom }) => {
                 className={classes.upload__card__btnReset}
                 color="primary"
               >
-                Quay lại
+                Reset
               </Button>
             </div>
             <div>

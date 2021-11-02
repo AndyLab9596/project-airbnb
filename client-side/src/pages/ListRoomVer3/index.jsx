@@ -11,15 +11,15 @@ import { useDispatch } from "react-redux";
 import { getLocations } from '../../store/action/LocationAction';
 
 const ListRoomVer3 = () => {
-    const dispatch = useDispatch()
-    const location = useLocation();
-    const locationSearch = location.search;
-    const theme = useTheme();
-    const locationParams = useParams();
-    const locationId = locationParams.locationId;
-    const isDeskTop = useMediaQuery(theme.breakpoints.up("md"));
-    const [loading, setLoading] = useState(true);
-    const [listRoom, setListRoom] = useState([])
+  const dispatch = useDispatch()
+  const location = useLocation();
+  const locationSearch = location.search;
+  const theme = useTheme();
+  const locationParams = useParams();
+  const locationId = locationParams.locationId;
+  const isDeskTop = useMediaQuery(theme.breakpoints.up("md"));
+  const [loading, setLoading] = useState(true);
+  const [listRoom, setListRoom] = useState([])
 
   // filter data
   const initialFilter = {
@@ -53,9 +53,13 @@ const ListRoomVer3 = () => {
   const handleChangePriceValue = (event, newValue) => {
     setPriceValue(newValue);
   };
-  const handleChangeInputField = (event) => {
-    setPriceValue(event.target.value === "" ? "" : Number(event.target.value));
-  };
+
+  const handleChangInputFieldMin = (event) => {
+    setPriceValue(event.target.value === "" ? [0, priceValue[1]] : [Number(event.target.value), priceValue[1]]);
+  }
+  const handleChangInputFieldMax = (event) => {
+    setPriceValue(event.target.value === "" ? [priceValue[1], priceValue[0]] : [priceValue[0], Number(event.target.value)]);
+  }
 
   const resetFilter = () => {
     setFilter(initialFilter);
@@ -78,19 +82,19 @@ const ListRoomVer3 = () => {
   };
   const listRoomPaginate = paginate(finalFiltered);
 
-    // dispatch locations for header
+  // dispatch locations for header
 
-    const fetchLocations = useCallback(() => {
-        dispatch(getLocations())
-    }, [dispatch])
+  const fetchLocations = useCallback(() => {
+    dispatch(getLocations())
+  }, [dispatch])
 
-    useEffect(() => {
-        fetchLocations()
+  useEffect(() => {
+    fetchLocations()
 
-    }, [])
+  }, [])
 
 
-
+  // Fetching rooms
   useEffect(() => {
     (async () => {
       try {
@@ -112,6 +116,11 @@ const ListRoomVer3 = () => {
     );
   }
 
+  // 
+
+  const totalRooms = listRoom.length;
+  const filterDisplayRooms = finalFiltered.length;
+
   return (
     <div>
       {isDeskTop ? (
@@ -120,11 +129,14 @@ const ListRoomVer3 = () => {
           setPriceValue={setPriceValue}
           priceValue={priceValue}
           handleChangePriceValue={handleChangePriceValue}
-          handleChangeInputField={handleChangeInputField}
           filter={filter}
           setFilter={setFilter}
           resetFilter={resetFilter}
           resetPrice={resetPrice}
+          handleChangInputFieldMin={handleChangInputFieldMin}
+          handleChangInputFieldMax={handleChangInputFieldMax}
+          totalRooms={totalRooms}
+          filterDisplayRooms={filterDisplayRooms}
         />
       ) : (
         <MobileView
@@ -132,11 +144,14 @@ const ListRoomVer3 = () => {
           setPriceValue={setPriceValue}
           priceValue={priceValue}
           handleChangePriceValue={handleChangePriceValue}
-          handleChangeInputField={handleChangeInputField}
           filter={filter}
           setFilter={setFilter}
           resetFilter={resetFilter}
           resetPrice={resetPrice}
+          handleChangInputFieldMin={handleChangInputFieldMin}
+          handleChangInputFieldMax={handleChangInputFieldMax}
+          totalRooms={totalRooms}
+          filterDisplayRooms={filterDisplayRooms}
         />
       )}
     </div>

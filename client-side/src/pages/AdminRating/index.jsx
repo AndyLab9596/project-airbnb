@@ -210,7 +210,51 @@ const AdminRating = () => {
           />
         </Fragment>
       ) : (
-        <div>Chưa có đánh giá </div>
+        <div>
+          <div>
+            <Box display="flex" justifyContent="space-between">
+              {!showContentAdd && (
+                <Typography variant="body2">
+                  Phòng này chưa có đánh giá
+                </Typography>
+              )}
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => setShowContentAdd(true)}
+                className={classes.btnAdd}
+              >
+                Thêm đánh giá
+              </Button>
+            </Box>
+
+            <div className={classes.contentAdd}>
+              <div className={classes.contentAdd__title}>
+                <Typography variant="body2">Thêm đánh giá</Typography>
+                <IconButton onClick={() => setShowContentAdd(false)}>
+                  <CloseIcon />
+                </IconButton>
+              </div>
+              <TextField
+                multiline
+                rows={4}
+                name="content"
+                variant="outlined"
+                label="Content"
+                className={classes.add__rating}
+                value={contentRating}
+                onChange={(e) => setContentRating(e.target.value)}
+              />
+
+              <Box width="20%">
+                <ButtonSubmit
+                  text="Thêm"
+                  handleSubmit={handleAddContentRating}
+                />
+              </Box>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
