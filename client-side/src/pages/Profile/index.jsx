@@ -6,6 +6,16 @@ import {
   CardContent,
   Container,
   Grid,
+  IconButton,
+  Modal,
+  Paper,
+  Slide,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
   Typography,
   useMediaQuery,
 } from "@material-ui/core";
@@ -14,9 +24,11 @@ import DoneOutlinedIcon from "@material-ui/icons/DoneOutlined";
 import VerifiedUserOutlinedIcon from "@material-ui/icons/VerifiedUserOutlined";
 import { Box } from "@mui/system";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import manageAuthApi from "../../api/manageAuthApi";
+import manageTicketApi from "../../api/manageTicketApi";
 import { USERID } from "../../constants/config";
 import { getInfoUserAction } from "../../store/action/Auth";
 import useStyles from "./style";
@@ -25,14 +37,18 @@ const Profile = () => {
 
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("xl"));
-
+  const [openModal, setOpenModal] = useState(false);
   const infoUser = useSelector((state) => state.AuthReducer.infoUser);
+  const [arrTicket, setArrTicket] = useState([]);
 
   const dispatch = useDispatch();
   const [fileUpload, setFileUpload] = useState(null);
 
   const handleChangeFile = (event) => {
     setFileUpload(event.target.files[0]);
+  };
+  const handleModalClose = () => {
+    setOpenModal(false);
   };
 
   const idUser = localStorage.getItem(USERID);
@@ -52,6 +68,21 @@ const Profile = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    let arrTicket = [];
+    (async () => {
+      try {
+        for (let i = 0; i < infoUser.tickets.length; i++) {
+          const res = await manageTicketApi.getTicketRooms(infoUser.tickets[i]);
+          arrTicket[i] = { ...res };
+        }
+        setArrTicket(arrTicket);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+  const tableHeader = ["Name", "Image", "Checkin", "Checkout", "Price"];
   return (
     <Container maxWidth="lg" className={classes.profile}>
       {isDesktop ? (
@@ -181,6 +212,14 @@ const Profile = () => {
                     </div>
                   </div>
                 </div>
+                <div>
+                  <Typography
+                    onClick={() => setOpenModal(true)}
+                    className={classes.profile__info__text}
+                  >
+                    Lịch sử đặt vé
+                  </Typography>
+                </div>
               </div>
             </Grid>
           </Grid>
@@ -306,6 +345,79 @@ const Profile = () => {
           </div>
         </div>
       )}
+      <Fragment>
+        <Modal
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          className={classes.modal}
+          closeAfterTransition
+        >
+          <Slide direction="up" in={openModal}>
+            <div className={classes.rating__modal}>
+              <div className={classes.rating__modal__header}>
+                <IconButton>
+                  <AiOutlineClose onClick={handleModalClose} />
+                </IconButton>
+                <div>
+                  <TableContainer
+                    className={classes.modal__style}
+                    component={Paper}
+                  >
+                    <Table className={classes.table} aria-label="simple table">
+                      <TableHead>
+                        <TableRow>
+                          {tableHeader.map((item) => (
+                            <TableCell align="left" padding="normal">
+                              {item}
+                            </TableCell>
+                          ))}
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {arrTicket?.map((location) => (
+                          <TableRow
+                            key={location._id}
+                            className={classes.tablerow}
+                          >
+                            <TableCell align="left">
+                              <Typography variant="body2">
+                                {location?.roomId.name}
+                              </Typography>
+                            </TableCell>
+                            <TableCell align="left">
+                              <img
+                                src={location?.roomId.image}
+                                alt="avatar"
+                                className={classes.avatar}
+                                style={{ width: 50, height: 50 }}
+                              />
+                            </TableCell>
+                            <TableCell align="left">
+                              <Typography variant="body2">
+                                {moment(location?.checkIn).format(
+                                  "Do MMM YYYY"
+                                )}
+                              </Typography>
+                            </TableCell>
+                            <TableCell align="left">
+                              {moment(location.checkOut).format("Do MMM YYYY")}
+                            </TableCell>
+                            <TableCell align="left">
+                              {location?.roomId.price}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </div>
+              </div>
+            </div>
+          </Slide>
+        </Modal>
+      </Fragment>
     </Container>
   );
 };

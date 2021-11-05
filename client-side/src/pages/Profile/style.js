@@ -154,4 +154,54 @@ export default makeStyles((theme) => ({
     marginBottom: 10,
     paddingBottom: 5,
   },
+
+  modal: {
+    [theme.breakpoints.up("md")]: {
+      padding: 40,
+    },
+    [theme.breakpoints.up("xl")]: {
+      padding: "40px 120px",
+    },
+  },
+  rating__modal: {
+    height: "100%",
+    backgroundColor: "#fff",
+    zIndex: 999,
+    display: "flex",
+    flexDirection: "column",
+    overflow: "hidden",
+    padding: "0px 24px",
+    margin: "10px 0",
+    borderRadius: 12,
+  },
+  rating__modal__header: {
+    backgroundColor: "#fff",
+    position: "sticky",
+    top: 0,
+    width: "100%",
+    marginBottom: 15,
+    zIndex: 99,
+    "& >svg": {
+      cursor: "pointer",
+      fontSize: 20,
+    },
+
+    [theme.breakpoints.up("xl")]: {
+      "& >div": {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+      },
+      "& $rating__modal__inputSearch": {
+        width: "57%",
+      },
+    },
+  },
+  modal__style: {
+
+    height: "540px",
+
+    overflowY: "auto",
+
+  }
 }));

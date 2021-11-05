@@ -15,6 +15,7 @@ const rootReducer = combineReducers({
   ModalReducer,
   RentRoomsReducer,
   ManageUserReducer,
+
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
