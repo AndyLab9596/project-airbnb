@@ -40,7 +40,6 @@ const HeaderVer2 = () => {
   const isUserId = localStorage.getItem(USERID);
   const { infoUser } = useSelector((state) => state.AuthReducer);
   const locationDetail = useSelector((state) => state.LocationReducer.location);
-  //
 
   const locationParam = useParams();
   const locationId = locationParam.locationId;
