@@ -1,7 +1,7 @@
 import { ThemeProvider } from "@material-ui/styles";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Switch } from "react-router-dom";
 import ModalSignIn from "./components/Login/ModalSignIn";
 //Components
 import ModalSignUp from "./components/Login/ModalSignUp";
@@ -14,10 +14,10 @@ import AdminLocation from "./pages/AdminLocation";
 import AddLocation from "./pages/AdminLocation/AddLocation";
 //Location
 import EditLocation from "./pages/AdminLocation/EditLocation";
+import AdminProfile from "./pages/AdminProfile";
 import AdminRating from "./pages/AdminRating";
 import AdminRoom from "./pages/AdminRoom";
 import AddRoom from "./pages/AdminRoom/AddRoom";
-
 import AdminUser from "./pages/AdminUser";
 import AddUser from "./pages/AdminUser/AddUser";
 // PageAdmin
@@ -29,10 +29,9 @@ import Home from "./pages/Home";
 import ListRoomVer3 from "./pages/ListRoomVer3";
 import Pay from "./pages/Pay";
 import Profile from "./pages/Profile";
-import Testing from "./pages/Testing";
 import { getInfoUserAction } from "./store/action/Auth";
 
-import AdminProfile from "./pages/AdminProfile";
+
 
 
 const App = () => {
@@ -93,12 +92,7 @@ const App = () => {
             exact
             Component={AddRoom}
           />
-
-
-
           <AdminLayout path="/admin" Component={AdminProfile} />
-
-
         </Switch>
       </ThemeProvider>
     </BrowserRouter>
