@@ -215,7 +215,7 @@ const Profile = () => {
                 <div>
                   <Typography
                     onClick={() => setOpenModal(true)}
-                    className={classes.profile__info__text}
+                    className={classes.profile__modal__btn}
                   >
                     Lịch sử đặt vé
                   </Typography>

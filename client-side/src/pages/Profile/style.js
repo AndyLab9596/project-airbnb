@@ -203,5 +203,15 @@ export default makeStyles((theme) => ({
 
     overflowY: "auto",
 
+  },
+  profile__modal__btn: {
+    color: "#222222",
+    textDecoration: "underline",
+    borderRadius: "4px",
+    fontWeight: 600,
+    outline: "none",
+    fontSize: 20,
+    paddingBottom: 20,
+    cursor: "pointer"
   }
 }));
