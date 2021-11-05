@@ -8,7 +8,7 @@ import { vi } from "date-fns/locale";
 import moment from "moment";
 import queryString from "query-string";
 import React, { useEffect, useRef, useState } from 'react';
-import { useHistory, useLocation, useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import manageLocationApi from '../../../../api/manageLocationApi';
 import GuestCount from "../../../../components/GuestCount";
 import useStyles from "./style";
