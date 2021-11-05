@@ -23,7 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router";
 import { removeAccents } from "../../constants/config";
 import { getRentRoomsAction } from "../../store/action/RentRoomsAction";
-import { formMoney } from "../../utilities/coordinates";
+import { formMoney } from "../../utilities/helper";
 import EditRoom from "./EditRoom";
 import useStyles from "./style";
 

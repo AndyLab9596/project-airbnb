@@ -1,6 +1,6 @@
 import { Menu, MenuItem } from '@material-ui/core';
 import React, { Fragment, useState } from 'react';
-import { formMoney } from '../../../utilities/coordinates';
+import { formMoney } from '../../../utilities/helper';
 import { AirbnbSlider, AirbnbThumbComponent, PriceInputField, useStyles } from "./style";
 
 const PriceMenuFilter = (props) => {

@@ -18,7 +18,7 @@ import ButtonSubmit from "../../../../../components/ButtonSubmit";
 import { USERID } from "../../../../../constants/config";
 import { createAction } from "../../../../../store/action/createAction/createAction";
 import { SHOW_MODAL_SIGNIN } from "../../../../../store/types/AuthType";
-import { formMoney } from "../../../../../utilities/coordinates";
+import { formMoney } from "../../../../../utilities/helper";
 import useStyles from "./style";
 
 const BookingMobile = ({

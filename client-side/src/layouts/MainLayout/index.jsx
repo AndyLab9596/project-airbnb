@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import { Route } from "react-router";
 import Footer from "./Footer";
-import Header from "./Header";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import HeaderMobile from "./HeaderMobile";

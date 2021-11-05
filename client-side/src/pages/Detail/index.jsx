@@ -1,21 +1,21 @@
 import { useMediaQuery, useTheme } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import queryString from "query-string";
-import React, { useEffect, useMemo, useState, Fragment } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router";
 import {
   DetailRatingAction,
-  DetailRoomAction,
+  DetailRoomAction
 } from "../../store/action/RentRoomsAction";
 import ContentRoom from "./Content";
+import DetailRoomSkeletonDeskTop from "./DetailRoomSkeletonDeskTop";
+import DetailRoomSkeletonMobile from "./DetailRoomSkeletonMobile";
 import InfoHost from "./InfoHost";
 import DetailRoomMap from "./Map";
 import DetailRating from "./Rating";
 import RoomImage from "./RoomImage";
 import DetailRules from "./Rules";
-import DetailRoomSkeletonDeskTop from "./DetailRoomSkeletonDeskTop";
-import DetailRoomSkeletonMobile from "./DetailRoomSkeletonMobile";
 
 const Detail = () => {
   const useStyle = makeStyles(() => ({

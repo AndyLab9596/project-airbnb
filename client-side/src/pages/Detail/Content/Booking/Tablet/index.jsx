@@ -12,7 +12,7 @@ import ButtonSubmit from "../../../../../components/ButtonSubmit";
 import GuestCount from "../../../../../components/GuestCount";
 import { createAction } from "../../../../../store/action/createAction/createAction";
 import { SHOW_MODAL_RATED } from "../../../../../store/types/ListRoomType";
-import { formMoney } from "../../../../../utilities/coordinates";
+import { formMoney } from "../../../../../utilities/helper";
 import useStyles from "./style";
 import moment from "moment";
 import { USERID } from "../../../../../constants/config";

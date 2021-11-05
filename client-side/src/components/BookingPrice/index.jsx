@@ -1,6 +1,6 @@
 import { Typography } from "@material-ui/core";
 import React, { Fragment } from "react";
-import { formMoney } from "../../utilities/coordinates";
+import { formMoney } from "../../utilities/helper";
 import useStyles from "./style";
 
 const BookingPrice = ({ detailRoom, totalDate }) => {

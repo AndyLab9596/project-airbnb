@@ -302,17 +302,17 @@ const Footer = () => {
               <div className={classes.footer__bot__content1}>
                 <ul>
                   <li>
-                    <a href="#">
+                    <a href="https://www.facebook.com/airbnb">
                       <FacebookIcon />
                     </a>
                   </li>
                   <li>
-                    <a href="#">
+                    <a href="https://twitter.com/airbnb">
                       <TwitterIcon />
                     </a>
                   </li>
                   <li>
-                    <a href="#">
+                    <a href="https://www.instagram.com/airbnb/">
                       <InstagramIcon />
                     </a>
                   </li>

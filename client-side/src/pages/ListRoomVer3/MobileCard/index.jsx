@@ -2,7 +2,7 @@ import { Grid } from '@material-ui/core';
 import React, { Fragment } from 'react';
 import useStyles from "./style";
 import StarIcon from '@material-ui/icons/Star';
-import { formMoney } from "../../../utilities/coordinates"
+import { formMoney } from "../../../utilities/helper"
 
 
 const MobileList = ({ listRooms, handleChangePage }) => {

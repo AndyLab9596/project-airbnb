@@ -1,7 +1,7 @@
 import StarIcon from '@material-ui/icons/Star';
 import React, { useEffect, useState } from 'react';
 import { Marker, Popup } from 'react-map-gl';
-import { formMoney } from '../../../utilities/coordinates';
+import { formMoney } from '../../../utilities/helper';
 import useStyles from "./style";
 const Pin = ({ location, handleChangePage }) => {
     const classes = useStyles()

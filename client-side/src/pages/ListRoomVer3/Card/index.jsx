@@ -1,7 +1,7 @@
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import StarIcon from '@material-ui/icons/Star';
 import React, { Fragment } from 'react';
-import { formMoney } from '../../../utilities/coordinates';
+import { formMoney } from '../../../utilities/helper';
 import useStyles from "./style";
 
 const Card = ({ listRooms, handleChangePage }) => {

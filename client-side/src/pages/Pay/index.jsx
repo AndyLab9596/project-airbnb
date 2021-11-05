@@ -44,7 +44,7 @@ import {
   DetailRoomAction,
   PayBookingAction,
 } from "../../store/action/RentRoomsAction";
-import { formMoney } from "../../utilities/coordinates";
+import { formMoney } from "../../utilities/helper";
 
 import ResultTicket from "./ResultTicket";
 import useStyles from "./style";
@@ -103,8 +103,8 @@ const Pay = () => {
     return totalDate < 7
       ? formMoney(detailRoom?.price * totalDate + 100000)
       : totalDate > 30
-      ? formMoney(detailRoom?.price * (totalDate - 5) + 100000)
-      : formMoney(detailRoom?.price * (totalDate - 1) + 100000);
+        ? formMoney(detailRoom?.price * (totalDate - 5) + 100000)
+        : formMoney(detailRoom?.price * (totalDate - 1) + 100000);
   };
 
   const data = {
