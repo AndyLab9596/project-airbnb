@@ -3,8 +3,7 @@ import {
   CREATE_LOCATION,
   GET_LOCATION,
   GET_LOCATIONS,
-  UPDATE_LOCATION,
-  UPLOAD_IMAGE,
+  UPDATE_LOCATION
 } from "../types/LocationType";
 import { createAction } from "./createAction/createAction";
 

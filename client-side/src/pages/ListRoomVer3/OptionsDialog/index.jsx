@@ -3,7 +3,6 @@ import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import CloseIcon from '@material-ui/icons/Close';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import useStyles from "./style";
 
 
@@ -13,7 +12,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function OptionsDialog(props) {
     const { setFilter, filter, resetFilter, filterDisplayRooms } = props;
-    const dispatch = useDispatch();
     const theme = useTheme();
     const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
 

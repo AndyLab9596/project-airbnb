@@ -4,7 +4,7 @@ import { formMoney } from '../../../utilities/helper';
 import { AirbnbSlider, AirbnbThumbComponent, PriceInputField, useStyles } from "./style";
 
 const PriceMenuFilter = (props) => {
-    const { priceValue, setPriceValue, handleChangePriceValue, resetPrice, handleChangInputFieldMin, handleChangInputFieldMax } = props;
+    const { priceValue, handleChangePriceValue, resetPrice, handleChangInputFieldMin, handleChangInputFieldMax } = props;
     const classes = useStyles();
     const [anchorElPrice, setAnchorElPrice] = useState(null);
     const handleOpenPrice = (event) => {

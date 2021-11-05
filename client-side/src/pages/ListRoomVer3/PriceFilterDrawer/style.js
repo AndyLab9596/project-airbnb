@@ -1,7 +1,6 @@
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { alpha, InputAdornment } from '@material-ui/core';
+import { InputAdornment, TextField } from '@material-ui/core';
 import Slider from '@material-ui/core/Slider';
-import { TextField } from '@material-ui/core';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 
 const AirbnbThumbComponent = (props) => {
     return (
@@ -226,4 +225,4 @@ function PriceInputField(props) {
     />;
 }
 
-export { useStyles, AirbnbSlider, AirbnbThumbComponent, PriceInputField }
+export { useStyles, AirbnbSlider, AirbnbThumbComponent, PriceInputField };

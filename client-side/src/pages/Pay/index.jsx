@@ -98,7 +98,7 @@ const Pay = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(DetailRoomAction(param.roomId));
-  }, [dispatch]);
+  }, [dispatch, param.roomId]);
   const totalPrice = () => {
     return totalDate < 7
       ? formMoney(detailRoom?.price * totalDate + 100000)

@@ -12,11 +12,12 @@ const DetailRoomMap = ({ queryParams }) => {
     longitude: queryParams._locationLongitude,
     zoom: 12,
   });
-  const [settings, setsettings] = useState({
+
+  const settings = {
     scrollZoom: false,
     touchZoom: false,
     touchRotate: false,
-  });
+  }
 
 
   const classes = useStyles();
