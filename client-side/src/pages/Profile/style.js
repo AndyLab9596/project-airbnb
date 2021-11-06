@@ -177,9 +177,12 @@ export default makeStyles((theme) => ({
   rating__modal__header: {
     backgroundColor: "#fff",
     position: "sticky",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     top: 0,
     width: "100%",
-    marginBottom: 15,
+    margin: "15px 0",
     zIndex: 99,
     "& >svg": {
       cursor: "pointer",
@@ -199,7 +202,7 @@ export default makeStyles((theme) => ({
   },
   modal__style: {
 
-    height: "540px",
+    height: "495px",
 
     overflowY: "auto",
 
@@ -211,7 +214,18 @@ export default makeStyles((theme) => ({
     fontWeight: 600,
     outline: "none",
     fontSize: 20,
-    paddingBottom: 20,
+
     cursor: "pointer"
+  },
+  iconModal: {
+    position: "absolute",
+    left: "0%",
+  },
+  table__position: {
+    position: "sticky",
+    top: 0,
+    zIndex: 999,
+    backgroundColor: "#fff",
   }
+
 }));

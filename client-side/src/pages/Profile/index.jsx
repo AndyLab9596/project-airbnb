@@ -29,6 +29,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import manageAuthApi from "../../api/manageAuthApi";
 import manageTicketApi from "../../api/manageTicketApi";
+import ButtonSubmit from "../../components/ButtonSubmit";
 import { USERID } from "../../constants/config";
 import { getInfoUserAction } from "../../store/action/Auth";
 import useStyles from "./style";
@@ -46,6 +47,9 @@ const Profile = () => {
 
   const handleChangeFile = (event) => {
     setFileUpload(event.target.files[0]);
+  };
+  const handleModalOpen = () => {
+    setOpenModal(true);
   };
   const handleModalClose = () => {
     setOpenModal(false);
@@ -69,20 +73,17 @@ const Profile = () => {
   }, []);
 
   useEffect(() => {
-    let arrTicket = [];
     (async () => {
       try {
-        for (let i = 0; i < infoUser.tickets.length; i++) {
-          const res = await manageTicketApi.getTicketRooms(infoUser.tickets[i]);
-          arrTicket[i] = { ...res };
-        }
-        setArrTicket(arrTicket);
+        const res = await manageTicketApi.getTicketRooms(infoUser._id);
+        setArrTicket(res);
       } catch (error) {
         console.log(error);
       }
     })();
   }, []);
   const tableHeader = ["Name", "Image", "Checkin", "Checkout", "Price"];
+  const textProfileModal = "Lịch sử đặt vé";
   return (
     <Container maxWidth="lg" className={classes.profile}>
       {isDesktop ? (
@@ -213,12 +214,10 @@ const Profile = () => {
                   </div>
                 </div>
                 <div>
-                  <Typography
-                    onClick={() => setOpenModal(true)}
-                    className={classes.profile__modal__btn}
-                  >
-                    Lịch sử đặt vé
-                  </Typography>
+                  <ButtonSubmit
+                    handleSubmit={handleModalOpen}
+                    text={textProfileModal}
+                  />
                 </div>
               </div>
             </Grid>
@@ -356,17 +355,26 @@ const Profile = () => {
         >
           <Slide direction="up" in={openModal}>
             <div className={classes.rating__modal}>
-              <div className={classes.rating__modal__header}>
-                <IconButton>
-                  <AiOutlineClose onClick={handleModalClose} />
-                </IconButton>
+              <div>
+                <div className={classes.rating__modal__header}>
+                  <IconButton className={classes.iconModal}>
+                    <AiOutlineClose onClick={handleModalClose} />
+                  </IconButton>
+                  <Typography className={classes.profile__modal__btn}>
+                    Lịch sử đặt vé ({arrTicket.length})
+                  </Typography>
+                </div>
+
                 <div>
                   <TableContainer
                     className={classes.modal__style}
                     component={Paper}
                   >
                     <Table className={classes.table} aria-label="simple table">
-                      <TableHead>
+                      <TableHead
+                        className={classes.table__position}
+                   
+                      >
                         <TableRow>
                           {tableHeader.map((item) => (
                             <TableCell align="left" padding="normal">
@@ -375,6 +383,7 @@ const Profile = () => {
                           ))}
                         </TableRow>
                       </TableHead>
+
                       <TableBody>
                         {arrTicket?.map((location) => (
                           <TableRow

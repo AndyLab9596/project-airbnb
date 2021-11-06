@@ -1,11 +1,11 @@
 import axiosClient from "./axiosClient";
 
 const manageTicketApi = {
-    getTicketRooms(locationId) {
-        const url = `/tickets/${locationId}`
+    getTicketRooms(userId) {
+        const url = `/tickets/by-user?userId=${userId}`
         return axiosClient.get(url)
     },
-  
+
 
 };
 
