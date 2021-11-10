@@ -435,7 +435,7 @@ const HeaderVer2 = () => {
                               className={classes.menuItemBold}
                               onClick={() => history.push("/admin")}
                             >
-                              Quản trị trang
+                              Quản trị
                             </MenuItem>
                           )}
                           <MenuItem className={classes.menuItem}>
