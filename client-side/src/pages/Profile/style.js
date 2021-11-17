@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { underLine } from "./underline";
 export default makeStyles((theme) => ({
   profile: {
-    paddingTop: 80,
+    paddingTop: 0,
     margin: "48px auto",
     [theme.breakpoints.down("lg")]: {
       paddingTop: 0,
@@ -183,6 +183,7 @@ export default makeStyles((theme) => ({
     top: 0,
     width: "100%",
     margin: "15px 0",
+
     zIndex: 99,
     "& >svg": {
       cursor: "pointer",
@@ -205,6 +206,12 @@ export default makeStyles((theme) => ({
     height: "495px",
 
     overflowY: "auto",
+    [theme.breakpoints.down("lg")]: {
+      height: "1200px",
+    },
+    [theme.breakpoints.down("md")]: {
+      height: "850px",
+    },
 
   },
   profile__modal__btn: {
@@ -226,6 +233,19 @@ export default makeStyles((theme) => ({
     top: 0,
     zIndex: 999,
     backgroundColor: "#fff",
+  },
+  profile__box: {
+    border: "1px solid #222222",
+    borderRadius: 10,
+    padding: 5,
+    marginBottom: 10
+  },
+  profile__box__img: {
+    width: 90,
+    height: 100
+  },
+  profile__box__style: {
+    overflowY: "auto", height: 700, padding: 20
   }
 
 }));

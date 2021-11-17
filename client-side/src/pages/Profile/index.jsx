@@ -38,6 +38,7 @@ const Profile = () => {
 
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("xl"));
+  const isMobile = useMediaQuery(theme.breakpoints.up("sm"));
   const [openModal, setOpenModal] = useState(false);
   const infoUser = useSelector((state) => state.AuthReducer.infoUser);
   const [arrTicket, setArrTicket] = useState([]);
@@ -340,6 +341,12 @@ const Profile = () => {
                   </Typography>
                 </div>
               </div>
+              <div>
+                <ButtonSubmit
+                  handleSubmit={handleModalOpen}
+                  text={textProfileModal}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -364,64 +371,105 @@ const Profile = () => {
                     Lịch sử đặt vé ({arrTicket.length})
                   </Typography>
                 </div>
-
-                <div>
-                  <TableContainer
-                    className={classes.modal__style}
-                    component={Paper}
-                  >
-                    <Table className={classes.table} aria-label="simple table">
-                      <TableHead
-                        className={classes.table__position}
-                   
+                {isMobile ? (
+                  <div>
+                    <TableContainer
+                      className={classes.modal__style}
+                      component={Paper}
+                    >
+                      <Table
+                        className={classes.table}
+                        aria-label="simple table"
                       >
-                        <TableRow>
-                          {tableHeader.map((item) => (
-                            <TableCell align="left" padding="normal">
-                              {item}
-                            </TableCell>
-                          ))}
-                        </TableRow>
-                      </TableHead>
+                        <TableHead className={classes.table__position}>
+                          <TableRow>
+                            {tableHeader.map((item) => (
+                              <TableCell align="left" padding="normal">
+                                {item}
+                              </TableCell>
+                            ))}
+                          </TableRow>
+                        </TableHead>
 
-                      <TableBody>
-                        {arrTicket?.map((location) => (
-                          <TableRow
-                            key={location._id}
-                            className={classes.tablerow}
-                          >
-                            <TableCell align="left">
-                              <Typography variant="body2">
+                        <TableBody>
+                          {arrTicket?.map((location) => (
+                            <TableRow
+                              key={location._id}
+                              className={classes.tablerow}
+                            >
+                              <TableCell align="left">
+                                <Typography variant="body2">
+                                  {location?.roomId.name}
+                                </Typography>
+                              </TableCell>
+                              <TableCell align="left">
+                                <img
+                                  src={location?.roomId.image}
+                                  alt="avatar"
+                                  className={classes.avatar}
+                                  style={{ width: 50, height: 50 }}
+                                />
+                              </TableCell>
+                              <TableCell align="left">
+                                <Typography variant="body2">
+                                  {moment(location?.checkIn).format(
+                                    "Do MMM YYYY"
+                                  )}
+                                </Typography>
+                              </TableCell>
+                              <TableCell align="left">
+                                {moment(location.checkOut).format(
+                                  "Do MMM YYYY"
+                                )}
+                              </TableCell>
+                              <TableCell align="left">
+                                {location?.roomId.price}
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  </div>
+                ) : (
+                  <div className={classes.profile__box__style}>
+                    {arrTicket?.map((location, index) => {
+                      return (
+                        <Box key={index} className={classes.profile__box}>
+                          <Box display="flex">
+                            <Box flex="0 0 35%">
+                              <img
+                                src={location.roomId.image}
+                                alt="img"
+                                className={classes.profile__box__img}
+                              />
+                            </Box>
+                            <Box flex="0 0 65%">
+                              <Typography variant="subtitle2">
                                 {location?.roomId.name}
                               </Typography>
-                            </TableCell>
-                            <TableCell align="left">
-                              <img
-                                src={location?.roomId.image}
-                                alt="avatar"
-                                className={classes.avatar}
-                                style={{ width: 50, height: 50 }}
-                              />
-                            </TableCell>
-                            <TableCell align="left">
-                              <Typography variant="body2">
+                              <Typography variant="subtitle1">
+                                Checkin:{" "}
                                 {moment(location?.checkIn).format(
                                   "Do MMM YYYY"
                                 )}
                               </Typography>
-                            </TableCell>
-                            <TableCell align="left">
-                              {moment(location.checkOut).format("Do MMM YYYY")}
-                            </TableCell>
-                            <TableCell align="left">
-                              {location?.roomId.price}
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                </div>
+                              <Typography variant="subtitle1">
+                                Checkout:{" "}
+                                {moment(location?.checkOut).format(
+                                  "Do MMM YYYY"
+                                )}
+                              </Typography>
+                              <Typography variant="subtitle1">
+                                Price: {location?.roomId.price}
+                              </Typography>
+                            </Box>
+                          </Box>
+                        </Box>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             </div>
           </Slide>
