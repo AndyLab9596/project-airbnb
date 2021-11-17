@@ -3,13 +3,14 @@ import moment from "moment";
 import React, { Fragment } from "react";
 import { MdNavigateNext } from "react-icons/md";
 import useStyles from "./style";
+import NO_AVATAR from "../../../../assets/img/NO_AVATAR.png";
 const ContentUserRating = ({ item, handleShowModal, openModal }) => {
   const classes = useStyles();
   return (
     <Fragment>
       <div className={classes.rating__infoUser}>
         <img
-          src={item?.userId?.avatar}
+          src={item?.userId?.avatar || NO_AVATAR}
           alt="avatar"
           className={classes.rating_avatar}
         />
